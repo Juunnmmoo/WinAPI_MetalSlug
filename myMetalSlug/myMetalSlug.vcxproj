@@ -139,6 +139,7 @@
     <ClInclude Include="momoEngine.h" />
     <ClInclude Include="moScene.h" />
     <ClInclude Include="moSceneManager.h" />
+    <ClInclude Include="moTime.h" />
     <ClInclude Include="myMetalSlug.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -152,6 +153,7 @@
     <ClCompile Include="moMath.cpp" />
     <ClCompile Include="moScene.cpp" />
     <ClCompile Include="moSceneManager.cpp" />
+    <ClCompile Include="moTime.cpp" />
     <ClCompile Include="myMetalSlug.cpp" />
   </ItemGroup>
   <ItemGroup>
