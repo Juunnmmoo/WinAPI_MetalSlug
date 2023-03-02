@@ -8,7 +8,7 @@ namespace mo {
 		
 		static void Initialize();
 		static void Update();
-		static void Render(HWND mHwnd);
+		static void Render(HDC mHdc);
 		static void Release();
 
 	private:

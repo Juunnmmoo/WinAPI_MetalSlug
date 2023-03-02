@@ -12,7 +12,7 @@ namespace mo {
 
 		void Initialize();
 		void Update();
-		void Render(HWND mHwnd);
+		void Render(HDC mHdc);
 		
 	private:
 

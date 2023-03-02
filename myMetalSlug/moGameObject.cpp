@@ -23,12 +23,12 @@ namespace mo {
 			comp->Update();
 		}
 	}
-	void GameObject::Render(HWND mHwnd)
+	void GameObject::Render(HDC mHdc)
 	{
 		for (Component* comp : mComponents) {
 			if (comp == nullptr)
 				continue;
-			comp->Render(mHwnd);
+			comp->Render(mHdc);
 		}
 	}
 }

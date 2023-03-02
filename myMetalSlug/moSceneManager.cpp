@@ -20,12 +20,12 @@ namespace mo {
 			scene->Update();
 		}
 	}
-	void SceneManager::Render(HWND mHwnd)
+	void SceneManager::Render(HDC mHdc)
 	{
 		for (Scene* scene : mScenes) {
 			if (scene == nullptr)
 				continue;
-			scene->Render(mHwnd);
+			scene->Render(mHdc);
 		}
 	}
 	void SceneManager::Release()

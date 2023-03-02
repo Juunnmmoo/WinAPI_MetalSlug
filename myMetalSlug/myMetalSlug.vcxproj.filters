@@ -35,6 +35,9 @@
     <Filter Include="Engine\Time">
       <UniqueIdentifier>{41a309e9-2fe4-4067-88b3-449c22905826}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Input">
+      <UniqueIdentifier>{857541aa-937a-408b-9bfe-00276bfd5fd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -82,7 +85,12 @@
     <ClInclude Include="momoEngine.h">
       <Filter>Engine\Common</Filter>
     </ClInclude>
-    <ClInclude Include="moTime.h" />
+    <ClInclude Include="moTime.h">
+      <Filter>Engine\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="moInput.h">
+      <Filter>Engine\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -125,6 +133,11 @@
     <ClCompile Include="moEntity.cpp">
       <Filter>Engine\Common</Filter>
     </ClCompile>
-    <ClCompile Include="moTime.cpp" />
+    <ClCompile Include="moTime.cpp">
+      <Filter>Engine\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="moInput.cpp">
+      <Filter>Engine\Input</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

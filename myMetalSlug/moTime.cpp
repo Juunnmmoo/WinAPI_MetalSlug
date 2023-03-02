@@ -35,7 +35,7 @@ namespace mo {
 
 		mPrevFrequency.QuadPart = mCurFrequency.QuadPart;
 	}
-	void Time::Render(HWND mHwnd)
+	void Time::Render(HDC mHdc)
 	{
 		mSecond += mDeltaTime;
 

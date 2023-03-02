@@ -134,6 +134,7 @@
     <ClInclude Include="moEntity.h" />
     <ClInclude Include="moEnums.h" />
     <ClInclude Include="moGameObject.h" />
+    <ClInclude Include="moInput.h" />
     <ClInclude Include="moLayer.h" />
     <ClInclude Include="moMath.h" />
     <ClInclude Include="momoEngine.h" />
@@ -149,6 +150,7 @@
     <ClCompile Include="moComponent.cpp" />
     <ClCompile Include="moEntity.cpp" />
     <ClCompile Include="moGameObject.cpp" />
+    <ClCompile Include="moInput.cpp" />
     <ClCompile Include="moLayer.cpp" />
     <ClCompile Include="moMath.cpp" />
     <ClCompile Include="moScene.cpp" />

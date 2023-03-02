@@ -11,7 +11,7 @@ namespace mo {
 
 		static void Initizlize();
 		static void Update();
-		static void Render(HWND mHwnd);
+		static void Render(HDC mHdc);
 		
 		__forceinline static double DeltaTime() { return mDeltaTime; }
 

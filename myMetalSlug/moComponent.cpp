@@ -13,7 +13,7 @@ namespace mo {
 	void Component::Update()
 	{
 	}
-	void Component::Render(HWND mHwnd)
+	void Component::Render(HDC mHdc)
 	{
 	}
 }

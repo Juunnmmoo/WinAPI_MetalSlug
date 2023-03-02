@@ -1,6 +1,7 @@
 #include "moApplication.h"
 #include "moSceneManager.h"
 #include "moTime.h"
+#include "moInput.h"
 
 namespace mo {
 	Application::Application()
@@ -16,6 +17,7 @@ namespace mo {
 		mHwnd = hWnd;
 		mHdc = GetDC(hWnd);
 
+		Input::Initialize();
 		Time::Initizlize();
 		SceneManager::Initialize();
 	}
@@ -27,6 +29,7 @@ namespace mo {
 	void Application::Update()
 	{
 
+		Input::Update();
 		Time::Update();
 		SceneManager::Update();
 		
@@ -34,8 +37,9 @@ namespace mo {
 	void Application::Render()
 	{
 
-		Time::Render(mHwnd);
-		SceneManager::Render(mHwnd);
+		Input::Render(mHdc);
+		Time::Render(mHdc);
+		SceneManager::Render(mHdc);
 	}
 	
 }

@@ -19,10 +19,10 @@ namespace mo {
 			gameObj->Update();
 		}
 	}
-	void Layer::Render(HWND mHwnd)
+	void Layer::Render(HDC mHdc)
 	{
 		for (GameObject* gameObj : mGameObjects) {
-			gameObj->Render(mHwnd);
+			gameObj->Render(mHdc);
 		}
 	}
 }

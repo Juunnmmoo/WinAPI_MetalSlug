@@ -11,7 +11,7 @@ namespace mo {
 		
 		virtual void Initialize();
 		virtual void Update();
-		virtual void Render(HWND mHwnd);
+		virtual void Render(HDC mHdc);
 	private:
 
 		std::vector<Component*> mComponents;

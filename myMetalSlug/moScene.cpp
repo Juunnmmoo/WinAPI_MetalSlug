@@ -19,10 +19,10 @@ namespace mo {
 			layer.Update();
 		}
 	}
-	void Scene::Render(HWND mHwnd)
+	void Scene::Render(HDC mHdc)
 	{
 		for (Layer& layer : mLayers) {
-			layer.Render(mHwnd);
+			layer.Render(mHdc);
 		}
 	}
 }
