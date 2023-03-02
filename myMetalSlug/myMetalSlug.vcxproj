@@ -129,6 +129,8 @@
   <ItemGroup>
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="moAnimation.h" />
+    <ClInclude Include="moAnimator.h" />
     <ClInclude Include="moApplication.h" />
     <ClInclude Include="moComponent.h" />
     <ClInclude Include="moEntity.h" />
@@ -153,6 +155,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="moAnimation.cpp" />
+    <ClCompile Include="moAnimator.cpp" />
     <ClCompile Include="moApplication.cpp" />
     <ClCompile Include="moComponent.cpp" />
     <ClCompile Include="moEntity.cpp" />

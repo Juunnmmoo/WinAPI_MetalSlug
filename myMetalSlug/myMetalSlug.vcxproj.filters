@@ -121,6 +121,12 @@
     <ClInclude Include="moTransform.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
+    <ClInclude Include="moAnimator.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="moAnimation.h">
+      <Filter>Engine\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -188,6 +194,12 @@
       <Filter>Contents\Scene</Filter>
     </ClCompile>
     <ClCompile Include="moTransform.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="moAnimation.cpp">
+      <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="moAnimator.cpp">
       <Filter>Engine\Component</Filter>
     </ClCompile>
   </ItemGroup>

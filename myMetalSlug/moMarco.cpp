@@ -4,6 +4,7 @@
 #include "moTransform.h"
 #include "moInput.h"
 #include "moTime.h"
+#include "moAnimator.h"
 
 namespace mo {
 	Marco::Marco()
@@ -14,8 +15,13 @@ namespace mo {
 	}
 	void Marco::Initialize()
 	{
-		image = Resources::Load<Image>(L"Kirby", L"..\\Resources\\IceKirby.bmp");
-		
+		Image* mImage = Resources::Load<Image>(L"TestPlayer", L"..\\Resources\\TestPlayerTop.bmp");
+		Animator* mAnimator = AddComponent<Animator>();
+		mAnimator->CreateAnimation(L"TestPlayerStay", mImage, Vector2::Zero, 10, 2, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"TestPlayerDrink", mImage, Vector2(0.0f, 130.0f), 10, 2, 10, Vector2::Zero, 0.1);
+
+		mAnimator->Play(L"TestPlayerStay", true);
+
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2{ 50.0f, 50.0f });
 
@@ -27,6 +33,8 @@ namespace mo {
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+		Animator* mAnimator = GetComponent<Animator>();
+
 		if (Input::GetKeyState(eKeyCode::A) == eKeyState::Pressed)
 		{
 			pos.x -= 100.0f * Time::DeltaTime();
@@ -36,19 +44,29 @@ namespace mo {
 		{
 			pos.x += 100.0f * Time::DeltaTime();
 		}
+
+		if (Input::GetKeyState(eKeyCode::W) == eKeyState::Pressed)
+		{
+			pos.y -= 100.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKeyState(eKeyCode::Q) == eKeyState::Down)
+		{
+			mAnimator->Play(L"TestPlayerDrink", true);
+		}
+		if (Input::GetKeyState(eKeyCode::Q) == eKeyState::Up)
+		{
+			mAnimator->Play(L"TestPlayerStay", true);
+		}
+		if (Input::GetKeyState(eKeyCode::S) == eKeyState::Pressed)
+		{
+			pos.y += 100.0f * Time::DeltaTime();
+		}
 		tr->SetPos(pos);
 		GameObject::Update();
 	}
 	void Marco::Render(HDC mHdc)
 	{
-		Transform* tr = GetComponent<Transform>();
-
-		TransparentBlt(mHdc, tr->GetPos().x, tr->GetPos().y
-			,image->GetWidth(), image->GetHeight()
-			,image->GetHdc(), 0, 0
-			,image->GetWidth(), image->GetHeight(),
-			RGB(0, 127, 0));
-
 		GameObject::Render(mHdc);
 	}
 }

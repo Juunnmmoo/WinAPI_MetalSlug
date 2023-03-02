@@ -15,6 +15,5 @@ namespace mo {
 		virtual void Render(HDC mHdc)override;
 
 	private:
-		Image* image;
 	};
 }
