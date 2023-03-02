@@ -1,8 +1,11 @@
 #include "moGameObject.h"
+#include "moTransform.h"
 
 namespace mo {
 	GameObject::GameObject()
 	{
+		mComponents.resize((UINT)eComponentType::End);
+		AddComponent<Transform>();
 	}
 	GameObject::~GameObject()
 	{

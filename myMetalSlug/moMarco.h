@@ -2,6 +2,7 @@
 #include "moGameObject.h"
 
 namespace mo {
+	class Image;
 	class Marco : public GameObject
 	{
 	public:
@@ -14,6 +15,6 @@ namespace mo {
 		virtual void Render(HDC mHdc)override;
 
 	private:
-
+		Image* image;
 	};
 }

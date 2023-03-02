@@ -147,6 +147,7 @@
     <ClInclude Include="moSceneManager.h" />
     <ClInclude Include="moTime.h" />
     <ClInclude Include="moTitleScene.h" />
+    <ClInclude Include="moTransform.h" />
     <ClInclude Include="myMetalSlug.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="moSceneManager.cpp" />
     <ClCompile Include="moTime.cpp" />
     <ClCompile Include="moTitleScene.cpp" />
+    <ClCompile Include="moTransform.cpp" />
     <ClCompile Include="myMetalSlug.cpp" />
   </ItemGroup>
   <ItemGroup>
