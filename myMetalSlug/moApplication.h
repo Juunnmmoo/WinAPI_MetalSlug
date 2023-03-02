@@ -17,9 +17,17 @@ namespace mo {
 		HDC GetHdc() { return mHdc; }
 
 	private:
+		void clear();
+
+	private:
 
 		HWND mHwnd;
 		HDC mHdc;
 
+		HBITMAP mBackBuffer;
+		HDC mBackHdc;
+
+		UINT mWidth;
+		UINT mHeight;
 	};
 }
