@@ -4,9 +4,12 @@
 enum class eSceneType
 {
 	Title,
-	Play,
-	Ending,
+	SelectPlayer,
+	Mission1,
+	Mission2,
+	Mission3,
 	End,
+	Max
 };
 
 enum class eLayerType

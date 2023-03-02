@@ -134,13 +134,19 @@
     <ClInclude Include="moEntity.h" />
     <ClInclude Include="moEnums.h" />
     <ClInclude Include="moGameObject.h" />
+    <ClInclude Include="moImage.h" />
     <ClInclude Include="moInput.h" />
     <ClInclude Include="moLayer.h" />
+    <ClInclude Include="moMarco.h" />
     <ClInclude Include="moMath.h" />
+    <ClInclude Include="moMission1Scene.h" />
     <ClInclude Include="momoEngine.h" />
+    <ClInclude Include="moResource.h" />
+    <ClInclude Include="moResources.h" />
     <ClInclude Include="moScene.h" />
     <ClInclude Include="moSceneManager.h" />
     <ClInclude Include="moTime.h" />
+    <ClInclude Include="moTitleScene.h" />
     <ClInclude Include="myMetalSlug.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -150,12 +156,18 @@
     <ClCompile Include="moComponent.cpp" />
     <ClCompile Include="moEntity.cpp" />
     <ClCompile Include="moGameObject.cpp" />
+    <ClCompile Include="moImage.cpp" />
     <ClCompile Include="moInput.cpp" />
     <ClCompile Include="moLayer.cpp" />
+    <ClCompile Include="moMarco.cpp" />
     <ClCompile Include="moMath.cpp" />
+    <ClCompile Include="moMission1Scene.cpp" />
+    <ClCompile Include="moResource.cpp" />
+    <ClCompile Include="moResources.cpp" />
     <ClCompile Include="moScene.cpp" />
     <ClCompile Include="moSceneManager.cpp" />
     <ClCompile Include="moTime.cpp" />
+    <ClCompile Include="moTitleScene.cpp" />
     <ClCompile Include="myMetalSlug.cpp" />
   </ItemGroup>
   <ItemGroup>

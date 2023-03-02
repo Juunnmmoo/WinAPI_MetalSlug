@@ -3,12 +3,15 @@
 namespace mo {
 	Scene::Scene()
 	{
+		mLayers.resize((UINT)eLayerType::End);
+
 	}
 	Scene::~Scene()
 	{
 	}
 	void Scene::Initialize()
 	{
+	
 		for (Layer& layer : mLayers) {
 			layer.Initialize();
 		}
@@ -24,5 +27,11 @@ namespace mo {
 		for (Layer& layer : mLayers) {
 			layer.Render(mHdc);
 		}
+	}
+	void Scene::OnEnter()
+	{
+	}
+	void Scene::OnExit()
+	{
 	}
 }

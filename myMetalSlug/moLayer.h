@@ -13,6 +13,10 @@ namespace mo {
 		void Initialize();
 		void Update();
 		void Render(HDC mHdc);
+
+		void addGameObject(GameObject* obj) {
+			mGameObjects.push_back(obj);
+		}
 		
 	private:
 

@@ -6,6 +6,10 @@ namespace mo {
 	}
 	Layer::~Layer()
 	{
+		for (GameObject* obj : mGameObjects) {
+			delete obj;
+			obj = nullptr;
+		}
 	}
 	void Layer::Initialize()
 	{

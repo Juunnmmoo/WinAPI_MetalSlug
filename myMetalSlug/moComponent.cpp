@@ -6,6 +6,7 @@ namespace mo {
 	}
 	Component::~Component()
 	{
+
 	}
 	void Component::Initialize()
 	{

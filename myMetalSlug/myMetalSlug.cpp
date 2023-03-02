@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "myMetalSlug.h"
 #include "moApplication.h"
+#include "moSceneManager.h"
+#include "moResources.h"
 
 #define MAX_LOADSTRING 100
 
@@ -66,6 +68,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             application.Run();
         }
     }
+
+    mo::SceneManager::Release();
+    mo::Resources::Release();
 
     return (int) msg.wParam;
 }

@@ -38,6 +38,15 @@
     <Filter Include="Engine\Input">
       <UniqueIdentifier>{857541aa-937a-408b-9bfe-00276bfd5fd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Resource">
+      <UniqueIdentifier>{615fe0d3-795c-43ae-82b4-126bd3bc096f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Scene">
+      <UniqueIdentifier>{39a5973c-e4ee-4024-973c-97c04103ba96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj">
+      <UniqueIdentifier>{66724bed-81c6-46a7-ad5c-b7335a2e46a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -91,6 +100,24 @@
     <ClInclude Include="moInput.h">
       <Filter>Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="moResource.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="moResources.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="moImage.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="moMission1Scene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="moMarco.h">
+      <Filter>Contents\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="moTitleScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -138,6 +165,24 @@
     </ClCompile>
     <ClCompile Include="moInput.cpp">
       <Filter>Engine\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="moResource.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="moResources.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="moImage.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="moMission1Scene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="moMarco.cpp">
+      <Filter>Contents\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="moTitleScene.cpp">
+      <Filter>Contents\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
