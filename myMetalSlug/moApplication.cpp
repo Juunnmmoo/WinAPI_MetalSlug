@@ -17,8 +17,8 @@ namespace mo {
 		mHwnd = hWnd;
 		mHdc = GetDC(hWnd);
 
-		mWidth = 1080;
-		mHeight = 600;
+		mWidth = 1221;
+		mHeight = 700;
 
 		// 원하는크기로 RECT만들고 rect 윈도우 정보창의 크기를 더해줌?
 		RECT rect = { 0, 0, mWidth, mHeight };
@@ -26,7 +26,7 @@ namespace mo {
 
 		// 윈도우 크기 변경및 출력설정
 		SetWindowPos(mHwnd
-			, nullptr, 100, 50
+			, nullptr, 50, 50
 			, rect.right - rect.left
 			, rect.bottom - rect.top
 			, 0);
@@ -57,23 +57,25 @@ namespace mo {
 		Time::Update();
 		SceneManager::Update();
 		
-		// 백버퍼에 있는 그림을 원본버퍼에 그려줘야한다.
-		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHdc, 0, 0, SRCCOPY);
+		
 	}
 	void Application::Render()
 	{
 		clear();
 
-		Input::Render(mHdc);
-		Time::Render(mHdc);
-		SceneManager::Render(mHdc);
+		Input::Render(mBackHdc);
+		Time::Render(mBackHdc);
+		SceneManager::Render(mBackHdc);
+
+		// 백버퍼에 있는 그림을 원본버퍼에 그려줘야한다.
+		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHdc, 0, 0, SRCCOPY);
 	}
 
 	void Application::clear()
 	{
 		HBRUSH grayBrush = CreateSolidBrush(RGB(121, 121, 121));
 		HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, grayBrush);
-		Rectangle(mBackHdc, -1, -1, 1082, 602);
+		Rectangle(mBackHdc, -1, -1, 1223, 702);
 		SelectObject(mBackHdc, oldBrush);
 		DeleteObject(grayBrush);
 	}

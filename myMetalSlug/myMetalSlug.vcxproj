@@ -141,6 +141,7 @@
     <ClInclude Include="moLayer.h" />
     <ClInclude Include="moMarco.h" />
     <ClInclude Include="moMath.h" />
+    <ClInclude Include="moMission1BG.h" />
     <ClInclude Include="moMission1Scene.h" />
     <ClInclude Include="momoEngine.h" />
     <ClInclude Include="moResource.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="moLayer.cpp" />
     <ClCompile Include="moMarco.cpp" />
     <ClCompile Include="moMath.cpp" />
+    <ClCompile Include="moMission1BG.cpp" />
     <ClCompile Include="moMission1Scene.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />

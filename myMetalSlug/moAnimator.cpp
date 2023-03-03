@@ -6,10 +6,16 @@ namespace mo {
 		, mActiveAnimation(nullptr)
 		, mSpriteSheet(nullptr)
 		, mbLoop(false)
+		, mPrevAnimation(nullptr)
 	{
 	}
 	Animator::~Animator()
 	{
+		for (auto animation : mAnimations)
+		{
+			delete animation.second;
+			animation.second = nullptr;
+		}
 	}
 	void Animator::Initialize()
 	{
@@ -62,6 +68,10 @@ namespace mo {
 	}
 	void Animator::Play(const std::wstring& name, bool loop)
 	{
+		mPrevAnimation = mActiveAnimation;
+		if (mPrevAnimation != nullptr) {
+			mPrevAnimation->Reset();
+		}
 		mActiveAnimation = FindAnimation(name);
 		mbLoop = loop;
 	}

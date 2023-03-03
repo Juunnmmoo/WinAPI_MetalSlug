@@ -14,11 +14,11 @@ namespace mo {
 	
 		Vector2 GetPos() { return mPos; }
 		void SetPos(Vector2 pos) { mPos = pos; }
-		Vector2 GetSize() { return mSize; }
-		void SetSize(Vector2 size) { mSize = size; }
+		Vector2 GetScale() { return mScale; }
+		void SetScale(Vector2 size) { mScale = size; }
 	private:
 
 		Vector2 mPos;
-		Vector2 mSize;
+		Vector2 mScale;
 	};
 }

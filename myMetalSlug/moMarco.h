@@ -2,10 +2,18 @@
 #include "moGameObject.h"
 
 namespace mo {
-	class Image;
+	class Animator;
 	class Marco : public GameObject
 	{
 	public:
+
+		enum class eMarcoState{
+			Move,
+			Shoot,
+			Death,
+			Idle,
+		};
+
 
 		Marco();
 		~Marco();
@@ -15,5 +23,13 @@ namespace mo {
 		virtual void Render(HDC mHdc)override;
 
 	private:
+		void move();
+		void shoot();
+		void death();
+		void idle();
+
+	private:
+		eMarcoState mState;
+		Animator* mAnimator;
 	};
 }

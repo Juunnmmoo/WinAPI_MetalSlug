@@ -2,6 +2,7 @@
 #include "moInput.h"
 #include "moSceneManager.h"
 #include "moMarco.h"
+#include "moMission1BG.h"
 
 namespace mo
 {
@@ -15,6 +16,9 @@ namespace mo
 	{
 		Marco* marco = new Marco();
 		addGameObject(marco, eLayerType::Player);
+
+		Mission1BG* mission1BG = new Mission1BG();
+		addGameObject(mission1BG, eLayerType::BG);
 
 		Scene::Initialize();
 

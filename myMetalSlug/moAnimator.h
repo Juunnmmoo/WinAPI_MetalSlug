@@ -26,6 +26,7 @@ namespace mo {
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		Animation* mActiveAnimation;
+		Animation* mPrevAnimation;
 		Image* mSpriteSheet;
 		bool mbLoop;
 

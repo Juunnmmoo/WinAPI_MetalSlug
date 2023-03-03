@@ -47,6 +47,9 @@
     <Filter Include="Contents\GameObj">
       <UniqueIdentifier>{66724bed-81c6-46a7-ad5c-b7335a2e46a0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\BackGround">
+      <UniqueIdentifier>{fd6016f9-14b4-4709-8d59-6db32359d517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -127,6 +130,9 @@
     <ClInclude Include="moAnimation.h">
       <Filter>Engine\Component</Filter>
     </ClInclude>
+    <ClInclude Include="moMission1BG.h">
+      <Filter>Contents\BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -201,6 +207,9 @@
     </ClCompile>
     <ClCompile Include="moAnimator.cpp">
       <Filter>Engine\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="moMission1BG.cpp">
+      <Filter>Contents\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

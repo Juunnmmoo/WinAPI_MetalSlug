@@ -42,8 +42,12 @@ namespace mo {
 	void Animation::Render(HDC mHdc)
 	{
 		Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
-		TransparentBlt(mHdc, tr->GetPos().x, tr->GetPos().y
-			, mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y
+		Vector2 scale = tr->GetScale();
+
+		TransparentBlt(mHdc, tr->GetPos().x + mSpriteSheet[mSpriteIndex].offSet.x
+			, tr->GetPos().y + mSpriteSheet[mSpriteIndex].offSet.y
+			, mSpriteSheet[mSpriteIndex].size.x * scale.x
+			, mSpriteSheet[mSpriteIndex].size.y * scale.y
 			, mSheetImage->GetHdc()
 			, mSpriteSheet[mSpriteIndex].leftTop.x, mSpriteSheet[mSpriteIndex].leftTop.y
 			, mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y,
