@@ -29,4 +29,8 @@ namespace mo {
 			gameObj->Render(mHdc);
 		}
 	}
+	void Layer::AddGameObject(GameObject* obj)
+	{
+		mGameObjects.push_back(obj);
+	}
 }

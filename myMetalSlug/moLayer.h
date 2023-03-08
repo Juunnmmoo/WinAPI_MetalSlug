@@ -14,10 +14,8 @@ namespace mo {
 		void Update();
 		void Render(HDC mHdc);
 
-		void addGameObject(GameObject* obj) {
-			mGameObjects.push_back(obj);
-		}
-		
+		void AddGameObject(GameObject* obj);
+		const std::vector<GameObject*>& GetGameObjects() { return mGameObjects; ; }
 	private:
 
 		std::vector<GameObject*> mGameObjects;

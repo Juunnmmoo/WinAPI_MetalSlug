@@ -26,9 +26,6 @@
     <Filter Include="Engine\GameObject">
       <UniqueIdentifier>{41ee76ec-429c-44e2-851c-dc71ee332f45}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Component">
-      <UniqueIdentifier>{ca011203-3852-4733-ae7f-230a7ba07390}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Common">
       <UniqueIdentifier>{93724e9d-d9ba-4805-af69-75b9180c4d78}</UniqueIdentifier>
     </Filter>
@@ -49,6 +46,21 @@
     </Filter>
     <Filter Include="Contents\BackGround">
       <UniqueIdentifier>{fd6016f9-14b4-4709-8d59-6db32359d517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component">
+      <UniqueIdentifier>{ca011203-3852-4733-ae7f-230a7ba07390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\Bullet">
+      <UniqueIdentifier>{25b0fd68-04b8-4cb4-b4d1-1ab2455edbc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Collider">
+      <UniqueIdentifier>{6decba7d-cebc-49b4-9de1-981c38128a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Transform">
+      <UniqueIdentifier>{064f9de8-1570-46ea-a4b3-bef0e17efd2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Component\Animation">
+      <UniqueIdentifier>{aeaff26e-c89c-4194-8e1f-ef42dd33ab16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,17 +133,29 @@
     <ClInclude Include="moTitleScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="moTransform.h">
-      <Filter>Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="moAnimator.h">
-      <Filter>Engine\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="moAnimation.h">
-      <Filter>Engine\Component</Filter>
-    </ClInclude>
     <ClInclude Include="moMission1BG.h">
       <Filter>Contents\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="moBaseBullet.h">
+      <Filter>Contents\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="moTransform.h">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="moAnimation.h">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="moAnimator.h">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="moCollisionManager.h">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="moMarcoBottom.h">
+      <Filter>Contents\GameObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -199,17 +223,29 @@
     <ClCompile Include="moTitleScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="moTransform.cpp">
-      <Filter>Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="moAnimation.cpp">
-      <Filter>Engine\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="moAnimator.cpp">
-      <Filter>Engine\Component</Filter>
-    </ClCompile>
     <ClCompile Include="moMission1BG.cpp">
       <Filter>Contents\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="moBaseBullet.cpp">
+      <Filter>Contents\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="moTransform.cpp">
+      <Filter>Engine\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="moAnimation.cpp">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="moAnimator.cpp">
+      <Filter>Engine\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="moCollisionManager.cpp">
+      <Filter>Engine\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="moMarcoBottom.cpp">
+      <Filter>Contents\GameObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

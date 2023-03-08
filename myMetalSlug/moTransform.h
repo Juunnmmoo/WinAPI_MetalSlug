@@ -16,9 +16,17 @@ namespace mo {
 		void SetPos(Vector2 pos) { mPos = pos; }
 		Vector2 GetScale() { return mScale; }
 		void SetScale(Vector2 size) { mScale = size; }
-	private:
+		Vector2 GetTopDiff() { return mPlayerTopDiff; }
+		void SetTopDiff(Vector2 topDiff) { mPlayerTopDiff = topDiff; }
 
+		
+		void SetDirection(eDirection direction) { mDirection = direction; }
+		eDirection GetDirection() { return mDirection; }
+
+	private:
+		Vector2 mPlayerTopDiff;
 		Vector2 mPos;
 		Vector2 mScale;
+		eDirection mDirection;
 	};
 }

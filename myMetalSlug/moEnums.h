@@ -17,6 +17,7 @@ enum class eLayerType
 	BG,
 	Monster,
 	Player,
+	Bullet,
 	Test,
 	Effect,
 	UI,
@@ -26,9 +27,18 @@ enum class eLayerType
 enum class eComponentType
 {
 	Transform,
-	Collider,
 	SpriteRenderer,
 	Animator,
+	Collider,
 	Audio,
+	End,
+};
+
+enum class eDirection
+{
+	Top,
+	Left,
+	Right,
+	Bottom,
 	End,
 };

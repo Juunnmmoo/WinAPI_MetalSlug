@@ -5,6 +5,8 @@ namespace mo {
 		: Component(eComponentType::Transform)
 		, mPos(Vector2::Zero)
 		, mScale(Vector2::One)
+		, mPlayerTopDiff(Vector2::Zero)
+		, mDirection(eDirection::Right)
 	{
 	}
 	Transform::~Transform()

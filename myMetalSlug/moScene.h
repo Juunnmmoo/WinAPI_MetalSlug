@@ -17,10 +17,8 @@ namespace mo {
 		virtual void OnEnter();
 		virtual void OnExit();
 
-		void addGameObject(GameObject* obj, eLayerType layerType) {
-			mLayers[(UINT)layerType].addGameObject(obj);
-		}
-
+		void AddGameObject(GameObject* obj, eLayerType layerType);
+		const std::vector<GameObject*>& GetGameObjects(eLayerType layer);
 	private:
 
 		std::vector<Layer> mLayers;

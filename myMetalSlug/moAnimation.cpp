@@ -44,16 +44,25 @@ namespace mo {
 		Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
 		Vector2 scale = tr->GetScale();
 
-		TransparentBlt(mHdc, tr->GetPos().x + mSpriteSheet[mSpriteIndex].offSet.x
-			, tr->GetPos().y + mSpriteSheet[mSpriteIndex].offSet.y
+		Vector2 PlayerTopDiff = tr->GetTopDiff();
+
+		Vector2 RenderPos = tr->GetPos();
+		RenderPos += mSpriteSheet[mSpriteIndex].offSet;
+		RenderPos.x -= (mSpriteSheet[mSpriteIndex].size.x * scale.x) / 2;
+		RenderPos.y -= (mSpriteSheet[mSpriteIndex].size.x * scale.y);
+
+		// 메인 캐릭터 sprite는 바닥부터 상체값을 없애고 출력해야하기 때문에
+		RenderPos.y += +(PlayerTopDiff.y * scale.y);
+
+		TransparentBlt(mHdc, RenderPos.x, RenderPos.y
 			, mSpriteSheet[mSpriteIndex].size.x * scale.x
 			, mSpriteSheet[mSpriteIndex].size.y * scale.y
 			, mSheetImage->GetHdc()
 			, mSpriteSheet[mSpriteIndex].leftTop.x, mSpriteSheet[mSpriteIndex].leftTop.y
 			, mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y,
-			RGB(255, 0, 229));
+			RGB(153, 217, 234));
 	}
-	void Animation::Create(Image* sheet, Vector2 leftTop, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
+	void Animation::Create(Image* sheet, Vector2 leftTop, float next, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
 	{
 		mSheetImage = sheet;
 
@@ -63,7 +72,7 @@ namespace mo {
 			 
 		for (size_t i = 0; i < spriteLength; i++) {
 			Sprite sprite;
-			sprite.leftTop.x = leftTop.x + (size.x * i);
+			sprite.leftTop.x = leftTop.x + (next * i);
 			sprite.leftTop.y = leftTop.y;
 			sprite.offSet = offset;
 			sprite.size = size;

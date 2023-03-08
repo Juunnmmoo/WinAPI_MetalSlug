@@ -3,6 +3,7 @@
 #include "moSceneManager.h"
 #include "moMarco.h"
 #include "moMission1BG.h"
+#include "moMarcoBottom.h"
 
 namespace mo
 {
@@ -14,14 +15,16 @@ namespace mo
 	}
 	void Mission1Scene::Initialize()
 	{
+		MarcoBottom* marcoBottom = new MarcoBottom();
+		AddGameObject(marcoBottom, eLayerType::Player);
+
 		Marco* marco = new Marco();
-		addGameObject(marco, eLayerType::Player);
+		AddGameObject(marco, eLayerType::Player);
 
 		Mission1BG* mission1BG = new Mission1BG();
-		addGameObject(mission1BG, eLayerType::BG);
+		AddGameObject(mission1BG, eLayerType::BG);
 
 		Scene::Initialize();
-
 	}
 	void Mission1Scene::Update()
 	{

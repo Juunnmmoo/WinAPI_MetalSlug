@@ -2,7 +2,9 @@
 #include "moGameObject.h"
 
 namespace mo {
+	class Transform;
 	class Animator;
+	class AnimatorR;
 	class Marco : public GameObject
 	{
 	public:
@@ -27,6 +29,8 @@ namespace mo {
 		void shoot();
 		void death();
 		void idle();
+
+		void shootStartEvent();
 
 	private:
 		eMarcoState mState;

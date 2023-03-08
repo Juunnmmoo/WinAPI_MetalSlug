@@ -127,11 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="moAnimation.h" />
     <ClInclude Include="moAnimator.h" />
     <ClInclude Include="moApplication.h" />
+    <ClInclude Include="moBaseBullet.h" />
+    <ClInclude Include="moCollisionManager.h" />
     <ClInclude Include="moComponent.h" />
     <ClInclude Include="moEntity.h" />
     <ClInclude Include="moEnums.h" />
@@ -140,6 +143,7 @@
     <ClInclude Include="moInput.h" />
     <ClInclude Include="moLayer.h" />
     <ClInclude Include="moMarco.h" />
+    <ClInclude Include="moMarcoBottom.h" />
     <ClInclude Include="moMath.h" />
     <ClInclude Include="moMission1BG.h" />
     <ClInclude Include="moMission1Scene.h" />
@@ -156,9 +160,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="moAnimation.cpp" />
     <ClCompile Include="moAnimator.cpp" />
     <ClCompile Include="moApplication.cpp" />
+    <ClCompile Include="moBaseBullet.cpp" />
+    <ClCompile Include="moCollisionManager.cpp" />
     <ClCompile Include="moComponent.cpp" />
     <ClCompile Include="moEntity.cpp" />
     <ClCompile Include="moGameObject.cpp" />
@@ -166,6 +173,7 @@
     <ClCompile Include="moInput.cpp" />
     <ClCompile Include="moLayer.cpp" />
     <ClCompile Include="moMarco.cpp" />
+    <ClCompile Include="moMarcoBottom.cpp" />
     <ClCompile Include="moMath.cpp" />
     <ClCompile Include="moMission1BG.cpp" />
     <ClCompile Include="moMission1Scene.cpp" />

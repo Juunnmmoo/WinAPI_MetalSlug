@@ -34,4 +34,12 @@ namespace mo {
 	void Scene::OnExit()
 	{
 	}
+	void Scene::AddGameObject(GameObject* obj, eLayerType layerType)
+	{
+		mLayers[(UINT)layerType].AddGameObject(obj);
+	}
+	const std::vector<GameObject*>& Scene::GetGameObjects(eLayerType layer)
+	{
+		return mLayers[(UINT)layer].GetGameObjects();
+	}
 }
