@@ -40,6 +40,7 @@ namespace mo {
 		mAnimator->GetStartEvent(L"ShootR") = std::bind(&Marco::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"ShootL") = std::bind(&Marco::shootStartEvent, this);
 
+
 		mAnimator->Play(L"IdleR", true);
 		//mAnimatorL->Play(L"IdleL", true);
 		mState = eMarcoState::Idle;
@@ -222,40 +223,32 @@ namespace mo {
 			
 			else if (mDirection == eDirection::Left) 
 				mAnimator->Play(L"ShootL", false);
-
 		}
 
 		
 	}
-
+	
 	void Marco::shootStartEvent()
 	{
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
 
-		if (mDirection == eDirection::Right) {
-		
-			Scene* curScene = SceneManager::GetActiveScene();
-			BaseBullet* bullet = new BaseBullet();
-			bullet->SetDirection(eDirection::Right);
+		Scene* curScene = SceneManager::GetActiveScene();
+		BaseBullet* bullet = new BaseBullet();
 
-			Transform* tr;
-			tr = GetComponent<Transform>();
-			bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
-			curScene->AddGameObject(bullet, eLayerType::Bullet);
+		if (mDirection == eDirection::Right) {
+			bullet->SetDirection(eDirection::Right);
+			bullet->SetDir(Vector2{ 5.0f, 0.0f });
 		}
 		else if (mDirection == eDirection::Left) {
-		
-			Scene* curScene = SceneManager::GetActiveScene();
-			BaseBullet* bullet = new BaseBullet();
 			bullet->SetDirection(eDirection::Left);
-
-			Transform* tr;
-			tr = GetComponent<Transform>();
-			bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
-			curScene->AddGameObject(bullet, eLayerType::Bullet);
+			bullet->SetDir(Vector2{ -5.0f, 0.0f });
 		}
+		//Transform* tr;
+		//tr = GetComponent<Transform>();
+		bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
+		curScene->AddGameObject(bullet, eLayerType::Bullet);
 
 	}
 }

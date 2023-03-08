@@ -1,5 +1,6 @@
 #pragma once
 
+#include <math.h>
 
 struct Vector2
 {
@@ -58,5 +59,19 @@ struct Vector2
 		x -=other.x;
 		y -= other.y;
 	}
+
+	float Length() {
+		return sqrt(x * x + y * y);
+	}
+
+	Vector2& Nomalize() {
+		float mLength = Length();
+
+		x /= mLength;
+		y /= mLength;
+		return *this;
+	
+	}
+
 };
 

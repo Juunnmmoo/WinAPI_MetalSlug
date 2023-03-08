@@ -14,9 +14,14 @@ namespace mo {
 		virtual void Render(HDC mHdc)override;
 
 		void SetDirection(eDirection direction) { mDirection = direction; }
+		void SetDir(Vector2 dir) { 
+			mDir = dir;
+			mDir.Nomalize();
+		}
 
 	private:
 		Image* mImage;
 		eDirection mDirection;
+		Vector2 mDir;
 	};
 }

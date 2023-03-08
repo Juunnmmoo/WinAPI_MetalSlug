@@ -4,18 +4,23 @@
 
 
 namespace mo {
+
+	UINT Collider::ColliderNumber = 0;
+
 	Collider::Collider()
 		:Component(eComponentType::Collider)
 		, mCenter(Vector2::Zero)
 		, mPos(Vector2::Zero)
-		, mScale(Vector2::One)
 		, mSize(Vector2::One)
+		, mID(ColliderNumber++)
 	{
 	}
 
 	Collider::~Collider()
 	{
 	}
+
+	
 
 	void Collider::Initialize()
 	{
@@ -40,5 +45,15 @@ namespace mo {
 		(HBRUSH)SelectObject(mHdc, oldBrush);
 		DeleteObject(pen);
 	}
+	void Collider::OnCollisionEnter(Collider* other)
+	{
+	}
 
+	void Collider::OnCollisionStay(Collider* other)
+	{
+	}
+
+	void Collider::OnCollisionExit(Collider* other)
+	{
+	}
 }

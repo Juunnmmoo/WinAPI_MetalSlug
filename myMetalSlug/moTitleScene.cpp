@@ -1,6 +1,7 @@
 #include "moTitleScene.h"
 #include "moInput.h"
 #include "moSceneManager.h"
+#include"moCollisionManager.h"
 
 namespace mo
 {
@@ -32,5 +33,6 @@ namespace mo
 	}
 	void TitleScene::OnExit()
 	{
+		CollisionManager::Clear();
 	}
 }

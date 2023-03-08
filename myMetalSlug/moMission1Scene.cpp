@@ -4,6 +4,7 @@
 #include "moMarco.h"
 #include "moMission1BG.h"
 #include "moMarcoBottom.h"
+#include"moCollisionManager.h"
 
 namespace mo
 {
@@ -42,8 +43,10 @@ namespace mo
 	}
 	void Mission1Scene::OnEnter()
 	{
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 	}
 	void Mission1Scene::OnExit()
 	{
+		CollisionManager::Clear();
 	}
 }

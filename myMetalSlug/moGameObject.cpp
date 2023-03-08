@@ -38,4 +38,13 @@ namespace mo {
 			comp->Render(mHdc);
 		}
 	}
+	void GameObject::OnCollisionEnter(Collider* other)
+	{
+	}
+	void GameObject::OnCollisionStay(Collider* other)
+	{
+	}
+	void GameObject::OnCollisionExit(Collider* other)
+	{
+	}
 }

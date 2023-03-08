@@ -1,5 +1,5 @@
 #include "moScene.h"
-
+#include "moCollisionManager.h"
 namespace mo {
 	Scene::Scene()
 	{

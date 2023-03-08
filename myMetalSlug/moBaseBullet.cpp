@@ -9,7 +9,9 @@ namespace mo {
 	BaseBullet::BaseBullet()
 		:mImage(Resources::Load<Image>(L"OriginalBullet", L"..\\Resources\\OriginalBullet.bmp"))
 		, mDirection(eDirection::Right)
+		, mDir(Vector2(1.0f, 0.0f))
 	{
+		mDir.Nomalize();
 	}
 	BaseBullet::~BaseBullet()
 	{
@@ -25,10 +27,14 @@ namespace mo {
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
-		if(mDirection == eDirection::Right)
+		/*if(mDirection == eDirection::Right)
 			pos.x += 1200.0f * Time::DeltaTime();
 		if (mDirection == eDirection::Left)
-			pos.x -= 1200.0f * Time::DeltaTime();
+			pos.x -= 1200.0f * Time::DeltaTime();*/
+
+		pos.x += 1000.0f * mDir.x *Time::DeltaTime();
+		pos.y += 1000.0f * mDir.y * Time::DeltaTime();
+
 
 		tr->SetPos(pos);
 	}
@@ -38,8 +44,8 @@ namespace mo {
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 		if (mDirection == eDirection::Right)
-			TransparentBlt(mHdc, pos.x + 25.0f, pos.y - 40.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
-		if (mDirection == eDirection::Left)
-			TransparentBlt(mHdc, pos.x - 25.0f, pos.y - 40.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
+			TransparentBlt(mHdc, pos.x + 50.0f, pos.y - 40.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
+		else if (mDirection == eDirection::Left)
+			TransparentBlt(mHdc, pos.x - 50.0f, pos.y - 40.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
 	}
 }
