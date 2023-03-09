@@ -133,6 +133,7 @@
     <ClInclude Include="moAnimation.h" />
     <ClInclude Include="moAnimator.h" />
     <ClInclude Include="moApplication.h" />
+    <ClInclude Include="moArabian.h" />
     <ClInclude Include="moBaseBullet.h" />
     <ClInclude Include="moCollisionManager.h" />
     <ClInclude Include="moComponent.h" />
@@ -164,6 +165,7 @@
     <ClCompile Include="moAnimation.cpp" />
     <ClCompile Include="moAnimator.cpp" />
     <ClCompile Include="moApplication.cpp" />
+    <ClCompile Include="moArabian.cpp" />
     <ClCompile Include="moBaseBullet.cpp" />
     <ClCompile Include="moCollisionManager.cpp" />
     <ClCompile Include="moComponent.cpp" />

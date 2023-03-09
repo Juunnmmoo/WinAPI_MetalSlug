@@ -31,14 +31,23 @@ namespace mo {
 		{
 			mActiveAnimation->Update();
 		
-			if (mbLoop && mActiveAnimation->isComplete())
-			{
-				Animator::Events* events = FindEvents(mActiveAnimation->GetName());
-				if (events != nullptr)
-					events->mCompleteEvent();
+			if (mActiveAnimation->isComplete()) {
+			
+			
+				if (mbLoop == false)
+				{
+					Animator::Events* events = FindEvents(mActiveAnimation->GetName());
+					if (events != nullptr)
+						events->mCompleteEvent();
 
-				mActiveAnimation->Reset();
+				}
+				else {
+
+					mActiveAnimation->Reset();
+				
+				}
 			}
+			
 		}
 		
 	}
@@ -82,6 +91,9 @@ namespace mo {
 	void Animator::Play(const std::wstring& name, bool loop)
 	{
 		if (mActiveAnimation != nullptr) {
+
+			//이전 애니메이션이 뭔지알려줌
+			mPrevAnimation = mActiveAnimation;
 			
 			Animator::Events* prevEvents = FindEvents(mActiveAnimation->GetName());
 

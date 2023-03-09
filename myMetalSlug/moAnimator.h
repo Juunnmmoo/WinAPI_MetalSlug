@@ -49,6 +49,9 @@ namespace mo {
 		std::function<void()>& GetCompleteEvent(const std::wstring& name);
 		std::function<void()>& GetEndEvent(const std::wstring& name);
 
+		Animation* GetActiveAnimation() { return mActiveAnimation; };
+		Animation* GetPrevAniamtion() { return mPrevAnimation; };
+
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;

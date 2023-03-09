@@ -24,8 +24,8 @@ namespace mo {
 		mAnimator = AddComponent<Animator>();
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 100.0f, 535.0f });
-		tr->SetScale(Vector2{ 2.5f, 2.5f });
+		tr->SetPos(Vector2{ 100.0f, 600.0f });
+		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetTopDiff(Vector2{ 0.0f, 50.0f });
 
 		// Coulmn : За	row : ї­
@@ -40,9 +40,9 @@ namespace mo {
 		//mAnimatorL->Play(L"IdleL", true);
 		mState = eMarcoState::Idle;
 
-		Collider* mCollider = AddComponent<Collider>();
+		/*Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 60.0f, 70.0f });
-		mCollider->SetCenter(Vector2{ -30.50f, -70.0f });
+		mCollider->SetLeftTop(Vector2{ -30.50f, -70.0f });*/
 
 		GameObject::Initialize();
 	}
@@ -73,6 +73,8 @@ namespace mo {
 	{
 		GameObject::Render(mHdc);
 	}
+
+	
 
 	void MarcoBottom::move()
 	{

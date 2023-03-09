@@ -4,7 +4,10 @@
 #include "moMarco.h"
 #include "moMission1BG.h"
 #include "moMarcoBottom.h"
-#include"moCollisionManager.h"
+#include "moCollisionManager.h"
+#include "moTransform.h"
+#include "moComponent.h"
+#include "moArabian.h"
 
 namespace mo
 {
@@ -21,6 +24,11 @@ namespace mo
 
 		Marco* marco = new Marco();
 		AddGameObject(marco, eLayerType::Player);
+
+		Arabian* arabian = new Arabian();
+		AddGameObject(arabian, eLayerType::Monster);
+
+
 
 		Mission1BG* mission1BG = new Mission1BG();
 		AddGameObject(mission1BG, eLayerType::BG);

@@ -16,11 +16,13 @@ namespace mo {
 		eComponentType GetType() { return mType; }
 		void SetOwner(GameObject* owner) { mOwner = owner; }
 		GameObject* GetOwner() { return mOwner; }
+		eLayerType GetLayerType() {}
 	
 	private:
 
 		const eComponentType mType;
 		GameObject* mOwner;
+		eLayerType mLayerType;
 	};
 }
 

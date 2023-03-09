@@ -58,23 +58,22 @@ namespace mo {
 		}
 
 		if (Intersect(leftCol, rightCol)) {
-			
 			if (iter->second == false) {
-				leftCol->OnCollisionEnter(rightCol);
-				rightCol->OnCollisionEnter(leftCol);
+				leftCol->OnCollisionEnter(rightCol, right);
+				rightCol->OnCollisionEnter(leftCol, left);
 
 				iter->second = true;
 			}
 			else {
-				leftCol->OnCollisionStay(rightCol);
-				rightCol->OnCollisionStay(leftCol);
+				leftCol->OnCollisionStay(rightCol, right);
+				rightCol->OnCollisionStay(leftCol, left);
 			}
 		
 		}
 		else {
 			if (iter->second == true) {
-				leftCol->OnCollisionExit(rightCol);
-				rightCol->OnCollisionExit(leftCol);
+				leftCol->OnCollisionExit(rightCol, right);
+				rightCol->OnCollisionExit(leftCol, left);
 
 				iter->second = false;
 			}
@@ -84,14 +83,14 @@ namespace mo {
 	
 	bool CollisionManager::Intersect(Collider* left, Collider* right)
 	{
-		Vector2 leftPos = left->GetPos();
-		Vector2 rightPos = right->GetPos();
+		Vector2 leftCenter = left->GetPos();
+		Vector2 rightCenter = right->GetPos();
 
 		Vector2 leftSize = left->GetSize();
 		Vector2 rightSize = right->GetSize();
 
-		if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-			&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f)) {
+		if (fabs(leftCenter.x - rightCenter.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
+			&& fabs(leftCenter.y - rightCenter.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f)) {
 
 			return true;
 		}

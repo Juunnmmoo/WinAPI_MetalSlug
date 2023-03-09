@@ -36,9 +36,12 @@ enum class eComponentType
 
 enum class eDirection
 {
+	LTop,
+	RTop,
 	Top,
+	LBottom,
+	RBottom,
 	Left,
 	Right,
-	Bottom,
 	End,
 };

@@ -20,7 +20,7 @@ namespace mo {
 	{
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 60.0f, 70.0f });
-		mCollider->SetCenter(Vector2{ -30.50f, -70.0f });
+		mCollider->SetLeftTop(Vector2{ -30.50f, -70.0f });
 
 	}
 	void BaseBullet::Update()
@@ -47,5 +47,7 @@ namespace mo {
 			TransparentBlt(mHdc, pos.x + 50.0f, pos.y - 40.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
 		else if (mDirection == eDirection::Left)
 			TransparentBlt(mHdc, pos.x - 50.0f, pos.y - 40.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
+		else if (mDirection == eDirection::Top)
+			TransparentBlt(mHdc, pos.x - 5.0f, pos.y - 90.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
 	}
 }

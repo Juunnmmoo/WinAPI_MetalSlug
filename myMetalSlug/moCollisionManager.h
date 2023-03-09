@@ -25,6 +25,6 @@ namespace mo {
 		static void Clear();
 	private:
 		static WORD mMatrix[(UINT)eLayerType::End];
-		static std::map<UINT64, bool> mColliisionMap;
+		static std::map<UINT64, bool> mCollisionMap;
 	};
 }

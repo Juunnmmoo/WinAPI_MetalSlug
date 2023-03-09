@@ -16,6 +16,7 @@ namespace mo {
 
 		mActiveScene = mScenes[(UINT)eSceneType::Mission1];
 
+		mActiveScene->OnEnter();
 		for (Scene* scene : mScenes) {
 			if (scene == nullptr)
 				continue;

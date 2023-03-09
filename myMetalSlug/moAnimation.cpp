@@ -59,8 +59,8 @@ namespace mo {
 			, mSpriteSheet[mSpriteIndex].size.y * scale.y
 			, mSheetImage->GetHdc()
 			, mSpriteSheet[mSpriteIndex].leftTop.x, mSpriteSheet[mSpriteIndex].leftTop.y
-			, mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y,
-			RGB(153, 217, 234));
+			, mSpriteSheet[mSpriteIndex].size.x, mSpriteSheet[mSpriteIndex].size.y
+			,RGB(153, 217, 234));
 	}
 	void Animation::Create(Image* sheet, Vector2 leftTop, float next, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
 	{

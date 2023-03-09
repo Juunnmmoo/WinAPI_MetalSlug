@@ -13,9 +13,9 @@ namespace mo {
 		virtual void Update();
 		virtual void Render(HDC mHdc);
 
-		virtual void OnCollisionEnter(class Collider* other);
-		virtual void OnCollisionStay(class Collider* other);
-		virtual void OnCollisionExit(class Collider* other);
+		virtual void OnCollisionEnter(class Collider* other, eLayerType otherType);
+		virtual void OnCollisionStay(class Collider* other, eLayerType otherType);
+		virtual void OnCollisionExit(class Collider* other, eLayerType otherType);
 
 		template<typename T>
 		T* AddComponent() {
@@ -37,7 +37,6 @@ namespace mo {
 			}
 			return nullptr;
 		}
-
 
 	private:
 

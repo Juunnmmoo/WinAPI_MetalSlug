@@ -4,7 +4,7 @@
 namespace mo {
 	class Transform;
 	class Animator;
-	class AnimatorR;
+	class Animation;
 	class Marco : public GameObject
 	{
 	public:
@@ -24,9 +24,9 @@ namespace mo {
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
 
-		virtual void OnCollisionEnter(class Collider* other)override;
-		virtual void OnCollisionStay(class Collider* other)override;
-		virtual void OnCollisionExit(class Collider* other)override;
+		virtual void OnCollisionEnter(class Collider* other, eLayerType otherType)override;
+		virtual void OnCollisionStay(class Collider* other, eLayerType otherType)override;
+		virtual void OnCollisionExit(class Collider* other, eLayerType otherType)override;
 
 	private:
 		void move();
@@ -35,9 +35,12 @@ namespace mo {
 		void idle();
 
 		void shootStartEvent();
+		void knifeCompleteEvent();
 
 	private:
 		eMarcoState mState;
 		Animator* mAnimator;
+		Animation* mPrevAnimation;
+		bool isKnife;
 	};
 }

@@ -9,7 +9,7 @@ namespace mo {
 
 	Collider::Collider()
 		:Component(eComponentType::Collider)
-		, mCenter(Vector2::Zero)
+		, mLeftTopPos(Vector2::Zero)
 		, mPos(Vector2::Zero)
 		, mSize(Vector2::One)
 		, mID(ColliderNumber++)
@@ -29,7 +29,7 @@ namespace mo {
 	void Collider::Update()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();
-		mPos = tr->GetPos() + mCenter;
+		mPos = tr->GetPos() + mLeftTopPos;
 	}
 
 	void Collider::Render(HDC mHdc)
@@ -45,15 +45,18 @@ namespace mo {
 		(HBRUSH)SelectObject(mHdc, oldBrush);
 		DeleteObject(pen);
 	}
-	void Collider::OnCollisionEnter(Collider* other)
+	void Collider::OnCollisionEnter(Collider* other, eLayerType otherType)
 	{
+		GetOwner()->OnCollisionEnter(other, otherType);
 	}
 
-	void Collider::OnCollisionStay(Collider* other)
+	void Collider::OnCollisionStay(Collider* other, eLayerType otherType)
 	{
+		GetOwner()->OnCollisionStay(other, otherType);
 	}
 
-	void Collider::OnCollisionExit(Collider* other)
+	void Collider::OnCollisionExit(Collider* other, eLayerType otherType)
 	{
+		GetOwner()->OnCollisionExit(other, otherType);
 	}
 }

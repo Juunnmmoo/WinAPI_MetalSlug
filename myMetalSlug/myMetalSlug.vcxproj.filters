@@ -62,6 +62,12 @@
     <Filter Include="Engine\Component\Animation">
       <UniqueIdentifier>{aeaff26e-c89c-4194-8e1f-ef42dd33ab16}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\Player">
+      <UniqueIdentifier>{749121a4-05eb-4137-8393-a33b2278562d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Monster">
+      <UniqueIdentifier>{b8f9d01a-3cd2-4c83-8ce2-5b4fa1c41519}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -127,9 +133,6 @@
     <ClInclude Include="moMission1Scene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="moMarco.h">
-      <Filter>Contents\GameObj</Filter>
-    </ClInclude>
     <ClInclude Include="moTitleScene.h">
       <Filter>Contents\Scene</Filter>
     </ClInclude>
@@ -154,8 +157,14 @@
     <ClInclude Include="moCollisionManager.h">
       <Filter>Engine\Component\Collider</Filter>
     </ClInclude>
+    <ClInclude Include="moMarco.h">
+      <Filter>Contents\GameObj\Player</Filter>
+    </ClInclude>
     <ClInclude Include="moMarcoBottom.h">
-      <Filter>Contents\GameObj</Filter>
+      <Filter>Contents\GameObj\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="moArabian.h">
+      <Filter>Contents\GameObj\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -217,9 +226,6 @@
     <ClCompile Include="moMission1Scene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="moMarco.cpp">
-      <Filter>Contents\GameObj</Filter>
-    </ClCompile>
     <ClCompile Include="moTitleScene.cpp">
       <Filter>Contents\Scene</Filter>
     </ClCompile>
@@ -244,8 +250,14 @@
     <ClCompile Include="moCollisionManager.cpp">
       <Filter>Engine\Component\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="moMarco.cpp">
+      <Filter>Contents\GameObj\Player</Filter>
+    </ClCompile>
     <ClCompile Include="moMarcoBottom.cpp">
-      <Filter>Contents\GameObj</Filter>
+      <Filter>Contents\GameObj\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="moArabian.cpp">
+      <Filter>Contents\GameObj\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
