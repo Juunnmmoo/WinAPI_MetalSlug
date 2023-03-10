@@ -4,6 +4,7 @@
 #include "moTransform.h"
 #include "moAnimator.h"
 #include "moGameObject.h"
+#include "moCamera.h"
 
 namespace mo {
 	Animation::Animation()
@@ -46,15 +47,18 @@ namespace mo {
 
 		Vector2 PlayerTopDiff = tr->GetTopDiff();
 
-		Vector2 RenderPos = tr->GetPos();
-		RenderPos += mSpriteSheet[mSpriteIndex].offSet;
-		RenderPos.x -= (mSpriteSheet[mSpriteIndex].size.x * scale.x) / 2;
-		RenderPos.y -= (mSpriteSheet[mSpriteIndex].size.x * scale.y);
+		Vector2 pos = tr->GetPos();
+	
+		//카메라 넣을떄 주석 풀기
+		//pos = Camera::CaluatePos(pos);
+		pos += mSpriteSheet[mSpriteIndex].offSet;
+		pos.x -= (mSpriteSheet[mSpriteIndex].size.x * scale.x) / 2;
+		pos.y -= (mSpriteSheet[mSpriteIndex].size.x * scale.y);
 
 		// 메인 캐릭터 sprite는 바닥부터 상체값을 없애고 출력해야하기 때문에
-		RenderPos.y += +(PlayerTopDiff.y * scale.y);
+		pos.y += +(PlayerTopDiff.y * scale.y);
 
-		TransparentBlt(mHdc, RenderPos.x, RenderPos.y
+		TransparentBlt(mHdc, pos.x, pos.y
 			, mSpriteSheet[mSpriteIndex].size.x * scale.x
 			, mSpriteSheet[mSpriteIndex].size.y * scale.y
 			, mSheetImage->GetHdc()

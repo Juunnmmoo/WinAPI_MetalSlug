@@ -9,7 +9,7 @@
 #include "Collider.h"
 #include "moBaseBullet.h"
 #include "moScene.h"
-
+#include "moObject.h"
 
 namespace mo{
 	
@@ -31,7 +31,7 @@ namespace mo{
 		
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 800.0f, 600.0f });
+		tr->SetPos(Vector2{ 700.0f, 600.0f });
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetTopDiff(Vector2{ 0.0f, 40.0f });
 
@@ -58,6 +58,9 @@ namespace mo{
 
 	void Arabian::OnCollisionEnter(Collider* other, eLayerType otherType)
 	{
+		/*if (otherType == eLayerType::Player) {
+			object::Destory(this);
+		}*/
 	}
 
 	void Arabian::OnCollisionStay(Collider* other, eLayerType otherType)

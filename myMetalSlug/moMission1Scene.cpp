@@ -8,6 +8,7 @@
 #include "moTransform.h"
 #include "moComponent.h"
 #include "moArabian.h"
+#include "moObject.h"
 
 namespace mo
 {
@@ -19,6 +20,7 @@ namespace mo
 	}
 	void Mission1Scene::Initialize()
 	{
+
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
 
@@ -52,6 +54,8 @@ namespace mo
 	void Mission1Scene::OnEnter()
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+
+		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Bullet, true);
 	}
 	void Mission1Scene::OnExit()
 	{

@@ -3,6 +3,7 @@
 #include "moTime.h"
 #include "moInput.h"
 #include "moCollisionManager.h"
+#include "moCamera.h"
 
 namespace mo {
 	Application::Application()
@@ -45,6 +46,7 @@ namespace mo {
 		Input::Initialize();
 		Time::Initizlize();
 		SceneManager::Initialize();
+		//Camera::Initialize();
 	}
 	void Application::Run()
 	{
@@ -56,6 +58,8 @@ namespace mo {
 
 		Input::Update();
 		Time::Update();
+		//Camera::Update();
+
 		SceneManager::Update();
 		CollisionManager::Update();
 		

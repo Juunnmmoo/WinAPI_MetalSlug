@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -135,6 +136,7 @@
     <ClInclude Include="moApplication.h" />
     <ClInclude Include="moArabian.h" />
     <ClInclude Include="moBaseBullet.h" />
+    <ClInclude Include="moCamera.h" />
     <ClInclude Include="moCollisionManager.h" />
     <ClInclude Include="moComponent.h" />
     <ClInclude Include="moEntity.h" />
@@ -149,6 +151,7 @@
     <ClInclude Include="moMission1BG.h" />
     <ClInclude Include="moMission1Scene.h" />
     <ClInclude Include="momoEngine.h" />
+    <ClInclude Include="moObject.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
     <ClInclude Include="moScene.h" />
@@ -167,6 +170,7 @@
     <ClCompile Include="moApplication.cpp" />
     <ClCompile Include="moArabian.cpp" />
     <ClCompile Include="moBaseBullet.cpp" />
+    <ClCompile Include="moCamera.cpp" />
     <ClCompile Include="moCollisionManager.cpp" />
     <ClCompile Include="moComponent.cpp" />
     <ClCompile Include="moEntity.cpp" />

@@ -12,13 +12,19 @@ namespace mo {
 
 		virtual void Initialize();
 		virtual void Update();
-		virtual void Render(HDC mHdc);
+		virtual void Destroy();
+		virtual void Render(HDC mHdc)
+		{
+			for (Layer& layer : mLayers) {
+				layer.Render(mHdc);
+			}
+		}
 		
 		virtual void OnEnter();
 		virtual void OnExit();
 
 		void AddGameObject(GameObject* obj, eLayerType layerType);
-		const std::vector<GameObject*>& GetGameObjects(eLayerType layer);
+		std::vector<GameObject*>& GetGameObjects(eLayerType layer);
 	private:
 
 		std::vector<Layer> mLayers;

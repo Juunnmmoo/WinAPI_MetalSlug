@@ -14,18 +14,34 @@ namespace mo {
 	void Layer::Initialize()
 	{
 		for (GameObject* gameObj : mGameObjects) {
+			if (gameObj == nullptr)
+				continue;
+
+			if (gameObj->GetState() != GameObject::eState::Active)
+				continue;
+
 			gameObj->Initialize();
 		}
 	}
 	void Layer::Update()
 	{
 		for (GameObject* gameObj : mGameObjects) {
+			if (gameObj == nullptr)
+				continue;
+
+			if (gameObj->GetState() != GameObject::eState::Active)
+				continue;
 			gameObj->Update();
 		}
 	}
 	void Layer::Render(HDC mHdc)
 	{
 		for (GameObject* gameObj : mGameObjects) {
+			if (gameObj == nullptr)
+				continue;
+
+			if (gameObj->GetState() != GameObject::eState::Active)
+				continue;
 			gameObj->Render(mHdc);
 		}
 	}

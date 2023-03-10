@@ -336,6 +336,7 @@ namespace mo {
 		
 	}
 	
+
 	void Marco::shootStartEvent()
 	{
 		Transform* tr;
@@ -360,13 +361,15 @@ namespace mo {
 		else if (mDirection == eDirection::LTop) {
 			bullet->SetDirection(eDirection::Top);
 			bullet->SetDir(Vector2{ 0.0f, -5.0f });
-		}		
+		}
 		//Transform* tr;
 		//tr = GetComponent<Transform>();
 		bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
 		curScene->AddGameObject(bullet, eLayerType::Bullet);
-
+		bullet->Initialize();
 	}
+
+
 	void Marco::knifeCompleteEvent()
 	{
 		

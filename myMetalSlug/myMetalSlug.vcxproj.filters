@@ -68,6 +68,9 @@
     <Filter Include="Contents\GameObj\Monster">
       <UniqueIdentifier>{b8f9d01a-3cd2-4c83-8ce2-5b4fa1c41519}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{5a737f22-672e-4f8b-9365-1267d6425fb1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -166,6 +169,12 @@
     <ClInclude Include="moArabian.h">
       <Filter>Contents\GameObj\Monster</Filter>
     </ClInclude>
+    <ClInclude Include="moCamera.h">
+      <Filter>Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="moObject.h">
+      <Filter>Engine\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -258,6 +267,9 @@
     </ClCompile>
     <ClCompile Include="moArabian.cpp">
       <Filter>Contents\GameObj\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="moCamera.cpp">
+      <Filter>Engine\Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -49,6 +49,24 @@ struct Vector2
 		temp.y = y - other.y;
 		return temp;
 	}
+	Vector2 operator*(const Vector2& other)
+	{
+		Vector2 temp;
+		temp.x = x * other.x;
+		temp.y = y * other.y;
+
+		return temp;
+	}
+
+	Vector2 operator/(const float ratio)
+	{
+		Vector2 temp;
+		temp.x = x / ratio;
+		temp.y = y / ratio;
+
+		return temp;
+	}
+
 	void operator +=(const Vector2& other) {
 
 		x += other.x;

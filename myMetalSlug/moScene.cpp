@@ -22,11 +22,33 @@ namespace mo {
 			layer.Update();
 		}
 	}
-	void Scene::Render(HDC mHdc)
+	void Scene::Destroy()
 	{
+		std::vector<GameObject*>deleteGameObjects = {};
+		
 		for (Layer& layer : mLayers) {
-			layer.Render(mHdc);
+			std::vector<GameObject*>& gameObjects = layer.GetGameObjects();
+
+			for (std::vector<GameObject*>::iterator iter = gameObjects.begin()
+				; iter != gameObjects.end() ; ) 
+			{
+				if ((*iter)->GetState() == GameObject::eState::Death) {
+					deleteGameObjects.push_back((*iter));
+					//원본에서도 삭제해야함 
+					iter = gameObjects.erase(iter);
+				}
+				else {
+					iter++;
+				}
+			}
+
 		}
+
+		for (GameObject* obj : deleteGameObjects) {
+			delete obj;
+			obj = nullptr;
+		}
+
 	}
 	void Scene::OnEnter()
 	{
@@ -38,7 +60,7 @@ namespace mo {
 	{
 		mLayers[(UINT)layerType].AddGameObject(obj);
 	}
-	const std::vector<GameObject*>& Scene::GetGameObjects(eLayerType layer)
+	std::vector<GameObject*>& Scene::GetGameObjects(eLayerType layer)
 	{
 		return mLayers[(UINT)layer].GetGameObjects();
 	}

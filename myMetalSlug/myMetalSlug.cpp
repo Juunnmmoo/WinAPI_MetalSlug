@@ -7,6 +7,7 @@
 #include "moSceneManager.h"
 #include "moResources.h"
 
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -30,6 +31,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+   // _crtBreakAlloc = 662;
+    //_CrtSetBreakAlloc(666);
 
     // TODO: 여기에 코드를 입력합니다.
 
