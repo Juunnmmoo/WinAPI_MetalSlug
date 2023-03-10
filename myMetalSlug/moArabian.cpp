@@ -58,9 +58,9 @@ namespace mo{
 
 	void Arabian::OnCollisionEnter(Collider* other, eLayerType otherType)
 	{
-		/*if (otherType == eLayerType::Player) {
+		if (otherType == eLayerType::Bullet) 
 			object::Destory(this);
-		}*/
+		
 	}
 
 	void Arabian::OnCollisionStay(Collider* other, eLayerType otherType)
