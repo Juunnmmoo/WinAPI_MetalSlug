@@ -2,6 +2,7 @@
 #include "moInput.h"
 #include "moSceneManager.h"
 #include"moCollisionManager.h"
+#include "moTitleBG.h"
 
 namespace mo
 {
@@ -13,6 +14,9 @@ namespace mo
 	}
 	void TitleScene::Initialize()
 	{
+		TitleBG* titleBG = new TitleBG();
+		AddGameObject(titleBG, eLayerType::BG);
+
 		Scene::Initialize();
 	}
 	void TitleScene::Update()

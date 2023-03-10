@@ -14,7 +14,7 @@ namespace mo {
 		mScenes[(UINT)eSceneType::Title] = new TitleScene();
 		mScenes[(UINT)eSceneType::Mission1] = new Mission1Scene();
 
-		mActiveScene = mScenes[(UINT)eSceneType::Mission1];
+		mActiveScene = mScenes[(UINT)eSceneType::Title];
 
 		mActiveScene->OnEnter();
 		for (Scene* scene : mScenes) {

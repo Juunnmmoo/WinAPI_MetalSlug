@@ -175,6 +175,9 @@
     <ClInclude Include="moObject.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="moTitleBG.h">
+      <Filter>Contents\BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -270,6 +273,9 @@
     </ClCompile>
     <ClCompile Include="moCamera.cpp">
       <Filter>Engine\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="moTitleBG.cpp">
+      <Filter>Contents\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
