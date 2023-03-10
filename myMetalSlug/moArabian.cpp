@@ -48,6 +48,19 @@ namespace mo{
 
 	void Arabian::Update()
 	{
+		//Transform* tr = GetComponent<Transform>();
+		//Vector2 pos = tr->GetPos();
+
+		///*if(mDirection == eDirection::Right)
+		//	pos.x += 1200.0f * Time::DeltaTime();
+		//if (mDirection == eDirection::Left)
+		//	pos.x -= 1200.0f * Time::DeltaTime();*/
+
+
+		//pos.x += 100.0f * Time::DeltaTime();
+	
+		//tr->SetPos(pos);
+
 		GameObject::Update();
 	}
 
@@ -58,8 +71,8 @@ namespace mo{
 
 	void Arabian::OnCollisionEnter(Collider* other, eLayerType otherType)
 	{
-		if (otherType == eLayerType::Bullet) 
-			object::Destory(this);
+		/*if (otherType == eLayerType::Bullet) 
+			object::Destory(this);*/
 		
 	}
 

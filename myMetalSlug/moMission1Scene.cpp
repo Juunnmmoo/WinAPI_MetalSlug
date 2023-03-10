@@ -21,6 +21,7 @@ namespace mo
 	void Mission1Scene::Initialize()
 	{
 
+
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
 
@@ -31,11 +32,17 @@ namespace mo
 		AddGameObject(arabian, eLayerType::Monster);
 
 
+	
+		Arabian* arabian1 = new Arabian();
+		arabian1->GetComponent<Transform>()->SetPos(Vector2(700.0f, 600.0f));
+		AddGameObject(arabian1, eLayerType::Monster);
+
 
 		Mission1BG* mission1BG = new Mission1BG();
 		AddGameObject(mission1BG, eLayerType::BG);
 
 		Scene::Initialize();
+
 	}
 	void Mission1Scene::Update()
 	{
