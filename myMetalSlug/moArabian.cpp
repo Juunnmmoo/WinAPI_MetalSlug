@@ -37,6 +37,10 @@ namespace mo{
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 20, 15, 6, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"DeathL", mImageL, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 20, 15, 11, Vector2::Zero, 0.15);
+
+		mAnimator->GetCompleteEvent(L"DeathL") = std::bind(&Arabian::deathCompleteEvent, this);
+
 		mAnimator->Play(L"IdleL", true);
 
 		Collider* mCollider = AddComponent<Collider>();
@@ -48,6 +52,7 @@ namespace mo{
 
 	void Arabian::Update()
 	{
+
 		//Transform* tr = GetComponent<Transform>();
 		//Vector2 pos = tr->GetPos();
 
@@ -71,8 +76,10 @@ namespace mo{
 
 	void Arabian::OnCollisionEnter(Collider* other, eLayerType otherType)
 	{
-		/*if (otherType == eLayerType::Bullet) 
-			object::Destory(this);*/
+		if(otherType == eLayerType::Bullet) {
+			mAnimator->Play(L"DeathL", false);
+		}
+			
 		
 	}
 
@@ -99,13 +106,8 @@ namespace mo{
 	void Arabian::idle()
 	{
 	}
-
-	void Arabian::shootStartEvent()
+	void Arabian::deathCompleteEvent()
 	{
+			object::Destory(this);
 	}
-
-	void Arabian::knifeCompleteEvent()
-	{
-	}
-
 }

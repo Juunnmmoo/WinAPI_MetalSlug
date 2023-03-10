@@ -28,13 +28,14 @@ namespace mo {
 		virtual void OnCollisionStay(class Collider* other, eLayerType otherType)override;
 		virtual void OnCollisionExit(class Collider* other, eLayerType otherType)override;
 
+
 	private:
 		void move();
 		void shoot();
 		void death();
 		void idle();
 
-		void shootStartEvent();
+		void deathCompleteEvent();
 		void knifeCompleteEvent();
 
 	private:
