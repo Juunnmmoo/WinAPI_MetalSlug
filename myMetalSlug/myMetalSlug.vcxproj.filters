@@ -71,6 +71,9 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{5a737f22-672e-4f8b-9365-1267d6425fb1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Component\RigidBody">
+      <UniqueIdentifier>{371bb84f-4519-4712-af22-381b4c343374}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -178,6 +181,9 @@
     <ClInclude Include="moTitleBG.h">
       <Filter>Contents\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="moRigidBody.h">
+      <Filter>Engine\Component\RigidBody</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -276,6 +282,9 @@
     </ClCompile>
     <ClCompile Include="moTitleBG.cpp">
       <Filter>Contents\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="moRigidBody.cpp">
+      <Filter>Engine\Component\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

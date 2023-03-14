@@ -26,7 +26,7 @@ namespace mo{
 	void Arabian::Initialize()
 	{
 
-		Image* mImageL = Resources::Load<Image>(L"ArabianLeft", L"..\\Resources\\ArabianLeft.bmp");
+		Image* mImageL = Resources::Load<Image>(L"ArabianLeft", L"..\\Resources\\Enemy\\ArabianLeft.bmp");
 
 		
 		Transform* tr;
@@ -78,8 +78,7 @@ namespace mo{
 	{	
 		
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Bullet
-			&& GetIsDeath() == false) {
+		if (other->GetOwner()->GetLayerType() == eLayerType::Bullet) {
 			mAnimator->Play(L"DeathL", false);
 			SetIsDeath(true);
 		}
@@ -88,7 +87,6 @@ namespace mo{
 	void Arabian::OnCollisionStay(Collider* other)
 	{
 		if (other->GetOwner()->GetLayerType() == eLayerType::Player
-			&& GetIsDeath() == false
 			&& Input::GetKeyDown(eKeyCode::D)) {
 			mAnimator->Play(L"DeathL", false);
 			SetIsDeath(true);

@@ -154,6 +154,7 @@
     <ClInclude Include="moObject.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
+    <ClInclude Include="moRigidBody.h" />
     <ClInclude Include="moScene.h" />
     <ClInclude Include="moSceneManager.h" />
     <ClInclude Include="moTime.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="moMission1Scene.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />
+    <ClCompile Include="moRigidBody.cpp" />
     <ClCompile Include="moScene.cpp" />
     <ClCompile Include="moSceneManager.cpp" />
     <ClCompile Include="moTime.cpp" />

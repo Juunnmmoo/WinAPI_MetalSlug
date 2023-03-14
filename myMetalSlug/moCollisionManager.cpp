@@ -89,8 +89,13 @@ namespace mo {
 		Vector2 leftSize = left->GetSize();
 		Vector2 rightSize = right->GetSize();
 
+
+
 		if (fabs(leftCenter.x - rightCenter.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
-			&& fabs(leftCenter.y - rightCenter.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f)) {
+			&& fabs(leftCenter.y - rightCenter.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f)
+			&& left->GetOwner()->GetIsDeath() == false
+			&& right->GetOwner()->GetIsDeath() == false
+			) {
 
 			return true;
 		}

@@ -15,6 +15,7 @@ namespace mo {
 			Shoot,
 			Death,
 			Idle,
+			Sit,
 		};
 
 
@@ -34,6 +35,7 @@ namespace mo {
 		void shoot();
 		void death();
 		void idle();
+		void sit();
 
 		void shootStartEvent();
 		void knifeCompleteEvent();

@@ -30,6 +30,7 @@ enum class eComponentType
 	SpriteRenderer,
 	Animator,
 	Collider,
+	Rigidbody,
 	Audio,
 	End,
 };
@@ -39,6 +40,8 @@ enum class eDirection
 	LTop,
 	RTop,
 	Top,
+	LSit,
+	RSit,
 	LBottom,
 	RBottom,
 	Left,

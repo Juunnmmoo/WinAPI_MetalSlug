@@ -24,8 +24,9 @@ namespace mo {
 	}
 	void Marco::Initialize()
 	{
-		Image* mImageR = Resources::Load<Image>(L"MarcoTopRight", L"..\\Resources\\MarcoTopRight.bmp");
-		Image* mImageL = Resources::Load<Image>(L"MarcoTopLeft", L"..\\Resources\\MarcoTopLeft.bmp");
+		Image* mImageR = Resources::Load<Image>(L"MarcoTopRight", L"..\\Resources\\Player\\MarcoTopRight.bmp");
+		Image* mImageL = Resources::Load<Image>(L"MarcoTopLeft", L"..\\Resources\\Player\\MarcoTopLeft.bmp");
+
 		mAnimator = AddComponent<Animator>();
 		mAnimator->SetAlpha(true);
 		Transform* tr;
@@ -52,11 +53,11 @@ namespace mo {
 
 		mAnimator->CreateAnimation(L"MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 12, Vector2::Zero, 0.05);
-		
-		
 
-		
-	
+		mAnimator->CreateAnimation(L"None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
+
+
+
 		
 
 		mAnimator->GetStartEvent(L"ShootR") = std::bind(&Marco::shootStartEvent, this);
@@ -94,6 +95,8 @@ namespace mo {
 		case mo::Marco::eMarcoState::Idle:
 			idle();
 			break;
+		case mo::Marco::eMarcoState::Sit:
+			sit();
 		default:
 			break;
 		}
@@ -109,12 +112,10 @@ namespace mo {
 
 	void Marco::OnCollisionEnter(Collider* other)
 	{
-		if ( other->GetOwner()->GetLayerType() == eLayerType::Monster
-			&& other->GetOwner()->GetIsDeath() == false)
+		if ( other->GetOwner()->GetLayerType() == eLayerType::Monster)
 			isKnife = true;
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Monster
-			&& other->GetOwner()->GetIsDeath() == false) {
+		if (other->GetOwner()->GetLayerType() == eLayerType::Monster) {
 			mAnimator->SetUseinvincibility(true);
 			bottom->GetAnimator()->SetUseinvincibility(true);
 		}
@@ -224,7 +225,11 @@ namespace mo {
 			mState = eMarcoState::Idle;
 		}
 
-
+		// To Sit
+		if (Input::GetKeyDown(eKeyCode::Down)) {
+			mAnimator->Play(L"None", false);
+			mState = eMarcoState::Sit;
+		}
 
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)) {
@@ -306,6 +311,8 @@ namespace mo {
 				mState = eMarcoState::Move;
 			}
 		}
+
+
 		//Idle
 		if (Input::GetKeyDown(eKeyCode::Up)&& (mDirection == eDirection::Right)) {
 			mDirection = eDirection::RTop;
@@ -326,6 +333,12 @@ namespace mo {
 		}
 		tr->SetDirection(mDirection);
 
+
+		// To Sit
+		if (Input::GetKeyDown(eKeyCode::Down)) {
+			mAnimator->Play(L"None", false);
+			mState = eMarcoState::Sit;
+		}
 
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)) {
@@ -348,6 +361,84 @@ namespace mo {
 			}
 		}
 		
+	}
+
+	void Marco::sit()
+	{
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		eDirection mDirection = tr->GetDirection();
+		Vector2 pos = tr->GetPos();
+
+		//ÀÌµ¿Áß
+		if (Input::GetKey(eKeyCode::Left)) {
+			pos.x -= 80.0f * Time::DeltaTime();
+			mDirection = eDirection::Left;
+		}
+		if (Input::GetKey(eKeyCode::Right)) {
+			pos.x += 80.0f * Time::DeltaTime();
+			mDirection = eDirection::Right;
+
+		}
+		
+
+		if (Input::GetKeyUp(eKeyCode::Down)) {
+			if (Input::GetKey(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"MoveR", true);
+				mState = eMarcoState::Move;
+			}
+			if (Input::GetKey(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"MoveL", true);
+				mState = eMarcoState::Move;
+			}
+			if (Input::GetKeyNone(eKeyCode::Right)
+				&& Input::GetKeyNone(eKeyCode::Left)) {
+				
+				if (mDirection == eDirection::Right || mDirection == eDirection::RSit) {
+					mAnimator->Play(L"IdleR", true);
+					mDirection = eDirection::Right;
+				}
+					
+				if (mDirection == eDirection::Left || mDirection == eDirection::LSit){
+					mAnimator->Play(L"IdleL", true);
+					mDirection = eDirection::Left;
+				}
+				mState = eMarcoState::Idle;
+			
+			}
+
+		}		
+		tr->SetPos(pos);
+		tr->SetDirection(mDirection);
+
+		// Shooting
+		if (Input::GetKeyDown(eKeyCode::D)
+			&& Input::GetKeyNone(eKeyCode::Right)
+			&& Input::GetKeyNone(eKeyCode::Left)) {
+			if (isKnife) {
+				if (mDirection == eDirection::Right){
+					mDirection = eDirection::RSit;	
+				}
+				if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LSit;
+				}
+			}
+			else {
+				if (mDirection == eDirection::Right){
+					mDirection = eDirection::RSit;
+				}
+				if (mDirection == eDirection::Left){
+					mDirection = eDirection::LSit;
+				}
+			}
+			tr->SetDirection(mDirection);
+			shootStartEvent();
+		}
+
+		
+
 	}
 	
 
@@ -375,6 +466,14 @@ namespace mo {
 		else if (mDirection == eDirection::LTop) {
 			bullet->SetDirection(eDirection::Top);
 			bullet->SetDir(Vector2{ 0.0f, -5.0f });
+		}
+		else if (mDirection == eDirection::RSit) {
+			bullet->SetDirection(eDirection::RSit);
+			bullet->SetDir(Vector2{ 5.0f, 0.0f });
+		}
+		else if (mDirection == eDirection::LSit) {
+			bullet->SetDirection(eDirection::LSit);
+			bullet->SetDir(Vector2{ -5.0f, 0.0f });
 		}
 		//Transform* tr;
 		//tr = GetComponent<Transform>();

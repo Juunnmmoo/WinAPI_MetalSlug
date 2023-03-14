@@ -19,7 +19,7 @@ namespace mo {
 	void TitleBG::Initialize()
 	{
 
-		mImage = Resources::Load<Image>(L"TitleBG", L"..\\Resources\\Title.bmp");
+		mImage = Resources::Load<Image>(L"TitleBG", L"..\\Resources\\BackGround\\Title.bmp");
 		GameObject::Initialize();
 		GameObject::Initialize();
 	}

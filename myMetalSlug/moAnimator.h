@@ -55,6 +55,7 @@ namespace mo {
 		void SetAlpha(bool b) { isAlpha = b; }
 
 		void SetUseinvincibility(bool b) { Useinvincibility = b; }
+		bool IsComplte() { return mActiveAnimation->isComplete(); }
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
