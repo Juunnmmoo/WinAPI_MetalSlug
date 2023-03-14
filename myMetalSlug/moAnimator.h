@@ -52,6 +52,7 @@ namespace mo {
 		Animation* GetActiveAnimation() { return mActiveAnimation; };
 		Animation* GetPrevAniamtion() { return mPrevAnimation; };
 
+		void SetAlpha(bool b) { isAlpha = b; }
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
@@ -60,6 +61,7 @@ namespace mo {
 		Animation* mPrevAnimation;
 		Image* mSpriteSheet;
 		bool mbLoop;
+		bool isAlpha;
 
 	};
 }

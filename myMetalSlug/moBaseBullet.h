@@ -13,9 +13,9 @@ namespace mo {
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
 
-		virtual void OnCollisionEnter(class Collider* other, eLayerType otherType)override;
-		virtual void OnCollisionStay(class Collider* other, eLayerType otherType)override;
-		virtual void OnCollisionExit(class Collider* other, eLayerType otherType)override;
+		virtual void OnCollisionEnter(class Collider* other)override;
+		virtual void OnCollisionStay(class Collider* other)override;
+		virtual void OnCollisionExit(class Collider* other)override;
 
 		void SetDirection(eDirection direction) { mDirection = direction; }
 		void SetDir(Vector2 dir) { 

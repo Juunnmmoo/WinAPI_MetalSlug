@@ -59,21 +59,21 @@ namespace mo {
 
 		if (Intersect(leftCol, rightCol)) {
 			if (iter->second == false) {
-				leftCol->OnCollisionEnter(rightCol, right);
-				rightCol->OnCollisionEnter(leftCol, left);
+				leftCol->OnCollisionEnter(rightCol);
+				rightCol->OnCollisionEnter(leftCol);
 
 				iter->second = true;
 			}
 			else {
-				leftCol->OnCollisionStay(rightCol, right);
-				rightCol->OnCollisionStay(leftCol, left);
+				leftCol->OnCollisionStay(rightCol);
+				rightCol->OnCollisionStay(leftCol);
 			}
 		
 		}
 		else {
 			if (iter->second == true) {
-				leftCol->OnCollisionExit(rightCol, right);
-				rightCol->OnCollisionExit(leftCol, left);
+				leftCol->OnCollisionExit(rightCol );
+				rightCol->OnCollisionExit(leftCol );
 
 				iter->second = false;
 			}

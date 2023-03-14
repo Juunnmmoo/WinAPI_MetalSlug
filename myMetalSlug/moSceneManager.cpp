@@ -31,6 +31,10 @@ namespace mo {
 	{
 		mActiveScene->Render(mHdc);
 	}
+	void SceneManager::Destroy()
+	{
+		mActiveScene->Destroy();
+	}
 	void SceneManager::Release()
 	{
 		for (Scene* scene : mScenes) {

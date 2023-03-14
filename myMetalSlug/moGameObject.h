@@ -12,17 +12,17 @@ namespace mo {
 			Pause,
 			Death,
 		};
-		
+
 		GameObject();
 		virtual ~GameObject();
-		
+
 		virtual void Initialize();
 		virtual void Update();
 		virtual void Render(HDC mHdc);
 
-		virtual void OnCollisionEnter(class Collider* other, eLayerType otherType);
-		virtual void OnCollisionStay(class Collider* other, eLayerType otherType);
-		virtual void OnCollisionExit(class Collider* other, eLayerType otherType);
+		virtual void OnCollisionEnter(class Collider* other);
+		virtual void OnCollisionStay(class Collider* other);
+		virtual void OnCollisionExit(class Collider* other);
 
 		template<typename T>
 		T* AddComponent() {
@@ -32,6 +32,16 @@ namespace mo {
 			comp->SetOwner(this);
 
 			return comp;
+		}
+		template<typename T>
+		void DeleteComponent() {
+			T* comp = new T();
+			UINT compType = (UINT)comp->GetType();
+			delete mComponents[compType];
+			mComponents[compType] = nullptr;
+
+			delete comp;
+			comp = nullptr;
 		}
 
 		template<typename T>
@@ -48,9 +58,18 @@ namespace mo {
 		eState GetState() { return mState; }
 		void SetState(eState state) { mState = state; }
 
+		eLayerType GetLayerType() { return mLayerType; }
+		void SetLayerType(eLayerType type) { mLayerType = type; }
+
+		bool GetIsDeath() { return isDeath; }
+		void SetIsDeath(bool b) { isDeath = b; }
+
+
 	private:
 
 		std::vector<Component*> mComponents;
 		eState mState;
+		eLayerType mLayerType;
+		bool isDeath;
 	};
 }

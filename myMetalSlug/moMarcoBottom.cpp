@@ -145,12 +145,12 @@ namespace mo {
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			pos.x -= 150.0f * Time::DeltaTime();
+			pos.x -= 180.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::Right))
 		{
-			pos.x += 150.0f * Time::DeltaTime();
+			pos.x += 180.0f * Time::DeltaTime();
 		}
 		tr->SetPos(pos);
 

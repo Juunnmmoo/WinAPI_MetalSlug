@@ -13,6 +13,7 @@ namespace mo {
 		, mPos(Vector2::Zero)
 		, mSize(Vector2::One)
 		, mID(ColliderNumber++)
+		, colliderCheck(0)
 	{
 	}
 
@@ -24,6 +25,8 @@ namespace mo {
 
 	void Collider::Initialize()
 	{
+		Transform* tr = GetOwner()->GetComponent<Transform>();
+		mPos = tr->GetPos() + mLeftTopPos;
 	}
 
 	void Collider::Update()
@@ -34,7 +37,13 @@ namespace mo {
 
 	void Collider::Render(HDC mHdc)
 	{
-		HPEN pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+		HPEN pen = NULL;
+
+		if(colliderCheck<=0)
+			pen = CreatePen(BS_SOLID, 2, RGB(0, 255, 0));
+		else
+			pen = CreatePen(BS_SOLID, 2, RGB(255, 0, 255));
+
 		HPEN oldPen = (HPEN)SelectObject(mHdc, pen);
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(mHdc, brush);
@@ -45,18 +54,20 @@ namespace mo {
 		(HBRUSH)SelectObject(mHdc, oldBrush);
 		DeleteObject(pen);
 	}
-	void Collider::OnCollisionEnter(Collider* other, eLayerType otherType)
+	void Collider::OnCollisionEnter(Collider* other)
 	{
-		GetOwner()->OnCollisionEnter(other, otherType);
+		colliderCheck++;
+		GetOwner()->OnCollisionEnter(other);
 	}
 
-	void Collider::OnCollisionStay(Collider* other, eLayerType otherType)
+	void Collider::OnCollisionStay(Collider* other)
 	{
-		GetOwner()->OnCollisionStay(other, otherType);
+		GetOwner()->OnCollisionStay(other);
 	}
 
-	void Collider::OnCollisionExit(Collider* other, eLayerType otherType)
+	void Collider::OnCollisionExit(Collider* other)
 	{
-		GetOwner()->OnCollisionExit(other, otherType);
+		colliderCheck--;
+		GetOwner()->OnCollisionExit(other);
 	}
 }

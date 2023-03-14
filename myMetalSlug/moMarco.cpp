@@ -103,23 +103,27 @@ namespace mo {
 		GameObject::Render(mHdc);
 	}
 
-	void Marco::OnCollisionEnter(Collider* other, eLayerType otherType)
+
+
+	void Marco::OnCollisionEnter(Collider* other)
 	{
-		if (otherType == eLayerType::Monster)
+		if ( other->GetOwner()->GetLayerType() == eLayerType::Monster
+			&& other->GetOwner()->GetIsDeath() == false)
 			isKnife = true;
 	}
 
-	void Marco::OnCollisionStay(Collider* other, eLayerType otherType)
+	void Marco::OnCollisionStay(Collider* other)
 	{
-		
-
 	}
 
-	void Marco::OnCollisionExit(Collider* other, eLayerType otherType)
+	void Marco::OnCollisionExit(Collider* other)
 	{
-		if (otherType == eLayerType::Monster)
+		if (other->GetOwner()->GetLayerType() == eLayerType::Monster)
 			isKnife = false;
+	
 	}
+
+	
 
 	void Marco::move()
 	{
@@ -238,12 +242,12 @@ namespace mo {
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			pos.x -= 150.0f * Time::DeltaTime();
+			pos.x -= 180.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::Right))
 		{
-			pos.x += 150.0f * Time::DeltaTime();
+			pos.x += 180.0f * Time::DeltaTime();
 		}
 		tr->SetPos(pos);
 		

@@ -27,7 +27,8 @@ namespace mo {
 		std::vector<GameObject*>deleteGameObjects = {};
 		
 		for (Layer& layer : mLayers) {
-			std::vector<GameObject*>& gameObjects = layer.GetGameObjects();
+			std::vector<GameObject*>& gameObjects
+				= layer.GetGameObjects();
 
 			for (std::vector<GameObject*>::iterator iter = gameObjects.begin()
 				; iter != gameObjects.end() ; ) 
@@ -58,6 +59,7 @@ namespace mo {
 	}
 	void Scene::AddGameObject(GameObject* obj, eLayerType layerType)
 	{
+		obj->SetLayerType(layerType);
 		mLayers[(UINT)layerType].AddGameObject(obj);
 	}
 	std::vector<GameObject*>& Scene::GetGameObjects(eLayerType layer)

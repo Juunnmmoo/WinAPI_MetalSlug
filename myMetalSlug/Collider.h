@@ -9,9 +9,9 @@ namespace mo {
 		Collider() ;
 		virtual ~Collider();
 
-		void OnCollisionEnter(Collider* other, eLayerType otherType);
-		void OnCollisionStay(Collider* other, eLayerType otherType);
-		void OnCollisionExit(Collider* other, eLayerType otherType);
+		void OnCollisionEnter(Collider* other );
+		void OnCollisionStay(Collider* other);
+		void OnCollisionExit(Collider* other);
 
 		virtual void Initialize()override;
 		virtual void Update()override;
@@ -39,5 +39,6 @@ namespace mo {
 		Vector2 mSize;
 		static UINT ColliderNumber;
 		UINT mID;
+		int colliderCheck;
 	};
 }

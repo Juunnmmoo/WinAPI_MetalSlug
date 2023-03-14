@@ -68,18 +68,18 @@ namespace mo {
 
 		GameObject::Render(mHdc);
 	}
-	void BaseBullet::OnCollisionEnter(Collider* other, eLayerType otherType)
+	void BaseBullet::OnCollisionEnter(Collider* other)
 	{
-
-		if (otherType == eLayerType::Monster) 
+		if (other->GetOwner()->GetLayerType() == eLayerType::Monster
+			&& other->GetOwner()->GetIsDeath() == false)
 			object::Destory(this);
-		
-
 	}
-	void BaseBullet::OnCollisionStay(Collider* other, eLayerType otherType)
+
+	void BaseBullet::OnCollisionStay(Collider* other)
 	{
 	}
-	void BaseBullet::OnCollisionExit(Collider* other, eLayerType otherType)
+
+	void BaseBullet::OnCollisionExit(Collider* other)
 	{
 	}
 }

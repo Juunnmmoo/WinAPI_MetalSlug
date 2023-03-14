@@ -9,6 +9,7 @@ namespace mo {
 		static void Initialize();
 		static void Update();
 		static void Render(HDC mHdc);
+		static void Destroy();
 		static void Release();
 
 		static void LoadScene(eSceneType type);

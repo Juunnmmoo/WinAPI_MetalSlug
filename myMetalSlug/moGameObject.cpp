@@ -4,6 +4,8 @@
 namespace mo {
 	GameObject::GameObject()
 		: mState(eState::Active)
+		, mLayerType(eLayerType::End)
+		, isDeath(false)
 	{
 		mComponents.resize((UINT)eComponentType::End);
 		AddComponent<Transform>();
@@ -39,13 +41,13 @@ namespace mo {
 			comp->Render(mHdc);
 		}
 	}
-	void GameObject::OnCollisionEnter(Collider* other, eLayerType otherType)
+	void GameObject::OnCollisionEnter(Collider* other)
 	{
 	}
-	void GameObject::OnCollisionStay(Collider* other, eLayerType otherType)
+	void GameObject::OnCollisionStay(Collider* other)
 	{
 	}
-	void GameObject::OnCollisionExit(Collider* other, eLayerType otherType)
+	void GameObject::OnCollisionExit(Collider* other)
 	{
 	}
 }

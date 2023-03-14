@@ -74,20 +74,28 @@ namespace mo{
 		GameObject::Render(mHdc);
 	}
 
-	void Arabian::OnCollisionEnter(Collider* other, eLayerType otherType)
-	{
-		if(otherType == eLayerType::Bullet) {
-			mAnimator->Play(L"DeathL", false);
-		}
-			
+	void Arabian::OnCollisionEnter(Collider* other)
+	{	
 		
+
+		if (other->GetOwner()->GetLayerType() == eLayerType::Bullet
+			&& GetIsDeath() == false) {
+			mAnimator->Play(L"DeathL", false);
+			SetIsDeath(true);
+		}
 	}
 
-	void Arabian::OnCollisionStay(Collider* other, eLayerType otherType)
+	void Arabian::OnCollisionStay(Collider* other)
 	{
+		if (other->GetOwner()->GetLayerType() == eLayerType::Player
+			&& GetIsDeath() == false
+			&& Input::GetKeyDown(eKeyCode::D)) {
+			mAnimator->Play(L"DeathL", false);
+			SetIsDeath(true);
+		}
 	}
 
-	void Arabian::OnCollisionExit(Collider* other, eLayerType otherType)
+	void Arabian::OnCollisionExit(Collider* other)
 	{
 	}
 
@@ -108,6 +116,6 @@ namespace mo{
 	}
 	void Arabian::deathCompleteEvent()
 	{
-			object::Destory(this);
+		object::Destory(this);
 	}
 }

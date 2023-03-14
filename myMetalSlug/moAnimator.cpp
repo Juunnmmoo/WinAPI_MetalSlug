@@ -7,6 +7,7 @@ namespace mo {
 		, mSpriteSheet(nullptr)
 		, mbLoop(false)
 		, mPrevAnimation(nullptr)
+		, isAlpha(false)
 	{
 	}
 	Animator::~Animator()
@@ -55,7 +56,7 @@ namespace mo {
 	{
 		if (mActiveAnimation)
 		{
-			mActiveAnimation->Render(mHdc);
+			mActiveAnimation->Render(mHdc, isAlpha);
 		}
 	}
 	void Animator::CreateAnimation(const std::wstring& name, Image* sheet, Vector2 leftTop, float next, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
