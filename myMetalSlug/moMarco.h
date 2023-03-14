@@ -1,5 +1,6 @@
 #pragma once
 #include "moGameObject.h"
+#include "moMarcoBottom.h"
 
 namespace mo {
 	class Transform;
@@ -17,7 +18,7 @@ namespace mo {
 		};
 
 
-		Marco();
+		Marco(MarcoBottom* obj);
 		~Marco();
 
 		virtual void Initialize() override;
@@ -38,6 +39,7 @@ namespace mo {
 		void knifeCompleteEvent();
 
 	private:
+		MarcoBottom* bottom;
 		eMarcoState mState;
 		Animator* mAnimator;
 		Animation* mPrevAnimation;

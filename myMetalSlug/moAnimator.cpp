@@ -1,4 +1,5 @@
 #include "moAnimator.h"
+#include "moTime.h"
 
 namespace mo {
 	Animator::Animator()
@@ -8,6 +9,9 @@ namespace mo {
 		, mbLoop(false)
 		, mPrevAnimation(nullptr)
 		, isAlpha(false)
+		, alpha(255)
+		, mTime(0.0f)
+		, TimeCheck(0)
 	{
 	}
 	Animator::~Animator()
@@ -28,8 +32,32 @@ namespace mo {
 	}
 	void Animator::Update()
 	{
+		
+		if (Useinvincibility) {
+			mTime += Time::DeltaTime();
+
+			if (mTime >= 0.2f) {
+
+				mTime = 0.0f;
+				TimeCheck++;
+
+				if (TimeCheck % 2 == 0)
+					alpha = 255;
+				else
+					alpha = 100;
+			}
+
+			if (TimeCheck >= 10) {
+				Useinvincibility = false;
+				TimeCheck = 0;
+				alpha = 255;
+			}
+		}
+
 		if (mActiveAnimation)
 		{
+		
+			
 			mActiveAnimation->Update();
 		
 			if (mActiveAnimation->isComplete()) {
@@ -51,12 +79,13 @@ namespace mo {
 			
 		}
 		
+		
 	}
 	void Animator::Render(HDC mHdc)
 	{
 		if (mActiveAnimation)
 		{
-			mActiveAnimation->Render(mHdc, isAlpha);
+			mActiveAnimation->Render(mHdc, isAlpha, alpha);
 		}
 	}
 	void Animator::CreateAnimation(const std::wstring& name, Image* sheet, Vector2 leftTop, float next, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
@@ -149,4 +178,5 @@ namespace mo {
 		return events->mEndEvent.mEvent;
 		// TODO: 여기에 return 문을 삽입합니다.
 	}
+	
 }

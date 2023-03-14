@@ -40,8 +40,9 @@ namespace mo {
 
 		}
 	}
-	void Animation::Render(HDC mHdc, bool alpha)
+	void Animation::Render(HDC mHdc, bool isAlpha,int alpha)
 	{
+
 		Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
 		Vector2 scale = tr->GetScale();
 
@@ -57,7 +58,7 @@ namespace mo {
 
 		// 메인 캐릭터 sprite는 바닥부터 상체값을 없애고 출력해야하기 때문에
 		pos.y += +(PlayerTopDiff.y * scale.y);
-		if (alpha == false) {
+		if (isAlpha == false) {
 			TransparentBlt(mHdc, pos.x, pos.y
 				, mSpriteSheet[mSpriteIndex].size.x * scale.x
 				, mSpriteSheet[mSpriteIndex].size.y * scale.y
@@ -72,7 +73,7 @@ namespace mo {
 			func.BlendOp = AC_SRC_OVER;
 			func.BlendFlags = 0;
 			func.AlphaFormat = AC_SRC_ALPHA;
-			func.SourceConstantAlpha = 255; // 0(투명) ~ 255(불투명) 알파값
+			func.SourceConstantAlpha = alpha; // 0(투명) ~ 255(불투명) 알파값
 
 			AlphaBlend(mHdc, pos.x, pos.y
 				, mSpriteSheet[mSpriteIndex].size.x * scale.x

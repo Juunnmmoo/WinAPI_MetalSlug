@@ -25,7 +25,7 @@ namespace mo
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
 
-		Marco* marco = new Marco();
+		Marco* marco = new Marco(marcoBottom);
 		AddGameObject(marco, eLayerType::Player);
 
 		Arabian* arabian = new Arabian();

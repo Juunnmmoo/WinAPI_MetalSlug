@@ -22,6 +22,7 @@ namespace mo {
 		Image* mImageR = Resources::Load<Image>(L"MarcoBottomRight", L"..\\Resources\\MarcoBottomRight.bmp");
 		Image* mImageL = Resources::Load<Image>(L"MarcoBottomLeft", L"..\\Resources\\MarcoBottomLeft.bmp");
 		mAnimator = AddComponent<Animator>();
+		mAnimator->SetAlpha(true);
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		tr->SetPos(Vector2{ 100.0f, 600.0f });

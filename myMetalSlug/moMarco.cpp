@@ -11,11 +11,12 @@
 #include "moScene.h"
 
 namespace mo {
-	Marco::Marco()
+	Marco::Marco(MarcoBottom* obj)
 		: isKnife(false)
 		, mPrevAnimation(nullptr)
 		, mAnimator(nullptr)
 		, mState(eMarcoState::Idle)
+		, bottom(obj)
 	{
 	}
 	Marco::~Marco()
@@ -26,6 +27,7 @@ namespace mo {
 		Image* mImageR = Resources::Load<Image>(L"MarcoTopRight", L"..\\Resources\\MarcoTopRight.bmp");
 		Image* mImageL = Resources::Load<Image>(L"MarcoTopLeft", L"..\\Resources\\MarcoTopLeft.bmp");
 		mAnimator = AddComponent<Animator>();
+		mAnimator->SetAlpha(true);
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		tr->SetPos(Vector2{ 100.0f, 560.0f });
@@ -110,6 +112,12 @@ namespace mo {
 		if ( other->GetOwner()->GetLayerType() == eLayerType::Monster
 			&& other->GetOwner()->GetIsDeath() == false)
 			isKnife = true;
+
+		if (other->GetOwner()->GetLayerType() == eLayerType::Monster
+			&& other->GetOwner()->GetIsDeath() == false) {
+			mAnimator->SetUseinvincibility(true);
+			bottom->GetAnimator()->SetUseinvincibility(true);
+		}
 	}
 
 	void Marco::OnCollisionStay(Collider* other)
@@ -120,6 +128,8 @@ namespace mo {
 	{
 		if (other->GetOwner()->GetLayerType() == eLayerType::Monster)
 			isKnife = false;
+
+	
 	
 	}
 

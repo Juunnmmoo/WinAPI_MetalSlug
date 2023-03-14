@@ -54,6 +54,8 @@ namespace mo {
 
 		void SetAlpha(bool b) { isAlpha = b; }
 
+		void SetUseinvincibility(bool b) { Useinvincibility = b; }
+
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map < std::wstring, Events* > mEvents;
@@ -62,6 +64,9 @@ namespace mo {
 		Image* mSpriteSheet;
 		bool mbLoop;
 		bool isAlpha;
-
+		bool Useinvincibility;
+		int alpha;
+		float mTime;
+		int TimeCheck;
 	};
 }

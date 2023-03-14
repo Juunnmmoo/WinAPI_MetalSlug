@@ -24,6 +24,8 @@ namespace mo {
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
 
+		Animator* GetAnimator() { return mAnimator; }
+
 	private:
 		void move();
 		void shoot();
