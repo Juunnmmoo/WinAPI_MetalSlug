@@ -9,6 +9,8 @@
 #include "Collider.h"
 #include "moBaseBullet.h"
 #include "moScene.h"
+#include "moCamera.h"
+#include "moRigidBody.h"
 
 namespace mo {
 	Marco::Marco(MarcoBottom* obj)
@@ -29,12 +31,30 @@ namespace mo {
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->SetAlpha(true);
+
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 100.0f, 560.0f });
+		tr->SetPos(Vector2{ 100.0f, 100.0f });
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetTopDiff(Vector2{ 0.0f, 50.0f });
-		
+
+		Transform* bottomTr;
+		bottomTr = bottom->GetComponent<Transform>();
+		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
+		bottomTr->SetScale(Vector2{ 3.0f, 3.0f });
+		bottomTr->SetTopDiff(Vector2{ 0.0f, 50.0f });
+
+		Collider* mCollider = AddComponent<Collider>();
+		mCollider->SetSize(Vector2{ 60.0f, 110.0f });
+		mCollider->SetLeftTop(Vector2{ -30.50f, -70.0f });
+
+		mRigidbody = AddComponent<RigidBody>();
+		mRigidbody->SetMass(1.0f);
+
+		/*bottomRigidBody = bottom->AddComponent<RigidBody>();
+		bottomRigidBody->SetMass(1.0f);*/
+
+
 		// Coulmn : 행	row : 열
 		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
 		mAnimator->CreateAnimation(L"IdleRT", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
@@ -72,10 +92,9 @@ namespace mo {
 		mAnimator->Play(L"IdleR", true);
 		//mAnimatorL->Play(L"IdleL", true);
 	
-		Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2{60.0f, 110.0f});
-		mCollider->SetLeftTop(Vector2{ -30.50f, -70.0f });
 		
+
+
 		GameObject::Initialize();
 	}
 	void Marco::Update()
@@ -97,6 +116,9 @@ namespace mo {
 			break;
 		case mo::Marco::eMarcoState::Sit:
 			sit();
+			break;
+		case mo::Marco::eMarcoState::Jump:
+			Jump();
 		default:
 			break;
 		}
@@ -144,7 +166,9 @@ namespace mo {
 		eDirection mDirection = tr->GetDirection();
 		Vector2 pos = tr->GetPos();
 
-
+		Transform* bottomTr;
+		bottomTr = bottom->GetComponent<Transform>();
+		
 		// 좌우 애니메이션
 
 		if (Input::GetKey(eKeyCode::Right)) {
@@ -209,6 +233,18 @@ namespace mo {
 			}
 		}
 		
+		if (Input::GetKeyNone(eKeyCode::Right))
+			if (Input::GetKeyDown(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"MoveL", true);
+			}
+		if (Input::GetKeyNone(eKeyCode::Left))
+			if (Input::GetKeyDown(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"MoveR", true);
+			}
+
+
 		tr->SetDirection(mDirection);
 
 
@@ -229,6 +265,17 @@ namespace mo {
 		if (Input::GetKeyDown(eKeyCode::Down)) {
 			mAnimator->Play(L"None", false);
 			mState = eMarcoState::Sit;
+		}
+
+		//Junp
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= 700.0f;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+			//mState = eMarcoState::Jump;
 		}
 
 		// Shooting
@@ -265,7 +312,8 @@ namespace mo {
 			pos.x += 180.0f * Time::DeltaTime();
 		}
 		tr->SetPos(pos);
-		
+		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
+
 
 	}
 	void Marco::shoot()
@@ -280,6 +328,9 @@ namespace mo {
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
+
+		Transform* bottomTr;
+		bottomTr = bottom->GetComponent<Transform>();
 
 		// To move
 		if (Input::GetKey(eKeyCode::Up)) {
@@ -332,6 +383,7 @@ namespace mo {
 			mAnimator->Play(L"IdleL", true);
 		}
 		tr->SetDirection(mDirection);
+		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
 
 
 		// To Sit
@@ -339,6 +391,18 @@ namespace mo {
 			mAnimator->Play(L"None", false);
 			mState = eMarcoState::Sit;
 		}
+		
+		//Junp
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= 700.0f;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+			//mState = eMarcoState::Jump;
+		}
+
 
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)) {
@@ -369,6 +433,9 @@ namespace mo {
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
 		Vector2 pos = tr->GetPos();
+
+		Transform* bottomTr;
+		bottomTr = bottom->GetComponent<Transform>();
 
 		//이동중
 		if (Input::GetKey(eKeyCode::Left)) {
@@ -412,6 +479,19 @@ namespace mo {
 		}		
 		tr->SetPos(pos);
 		tr->SetDirection(mDirection);
+		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
+
+		//Junp
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= 700.0f;
+
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+			//mState = eMarcoState::Jump;
+		}
+
 
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)
@@ -438,6 +518,13 @@ namespace mo {
 		}
 
 		
+
+	}
+
+	void Marco::Jump()
+	{
+
+
 
 	}
 	
@@ -477,6 +564,9 @@ namespace mo {
 		}
 		//Transform* tr;
 		//tr = GetComponent<Transform>();
+		
+		//카메라 좌표
+		//bullet->GetComponent<Transform>()->SetPos(Camera::CaluatePos(tr->GetPos()));
 		bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
 		curScene->AddGameObject(bullet, eLayerType::Bullet);
 		bullet->Initialize();

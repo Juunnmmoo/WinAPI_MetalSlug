@@ -1,7 +1,7 @@
 #include "Collider.h"
 #include "moGameObject.h"
 #include "moTransform.h"
-
+#include "moCamera.h"
 
 namespace mo {
 
@@ -48,7 +48,11 @@ namespace mo {
 		HBRUSH brush = (HBRUSH)GetStockObject(NULL_BRUSH);
 		HBRUSH oldBrush = (HBRUSH)SelectObject(mHdc, brush);
 
-		Rectangle(mHdc, mPos.x, mPos.y, mPos.x + mSize.x, mPos.y + mSize.y);
+		// Ä«¸Þ¶ó
+		Vector2 pos = Camera::CaluatePos(mPos);
+		Rectangle(mHdc, pos.x, pos.y, pos.x + mSize.x, pos.y + mSize.y);
+		
+		//Rectangle(mHdc, mPos.x, mPos.y, mPos.x + mSize.x, mPos.y + mSize.y);
 
 		(HPEN)SelectObject(mHdc, oldPen);
 		(HBRUSH)SelectObject(mHdc, oldBrush);

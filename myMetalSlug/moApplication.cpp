@@ -46,7 +46,7 @@ namespace mo {
 		Input::Initialize();
 		Time::Initizlize();
 		SceneManager::Initialize();
-		//Camera::Initialize();
+		Camera::Initialize();
 	}
 	void Application::Run()
 	{
@@ -59,7 +59,7 @@ namespace mo {
 
 		Input::Update();
 		Time::Update();
-		//Camera::Update();
+		Camera::Update();
 
 		SceneManager::Update();
 		CollisionManager::Update();
@@ -73,6 +73,7 @@ namespace mo {
 		Input::Render(mBackHdc);
 		Time::Render(mBackHdc);
 		SceneManager::Render(mBackHdc);
+		Camera::Render(mBackHdc);
 
 		// 백버퍼에 있는 그림을 원본버퍼에 그려줘야한다.
 		BitBlt(mHdc, 0, 0, mWidth, mHeight, mBackHdc, 0, 0, SRCCOPY);

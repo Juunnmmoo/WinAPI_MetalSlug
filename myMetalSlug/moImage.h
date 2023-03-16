@@ -8,6 +8,8 @@ namespace mo {
 		Image();
 		~Image();
 
+		static Image* Create(const std::wstring& name, UINT width, UINT height, COLORREF rgb = RGB(255, 255, 255));
+
 		virtual HRESULT Load(const std::wstring& path) override;
 
 		HDC GetHdc() { return mHdc; }

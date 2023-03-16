@@ -3,7 +3,7 @@
 #include "moMarcoBottom.h"
 
 namespace mo {
-	class Transform;
+	class RigidBody;
 	class Animator;
 	class Animation;
 	class Marco : public GameObject
@@ -16,6 +16,7 @@ namespace mo {
 			Death,
 			Idle,
 			Sit,
+			Jump,
 		};
 
 
@@ -36,6 +37,7 @@ namespace mo {
 		void death();
 		void idle();
 		void sit();
+		void Jump();
 
 		void shootStartEvent();
 		void knifeCompleteEvent();
@@ -45,6 +47,8 @@ namespace mo {
 		eMarcoState mState;
 		Animator* mAnimator;
 		Animation* mPrevAnimation;
+		RigidBody* mRigidbody;
+		RigidBody* bottomRigidBody;
 		bool isKnife;
 	};
 }

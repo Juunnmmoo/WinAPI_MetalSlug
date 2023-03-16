@@ -35,6 +35,13 @@ namespace mo {
 			return dynamic_cast<T*>(resource);
 
 		}
+		template <typename T>
+		static void Insert(const std::wstring& key, T* resource)
+		{
+			mResources.insert(std::make_pair(key, resource));
+		}
+
+
 		static void Release() {
 			for (auto pair : mResources) {
 				delete pair.second;

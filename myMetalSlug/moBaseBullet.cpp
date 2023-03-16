@@ -6,13 +6,14 @@
 #include "Collider.h"
 #include "moObject.h"
 #include "moInput.h"
+#include "moCamera.h"
 
 namespace mo {
 	BaseBullet::BaseBullet() 
 		: mDirection(eDirection::Right)
 		, mDir(Vector2(5.0f, 0.0f))
 	{
-		mDir.Nomalize();
+		mDir.Normalize();
 	}
 	BaseBullet::~BaseBullet()
 	{
@@ -44,6 +45,7 @@ namespace mo {
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
+		//Vector2 pos = Camera::CaluatePos(tr->GetPos());
 
 		/*if(mDirection == eDirection::Right)
 			pos.x += 1200.0f * Time::DeltaTime();
@@ -63,7 +65,10 @@ namespace mo {
 	void BaseBullet::Render(HDC mHdc)
 	{
 		Transform* tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();
+		//Vector2 pos = tr->GetPos();
+		Vector2 pos = Camera::CaluatePos(tr->GetPos());
+
+
 		if (mDirection == eDirection::Right)
 			TransparentBlt(mHdc, pos.x + 50.0f, pos.y - 50.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
 		else if (mDirection == eDirection::Left)

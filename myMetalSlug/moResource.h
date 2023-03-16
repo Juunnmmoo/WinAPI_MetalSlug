@@ -10,13 +10,13 @@ namespace mo {
 
 		virtual HRESULT Load(const std::wstring& path) = 0;
 
-		const std::wstring& GetName() { return mName; }
+		const std::wstring& GetKey() { return mKey; }
 		const std::wstring& GetPath() { return mPath; }
-		void SetName(const std::wstring& name) { mName = name; }
+		void SetKey(const std::wstring& name) { mKey = name; }
 		void SetPath(const std::wstring& path) { mPath = path; }
 
 	private:
-		std::wstring mName;
+		std::wstring mKey;
 		std::wstring mPath;
 	};
 }

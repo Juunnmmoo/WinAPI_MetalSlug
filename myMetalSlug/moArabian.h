@@ -17,7 +17,7 @@ namespace mo {
 		};
 
 
-		Arabian();
+		Arabian(Vector2 pos);
 		~Arabian();
 
 		virtual void Initialize() override;
@@ -36,9 +36,9 @@ namespace mo {
 		void idle();
 
 		void deathCompleteEvent();
-		void knifeCompleteEvent();
 
 	private:
+		Vector2 mPos;
 		eMarcoState mState;
 		Animator* mAnimator;
 	};

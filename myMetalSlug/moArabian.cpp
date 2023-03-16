@@ -12,10 +12,8 @@
 #include "moObject.h"
 
 namespace mo{
-	
-
-
-	Arabian::Arabian()
+	Arabian::Arabian(Vector2 pos)
+		:mPos (pos)
 	{
 	}
 
@@ -31,13 +29,14 @@ namespace mo{
 		
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 700.0f, 600.0f });
+		//tr->SetPos(Vector2{ 700.0f, 600.0f });
+		tr->SetPos( mPos);
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetTopDiff(Vector2{ 0.0f, 40.0f });
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 20, 15, 6, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"DeathL", mImageL, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 20, 15, 11, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"DeathL", mImageL, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 20, 15, 11, Vector2::Zero, 0.07);
 
 		mAnimator->GetCompleteEvent(L"DeathL") = std::bind(&Arabian::deathCompleteEvent, this);
 

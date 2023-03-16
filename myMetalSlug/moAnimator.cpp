@@ -32,7 +32,7 @@ namespace mo {
 	}
 	void Animator::Update()
 	{
-		
+
 		if (Useinvincibility) {
 			mTime += Time::DeltaTime();
 
@@ -46,8 +46,7 @@ namespace mo {
 				else
 					alpha = 100;
 			}
-
-			if (TimeCheck >= 10) {
+			if (TimeCheck >= 12) {
 				Useinvincibility = false;
 				TimeCheck = 0;
 				alpha = 255;
@@ -56,13 +55,13 @@ namespace mo {
 
 		if (mActiveAnimation)
 		{
-		
-			
+
+
 			mActiveAnimation->Update();
-		
+
 			if (mActiveAnimation->isComplete()) {
-			
-			
+
+
 				if (mbLoop == false)
 				{
 					Animator::Events* events = FindEvents(mActiveAnimation->GetName());
@@ -73,13 +72,13 @@ namespace mo {
 				else {
 
 					mActiveAnimation->Reset();
-				
+
 				}
 			}
-			
+
 		}
-		
-		
+
+
 	}
 	void Animator::Render(HDC mHdc)
 	{
@@ -101,7 +100,7 @@ namespace mo {
 		animation->SetAnimator(this);
 
 		mAnimations.insert(std::make_pair(name, animation));
-		
+
 		Events* event = new Events();
 		mEvents.insert(std::make_pair(name, event));
 	}
@@ -124,10 +123,10 @@ namespace mo {
 
 			//이전 애니메이션이 뭔지알려줌
 			mPrevAnimation = mActiveAnimation;
-			
+
 			Animator::Events* prevEvents = FindEvents(mActiveAnimation->GetName());
 
-			if(prevEvents != nullptr)
+			if (prevEvents != nullptr)
 				prevEvents->mEndEvent();
 		}
 
@@ -153,7 +152,7 @@ namespace mo {
 	{
 		Animation* animation = FindAnimation(name);
 
-		Events* events= FindEvents(animation->GetName());
+		Events* events = FindEvents(animation->GetName());
 
 		return events->mStartEvent.mEvent;
 
@@ -178,5 +177,5 @@ namespace mo {
 		return events->mEndEvent.mEvent;
 		// TODO: 여기에 return 문을 삽입합니다.
 	}
-	
+
 }

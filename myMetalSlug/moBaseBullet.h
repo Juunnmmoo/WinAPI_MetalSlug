@@ -20,7 +20,7 @@ namespace mo {
 		void SetDirection(eDirection direction) { mDirection = direction; }
 		void SetDir(Vector2 dir) { 
 			mDir = dir;
-			mDir.Nomalize();
+			mDir.Normalize();
 		}
 
 	private:

@@ -23,11 +23,7 @@ namespace mo {
 		Image* mImageL = Resources::Load<Image>(L"MarcoBottomLeft", L"..\\Resources\\Player\\MarcoBottomLeft.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->SetAlpha(true);
-		Transform* tr;
-		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 100.0f, 600.0f });
-		tr->SetScale(Vector2{ 3.0f, 3.0f });
-		tr->SetTopDiff(Vector2{ 0.0f, 50.0f });
+		
 
 		// Coulmn : 행	row : 열
 		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 15, 15, 1, Vector2::Zero, 0.1);
@@ -49,12 +45,10 @@ namespace mo {
 		mAnimator->CreateAnimation(L"SitShootL", mImageL, Vector2(120.0f * 14, 120.0f * 6), -120.0f, 15, 15, 10, Vector2::Zero, 0.07);
 
 		mAnimator->Play(L"IdleR", true);
-		//mAnimatorL->Play(L"IdleL", true);
+		
 		mState = eMarcoState::Idle;
 
-		/*Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2{ 60.0f, 70.0f });
-		mCollider->SetLeftTop(Vector2{ -30.50f, -70.0f });*/
+
 
 		GameObject::Initialize();
 	}
@@ -96,9 +90,6 @@ namespace mo {
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
-		Vector2 pos = tr->GetPos();
-
-		
 
 		// 좌우 애니메이션
 		if (Input::GetKey(eKeyCode::Right)) {
@@ -123,6 +114,17 @@ namespace mo {
 			}
 		}
 		
+		if (Input::GetKeyNone(eKeyCode::Right))
+			if (Input::GetKeyDown(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"MoveL", true);
+			}
+		if (Input::GetKeyNone(eKeyCode::Left))
+			if (Input::GetKeyDown(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"MoveR", true);
+			}
+
 		tr->SetDirection(mDirection);
 
 
@@ -149,21 +151,6 @@ namespace mo {
 			mState = eMarcoState::Sit;
 			
 		}
-
-
-		Animator* mAnimator = GetComponent<Animator>();
-
-		if (Input::GetKey(eKeyCode::Left))
-		{
-			pos.x -= 180.0f * Time::DeltaTime();
-		}
-
-		if (Input::GetKey(eKeyCode::Right))
-		{
-			pos.x += 180.0f * Time::DeltaTime();
-		}
-		tr->SetPos(pos);
-
 
 	}
 	void MarcoBottom::shoot()
@@ -213,7 +200,6 @@ namespace mo {
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
-		Vector2 pos = tr->GetPos();
 	
 		// 넘어 왔을때
 		if ((mAnimator->GetActiveAnimation()->GetName() == L"ReadySitL" || mAnimator->GetActiveAnimation()->GetName() == L"ReadySitR")
@@ -234,7 +220,6 @@ namespace mo {
 
 		//이동중
 		if (Input::GetKey(eKeyCode::Right)) {
-			pos.x += 80.0f * Time::DeltaTime();
 			mDirection = eDirection::Right;
 
 			if (Input::GetKeyUp(eKeyCode::Down)) {
@@ -250,7 +235,6 @@ namespace mo {
 
 		}
 		if (Input::GetKey(eKeyCode::Left)) {
-			pos.x -= 80.0f * Time::DeltaTime();
 			mDirection = eDirection::Left;
 
 			if (Input::GetKeyUp(eKeyCode::Down)) {
@@ -294,7 +278,6 @@ namespace mo {
 		}
 
 
-		tr->SetPos(pos);
 		tr->SetDirection(mDirection);
 
 		if (Input::GetKeyDown(eKeyCode::D)

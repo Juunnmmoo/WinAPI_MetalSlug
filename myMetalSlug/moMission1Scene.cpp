@@ -9,6 +9,8 @@
 #include "moComponent.h"
 #include "moArabian.h"
 #include "moObject.h"
+#include "moCamera.h"
+#include "moTitleBG.h"
 
 namespace mo
 {
@@ -28,11 +30,19 @@ namespace mo
 		Marco* marco = new Marco(marcoBottom);
 		AddGameObject(marco, eLayerType::Player);
 
-		Arabian* arabian = new Arabian();
+		Arabian* arabian = new Arabian(Vector2(1200.0f, 600.0f));
 		AddGameObject(arabian, eLayerType::Monster);
 
+		/*Arabian* arabian1 = new Arabian(Vector2(800.0f, 600.0f));
+		AddGameObject(arabian1, eLayerType::Monster);
+
+		Arabian* arabian2 = new Arabian(Vector2(50.0f, 600.0f));
+		AddGameObject(arabian2, eLayerType::Monster);*/
+
 		Mission1BG* mission1BG = new Mission1BG();
-		AddGameObject(mission1BG, eLayerType::BG);
+		AddGameObject(mission1BG, eLayerType::BG03);
+	
+		Camera::SetTarget(marco);
 
 		Scene::Initialize();
 
@@ -53,6 +63,7 @@ namespace mo
 	}
 	void Mission1Scene::OnEnter()
 	{
+
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Bullet, true);

@@ -49,9 +49,10 @@ namespace mo {
 		Vector2 PlayerTopDiff = tr->GetTopDiff();
 
 		Vector2 pos = tr->GetPos();
-	
-		//카메라 넣을떄 주석 풀기
-		//pos = Camera::CaluatePos(pos);
+
+		// 카메라 좌표로 설정
+		pos = Camera::CaluatePos(pos);
+		
 		pos += mSpriteSheet[mSpriteIndex].offSet;
 		pos.x -= (mSpriteSheet[mSpriteIndex].size.x * scale.x) / 2;
 		pos.y -= (mSpriteSheet[mSpriteIndex].size.x * scale.y);
