@@ -67,7 +67,10 @@ namespace mo {
 		mAnimator->CreateAnimation(L"ShootL", mImageL, Vector2(120.0f * 29, 120.0f * 1), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"ShootLT", mImageL, Vector2(120.0f * 29, 120.0f * 5), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
 
+		mAnimator->CreateAnimation(L"ShootRB", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"ShootLB", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
+		
 		mAnimator->CreateAnimation(L"KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
@@ -76,14 +79,24 @@ namespace mo {
 
 		mAnimator->CreateAnimation(L"None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
 
+		mAnimator->CreateAnimation(L"JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 6), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
-
+		mAnimator->CreateAnimation(L"JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"JumpMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 7), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 		
+		mAnimator->CreateAnimation(L"JumpDownR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 30, 60, 3, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"JumpDownL", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 60, 3, Vector2::Zero, 0.07);
+
+
+
 
 		mAnimator->GetStartEvent(L"ShootR") = std::bind(&Marco::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"ShootL") = std::bind(&Marco::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"ShootRT") = std::bind(&Marco::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"ShootLT") = std::bind(&Marco::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"ShootRB") = std::bind(&Marco::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"ShootLB") = std::bind(&Marco::shootStartEvent, this);
 
 		mAnimator->GetCompleteEvent(L"KnifeR") = std::bind(&Marco::knifeCompleteEvent, this);
 		mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Marco::knifeCompleteEvent, this);
@@ -270,12 +283,17 @@ namespace mo {
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
+			if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"JumpMoveR", false);
+			if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"JumpMoveL", false);
+
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
 
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
-			//mState = eMarcoState::Jump;
+			mState = eMarcoState::Jump;
 		}
 
 		// Shooting
@@ -298,9 +316,6 @@ namespace mo {
 					mAnimator->Play(L"ShootLT", false);
 			}
 		}
-
-
-		Animator* mAnimator = GetComponent<Animator>();
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
@@ -395,12 +410,17 @@ namespace mo {
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
+			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+				mAnimator->Play(L"JumpIdleR", false);
+			if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+				mAnimator->Play(L"JumpIdleL", false);
+
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
 
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
-			//mState = eMarcoState::Jump;
+			mState = eMarcoState::Jump;
 		}
 
 
@@ -484,14 +504,23 @@ namespace mo {
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
+			if (mDirection == eDirection::Right){
+				mDirection = eDirection::RBottom;
+				mAnimator->Play(L"JumpDownR", false);
+			}
+			if (mDirection == eDirection::Left) {
+				mDirection = eDirection::LBottom;
+				mAnimator->Play(L"JumpDownL", false);
+			}
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
 
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
-			//mState = eMarcoState::Jump;
+			tr->SetDirection(mDirection);
+			mState = eMarcoState::Jump;
 		}
-
+	
 
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)
@@ -524,7 +553,141 @@ namespace mo {
 	void Marco::Jump()
 	{
 
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		eDirection mDirection = tr->GetDirection();
+		Vector2 pos = tr->GetPos();
 
+		Transform* bottomTr;
+		bottomTr = bottom->GetComponent<Transform>();
+
+		//Junp
+		if (mRigidbody->GetGround())
+		{
+			if (Input::GetKey(eKeyCode::Left))
+			{
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"MoveL", true);
+			}
+
+			if (Input::GetKey(eKeyCode::Right))
+			{
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"MoveR", true);
+			}
+			bottom->SetIsJump(false);
+			mState = eMarcoState::Move;
+		}
+
+		if (Input::GetKeyDown(eKeyCode::Down)) {
+			if (mDirection == eDirection::Right) {
+				mDirection = eDirection::RBottom;
+				mAnimator->Play(L"JumpDownR", false);
+			}
+			if (mDirection == eDirection::Left){
+				mDirection = eDirection::LBottom;
+				mAnimator->Play(L"JumpDownL", false);
+			}
+		}
+
+		if (Input::GetKeyUp(eKeyCode::Down)) {
+			if (mDirection == eDirection::RBottom){
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"JumpIdleR", false);
+			}
+			if (mDirection == eDirection::LBottom) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"JumpIdleL", false);
+			}
+		}
+
+
+		if (Input::GetKey(eKeyCode::Right)) {
+			
+			if (Input::GetKeyUp(eKeyCode::Left)) {
+				if (mDirection == eDirection::RTop || mDirection == eDirection::LTop) {
+					mDirection = eDirection::RTop;
+				}
+				else if (mDirection == eDirection::Right || mDirection == eDirection::Left) {
+					mDirection = eDirection::Right;
+				}
+			}
+			if (Input::GetKeyDown(eKeyCode::Up)) {
+				mDirection = eDirection::RTop;
+			}
+			if (Input::GetKeyUp(eKeyCode::Up)) {
+				mDirection = eDirection::Right;
+			}
+
+		}
+		if (Input::GetKey(eKeyCode::Left)) {
+			if (Input::GetKeyUp(eKeyCode::Right)) {
+				if (mDirection == eDirection::RTop || mDirection == eDirection::LTop) {
+					mDirection = eDirection::LTop;
+				}
+				else if (mDirection == eDirection::Right || mDirection == eDirection::Left) {
+					mDirection = eDirection::Left;
+				}
+			}
+			if (Input::GetKeyDown(eKeyCode::Up)) {
+				mDirection = eDirection::LTop;
+			}
+			if (Input::GetKeyUp(eKeyCode::Up)) {
+				mDirection = eDirection::Left;
+			}
+		}
+
+		if (Input::GetKeyNone(eKeyCode::Right))
+			if (Input::GetKeyDown(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+			}
+		if (Input::GetKeyNone(eKeyCode::Left))
+			if (Input::GetKeyDown(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+			}
+
+
+
+		if (Input::GetKeyDown(eKeyCode::D)) {
+
+			if (isKnife) {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"KnifeR", false);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"KnifeL", false);
+			}
+			else {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"ShootR", false);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"ShootL", false);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"ShootRT", false);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"ShootLT", false);
+				else if (mDirection == eDirection::RBottom)
+					mAnimator->Play(L"ShootRB", false);
+				else if (mDirection == eDirection::LBottom)
+					mAnimator->Play(L"ShootLB", false);
+			}
+		}
+
+
+
+
+		if (Input::GetKey(eKeyCode::Left))
+		{
+			pos.x -= 180.0f * Time::DeltaTime();
+		}
+
+		if (Input::GetKey(eKeyCode::Right))
+		{
+			pos.x += 180.0f * Time::DeltaTime();
+		}
+
+		tr->SetPos(pos);
+		tr->SetDirection(mDirection);
+		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
 
 	}
 	
@@ -561,6 +724,14 @@ namespace mo {
 		else if (mDirection == eDirection::LSit) {
 			bullet->SetDirection(eDirection::LSit);
 			bullet->SetDir(Vector2{ -5.0f, 0.0f });
+		}
+		else if (mDirection == eDirection::RBottom) {
+			bullet->SetDirection(eDirection::Bottom);
+			bullet->SetDir(Vector2{ 0.0f, 5.0f });
+		}
+		else if (mDirection == eDirection::LBottom) {
+			bullet->SetDirection(eDirection::Bottom);
+			bullet->SetDir(Vector2{ 0.0f, 5.0f });
 		}
 		//Transform* tr;
 		//tr = GetComponent<Transform>();

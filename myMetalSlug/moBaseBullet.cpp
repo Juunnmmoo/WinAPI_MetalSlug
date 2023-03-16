@@ -36,7 +36,8 @@ namespace mo {
 			mCollider->SetLeftTop(Vector2{ -50.0f, -10.0f });
 		else if (mDirection == eDirection::RSit)
 			mCollider->SetLeftTop(Vector2{ +50.0f, -10.0f });
-
+		else if (mDirection == eDirection::Bottom)
+			mCollider->SetLeftTop(Vector2{ -5.0f, 90.0f });
 
 		GameObject::Initialize();
 
@@ -79,7 +80,8 @@ namespace mo {
 			TransparentBlt(mHdc, pos.x + 50.0f, pos.y - 10.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
 		else if (mDirection == eDirection::LSit)
 			TransparentBlt(mHdc, pos.x - 50.0f, pos.y - 10.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
-
+		else if (mDirection == eDirection::Bottom)
+			TransparentBlt(mHdc, pos.x - 5.0f, pos.y + 90.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
 		GameObject::Render(mHdc);
 	}
 	void BaseBullet::OnCollisionEnter(Collider* other)

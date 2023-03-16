@@ -16,9 +16,10 @@ namespace mo {
 		void AddForce(Vector2 force);
 
 		void SetGround(bool b) { mbGround = b; }
+		bool GetGround() { return mbGround; }
+
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
 		Vector2 GetVelocity() { return mVelocity; }
-
 
 	private:
 		float mMass;

@@ -12,6 +12,7 @@
 
 namespace mo {
 	MarcoBottom::MarcoBottom()
+		: isJump(false)
 	{
 	}
 	MarcoBottom::~MarcoBottom()
@@ -23,7 +24,7 @@ namespace mo {
 		Image* mImageL = Resources::Load<Image>(L"MarcoBottomLeft", L"..\\Resources\\Player\\MarcoBottomLeft.bmp");
 		mAnimator = AddComponent<Animator>();
 		mAnimator->SetAlpha(true);
-		
+
 
 		// Coulmn : 행	row : 열
 		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 15, 15, 1, Vector2::Zero, 0.1);
@@ -44,8 +45,15 @@ namespace mo {
 		mAnimator->CreateAnimation(L"SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 15, 15, 10, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"SitShootL", mImageL, Vector2(120.0f * 14, 120.0f * 6), -120.0f, 15, 15, 10, Vector2::Zero, 0.07);
 
+		mAnimator->CreateAnimation(L"JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 15, 15, 6, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"JumpIdleL", mImageL, Vector2(120.0f * 14, 120.0f * 7), -120.0f, 15, 15, 6, Vector2::Zero, 0.15);
+
+		mAnimator->CreateAnimation(L"JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 15, 15, 6, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"JumpMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 8), -120.0f, 15, 15, 6, Vector2::Zero, 0.15);
+
+
 		mAnimator->Play(L"IdleR", true);
-		
+
 		mState = eMarcoState::Idle;
 
 
@@ -71,6 +79,10 @@ namespace mo {
 			break;
 		case mo::MarcoBottom::eMarcoState::Sit:
 			sit();
+			break;
+		case mo::MarcoBottom::eMarcoState::Jump:
+			jump();
+			break;
 		default:
 			break;
 		}
@@ -82,7 +94,7 @@ namespace mo {
 		GameObject::Render(mHdc);
 	}
 
-	
+
 
 	void MarcoBottom::move()
 	{
@@ -102,7 +114,7 @@ namespace mo {
 				mAnimator->Play(L"MoveR", true);
 			}
 		}
-		
+
 		if (Input::GetKey(eKeyCode::Left)) {
 			if (Input::GetKeyDown(eKeyCode::Right)) {
 				mDirection = eDirection::Left;
@@ -113,7 +125,7 @@ namespace mo {
 				mAnimator->Play(L"MoveL", true);
 			}
 		}
-		
+
 		if (Input::GetKeyNone(eKeyCode::Right))
 			if (Input::GetKeyDown(eKeyCode::Left)) {
 				mDirection = eDirection::Left;
@@ -143,14 +155,27 @@ namespace mo {
 
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
-			
+
 			if (mDirection == eDirection::Left)
 				mAnimator->Play(L"ReadySitL", false);
 			else if (mDirection == eDirection::Right)
 				mAnimator->Play(L"ReadySitR", false);
 			mState = eMarcoState::Sit;
-			
+
 		}
+
+		// ToJunp
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"JumpMoveR", false);
+			if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"JumpMoveL", false);
+
+			isJump = true;
+			mState = eMarcoState::Jump;
+		}
+
 
 	}
 	void MarcoBottom::shoot()
@@ -190,8 +215,21 @@ namespace mo {
 			mState = eMarcoState::Sit;
 
 		}
-		
 		tr->SetDirection(mDirection);
+
+		//Junp
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			if (mDirection == eDirection::Right)
+				mAnimator->Play(L"JumpIdleR", false);
+			if (mDirection == eDirection::Left)
+				mAnimator->Play(L"JumpIdleL", false);
+
+			isJump = true;
+			mState = eMarcoState::Jump;
+		}
+
+		
 
 
 	}
@@ -200,7 +238,7 @@ namespace mo {
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
-	
+
 		// 넘어 왔을때
 		if ((mAnimator->GetActiveAnimation()->GetName() == L"ReadySitL" || mAnimator->GetActiveAnimation()->GetName() == L"ReadySitR")
 			&& mAnimator->IsComplte())
@@ -246,7 +284,7 @@ namespace mo {
 
 			if (Input::GetKeyUp(eKeyCode::Right))
 				mAnimator->Play(L"SitMoveL", true);
-		
+
 		}
 
 		if (Input::GetKeyNone(eKeyCode::Left)) {
@@ -256,15 +294,15 @@ namespace mo {
 				mAnimator->Play(L"SitR", true);
 		}
 
-		if (Input::GetKeyNone(eKeyCode::Right)){
+		if (Input::GetKeyNone(eKeyCode::Right)) {
 			if (Input::GetKeyDown(eKeyCode::Left))
 				mAnimator->Play(L"SitMoveL", true);
-		if (Input::GetKeyUp(eKeyCode::Left))
-			mAnimator->Play(L"SitL", true);
-	}
+			if (Input::GetKeyUp(eKeyCode::Left))
+				mAnimator->Play(L"SitL", true);
+		}
 
 		// To Idle
-		if (Input::GetKeyUp(eKeyCode::Down) 
+		if (Input::GetKeyUp(eKeyCode::Down)
 			&& Input::GetKeyNone(eKeyCode::Right)
 			&& Input::GetKeyNone(eKeyCode::Left)
 
@@ -272,10 +310,12 @@ namespace mo {
 		{
 			if (mDirection == eDirection::Right)
 				mAnimator->Play(L"IdleR", true);
-			else if (mDirection == eDirection::Left) 
+			else if (mDirection == eDirection::Left)
 				mAnimator->Play(L"IdleL", true);
 			mState = eMarcoState::Idle;
 		}
+
+		
 
 
 		tr->SetDirection(mDirection);
@@ -288,5 +328,55 @@ namespace mo {
 			if (mDirection == eDirection::Left)
 				mAnimator->Play(L"SitShootL", false);
 		}
+
+		// ToJunp
+		if (Input::GetKeyDown(eKeyCode::S))
+		{
+			if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"JumpMoveR", false);
+			else if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"JumpMoveL", false);
+			else {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"JumpIdleR", false);
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"JumpIdleL", false);
+			}
+			isJump = true;
+			mState = eMarcoState::Jump;
+		}
+	}
+
+	void MarcoBottom::jump()
+	{
+
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		eDirection mDirection = tr->GetDirection();
+
+		if (isJump == false) {
+			if (mDirection == eDirection::Left)
+				mAnimator->Play(L"MoveL", true);
+			if (mDirection == eDirection::Right)
+				mAnimator->Play(L"MoveR", true);
+			mState = eMarcoState::Move;
+		}
+
+			if (Input::GetKeyDown(eKeyCode::Left))
+				mDirection = eDirection::Left;
+
+			if (Input::GetKeyDown(eKeyCode::Right))
+				mDirection = eDirection::Right;
+
+
+			/*if (Input::GetKeyDown(eKeyCode::D)) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"JumpIdleL", false);
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"JumpIdleR", false);
+			}*/
+		
+			tr->SetDirection(mDirection);
+		
 	}
 }

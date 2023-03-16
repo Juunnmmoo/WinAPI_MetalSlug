@@ -46,6 +46,7 @@ enum class eDirection
 	RSit,
 	LBottom,
 	RBottom,
+	Bottom,
 	Left,
 	Right,
 	End,

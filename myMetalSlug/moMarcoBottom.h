@@ -15,6 +15,7 @@ namespace mo {
 			Death,
 			Idle,
 			Sit,
+			Jump,
 		};
 
 
@@ -24,6 +25,8 @@ namespace mo {
 		virtual void Initialize() override;
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
+		
+		void SetIsJump(bool b) { isJump = b; }
 
 		Animator* GetAnimator() { return mAnimator; }
 
@@ -33,8 +36,10 @@ namespace mo {
 		void death();
 		void idle();
 		void sit();
+		void jump();
 	private:
 		eMarcoState mState;
 		Animator* mAnimator;
+		bool isJump;
 	};
 }
