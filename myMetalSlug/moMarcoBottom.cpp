@@ -355,11 +355,22 @@ namespace mo {
 		eDirection mDirection = tr->GetDirection();
 
 		if (isJump == false) {
-			if (mDirection == eDirection::Left)
-				mAnimator->Play(L"MoveL", true);
-			if (mDirection == eDirection::Right)
-				mAnimator->Play(L"MoveR", true);
-			mState = eMarcoState::Move;
+
+		/*	if (Input::GetKey(eKeyCode::Down)) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"ReadySitL", false);
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"ReadySitR", false);
+
+				mState = eMarcoState::Sit;
+			}*/
+			
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"MoveL", true);
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"MoveR", true);
+				mState = eMarcoState::Move;
+			
 		}
 
 			if (Input::GetKeyDown(eKeyCode::Left))

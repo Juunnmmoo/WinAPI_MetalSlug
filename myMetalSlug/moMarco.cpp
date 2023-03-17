@@ -564,19 +564,28 @@ namespace mo {
 		//Junp
 		if (mRigidbody->GetGround())
 		{
-			if (Input::GetKey(eKeyCode::Left))
-			{
-				mDirection = eDirection::Left;
-				mAnimator->Play(L"MoveL", true);
-			}
+			//if (Input::GetKey(eKeyCode::Down)) {
+			//	// To Sit
+			//	 
+			//		mAnimator->Play(L"None", false);
+			//		mState = eMarcoState::Sit;
+			//	
+			//}
+			
+				if (Input::GetKey(eKeyCode::Left))
+				{
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"MoveL", true);
+				}
 
-			if (Input::GetKey(eKeyCode::Right))
-			{
-				mDirection = eDirection::Right;
-				mAnimator->Play(L"MoveR", true);
-			}
-			bottom->SetIsJump(false);
-			mState = eMarcoState::Move;
+				if (Input::GetKey(eKeyCode::Right))
+				{
+					mDirection = eDirection::Right;
+					mAnimator->Play(L"MoveR", true);
+				}
+				bottom->SetIsJump(false);
+				mState = eMarcoState::Move;
+			
 		}
 
 		if (Input::GetKeyDown(eKeyCode::Down)) {
@@ -646,8 +655,30 @@ namespace mo {
 				mDirection = eDirection::Right;
 			}
 
+		if (Input::GetKeyNone(eKeyCode::Right)
+			&& Input::GetKeyNone(eKeyCode::Left)) 
+		{
+			if (Input::GetKeyDown(eKeyCode::Up))
+			{
+				if (mDirection == eDirection::Left)
+					mDirection = eDirection::LTop;
+				if (mDirection == eDirection::Right)
+					mDirection = eDirection::RTop;
 
+			
+			}
+			if (Input::GetKeyUp(eKeyCode::Up))
+			{
+				if (mDirection == eDirection::LTop)
+					mDirection = eDirection::Left;
+				if (mDirection == eDirection::RTop)
+					mDirection = eDirection::Right;
 
+			}
+			
+		}
+			
+		
 		if (Input::GetKeyDown(eKeyCode::D)) {
 
 			if (isKnife) {
