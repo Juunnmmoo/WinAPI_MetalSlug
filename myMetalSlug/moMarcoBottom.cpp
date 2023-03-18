@@ -12,7 +12,7 @@
 
 namespace mo {
 	MarcoBottom::MarcoBottom()
-		: isJump(false)
+		: isGround(false)
 	{
 	}
 	MarcoBottom::~MarcoBottom()
@@ -54,7 +54,7 @@ namespace mo {
 
 		mAnimator->Play(L"IdleR", true);
 
-		mState = eMarcoState::Idle;
+		mState = eMarcoState::Paraglider;
 
 
 
@@ -65,6 +65,9 @@ namespace mo {
 
 		switch (mState) {
 
+		case mo::MarcoBottom::eMarcoState::Paraglider:
+			paraglider();
+			break;
 		case mo::MarcoBottom::eMarcoState::Move:
 			move();
 			break;
@@ -95,6 +98,13 @@ namespace mo {
 	}
 
 
+
+	void MarcoBottom::paraglider()
+	{
+		if (isGround) {
+			mState = eMarcoState::Idle;
+		}
+	}
 
 	void MarcoBottom::move()
 	{
@@ -172,7 +182,7 @@ namespace mo {
 			if (Input::GetKey(eKeyCode::Left))
 				mAnimator->Play(L"JumpMoveL", false);
 
-			isJump = true;
+			isGround = false;
 			mState = eMarcoState::Jump;
 		}
 
@@ -192,13 +202,13 @@ namespace mo {
 		eDirection mDirection = tr->GetDirection();
 
 		// To move
-		if (Input::GetKeyDown(eKeyCode::Right))
+		if (Input::GetKey(eKeyCode::Right))
 		{
 			mDirection = eDirection::Right;
 			mAnimator->Play(L"MoveR", true);
 			mState = eMarcoState::Move;
 		}
-		if (Input::GetKeyDown(eKeyCode::Left))
+		if (Input::GetKey(eKeyCode::Left))
 		{
 			mDirection = eDirection::Left;
 			mAnimator->Play(L"MoveL", true);
@@ -225,7 +235,7 @@ namespace mo {
 			if (mDirection == eDirection::Left)
 				mAnimator->Play(L"JumpIdleL", false);
 
-			isJump = true;
+			isGround = false;
 			mState = eMarcoState::Jump;
 		}
 
@@ -342,7 +352,7 @@ namespace mo {
 				if (mDirection == eDirection::Left)
 					mAnimator->Play(L"JumpIdleL", false);
 			}
-			isJump = true;
+			isGround = false;
 			mState = eMarcoState::Jump;
 		}
 	}
@@ -354,7 +364,7 @@ namespace mo {
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
 
-		if (isJump == false) {
+		if (isGround) {
 
 		/*	if (Input::GetKey(eKeyCode::Down)) {
 				if (mDirection == eDirection::Left)

@@ -17,7 +17,7 @@ namespace mo {
 		: isKnife(false)
 		, mPrevAnimation(nullptr)
 		, mAnimator(nullptr)
-		, mState(eMarcoState::Idle)
+		, mState(eMarcoState::Paraglider)
 		, bottom(obj)
 	{
 	}
@@ -34,7 +34,7 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 100.0f, 100.0f });
+		tr->SetPos(Vector2{ 200.0f, 100.0f });
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetTopDiff(Vector2{ 0.0f, 50.0f });
 
@@ -50,6 +50,7 @@ namespace mo {
 
 		mRigidbody = AddComponent<RigidBody>();
 		mRigidbody->SetMass(1.0f);
+		mRigidbody->SetGravity(Vector2(0.0f, 250.0f));
 
 		/*bottomRigidBody = bottom->AddComponent<RigidBody>();
 		bottomRigidBody->SetMass(1.0f);*/
@@ -88,7 +89,8 @@ namespace mo {
 		mAnimator->CreateAnimation(L"JumpDownR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 30, 60, 3, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"JumpDownL", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 60, 3, Vector2::Zero, 0.07);
 
-
+		mAnimator->CreateAnimation(L"paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
+		
 
 
 		mAnimator->GetStartEvent(L"ShootR") = std::bind(&Marco::shootStartEvent, this);
@@ -102,7 +104,7 @@ namespace mo {
 		mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Marco::knifeCompleteEvent, this);
 
 
-		mAnimator->Play(L"IdleR", true);
+		mAnimator->Play(L"paraglider", false);
 		//mAnimatorL->Play(L"IdleL", true);
 	
 		
@@ -114,7 +116,9 @@ namespace mo {
 	{
 
 		switch (mState) {
-		
+		case mo::Marco::eMarcoState::Paraglider:
+			paraglider();
+			break;
 		case mo::Marco::eMarcoState::Move:
 			move();
 			break;
@@ -131,7 +135,7 @@ namespace mo {
 			sit();
 			break;
 		case mo::Marco::eMarcoState::Jump:
-			Jump();
+			jump();
 		default:
 			break;
 		}
@@ -170,6 +174,33 @@ namespace mo {
 	}
 
 	
+
+	void Marco::paraglider()
+	{
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		Transform* bottomTr;
+		bottomTr = bottom->GetComponent<Transform>();
+		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
+
+
+		if (Input::GetKeyDown(eKeyCode::S)) {
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= 300.0f;
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+			mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
+		}		
+		if (mRigidbody->GetGround()) {
+			mAnimator->Play(L"IdleR", true);
+			bottom->SetIsGround(true);
+			mState = eMarcoState::Idle;
+		}
+		
+	}
 
 	void Marco::move()
 	{
@@ -364,13 +395,13 @@ namespace mo {
 
 		}
 		else {
-			if (Input::GetKeyDown(eKeyCode::Right))
+			if (Input::GetKey(eKeyCode::Right))
 			{
 				mDirection = eDirection::Right;
 				mAnimator->Play(L"MoveR", true);
 				mState = eMarcoState::Move;
 			}
-			if (Input::GetKeyDown(eKeyCode::Left))
+			if (Input::GetKey(eKeyCode::Left))
 			{
 				mDirection = eDirection::Left;
 				mAnimator->Play(L"MoveL", true);
@@ -550,7 +581,7 @@ namespace mo {
 
 	}
 
-	void Marco::Jump()
+	void Marco::jump()
 	{
 
 		Transform* tr;
@@ -574,16 +605,30 @@ namespace mo {
 			
 				if (Input::GetKey(eKeyCode::Left))
 				{
-					mDirection = eDirection::Left;
-					mAnimator->Play(L"MoveL", true);
+					if (mDirection == eDirection::LTop) {
+						mDirection == eDirection::LTop;
+						mAnimator->Play(L"IdleLT", true);
+					}
+					else {
+						mDirection == eDirection::Left;
+						mAnimator->Play(L"MoveL", true);
+					}
+					
 				}
 
 				if (Input::GetKey(eKeyCode::Right))
 				{
-					mDirection = eDirection::Right;
-					mAnimator->Play(L"MoveR", true);
+					if (mDirection == eDirection::RTop) {
+						mDirection == eDirection::RTop;
+						mAnimator->Play(L"IdleRT", true);
+					}
+					else {
+						mDirection = eDirection::Right;				
+						mAnimator->Play(L"MoveR", true);
+					}
+					
 				}
-				bottom->SetIsJump(false);
+				bottom->SetIsGround(true);
 				mState = eMarcoState::Move;
 			
 		}

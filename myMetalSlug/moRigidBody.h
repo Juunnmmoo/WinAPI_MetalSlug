@@ -21,6 +21,9 @@ namespace mo {
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
 		Vector2 GetVelocity() { return mVelocity; }
 
+		void SetGravity(Vector2 gravity) { mGravity = gravity; }
+
+
 	private:
 		float mMass;
 		Vector2 mForce;

@@ -10,6 +10,7 @@ namespace mo {
 	public:
 
 		enum class eMarcoState{
+			Paraglider,
 			Move,
 			Shoot,
 			Death,
@@ -26,20 +27,24 @@ namespace mo {
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
 		
-		void SetIsJump(bool b) { isJump = b; }
+		void SetIsGround(bool b) { isGround = b; }
+
 
 		Animator* GetAnimator() { return mAnimator; }
 
 	private:
+		void paraglider();
 		void move();
 		void shoot();
 		void death();
 		void idle();
 		void sit();
 		void jump();
+
+
 	private:
 		eMarcoState mState;
 		Animator* mAnimator;
-		bool isJump;
+		bool isGround;
 	};
 }

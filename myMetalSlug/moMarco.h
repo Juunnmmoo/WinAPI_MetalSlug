@@ -11,6 +11,7 @@ namespace mo {
 	public:
 
 		enum class eMarcoState{
+			Paraglider,
 			Move,
 			Shoot,
 			Death,
@@ -32,12 +33,13 @@ namespace mo {
 		virtual void OnCollisionExit(class Collider* other)override;
 
 	private:
+		void paraglider();
 		void move();
 		void shoot();
 		void death();
 		void idle();
 		void sit();
-		void Jump();
+		void jump();
 
 		void shootStartEvent();
 		void knifeCompleteEvent();

@@ -11,6 +11,7 @@
 #include "moObject.h"
 #include "moCamera.h"
 #include "moTitleBG.h"
+#include "moParaglider.h";
 
 namespace mo
 {
@@ -28,20 +29,18 @@ namespace mo
 		AddGameObject(marcoBottom, eLayerType::Player);
 
 		Marco* marco = new Marco(marcoBottom);
-		AddGameObject(marco, eLayerType::Player);
+		
 
 		Arabian* arabian = new Arabian(Vector2(1200.0f, 600.0f));
 		AddGameObject(arabian, eLayerType::Monster);
 
-		/*Arabian* arabian1 = new Arabian(Vector2(800.0f, 600.0f));
-		AddGameObject(arabian1, eLayerType::Monster);
-
-		Arabian* arabian2 = new Arabian(Vector2(50.0f, 600.0f));
-		AddGameObject(arabian2, eLayerType::Monster);*/
-
 		Mission1BG* mission1BG = new Mission1BG();
 		AddGameObject(mission1BG, eLayerType::BG03);
 	
+		Paraglider* paraglider = new Paraglider(marco);
+		AddGameObject(paraglider, eLayerType::Player);
+		AddGameObject(marco, eLayerType::Player);
+
 		Camera::SetTarget(marco);
 
 		Scene::Initialize();

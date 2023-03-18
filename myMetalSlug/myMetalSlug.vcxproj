@@ -152,6 +152,7 @@
     <ClInclude Include="moMission1Scene.h" />
     <ClInclude Include="momoEngine.h" />
     <ClInclude Include="moObject.h" />
+    <ClInclude Include="moParaglider.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
     <ClInclude Include="moRigidBody.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="moMath.cpp" />
     <ClCompile Include="moMission1BG.cpp" />
     <ClCompile Include="moMission1Scene.cpp" />
+    <ClCompile Include="moParaglider.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />
     <ClCompile Include="moRigidBody.cpp" />
