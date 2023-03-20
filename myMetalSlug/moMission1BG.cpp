@@ -33,7 +33,7 @@ namespace mo {
 	{
 		Vector2 pos = Camera::GetLookPosition();
 
-		if (pos.x >= 3400.0f
+		if (pos.x >= 3100.0f
 			&& pos.y>= 455.0f
 			&& Camera::GetIsMove)
 		{
