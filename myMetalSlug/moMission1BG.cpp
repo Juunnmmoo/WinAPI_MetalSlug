@@ -51,7 +51,7 @@ namespace mo {
 
 
 		// 한번더 공부
-		TransparentBlt(mHdc, 200, -1, 1100, application.GetHeight(), mImage->GetHdc(),pos.x, pos.y, 1100, application.GetHeight(), RGB(248, 0, 248));
+		TransparentBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), mImage->GetHdc(), pos.x, pos.y, application.GetWidth(), application.GetHeight(), RGB(248, 0, 248));
 		//TransparentBlt(mHdc, 0, 0, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(),0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(248, 0, 248));
 
 
