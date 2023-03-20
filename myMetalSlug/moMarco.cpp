@@ -34,7 +34,7 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 200.0f, 100.0f });
+		tr->SetPos(Vector2{ 300.0f, 200.0f });
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetTopDiff(Vector2{ 0.0f, 50.0f });
 
@@ -185,18 +185,20 @@ namespace mo {
 		bottomTr = bottom->GetComponent<Transform>();
 		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
 
-
-		if (Input::GetKeyDown(eKeyCode::S)) {
-
-			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 300.0f;
-			mRigidbody->SetVelocity(velocity);
-			mRigidbody->SetGround(false);
-			mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
-		}		
+		if (isKnife == false) {
+			if (Input::GetKeyDown(eKeyCode::S)) {
+				isKnife = true;
+				Vector2 velocity = mRigidbody->GetVelocity();
+				velocity.y -= 300.0f;
+				mRigidbody->SetVelocity(velocity);
+				mRigidbody->SetGround(false);
+				mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
+			}
+		}
 		if (mRigidbody->GetGround()) {
 			mAnimator->Play(L"IdleR", true);
 			bottom->SetIsGround(true);
+			isKnife = false;
 			mState = eMarcoState::Idle;
 		}
 		
@@ -350,12 +352,12 @@ namespace mo {
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			pos.x -= 180.0f * Time::DeltaTime();
+			pos.x -= 250.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::Right))
 		{
-			pos.x += 180.0f * Time::DeltaTime();
+			pos.x += 250.0f * Time::DeltaTime();
 		}
 		tr->SetPos(pos);
 		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
@@ -753,12 +755,12 @@ namespace mo {
 
 		if (Input::GetKey(eKeyCode::Left))
 		{
-			pos.x -= 180.0f * Time::DeltaTime();
+			pos.x -= 250.0f * Time::DeltaTime();
 		}
 
 		if (Input::GetKey(eKeyCode::Right))
 		{
-			pos.x += 180.0f * Time::DeltaTime();
+			pos.x += 250.0f * Time::DeltaTime();
 		}
 
 		tr->SetPos(pos);

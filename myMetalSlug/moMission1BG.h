@@ -16,5 +16,6 @@ namespace mo {
 
 	private:
 		Image* mImage;
+		UINT TopDiff;
 	};
 }

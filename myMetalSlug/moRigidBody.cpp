@@ -67,7 +67,7 @@ namespace mo {
 
 		pos = pos + mVelocity * Time::DeltaTime();
 
-		if (pos.y >= 500.0f) {
+		if (pos.y >= 700.0f) {
 			mbGround = true;
 		}
 		tr->SetPos(pos);

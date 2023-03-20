@@ -7,7 +7,7 @@ namespace mo{
 	class Camera
 	{
 	public:
-		enum eCameraEffectType 
+		enum eCameraEffectType
 		{
 			None,
 			FadeIn,
@@ -25,6 +25,12 @@ namespace mo{
 		static Vector2 CaluatePos(Vector2 pos) { return pos - mDistance; }
 		static Vector2 GetDistance() { return mDistance; }
 
+		static Vector2 GetLookPosition() { return mLookPosition; }
+		static void SetLookPosition(Vector2 pos) { mLookPosition = pos; }
+
+
+		static bool GetIsMove() { return isMove; }
+
 
 	private:
 
@@ -39,6 +45,6 @@ namespace mo{
 		static float mCuttonAlpha;
 		static float mAlphaTime;
 		static float mEndTime;
-
+		static bool isMove;
 	};
 }

@@ -31,12 +31,12 @@ namespace mo
 		Marco* marco = new Marco(marcoBottom);
 		
 
-		Arabian* arabian = new Arabian(Vector2(1200.0f, 600.0f));
+		Arabian* arabian = new Arabian(Vector2(1200.0f, 700.0f));
 		AddGameObject(arabian, eLayerType::Monster);
 
 		Mission1BG* mission1BG = new Mission1BG();
 		AddGameObject(mission1BG, eLayerType::BG03);
-	
+
 		Paraglider* paraglider = new Paraglider(marco);
 		AddGameObject(paraglider, eLayerType::Player);
 		AddGameObject(marco, eLayerType::Player);

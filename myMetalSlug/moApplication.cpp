@@ -19,8 +19,8 @@ namespace mo {
 		mHwnd = hWnd;
 		mHdc = GetDC(hWnd);
 
-		mWidth = 1221;
-		mHeight = 700;
+		mWidth = 1500;
+		mHeight = 750;
 
 		// 원하는크기로 RECT만들고 rect 윈도우 정보창의 크기를 더해줌?
 		RECT rect = { 0, 0, mWidth, mHeight };
@@ -28,7 +28,7 @@ namespace mo {
 
 		// 윈도우 크기 변경및 출력설정
 		SetWindowPos(mHwnd
-			, nullptr, 50, 50
+			, nullptr, 10, 10
 			, rect.right - rect.left
 			, rect.bottom - rect.top
 			, 0);
@@ -45,8 +45,9 @@ namespace mo {
 
 		Input::Initialize();
 		Time::Initizlize();
-		SceneManager::Initialize();
 		Camera::Initialize();
+		SceneManager::Initialize();
+		
 	}
 	void Application::Run()
 	{
@@ -81,9 +82,9 @@ namespace mo {
 
 	void Application::clear()
 	{
-		HBRUSH grayBrush = CreateSolidBrush(RGB(121, 121, 121));
+		HBRUSH grayBrush = CreateSolidBrush(RGB(0, 0, 0));
 		HBRUSH oldBrush = (HBRUSH)SelectObject(mBackHdc, grayBrush);
-		Rectangle(mBackHdc, -1, -1, 1223, 702);
+		Rectangle(mBackHdc, -1, -1, 1501, 751);
 		SelectObject(mBackHdc, oldBrush);
 		DeleteObject(grayBrush);
 	}
