@@ -23,23 +23,26 @@ namespace mo
 	}
 	void Mission1Scene::Initialize()
 	{
+		Vector2 pos = Camera::GetLookPosition();
+		pos += Vector2(0.0f, 133.0f);
+		Camera::SetLookPosition(pos);
 
 
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
 
 		Marco* marco = new Marco(marcoBottom);
-		
+		Paraglider* paraglider = new Paraglider(marco);
+		AddGameObject(paraglider, eLayerType::Player);
+		AddGameObject(marco, eLayerType::Player);
 
-		Arabian* arabian = new Arabian(Vector2(1200.0f, 700.0f));
+		Arabian* arabian = new Arabian(Vector2(1000.0f, 700.0f));
 		AddGameObject(arabian, eLayerType::Monster);
 
 		Mission1BG* mission1BG = new Mission1BG();
 		AddGameObject(mission1BG, eLayerType::BG03);
 
-		Paraglider* paraglider = new Paraglider(marco);
-		AddGameObject(paraglider, eLayerType::Player);
-		AddGameObject(marco, eLayerType::Player);
+		mission1BG->SetPlayer(marco);
 
 		Camera::SetTarget(marco);
 
@@ -48,10 +51,21 @@ namespace mo
 	}
 	void Mission1Scene::Update()
 	{
+		Vector2 pos = Camera::GetLookPosition();
+
+		if (pos.x >= 3100.0f
+			&& pos.y >= 455.0f
+			&& Camera::GetIsMove)
+		{
+			pos.y--;
+			Camera::SetLookPosition(pos);
+		}
+
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
 			SceneManager::LoadScene(eSceneType::Title);
 		}
+
 		Scene::Update();
 
 	}

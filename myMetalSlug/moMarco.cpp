@@ -11,6 +11,9 @@
 #include "moScene.h"
 #include "moCamera.h"
 #include "moRigidBody.h"
+#include "moApplication.h"
+
+extern mo::Application application;
 
 namespace mo {
 	Marco::Marco(MarcoBottom* obj)
@@ -36,13 +39,13 @@ namespace mo {
 		tr = GetComponent<Transform>();
 		tr->SetPos(Vector2{ 300.0f, 200.0f });
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
-		tr->SetTopDiff(Vector2{ 0.0f, 50.0f });
+		tr->SetDisToBottom(Vector2{ 0.0f, 50.0f });
 
 		Transform* bottomTr;
 		bottomTr = bottom->GetComponent<Transform>();
 		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
 		bottomTr->SetScale(Vector2{ 3.0f, 3.0f });
-		bottomTr->SetTopDiff(Vector2{ 0.0f, 50.0f });
+		bottomTr->SetDisToBottom(Vector2{ 0.0f, 50.0f });
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 60.0f, 110.0f });
@@ -140,6 +143,11 @@ namespace mo {
 			break;
 		}
 
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		Vector2 caPos = Camera::CaluatePos(pos);
+
 		GameObject::Update();
 	}
 	void Marco::Render(HDC mHdc)
@@ -199,6 +207,7 @@ namespace mo {
 			mAnimator->Play(L"IdleR", true);
 			bottom->SetIsGround(true);
 			isKnife = false;
+			mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
 			mState = eMarcoState::Idle;
 		}
 		
@@ -293,8 +302,6 @@ namespace mo {
 
 		tr->SetDirection(mDirection);
 
-
-
 		// To Idle
 		if ( (Input::GetKeyNone(eKeyCode::Right)
 			&& Input::GetKeyNone(eKeyCode::Left)))
@@ -350,12 +357,14 @@ namespace mo {
 			}
 		}
 
-		if (Input::GetKey(eKeyCode::Left))
+		if (Input::GetKey(eKeyCode::Left)
+			&& Camera::GetDistance().x < pos.x - 30.0f)
 		{
 			pos.x -= 250.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::Right))
+		if (Input::GetKey(eKeyCode::Right)
+			&& Camera::GetDistance().x + application.GetWidth() > pos.x + 30.0f)
 		{
 			pos.x += 250.0f * Time::DeltaTime();
 		}
@@ -490,12 +499,18 @@ namespace mo {
 		Transform* bottomTr;
 		bottomTr = bottom->GetComponent<Transform>();
 
+		
+
 		//¿Ãµø¡ﬂ
-		if (Input::GetKey(eKeyCode::Left)) {
+		if (Input::GetKey(eKeyCode::Left)
+			&& Camera::GetDistance().x < pos.x - 30.0f) 
+		{
 			pos.x -= 80.0f * Time::DeltaTime();
 			mDirection = eDirection::Left;
 		}
-		if (Input::GetKey(eKeyCode::Right)) {
+		if (Input::GetKey(eKeyCode::Right)
+			&& Camera::GetDistance().x + application.GetWidth() > pos.x + 30.0f) 
+		{
 			pos.x += 80.0f * Time::DeltaTime();
 			mDirection = eDirection::Right;
 
@@ -753,12 +768,14 @@ namespace mo {
 
 
 
-		if (Input::GetKey(eKeyCode::Left))
+		if (Input::GetKey(eKeyCode::Left)
+			&& Camera::GetDistance().x < pos.x - 30.0f)
 		{
 			pos.x -= 250.0f * Time::DeltaTime();
 		}
 
-		if (Input::GetKey(eKeyCode::Right))
+		if (Input::GetKey(eKeyCode::Right)
+			&& Camera::GetDistance().x + application.GetWidth() > pos.x + 30.0f)
 		{
 			pos.x += 250.0f * Time::DeltaTime();
 		}

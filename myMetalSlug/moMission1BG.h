@@ -2,7 +2,6 @@
 #include "moGameObject.h"
 
 namespace mo {
-	class Image;
 	class Mission1BG : public GameObject
 	{
 	public:
@@ -14,8 +13,12 @@ namespace mo {
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
 
+		void SetPlayer(class Marco* marco) { mPlayer = marco; }
+
 	private:
-		Image* mImage;
+		class Image* main;
+		class Image* ground;
+		class Marco* mPlayer;
 		UINT TopDiff;
 	};
 }

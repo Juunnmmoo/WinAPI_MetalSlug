@@ -175,9 +175,6 @@
     <ClInclude Include="moArabian.h">
       <Filter>Contents\GameObj\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="moCamera.h">
-      <Filter>Engine\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="moObject.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
@@ -189,6 +186,9 @@
     </ClInclude>
     <ClInclude Include="moParaglider.h">
       <Filter>Contents\GameObj\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="moCamera.h">
+      <Filter>Engine\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,7 @@ namespace mo{
 		//tr->SetPos(Vector2{ 700.0f, 600.0f });
 		tr->SetPos( mPos);
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
-		tr->SetTopDiff(Vector2{ 0.0f, 40.0f });
+		tr->SetDisToBottom(Vector2{ 0.0f, 40.0f });
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 20, 15, 6, Vector2::Zero, 0.15);

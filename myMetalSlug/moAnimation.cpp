@@ -45,8 +45,7 @@ namespace mo {
 
 		Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
 		Vector2 scale = tr->GetScale();
-
-		Vector2 PlayerTopDiff = tr->GetTopDiff();
+		Vector2 disToBottom = tr->GetDisToBottom();
 
 		Vector2 pos = tr->GetPos();
 
@@ -58,7 +57,8 @@ namespace mo {
 		pos.y -= (mSpriteSheet[mSpriteIndex].size.x * scale.y);
 
 		// 메인 캐릭터 sprite는 바닥부터 상체값을 없애고 출력해야하기 때문에
-		pos.y += +(PlayerTopDiff.y * scale.y);
+
+		pos.y += disToBottom.y * scale.y;
 		if (isAlpha == false) {
 			TransparentBlt(mHdc, pos.x, pos.y
 				, mSpriteSheet[mSpriteIndex].size.x * scale.x

@@ -5,7 +5,7 @@ namespace mo {
 		: Component(eComponentType::Transform)
 		, mPos(Vector2::Zero)
 		, mScale(Vector2::One)
-		, mBottomDiff(Vector2::Zero)
+		, disToBottom(Vector2::Zero)
 		, mDirection(eDirection::Right)
 	{
 	}

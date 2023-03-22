@@ -4,6 +4,8 @@
 #include "moApplication.h"
 #include "moCamera.h"
 #include "moTransform.h"
+#include "moMarco.h"
+#include "moRigidBody.h"
 
 extern mo::Application application;
 
@@ -20,39 +22,43 @@ namespace mo {
 	void Mission1BG::Initialize()
 	{
 		
-		mImage = Resources::Load<Image>(L"Mission1BG_02", L"..\\Resources\\BackGround\\Mission1BG_02.bmp");
-
-		Vector2 pos = Camera::GetLookPosition();
-		pos += Vector2(0.0f, 133.0f);
-		Camera::SetLookPosition(pos);
+		main = Resources::Load<Image>(L"Mission1BG_Main", L"..\\Resources\\BackGround\\Mission1BG_Main.bmp");
+		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_Ground.bmp");
+		
 
 		GameObject::Initialize();
 	}
 
 	void Mission1BG::Update()
 	{
-		Vector2 pos = Camera::GetLookPosition();
-
-		if (pos.x >= 3100.0f
-			&& pos.y>= 455.0f
-			&& Camera::GetIsMove)
-		{
-			pos.y--;
-			Camera::SetLookPosition(pos);
-		}
 		
+		Transform* marcoTr = mPlayer->GetComponent<Transform>();
+		Vector2 pos = marcoTr->GetPos();
+		RigidBody* rb = mPlayer->GetComponent<RigidBody>();
 
+		if (ground->GetPixel(pos.x, pos.y+40) == RGB(248, 0, 248)) {
+			pos.y--;
+			rb->SetGround(true);
+			marcoTr->SetPos(pos);
+		}
+		else {
+			rb->SetGround(false);
+		}
+
+
+		
+		
 		GameObject::Update();
 	}
 
 	void Mission1BG::Render(HDC mHdc)
 	{
+
 		Vector2 pos = Camera::GetDistance();
 
-
-		// 한번더 공부
-		TransparentBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), mImage->GetHdc(), pos.x, pos.y, application.GetWidth(), application.GetHeight(), RGB(248, 0, 248));
-		//TransparentBlt(mHdc, 0, 0, mImage->GetWidth(), mImage->GetHeight(), mImage->GetHdc(),0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(248, 0, 248));
+		BitBlt(mHdc, -pos.x, -pos.y, ground->GetWidth(), ground->GetHeight(), ground->GetHdc(), 0, 0, SRCCOPY);
+		//TransparentBlt(mHdc, -pos.x, -pos.y, main->GetWidth(), main->GetHeight(), main->GetHdc(), 0, 0, main->GetWidth(), main->GetHeight(), RGB(248, 0, 248));
+		TransparentBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), main->GetHdc(), pos.x, pos.y, application.GetWidth(), application.GetHeight(), RGB(248, 0, 248));
 
 
 		GameObject::Render(mHdc);

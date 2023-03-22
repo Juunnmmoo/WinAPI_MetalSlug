@@ -17,6 +17,10 @@ namespace mo {
 		UINT GetWidth() { return mWidth; }
 		UINT GetHeight() { return mHeight; }
 
+		void SetPixel(int x, int y, COLORREF color);
+		COLORREF GetPixel(int x, int y);
+
+
 	private:
 		HBITMAP mBitmap;
 		HDC mHdc;

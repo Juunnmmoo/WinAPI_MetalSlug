@@ -17,7 +17,7 @@ namespace mo {
 	}
 	Paraglider::~Paraglider()
 	{
-	}
+	}	
 	void Paraglider::Initialize()
 	{
 
@@ -25,7 +25,7 @@ namespace mo {
 		Transform* tr = GetComponent<Transform>();
 		Transform* ownerTr = mOwner->GetComponent<Transform>();
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
-		tr->SetTopDiff(Vector2{ 0.0f, 30.0f });
+		tr->SetDisToBottom(Vector2{ 0.0f, 30.0f });
 		//tr->SetPos(ownerTr->GetPos()+ Vector2(0.0f, 15.0f));
 
 		mImage = Resources::Load<Image>(L"Effect", L"..\\Resources\\Effect\\something.bmp");

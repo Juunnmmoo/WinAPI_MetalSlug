@@ -375,10 +375,21 @@ namespace mo {
 				mState = eMarcoState::Sit;
 			}*/
 			
-				if (mDirection == eDirection::Left)
+				/*if (mDirection == eDirection::Left)
 					mAnimator->Play(L"MoveL", true);
 				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"MoveR", true);*/
+
+				if (Input::GetKey(eKeyCode::Left)) {
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"MoveL", true);
+				}
+				if (Input::GetKey(eKeyCode::Right)) {
+					mDirection = eDirection::Right;
 					mAnimator->Play(L"MoveR", true);
+				}
+					
+
 				mState = eMarcoState::Move;
 			
 		}

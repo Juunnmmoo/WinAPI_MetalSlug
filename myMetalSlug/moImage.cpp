@@ -74,4 +74,12 @@ namespace mo {
 
 		return S_OK;
 	}
+	void Image::SetPixel(int x, int y, COLORREF color)
+	{
+		::SetPixel(mHdc, x, y, color);
+	}
+	COLORREF Image::GetPixel(int x, int y)
+	{
+		return ::GetPixel(mHdc, x, y);
+	}
 }
