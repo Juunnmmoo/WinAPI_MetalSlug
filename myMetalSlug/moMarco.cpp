@@ -31,6 +31,7 @@ namespace mo {
 	{
 		Image* mImageR = Resources::Load<Image>(L"MarcoTopRight", L"..\\Resources\\Player\\MarcoTopRight.bmp");
 		Image* mImageL = Resources::Load<Image>(L"MarcoTopLeft", L"..\\Resources\\Player\\MarcoTopLeft.bmp");
+		Image* test = Resources::Load<Image>(L"RipleRight", L"..\\Resources\\Player\\RipleRight.bmp");
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->SetAlpha(true);
@@ -67,6 +68,8 @@ namespace mo {
 
 
 		mAnimator->CreateAnimation(L"ShootR", mImageR, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
+		//mAnimator->CreateAnimation(L"ShootR", test, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 8, Vector2::Zero, 0.05);
+
 		mAnimator->CreateAnimation(L"ShootRT", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"ShootL", mImageL, Vector2(120.0f * 29, 120.0f * 1), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"ShootLT", mImageL, Vector2(120.0f * 29, 120.0f * 5), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
@@ -95,7 +98,8 @@ namespace mo {
 		mAnimator->CreateAnimation(L"paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
 		
 
-
+		/*mAnimator->GetStartEvent(L"KnifeR") = std::bind(&Marco::AttackEndEvent, this);
+		mAnimator->GetStartEvent(L"KnifeL") = std::bind(&Marco::AttackEndEvent, this);*/
 		mAnimator->GetStartEvent(L"ShootR") = std::bind(&Marco::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"ShootL") = std::bind(&Marco::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"ShootRT") = std::bind(&Marco::shootStartEvent, this);
@@ -103,9 +107,15 @@ namespace mo {
 		mAnimator->GetStartEvent(L"ShootRB") = std::bind(&Marco::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"ShootLB") = std::bind(&Marco::shootStartEvent, this);
 
-		mAnimator->GetCompleteEvent(L"KnifeR") = std::bind(&Marco::knifeCompleteEvent, this);
-		mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Marco::knifeCompleteEvent, this);
 
+	/*	mAnimator->GetCompleteEvent(L"KnifeR") = std::bind(&Marco::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Marco::AttackEndEvent, this);*/
+		mAnimator->GetCompleteEvent(L"ShootR") = std::bind(&Marco::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"ShootL") = std::bind(&Marco::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"ShootRT") = std::bind(&Marco::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"ShootLT") = std::bind(&Marco::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"ShootRB") = std::bind(&Marco::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"ShootLB") = std::bind(&Marco::AttackEndEvent, this);
 
 		mAnimator->Play(L"paraglider", false);
 		//mAnimatorL->Play(L"IdleL", true);
@@ -159,8 +169,8 @@ namespace mo {
 
 	void Marco::OnCollisionEnter(Collider* other)
 	{
-		if ( other->GetOwner()->GetLayerType() == eLayerType::Monster)
-			isKnife = true;
+		/*if ( other->GetOwner()->GetLayerType() == eLayerType::Monster)
+			isKnife = true;*/
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::Monster) {
 			mAnimator->SetUseinvincibility(true);
@@ -174,8 +184,8 @@ namespace mo {
 
 	void Marco::OnCollisionExit(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Monster)
-			isKnife = false;
+		/*if (other->GetOwner()->GetLayerType() == eLayerType::Monster)
+			isKnife = false;*/
 
 	
 	
@@ -836,17 +846,19 @@ namespace mo {
 		bullet->GetComponent<Transform>()->SetPos(tr->GetPos());
 		curScene->AddGameObject(bullet, eLayerType::Bullet);
 		bullet->Initialize();
-	}
 
-
-	void Marco::knifeCompleteEvent()
-	{
-		
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();
 		Animation* prevAnimation = mAnimator->GetPrevAniamtion();
 
-		if(activeAnimation != prevAnimation)
+		if (activeAnimation != prevAnimation)
 			mPrevAnimation = prevAnimation;
+	}
+
+
+	void Marco::AttackEndEvent()
+	{
+		
+	
 
 		//if(PrevAnimation!= ActiveAnimation)
 		mAnimator->Play(mPrevAnimation->GetName(), true);

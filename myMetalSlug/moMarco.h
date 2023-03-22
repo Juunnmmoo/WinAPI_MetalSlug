@@ -42,7 +42,7 @@ namespace mo {
 		void jump();
 
 		void shootStartEvent();
-		void knifeCompleteEvent();
+		void AttackEndEvent();
 
 	private:
 		MarcoBottom* bottom;

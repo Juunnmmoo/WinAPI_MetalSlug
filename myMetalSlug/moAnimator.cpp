@@ -67,7 +67,6 @@ namespace mo {
 					Animator::Events* events = FindEvents(mActiveAnimation->GetName());
 					if (events != nullptr)
 						events->mCompleteEvent();
-
 				}
 				else {
 
@@ -85,7 +84,9 @@ namespace mo {
 		if (mActiveAnimation)
 		{
 			mActiveAnimation->Render(mHdc, isAlpha, alpha);
+			
 		}
+		
 	}
 	void Animator::CreateAnimation(const std::wstring& name, Image* sheet, Vector2 leftTop, float next, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration)
 	{
