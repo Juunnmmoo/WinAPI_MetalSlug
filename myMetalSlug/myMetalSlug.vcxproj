@@ -142,10 +142,12 @@
     <ClInclude Include="moComponent.h" />
     <ClInclude Include="moEntity.h" />
     <ClInclude Include="moEnums.h" />
+    <ClInclude Include="moFiregun.h" />
     <ClInclude Include="moGameObject.h" />
     <ClInclude Include="moImage.h" />
     <ClInclude Include="moInput.h" />
     <ClInclude Include="moLayer.h" />
+    <ClInclude Include="moMachinegun.h" />
     <ClInclude Include="moMarco.h" />
     <ClInclude Include="moMarcoBottom.h" />
     <ClInclude Include="moMath.h" />
@@ -160,6 +162,7 @@
     <ClInclude Include="moRigidBody.h" />
     <ClInclude Include="moScene.h" />
     <ClInclude Include="moSceneManager.h" />
+    <ClInclude Include="moShotgun.h" />
     <ClInclude Include="moTime.h" />
     <ClInclude Include="moTitleBG.h" />
     <ClInclude Include="moTitleScene.h" />
@@ -180,10 +183,12 @@
     <ClCompile Include="moCollisionManager.cpp" />
     <ClCompile Include="moComponent.cpp" />
     <ClCompile Include="moEntity.cpp" />
+    <ClCompile Include="moFiregun.cpp" />
     <ClCompile Include="moGameObject.cpp" />
     <ClCompile Include="moImage.cpp" />
     <ClCompile Include="moInput.cpp" />
     <ClCompile Include="moLayer.cpp" />
+    <ClCompile Include="moMachinegun.cpp" />
     <ClCompile Include="moMarco.cpp" />
     <ClCompile Include="moMarcoBottom.cpp" />
     <ClCompile Include="moMath.cpp" />
@@ -196,6 +201,7 @@
     <ClCompile Include="moRigidBody.cpp" />
     <ClCompile Include="moScene.cpp" />
     <ClCompile Include="moSceneManager.cpp" />
+    <ClCompile Include="moShotgun.cpp" />
     <ClCompile Include="moTime.cpp" />
     <ClCompile Include="moTitleBG.cpp" />
     <ClCompile Include="moTitleScene.cpp" />

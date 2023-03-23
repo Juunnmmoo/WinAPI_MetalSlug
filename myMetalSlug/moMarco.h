@@ -3,6 +3,7 @@
 #include "moMarcoBottom.h"
 
 namespace mo {
+	class Machinegun;
 	class Pistol;
 	class RigidBody;
 	class Animator;
@@ -10,6 +11,12 @@ namespace mo {
 	class Marco : public GameObject
 	{
 	public:
+		enum class eMarcoWeapon {
+			Pistol,
+			Machinegun,
+			Shotgun,
+			Firegun,
+		};
 
 		enum class eMarcoState{
 			Paraglider,
@@ -37,25 +44,13 @@ namespace mo {
 		void SetState(eMarcoState state) { mState = state; }
 
 	private:
-		void paraglider();
-		void move();
-		void shoot();
-		void death();
-		void idle();
-		void sit();
-		void jump();
-
-		void shootStartEvent();
-		void AttackEndEvent();
-
-	private:
 		MarcoBottom* bottom;
 		eMarcoState mState;
 		Animator* mAnimator;
-		Animation* mPrevAnimation;
 		RigidBody* mRigidbody;
-		RigidBody* bottomRigidBody;
-		bool isKnife;
 		Pistol* pistol;
+		Machinegun* machinegun;
+		eMarcoWeapon mWeaponState;
+		bool isKnife;
 	};
 }

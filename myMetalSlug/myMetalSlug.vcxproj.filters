@@ -202,6 +202,15 @@
     <ClInclude Include="moPistol.h">
       <Filter>Contents\PlayerObj</Filter>
     </ClInclude>
+    <ClInclude Include="moMachinegun.h">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClInclude>
+    <ClInclude Include="moShotgun.h">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClInclude>
+    <ClInclude Include="moFiregun.h">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -311,6 +320,15 @@
       <Filter>Engine\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="moPistol.cpp">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClCompile>
+    <ClCompile Include="moMachinegun.cpp">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClCompile>
+    <ClCompile Include="moFiregun.cpp">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClCompile>
+    <ClCompile Include="moShotgun.cpp">
       <Filter>Contents\PlayerObj</Filter>
     </ClCompile>
   </ItemGroup>

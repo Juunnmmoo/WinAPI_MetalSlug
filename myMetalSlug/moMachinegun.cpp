@@ -1,4 +1,4 @@
-#include "moPistol.h"
+#include "moMachinegun.h"
 #include "moMarco.h"
 #include "moImage.h"
 #include "moSceneManager.h"
@@ -17,19 +17,19 @@
 extern mo::Application application;
 
 namespace mo {
-	Pistol::Pistol(Marco* marco, MarcoBottom* bottom)
+	Machinegun::Machinegun(Marco* marco, MarcoBottom* bottom)
 		: unUsedParaglider(false)
 		, player(marco)
 		, playerBottom(bottom)
 	{
 	}
-	Pistol::~Pistol()
+	Machinegun::~Machinegun()
 	{
 	}
-	void Pistol::Initialize()
+	void Machinegun::Initialize()
 	{
-	/*	player = GetPlayer();
-		playerBottom = GetBottom();*/
+		/*	player = GetPlayer();
+			playerBottom = GetBottom();*/
 
 
 		mState = player->GetState();
@@ -39,64 +39,66 @@ namespace mo {
 
 		Image* mImageR = Resources::Load<Image>(L"PistolRight", L"..\\Resources\\Player\\PistolRight.bmp");
 		Image* mImageL = Resources::Load<Image>(L"PistolLeft", L"..\\Resources\\Player\\PistolLeft.bmp");
-
+		Image* test = Resources::Load<Image>(L"RipleRight", L"..\\Resources\\Player\\RipleRight.bmp");
 		// Coulmn : За	row : ї­
-		mAnimator->CreateAnimation(L"P_IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"P_IdleRT", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"P_IdleL", mImageL, Vector2(120.0f * 29, 120.0f * 0), -120.0f, 30, 60, 4, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"P_IdleLT", mImageL, Vector2(120.0f * 29, 120.0f * 4), -120.0f, 30, 60, 4, Vector2::Zero, 0.15);
+		//mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_IdleR", test, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_IdleRT", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_IdleL", mImageL, Vector2(120.0f * 29, 120.0f * 0), -120.0f, 30, 60, 4, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_IdleLT", mImageL, Vector2(120.0f * 29, 120.0f * 4), -120.0f, 30, 60, 4, Vector2::Zero, 0.15);
 
 
-		mAnimator->CreateAnimation(L"P_ShootR", mImageR, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_ShootRT", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_ShootL", mImageL, Vector2(120.0f * 29, 120.0f * 1), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_ShootLT", mImageL, Vector2(120.0f * 29, 120.0f * 5), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_ShootRB", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_ShootLB", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		//mAnimator->CreateAnimation(L"ShootR", mImageR, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR", test, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 8, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_ShootRT", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootL", mImageL, Vector2(120.0f * 29, 120.0f * 1), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootLT", mImageL, Vector2(120.0f * 29, 120.0f * 5), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootRB", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootLB", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
 
-		mAnimator->CreateAnimation(L"P_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"P_MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 60, 12, Vector2::Zero, 0.05);
-		mAnimator->CreateAnimation(L"P_MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 12, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 60, 12, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 
-		mAnimator->CreateAnimation(L"P_None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
+		mAnimator->CreateAnimation(L"M_None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
 
-		mAnimator->CreateAnimation(L"P_JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 6), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 6), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"P_JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_JumpMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 7), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 7), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"P_JumpDownR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 30, 60, 3, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_JumpDownL", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 60, 3, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpDownR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 30, 60, 3, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpDownL", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 60, 3, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"P_paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
 
 
 		/*mAnimator->GetStartEvent(L"KnifeR") = std::bind(&Pistol::AttackEndEvent, this);
 		mAnimator->GetStartEvent(L"KnifeL") = std::bind(&Pistol::AttackEndEvent, this);*/
-		mAnimator->GetStartEvent(L"P_ShootR") = std::bind(&Pistol::shootStartEvent, this);
-		mAnimator->GetStartEvent(L"P_ShootL") = std::bind(&Pistol::shootStartEvent, this);
-		mAnimator->GetStartEvent(L"P_ShootRT") = std::bind(&Pistol::shootStartEvent, this);
-		mAnimator->GetStartEvent(L"P_ShootLT") = std::bind(&Pistol::shootStartEvent, this);
-		mAnimator->GetStartEvent(L"P_ShootRB") = std::bind(&Pistol::shootStartEvent, this);
-		mAnimator->GetStartEvent(L"P_ShootLB") = std::bind(&Pistol::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR") = std::bind(&Machinegun::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootL") = std::bind(&Machinegun::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootRT") = std::bind(&Machinegun::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootLT") = std::bind(&Machinegun::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootRB") = std::bind(&Machinegun::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootLB") = std::bind(&Machinegun::shootStartEvent, this);
 
 
 		/*	mAnimator->GetCompleteEvent(L"KnifeR") = std::bind(&Pistol::AttackEndEvent, this);
 			mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Pistol::AttackEndEvent, this);*/
-		mAnimator->GetCompleteEvent(L"P_ShootR") = std::bind(&Pistol::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"P_ShootL") = std::bind(&Pistol::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"P_ShootRT") = std::bind(&Pistol::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"P_ShootLT") = std::bind(&Pistol::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"P_ShootRB") = std::bind(&Pistol::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"P_ShootLB") = std::bind(&Pistol::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR") = std::bind(&Machinegun::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootL") = std::bind(&Machinegun::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootRT") = std::bind(&Machinegun::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootLT") = std::bind(&Machinegun::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootRB") = std::bind(&Machinegun::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootLB") = std::bind(&Machinegun::AttackEndEvent, this);
 
-		mAnimator->Play(L"P_paraglider", false);
+		mAnimator->Play(L"M_paraglider", false);
 	}
-	void Pistol::Update()
+	void Machinegun::Update()
 	{
 		mState = player->GetState();
 
@@ -130,7 +132,7 @@ namespace mo {
 		player->SetState(mState);
 	}
 
-	void Pistol::paraglider()
+	void Machinegun::paraglider()
 	{
 
 		if (unUsedParaglider == false) {
@@ -144,14 +146,14 @@ namespace mo {
 			}
 		}
 		if (mRigidbody->GetGround()) {
-			mAnimator->Play(L"P_IdleR", true);
+			mAnimator->Play(L"M_IdleR", true);
 			playerBottom->SetIsGround(true);
 			mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
 			mState = Marco::eMarcoState::Idle;
 		}
 	}
 
-	void Pistol::move()
+	void Machinegun::move()
 	{
 		Vector2 pos = mTransform->GetPos();
 		eDirection mDirection = mTransform->GetDirection();
@@ -161,31 +163,31 @@ namespace mo {
 		if (Input::GetKey(eKeyCode::Right)) {
 			if (Input::GetKeyDown(eKeyCode::Left)) {
 				if (mDirection == eDirection::Right) {
-					mAnimator->Play(L"P_IdleR", true);
+					mAnimator->Play(L"M_IdleR", true);
 				}
 				else if (mDirection == eDirection::RTop) {
 					mDirection = eDirection::LTop;
-					mAnimator->Play(L"P_IdleLT", true);
+					mAnimator->Play(L"M_IdleLT", true);
 				}
 			}
 			if (Input::GetKeyUp(eKeyCode::Left)) {
 				if (mDirection == eDirection::RTop || mDirection == eDirection::LTop) {
 					mDirection = eDirection::RTop;
-					mAnimator->Play(L"P_IdleRT", true);
+					mAnimator->Play(L"M_IdleRT", true);
 				}
 				else if (mDirection == eDirection::Right || mDirection == eDirection::Left) {
 					mDirection = eDirection::Right;
-					mAnimator->Play(L"P_MoveR", true);
+					mAnimator->Play(L"M_MoveR", true);
 				}
 
 			}
 			if (Input::GetKeyDown(eKeyCode::Up)) {
 				mDirection = eDirection::RTop;
-				mAnimator->Play(L"P_IdleRT", true);
+				mAnimator->Play(L"M_IdleRT", true);
 			}
 			if (Input::GetKeyUp(eKeyCode::Up)) {
 				mDirection = eDirection::Right;
-				mAnimator->Play(L"P_MoveR", true);
+				mAnimator->Play(L"M_MoveR", true);
 			}
 
 		}
@@ -193,62 +195,62 @@ namespace mo {
 
 			if (Input::GetKeyDown(eKeyCode::Right)) {
 				if (mDirection == eDirection::Left) {
-					mAnimator->Play(L"P_IdleL", true);
+					mAnimator->Play(L"M_IdleL", true);
 				}
 				else if (mDirection == eDirection::LTop) {
 					mDirection = eDirection::RTop;
-					mAnimator->Play(L"P_IdleRT", true);
+					mAnimator->Play(L"M_IdleRT", true);
 				}
 			}
 			if (Input::GetKeyUp(eKeyCode::Right)) {
 				if (mDirection == eDirection::RTop || mDirection == eDirection::LTop) {
 					mDirection = eDirection::LTop;
-					mAnimator->Play(L"P_IdleLT", true);
+					mAnimator->Play(L"M_IdleLT", true);
 				}
 				else if (mDirection == eDirection::Right || mDirection == eDirection::Left) {
 					mDirection = eDirection::Left;
-					mAnimator->Play(L"P_MoveL", true);
+					mAnimator->Play(L"M_MoveL", true);
 				}
 			}
 			if (Input::GetKeyDown(eKeyCode::Up)) {
 				mDirection = eDirection::LTop;
-				mAnimator->Play(L"P_IdleLT", true);
+				mAnimator->Play(L"M_IdleLT", true);
 			}
 			if (Input::GetKeyUp(eKeyCode::Up)) {
 				mDirection = eDirection::Left;
-				mAnimator->Play(L"P_MoveL", true);
+				mAnimator->Play(L"M_MoveL", true);
 			}
 		}
 
 		if (Input::GetKeyNone(eKeyCode::Right))
 			if (Input::GetKeyDown(eKeyCode::Left)) {
 				mDirection = eDirection::Left;
-				mAnimator->Play(L"P_MoveL", true);
+				mAnimator->Play(L"M_MoveL", true);
 			}
 		if (Input::GetKeyNone(eKeyCode::Left))
 			if (Input::GetKeyDown(eKeyCode::Right)) {
 				mDirection = eDirection::Right;
-				mAnimator->Play(L"P_MoveR", true);
+				mAnimator->Play(L"M_MoveR", true);
 			}
 
 
-		
+
 
 		// To Idle
 		if ((Input::GetKeyNone(eKeyCode::Right)
 			&& Input::GetKeyNone(eKeyCode::Left)))
 		{
 			if (mDirection == eDirection::Right)
-				mAnimator->Play(L"P_IdleR", true);
+				mAnimator->Play(L"M_IdleR", true);
 			else if (mDirection == eDirection::Left)
-				mAnimator->Play(L"P_IdleL", true);
+				mAnimator->Play(L"M_IdleL", true);
 
 			mState = Marco::eMarcoState::Idle;
 		}
 
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
-			mAnimator->Play(L"P_None", false);
+			mAnimator->Play(L"M_None", false);
 			mState = Marco::eMarcoState::Sit;
 		}
 
@@ -256,9 +258,9 @@ namespace mo {
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
 			if (Input::GetKey(eKeyCode::Right))
-				mAnimator->Play(L"P_JumpMoveR", false);
+				mAnimator->Play(L"M_JumpMoveR", false);
 			if (Input::GetKey(eKeyCode::Left))
-				mAnimator->Play(L"P_JumpMoveL", false);
+				mAnimator->Play(L"M_JumpMoveL", false);
 
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -277,14 +279,14 @@ namespace mo {
 					mAnimator->Play(L"KnifeL", false);
 			}*/
 			//else {
-				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"P_ShootR", false);
-				else if (mDirection == eDirection::Left)
-					mAnimator->Play(L"P_ShootL", false);
-				else if (mDirection == eDirection::RTop)
-					mAnimator->Play(L"P_ShootRT", false);
-				else if (mDirection == eDirection::LTop)
-					mAnimator->Play(L"P_ShootLT", false);
+			if (mDirection == eDirection::Right)
+				mAnimator->Play(L"M_ShootR", false);
+			else if (mDirection == eDirection::Left)
+				mAnimator->Play(L"M_ShootL", false);
+			else if (mDirection == eDirection::RTop)
+				mAnimator->Play(L"M_ShootRT", false);
+			else if (mDirection == eDirection::LTop)
+				mAnimator->Play(L"M_ShootLT", false);
 			//}
 		}
 		if (Input::GetKey(eKeyCode::Left)
@@ -302,15 +304,15 @@ namespace mo {
 		mTransform->SetPos(pos);
 	}
 
-	void Pistol::shoot()
+	void Machinegun::shoot()
 	{
 	}
 
-	void Pistol::death()
+	void Machinegun::death()
 	{
 	}
 
-	void Pistol::idle()
+	void Machinegun::idle()
 	{
 
 		eDirection mDirection = mTransform->GetDirection();
@@ -321,13 +323,13 @@ namespace mo {
 			if (Input::GetKeyDown(eKeyCode::Right))
 			{
 				mDirection = eDirection::RTop;
-				mAnimator->Play(L"P_IdleRT", true);
+				mAnimator->Play(L"M_IdleRT", true);
 				mState = Marco::eMarcoState::Move;
 			}
 			if (Input::GetKeyDown(eKeyCode::Left))
 			{
 				mDirection = eDirection::LTop;
-				mAnimator->Play(L"P_IdleLT", true);
+				mAnimator->Play(L"M_IdleLT", true);
 				mState = Marco::eMarcoState::Move;
 			}
 
@@ -336,13 +338,13 @@ namespace mo {
 			if (Input::GetKey(eKeyCode::Right))
 			{
 				mDirection = eDirection::Right;
-				mAnimator->Play(L"P_MoveR", true);
+				mAnimator->Play(L"M_MoveR", true);
 				mState = Marco::eMarcoState::Move;
 			}
 			if (Input::GetKey(eKeyCode::Left))
 			{
 				mDirection = eDirection::Left;
-				mAnimator->Play(L"P_MoveL", true);
+				mAnimator->Play(L"M_MoveL", true);
 				mState = Marco::eMarcoState::Move;
 			}
 		}
@@ -351,27 +353,27 @@ namespace mo {
 		//Idle
 		if (Input::GetKeyDown(eKeyCode::Up) && (mDirection == eDirection::Right)) {
 			mDirection = eDirection::RTop;
-			mAnimator->Play(L"P_IdleRT", true);
+			mAnimator->Play(L"M_IdleRT", true);
 		}
 		else if (Input::GetKeyDown(eKeyCode::Up) && (mDirection == eDirection::Left)) {
 			mDirection = eDirection::LTop;
-			mAnimator->Play(L"P_IdleLT", true);
+			mAnimator->Play(L"M_IdleLT", true);
 		}
 
 		if (Input::GetKeyUp(eKeyCode::Up) && (mDirection == eDirection::RTop)) {
 			mDirection = eDirection::Right;
-			mAnimator->Play(L"P_dleR", true);
+			mAnimator->Play(L"M_IdleR", true);
 		}
 		else if (Input::GetKeyUp(eKeyCode::Up) && (mDirection == eDirection::LTop)) {
 			mDirection = eDirection::Left;
-			mAnimator->Play(L"P_IdleL", true);
+			mAnimator->Play(L"M_IdleL", true);
 		}
 		mTransform->SetDirection(mDirection);
 
 
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
-			mAnimator->Play(L"P_None", false);
+			mAnimator->Play(L"M_None", false);
 			mState = Marco::eMarcoState::Sit;
 		}
 
@@ -379,9 +381,9 @@ namespace mo {
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
 			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
-				mAnimator->Play(L"P_JumpIdleR", false);
+				mAnimator->Play(L"M_JumpIdleR", false);
 			if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
-				mAnimator->Play(L"P_JumpIdleL", false);
+				mAnimator->Play(L"M_JumpIdleL", false);
 
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -395,29 +397,29 @@ namespace mo {
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)) {
 
-		/*	if (isKnife) {
-				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"KnifeR", false);
-				else if (mDirection == eDirection::Left)
-					mAnimator->Play(L"KnifeL", false);
-			}
-			else {*/
-				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"P_ShootR", false);
-				else if (mDirection == eDirection::Left)
-					mAnimator->Play(L"P_ShootL", false);
-				else if (mDirection == eDirection::RTop)
-					mAnimator->Play(L"P_ShootRT", false);
-				else if (mDirection == eDirection::LTop)
-					mAnimator->Play(L"P_ShootLT", false);
+			/*	if (isKnife) {
+					if (mDirection == eDirection::Right)
+						mAnimator->Play(L"KnifeR", false);
+					else if (mDirection == eDirection::Left)
+						mAnimator->Play(L"KnifeL", false);
+				}
+				else {*/
+			if (mDirection == eDirection::Right)
+				mAnimator->Play(L"M_ShootR", false);
+			else if (mDirection == eDirection::Left)
+				mAnimator->Play(L"M_ShootL", false);
+			else if (mDirection == eDirection::RTop)
+				mAnimator->Play(L"M_ShootRT", false);
+			else if (mDirection == eDirection::LTop)
+				mAnimator->Play(L"M_ShootLT", false);
 			//}
 		}
 
 	}
 
-	void Pistol::sit()
+	void Machinegun::sit()
 	{
-	
+
 		eDirection mDirection = mTransform->GetDirection();
 		Vector2 pos = mTransform->GetPos();
 
@@ -440,24 +442,24 @@ namespace mo {
 		if (Input::GetKeyUp(eKeyCode::Down)) {
 			if (Input::GetKey(eKeyCode::Right)) {
 				mDirection = eDirection::Right;
-				mAnimator->Play(L"P_MoveR", true);
+				mAnimator->Play(L"M_MoveR", true);
 				mState = Marco::eMarcoState::Move;
 			}
 			if (Input::GetKey(eKeyCode::Left)) {
 				mDirection = eDirection::Left;
-				mAnimator->Play(L"P_MoveL", true);
+				mAnimator->Play(L"M_MoveL", true);
 				mState = Marco::eMarcoState::Move;
 			}
 			if (Input::GetKeyNone(eKeyCode::Right)
 				&& Input::GetKeyNone(eKeyCode::Left)) {
 
 				if (mDirection == eDirection::Right || mDirection == eDirection::RSit) {
-					mAnimator->Play(L"P_IdleR", true);
+					mAnimator->Play(L"M_IdleR", true);
 					mDirection = eDirection::Right;
 				}
 
 				if (mDirection == eDirection::Left || mDirection == eDirection::LSit) {
-					mAnimator->Play(L"P_IdleL", true);
+					mAnimator->Play(L"M_IdleL", true);
 					mDirection = eDirection::Left;
 				}
 				mState = Marco::eMarcoState::Idle;
@@ -473,11 +475,11 @@ namespace mo {
 		{
 			if (mDirection == eDirection::Right) {
 				mDirection = eDirection::RBottom;
-				mAnimator->Play(L"P_JumpDownR", false);
+				mAnimator->Play(L"M_JumpDownR", false);
 			}
 			if (mDirection == eDirection::Left) {
 				mDirection = eDirection::LBottom;
-				mAnimator->Play(L"P_JumpDownL", false);
+				mAnimator->Play(L"M_JumpDownL", false);
 			}
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -502,12 +504,12 @@ namespace mo {
 				}
 			}
 			else {*/
-				if (mDirection == eDirection::Right) {
-					mDirection = eDirection::RSit;
-				}
-				if (mDirection == eDirection::Left) {
-					mDirection = eDirection::LSit;
-				}
+			if (mDirection == eDirection::Right) {
+				mDirection = eDirection::RSit;
+			}
+			if (mDirection == eDirection::Left) {
+				mDirection = eDirection::LSit;
+			}
 			//}
 			mTransform->SetDirection(mDirection);
 			shootStartEvent();
@@ -517,9 +519,9 @@ namespace mo {
 
 	}
 
-	void Pistol::jump()
+	void Machinegun::jump()
 	{
-		
+
 		eDirection mDirection = mTransform->GetDirection();
 		Vector2 pos = mTransform->GetPos();
 
@@ -531,11 +533,11 @@ namespace mo {
 			{
 				if (mDirection == eDirection::LTop) {
 					mDirection == eDirection::LTop;
-					mAnimator->Play(L"P_IdleLT", true);
+					mAnimator->Play(L"M_IdleLT", true);
 				}
 				else {
 					mDirection == eDirection::Left;
-					mAnimator->Play(L"P_MoveL", true);
+					mAnimator->Play(L"M_MoveL", true);
 				}
 
 			}
@@ -544,11 +546,11 @@ namespace mo {
 			{
 				if (mDirection == eDirection::RTop) {
 					mDirection == eDirection::RTop;
-					mAnimator->Play(L"P_IdleRT", true);
+					mAnimator->Play(L"M_IdleRT", true);
 				}
 				else {
 					mDirection = eDirection::Right;
-					mAnimator->Play(L"P_MoveR", true);
+					mAnimator->Play(L"M_MoveR", true);
 				}
 
 			}
@@ -560,22 +562,22 @@ namespace mo {
 		if (Input::GetKeyDown(eKeyCode::Down)) {
 			if (mDirection == eDirection::Right) {
 				mDirection = eDirection::RBottom;
-				mAnimator->Play(L"P_JumpDownR", false);
+				mAnimator->Play(L"M_JumpDownR", false);
 			}
 			if (mDirection == eDirection::Left) {
 				mDirection = eDirection::LBottom;
-				mAnimator->Play(L"P_JumpDownL", false);
+				mAnimator->Play(L"M_JumpDownL", false);
 			}
 		}
 
 		if (Input::GetKeyUp(eKeyCode::Down)) {
 			if (mDirection == eDirection::RBottom) {
 				mDirection = eDirection::Right;
-				mAnimator->Play(L"P_JumpIdleR", false);
+				mAnimator->Play(L"M_JumpIdleR", false);
 			}
 			if (mDirection == eDirection::LBottom) {
 				mDirection = eDirection::Left;
-				mAnimator->Play(L"P_JumpIdleL", false);
+				mAnimator->Play(L"M_JumpIdleL", false);
 			}
 		}
 
@@ -657,18 +659,18 @@ namespace mo {
 			//		mAnimator->Play(L"KnifeL", false);
 			//}
 			//else {
-				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"P_ShootR", false);
-				else if (mDirection == eDirection::Left)
-					mAnimator->Play(L"P_ShootL", false);
-				else if (mDirection == eDirection::RTop)
-					mAnimator->Play(L"P_ShootRT", false);
-				else if (mDirection == eDirection::LTop)
-					mAnimator->Play(L"P_ShootLT", false);
-				else if (mDirection == eDirection::RBottom)
-					mAnimator->Play(L"P_ShootRB", false);
-				else if (mDirection == eDirection::LBottom)
-					mAnimator->Play(L"P_ShootLB", false);
+			if (mDirection == eDirection::Right)
+				mAnimator->Play(L"M_ShootR", false);
+			else if (mDirection == eDirection::Left)
+				mAnimator->Play(L"M_ShootL", false);
+			else if (mDirection == eDirection::RTop)
+				mAnimator->Play(L"M_ShootRT", false);
+			else if (mDirection == eDirection::LTop)
+				mAnimator->Play(L"M_ShootLT", false);
+			else if (mDirection == eDirection::RBottom)
+				mAnimator->Play(L"M_ShootRB", false);
+			else if (mDirection == eDirection::LBottom)
+				mAnimator->Play(L"M_ShootLB", false);
 			//}
 		}
 
@@ -689,9 +691,9 @@ namespace mo {
 
 	}
 
-	void Pistol::shootStartEvent()
+	void Machinegun::shootStartEvent()
 	{
-	
+
 		eDirection mDirection = mTransform->GetDirection();
 
 		Scene* curScene = SceneManager::GetActiveScene();
@@ -744,7 +746,7 @@ namespace mo {
 	}
 
 
-	void Pistol::AttackEndEvent()
+	void Machinegun::AttackEndEvent()
 	{
 		mAnimator->Play(mPrevAnimation->GetName(), true);
 	}
