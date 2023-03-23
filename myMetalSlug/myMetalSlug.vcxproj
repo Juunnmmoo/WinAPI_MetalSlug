@@ -154,6 +154,7 @@
     <ClInclude Include="momoEngine.h" />
     <ClInclude Include="moObject.h" />
     <ClInclude Include="moParaglider.h" />
+    <ClInclude Include="moPistol.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
     <ClInclude Include="moRigidBody.h" />
@@ -163,6 +164,7 @@
     <ClInclude Include="moTitleBG.h" />
     <ClInclude Include="moTitleScene.h" />
     <ClInclude Include="moTransform.h" />
+    <ClInclude Include="moWeapon.h" />
     <ClInclude Include="myMetalSlug.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
@@ -188,6 +190,7 @@
     <ClCompile Include="moMission1BG.cpp" />
     <ClCompile Include="moMission1Scene.cpp" />
     <ClCompile Include="moParaglider.cpp" />
+    <ClCompile Include="moPistol.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />
     <ClCompile Include="moRigidBody.cpp" />
@@ -197,6 +200,7 @@
     <ClCompile Include="moTitleBG.cpp" />
     <ClCompile Include="moTitleScene.cpp" />
     <ClCompile Include="moTransform.cpp" />
+    <ClCompile Include="moWeapon.cpp" />
     <ClCompile Include="myMetalSlug.cpp" />
   </ItemGroup>
   <ItemGroup>

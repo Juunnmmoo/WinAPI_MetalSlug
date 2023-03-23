@@ -3,6 +3,7 @@
 #include "moMarcoBottom.h"
 
 namespace mo {
+	class Pistol;
 	class RigidBody;
 	class Animator;
 	class Animation;
@@ -32,6 +33,9 @@ namespace mo {
 		virtual void OnCollisionStay(class Collider* other)override;
 		virtual void OnCollisionExit(class Collider* other)override;
 
+		eMarcoState GetState() { return mState; }
+		void SetState(eMarcoState state) { mState = state; }
+
 	private:
 		void paraglider();
 		void move();
@@ -52,5 +56,6 @@ namespace mo {
 		RigidBody* mRigidbody;
 		RigidBody* bottomRigidBody;
 		bool isKnife;
+		Pistol* pistol;
 	};
 }
