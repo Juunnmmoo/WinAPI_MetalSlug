@@ -13,6 +13,7 @@
 namespace mo {
 	MarcoBottom::MarcoBottom()
 		: isGround(false)
+		, mWeaponState(eMarcoWeapon::Pistol)
 	{
 	}
 	MarcoBottom::~MarcoBottom()
@@ -33,17 +34,30 @@ namespace mo {
 		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 14, 120.0f * 0), -120.0f, 15, 15, 1, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"MoveL", mImageL, Vector2(120.0f * 14, 120.0f * 2), -120.0f, 15, 15, 12, Vector2::Zero, 0.05);
 
-		mAnimator->CreateAnimation(L"ReadySitR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 15, 15, 3, Vector2::Zero, 0.03);
-		mAnimator->CreateAnimation(L"ReadySitL", mImageL, Vector2(120.0f * 14, 120.0f * 3), -120.0f, 15, 15, 3, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"P_ReadySitR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 15, 15, 3, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"P_ReadySitL", mImageL, Vector2(120.0f * 14, 120.0f * 3), -120.0f, 15, 15, 3, Vector2::Zero, 0.03);
 
-		mAnimator->CreateAnimation(L"SitR", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 15, 15, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"SitL", mImageL, Vector2(120.0f * 14, 120.0f * 4), -120.0f, 15, 15, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"P_SitR", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 15, 15, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"P_SitL", mImageL, Vector2(120.0f * 14, 120.0f * 4), -120.0f, 15, 15, 4, Vector2::Zero, 0.1);
 
-		mAnimator->CreateAnimation(L"SitMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 15, 15, 7, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"SitMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 5), -120.0f, 15, 15, 7, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"P_SitMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 15, 15, 7, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"P_SitMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 5), -120.0f, 15, 15, 7, Vector2::Zero, 0.15);
 
-		mAnimator->CreateAnimation(L"SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 15, 15, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"SitShootL", mImageL, Vector2(120.0f * 14, 120.0f * 6), -120.0f, 15, 15, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"P_SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 15, 15, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"P_SitShootL", mImageL, Vector2(120.0f * 14, 120.0f * 6), -120.0f, 15, 15, 10, Vector2::Zero, 0.07);
+
+		mAnimator->CreateAnimation(L"M_ReadySitR", mImageR, Vector2(120.0f * 0, 120.0f * 12), 120.0f, 15, 15, 3, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"M_ReadySitL", mImageL, Vector2(120.0f * 14, 120.0f * 12), -120.0f, 15, 15, 3, Vector2::Zero, 0.03);
+
+		mAnimator->CreateAnimation(L"M_SitR", mImageR, Vector2(120.0f * 0, 120.0f * 11), 120.0f, 15, 15, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"M_SitL", mImageL, Vector2(120.0f * 14, 120.0f * 11), -120.0f, 15, 15, 4, Vector2::Zero, 0.1);
+	
+		mAnimator->CreateAnimation(L"M_SitMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 15, 15, 7, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_SitMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 9), -120.0f, 15, 15, 7, Vector2::Zero, 0.15);
+
+		mAnimator->CreateAnimation(L"M_SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 10), 120.0f, 15, 15, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_SitShootL", mImageL, Vector2(120.0f * 14, 120.0f * 10), -120.0f, 15, 15, 10, Vector2::Zero, 0.07);
+
 
 		mAnimator->CreateAnimation(L"JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 15, 15, 6, Vector2::Zero, 0.15);
 		mAnimator->CreateAnimation(L"JumpIdleL", mImageL, Vector2(120.0f * 14, 120.0f * 7), -120.0f, 15, 15, 6, Vector2::Zero, 0.15);
@@ -166,10 +180,16 @@ namespace mo {
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
 
+
 			if (mDirection == eDirection::Left)
-				mAnimator->Play(L"ReadySitL", false);
+				mAnimator->Play(L"P_ReadySitL", false);
 			else if (mDirection == eDirection::Right)
-				mAnimator->Play(L"ReadySitR", false);
+				mAnimator->Play(L"P_ReadySitR", false);
+			if (mDirection == eDirection::Left)
+				mAnimator->Play(L"P_ReadySitL", false);
+			else if (mDirection == eDirection::Right)
+				mAnimator->Play(L"P_ReadySitR", false);
+
 			mState = eMarcoState::Sit;
 
 		}

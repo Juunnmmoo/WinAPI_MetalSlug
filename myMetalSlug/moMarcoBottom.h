@@ -8,6 +8,7 @@ namespace mo {
 	class MarcoBottom : public GameObject
 	{
 	public:
+		
 
 		enum class eMarcoState{
 			Paraglider,
@@ -28,8 +29,7 @@ namespace mo {
 		virtual void Render(HDC mHdc)override;
 		
 		void SetIsGround(bool b) { isGround = b; }
-
-
+		
 		Animator* GetAnimator() { return mAnimator; }
 
 	private:
@@ -46,5 +46,6 @@ namespace mo {
 		eMarcoState mState;
 		Animator* mAnimator;
 		bool isGround;
+
 	};
 }

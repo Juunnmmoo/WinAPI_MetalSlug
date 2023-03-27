@@ -20,7 +20,7 @@ namespace mo {
 	}
 	void BaseBullet::Initialize()
 	{
-		mImage = Resources::Load<Image>(L"OriginalBullet", L"..\\Resources\\Effect\\OriginalBullet.bmp");
+		mImage = Resources::Load<Image>(L"OriginalBullet", L"..\\Resources\\Weapon\\Bullet\\OriginalBullet.bmp");
 
 
 		Collider* mCollider = AddComponent<Collider>();

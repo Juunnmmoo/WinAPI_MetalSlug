@@ -527,10 +527,20 @@ namespace mo {
 		//Junp
 		if (mRigidbody->GetGround())
 		{
+			if (Input::GetKey(eKeyCode::S)) {
+
+
+				playerBottom->SetIsGround(true);
+				mState = Marco::eMarcoState::Move;
+
+			}
+			
+			else {
+
 			if (Input::GetKey(eKeyCode::Left))
 			{
 				if (mDirection == eDirection::LTop) {
-					mDirection == eDirection::LTop;
+					//mDirection = eDirection::LTop;
 					mAnimator->Play(L"P_IdleLT", true);
 				}
 				else {
@@ -543,7 +553,7 @@ namespace mo {
 			if (Input::GetKey(eKeyCode::Right))
 			{
 				if (mDirection == eDirection::RTop) {
-					mDirection == eDirection::RTop;
+					//mDirection = eDirection::RTop;
 					mAnimator->Play(L"P_IdleRT", true);
 				}
 				else {
@@ -554,6 +564,7 @@ namespace mo {
 			}
 			playerBottom->SetIsGround(true);
 			mState = Marco::eMarcoState::Move;
+			}
 
 		}
 

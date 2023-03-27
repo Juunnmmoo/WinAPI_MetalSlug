@@ -37,44 +37,46 @@ namespace mo {
 		mRigidbody = player->GetComponent<RigidBody>();
 		mTransform = player->GetComponent<Transform>();
 
-		Image* mImageR = Resources::Load<Image>(L"PistolRight", L"..\\Resources\\Player\\PistolRight.bmp");
-		Image* mImageL = Resources::Load<Image>(L"PistolLeft", L"..\\Resources\\Player\\PistolLeft.bmp");
-		Image* test = Resources::Load<Image>(L"RipleRight", L"..\\Resources\\Player\\RipleRight.bmp");
+		
+		Image* mImageR = Resources::Load<Image>(L"RipleRight", L"..\\Resources\\Player\\RipleRight.bmp");
+		Image* mImageL = Resources::Load<Image>(L"RipleLeft", L"..\\Resources\\Player\\RipleLeft.bmp");
+
 		// Coulmn : За	row : ї­
 		//mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"M_IdleR", test, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"M_IdleRT", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 4, Vector2::Zero, 0.15); 
+		mAnimator->CreateAnimation(L"M_IdleRT", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 30, 60, 4, Vector2::Zero, 0.15);
 		mAnimator->CreateAnimation(L"M_IdleL", mImageL, Vector2(120.0f * 29, 120.0f * 0), -120.0f, 30, 60, 4, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"M_IdleLT", mImageL, Vector2(120.0f * 29, 120.0f * 4), -120.0f, 30, 60, 4, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_IdleLT", mImageL, Vector2(120.0f * 29, 120.0f * 5), -120.0f, 30, 60, 4, Vector2::Zero, 0.15);
 
 
 		//mAnimator->CreateAnimation(L"ShootR", mImageR, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_ShootR", test, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 8, Vector2::Zero, 0.05);
-		mAnimator->CreateAnimation(L"M_ShootRT", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_ShootL", mImageL, Vector2(120.0f * 29, 120.0f * 1), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_ShootLT", mImageL, Vector2(120.0f * 29, 120.0f * 5), -120.0f, 30, 60, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_ShootRB", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_ShootLB", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR", mImageR, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 4, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootRT", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 4, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootL", mImageL, Vector2(120.0f * 29, 120.0f * 1), -120.0f, 30, 60, 4, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootLT", mImageL, Vector2(120.0f * 29, 120.0f * 6), -120.0f, 30, 60, 4, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootRB", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 30, 60, 4, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootLB", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 60, 4, Vector2::Zero, 0.07);
 
 
-		mAnimator->CreateAnimation(L"M_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		//mAnimator->CreateAnimation(L"M_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		//mAnimator->CreateAnimation(L"M_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
 		mAnimator->CreateAnimation(L"M_MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"M_MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 
 		mAnimator->CreateAnimation(L"M_None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
 
-		mAnimator->CreateAnimation(L"M_JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 6), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"M_JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_JumpMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 7), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 10), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 10), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"M_JumpDownR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 30, 60, 3, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_JumpDownL", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 60, 3, Vector2::Zero, 0.07);
+		//mAnimator->CreateAnimation(L"M_JumpDownR", test, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 30, 60, 3, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpDownR", mImageR, Vector2(120.0f * 0, 120.0f * 11), 120.0f, 30, 60, 3, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_JumpDownL", mImageL, Vector2(120.0f * 29, 120.0f * 11), -120.0f, 30, 60, 3, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"M_paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
 
 
 		/*mAnimator->GetStartEvent(L"KnifeR") = std::bind(&Pistol::AttackEndEvent, this);
