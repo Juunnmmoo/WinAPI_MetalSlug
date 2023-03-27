@@ -64,7 +64,7 @@ namespace mo {
 		mAnimator->CreateAnimation(L"M_MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"M_MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 
-		mAnimator->CreateAnimation(L"M_None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
+		//mAnimator->CreateAnimation(L"M_None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
 
 		mAnimator->CreateAnimation(L"M_JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"M_JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
@@ -98,16 +98,16 @@ namespace mo {
 		mAnimator->GetCompleteEvent(L"M_ShootRB") = std::bind(&Machinegun::AttackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_ShootLB") = std::bind(&Machinegun::AttackEndEvent, this);
 
-		mAnimator->Play(L"M_paraglider", false);
+		//mAnimator->Play(L"M_paraglider", false);
 	}
 	void Machinegun::Update()
 	{
 		mState = player->GetState();
 
 		switch (mState) {
-		case mo::Marco::eMarcoState::Paraglider:
+		/*case mo::Marco::eMarcoState::Paraglider:
 			paraglider();
-			break;
+			break;*/
 		case mo::Marco::eMarcoState::Move:
 			move();
 			break;
@@ -134,7 +134,7 @@ namespace mo {
 		player->SetState(mState);
 	}
 
-	void Machinegun::paraglider()
+	/*void Machinegun::paraglider()
 	{
 
 		if (unUsedParaglider == false) {
@@ -153,7 +153,7 @@ namespace mo {
 			mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
 			mState = Marco::eMarcoState::Idle;
 		}
-	}
+	}*/
 
 	void Machinegun::move()
 	{
@@ -252,17 +252,30 @@ namespace mo {
 
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
-			mAnimator->Play(L"M_None", false);
+			mAnimator->Play(L"None", false);
 			mState = Marco::eMarcoState::Sit;
 		}
 
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
-			if (Input::GetKey(eKeyCode::Right))
-				mAnimator->Play(L"M_JumpMoveR", false);
-			if (Input::GetKey(eKeyCode::Left))
-				mAnimator->Play(L"M_JumpMoveL", false);
+
+			if (Input::GetKey(eKeyCode::Down)) {
+				if (mDirection == eDirection::Right) {
+					mDirection = eDirection::RBottom;
+					mAnimator->Play(L"M_JumpDownR", false);
+				}
+				else if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LBottom;
+					mAnimator->Play(L"M_JumpDownL", false);
+				}
+			}
+			else {
+				if (Input::GetKey(eKeyCode::Right))
+					mAnimator->Play(L"M_JumpMoveR", false);
+				else if (Input::GetKey(eKeyCode::Left))
+					mAnimator->Play(L"M_JumpMoveL", false);
+			}
 
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -375,17 +388,29 @@ namespace mo {
 
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
-			mAnimator->Play(L"M_None", false);
+			mAnimator->Play(L"None", false);
 			mState = Marco::eMarcoState::Sit;
 		}
 
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
-			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
-				mAnimator->Play(L"M_JumpIdleR", false);
-			if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
-				mAnimator->Play(L"M_JumpIdleL", false);
+			if (Input::GetKey(eKeyCode::Down)) {
+				if (mDirection == eDirection::Right) {
+					mDirection = eDirection::RBottom;
+					mAnimator->Play(L"M_JumpDownR", false);
+				}
+				else if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LBottom;
+					mAnimator->Play(L"M_JumpDownL", false);
+				}
+			}
+			else {
+				if (Input::GetKey(eKeyCode::Right))
+					mAnimator->Play(L"M_JumpMoveR", false);
+				else if (Input::GetKey(eKeyCode::Left))
+					mAnimator->Play(L"M_JumpMoveL", false);
+			}
 
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -475,13 +500,22 @@ namespace mo {
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
-			if (mDirection == eDirection::Right) {
-				mDirection = eDirection::RBottom;
-				mAnimator->Play(L"M_JumpDownR", false);
+
+			if (Input::GetKey(eKeyCode::Down)) {
+				if (mDirection == eDirection::Right) {
+					mDirection = eDirection::RBottom;
+					mAnimator->Play(L"M_JumpDownR", false);
+				}
+				else if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LBottom;
+					mAnimator->Play(L"M_JumpDownL", false);
+				}
 			}
-			if (mDirection == eDirection::Left) {
-				mDirection = eDirection::LBottom;
-				mAnimator->Play(L"M_JumpDownL", false);
+			else {
+				if (Input::GetKey(eKeyCode::Right))
+					mAnimator->Play(L"M_JumpMoveR", false);
+				else if (Input::GetKey(eKeyCode::Left))
+					mAnimator->Play(L"M_JumpMoveL", false);
 			}
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -556,6 +590,7 @@ namespace mo {
 				}
 
 			}
+			
 			playerBottom->SetIsGround(true);
 			mState = Marco::eMarcoState::Move;
 
@@ -743,8 +778,13 @@ namespace mo {
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();
 		Animation* prevAnimation = mAnimator->GetPrevAniamtion();
 
-		if (activeAnimation != prevAnimation)
-			mPrevAnimation = prevAnimation;
+		if (prevAnimation->GetName() != L"M_ShootR" &&
+			prevAnimation->GetName() != L"M_ShootRT" &&
+			prevAnimation->GetName() != L"M_ShootL" &&
+			prevAnimation->GetName() != L"M_ShootLT" &&
+			prevAnimation->GetName() != L"M_ShootRB" &&
+			prevAnimation->GetName() != L"M_ShootLB")
+				mPrevAnimation = prevAnimation;
 	}
 
 

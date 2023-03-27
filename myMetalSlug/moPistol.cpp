@@ -61,7 +61,7 @@ namespace mo {
 		mAnimator->CreateAnimation(L"P_MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"P_MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 
-		mAnimator->CreateAnimation(L"P_None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
+		mAnimator->CreateAnimation(L"None", mImageR, Vector2(120.0f * 29, 120.0f * 0), 120.0f, 30, 60, 1, Vector2::Zero, 1.0);
 
 		mAnimator->CreateAnimation(L"P_JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"P_JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 6), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
@@ -248,17 +248,29 @@ namespace mo {
 
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
-			mAnimator->Play(L"P_None", false);
+			mAnimator->Play(L"None", false);
 			mState = Marco::eMarcoState::Sit;
 		}
 
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{
-			if (Input::GetKey(eKeyCode::Right))
-				mAnimator->Play(L"P_JumpMoveR", false);
-			if (Input::GetKey(eKeyCode::Left))
-				mAnimator->Play(L"P_JumpMoveL", false);
+			if (Input::GetKey(eKeyCode::Down)) {
+				if (mDirection == eDirection::Right) {
+					mDirection = eDirection::RBottom;
+					mAnimator->Play(L"P_JumpDownR", false);
+				}
+				else if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LBottom;
+					mAnimator->Play(L"P_JumpDownL", false);
+				}
+			}
+			else {
+				if (Input::GetKey(eKeyCode::Right))
+					mAnimator->Play(L"P_JumpMoveR", false);
+				else if (Input::GetKey(eKeyCode::Left))
+					mAnimator->Play(L"P_JumpMoveL", false);
+			}
 
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -360,7 +372,7 @@ namespace mo {
 
 		if (Input::GetKeyUp(eKeyCode::Up) && (mDirection == eDirection::RTop)) {
 			mDirection = eDirection::Right;
-			mAnimator->Play(L"P_dleR", true);
+			mAnimator->Play(L"P_IdleR", true);
 		}
 		else if (Input::GetKeyUp(eKeyCode::Up) && (mDirection == eDirection::LTop)) {
 			mDirection = eDirection::Left;
@@ -371,17 +383,29 @@ namespace mo {
 
 		// To Sit
 		if (Input::GetKeyDown(eKeyCode::Down)) {
-			mAnimator->Play(L"P_None", false);
+			mAnimator->Play(L"None", false);
 			mState = Marco::eMarcoState::Sit;
 		}
 
 		//Junp
 		if (Input::GetKeyDown(eKeyCode::S))
-		{
-			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
-				mAnimator->Play(L"P_JumpIdleR", false);
-			if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
-				mAnimator->Play(L"P_JumpIdleL", false);
+		{	
+			if (Input::GetKey(eKeyCode::Down)) {
+				if (mDirection == eDirection::Right) {
+					mDirection = eDirection::RBottom;
+					mAnimator->Play(L"P_JumpDownR", false);
+				}
+				if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LBottom;
+					mAnimator->Play(L"P_JumpDownL", false);
+				}
+			}
+			else {
+				if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+					mAnimator->Play(L"P_JumpIdleR", false);
+				if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+					mAnimator->Play(L"P_JumpIdleL", false);
+			}
 
 			Vector2 velocity = mRigidbody->GetVelocity();
 			velocity.y -= 700.0f;
@@ -527,16 +551,7 @@ namespace mo {
 		//Junp
 		if (mRigidbody->GetGround())
 		{
-			if (Input::GetKey(eKeyCode::S)) {
-
-
-				playerBottom->SetIsGround(true);
-				mState = Marco::eMarcoState::Move;
-
-			}
 			
-			else {
-
 			if (Input::GetKey(eKeyCode::Left))
 			{
 				if (mDirection == eDirection::LTop) {
@@ -564,7 +579,7 @@ namespace mo {
 			}
 			playerBottom->SetIsGround(true);
 			mState = Marco::eMarcoState::Move;
-			}
+			
 
 		}
 
@@ -750,8 +765,16 @@ namespace mo {
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();
 		Animation* prevAnimation = mAnimator->GetPrevAniamtion();
 
-		if (activeAnimation != prevAnimation)
-			mPrevAnimation = prevAnimation;
+		if (prevAnimation->GetName() != L"P_ShootR" &&
+			prevAnimation->GetName() != L"P_ShootRT" &&
+			prevAnimation->GetName() != L"P_ShootL" &&
+			prevAnimation->GetName() != L"P_ShootLT" &&
+			prevAnimation->GetName() != L"P_ShootRB" &&
+			prevAnimation->GetName() != L"P_ShootLB" )
+				mPrevAnimation = prevAnimation;
+
+		//if(activeAnimation->GetName() != L"P_")
+
 	}
 
 

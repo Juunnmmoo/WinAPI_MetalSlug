@@ -11,13 +11,6 @@ namespace mo {
 	class Marco : public GameObject
 	{
 	public:
-		enum class eMarcoWeapon {
-			Pistol,
-			Machinegun,
-			Shotgun,
-			Firegun,
-		};
-
 		enum class eMarcoState{
 			Paraglider,
 			Move,
@@ -39,6 +32,8 @@ namespace mo {
 		virtual void OnCollisionEnter(class Collider* other)override;
 		virtual void OnCollisionStay(class Collider* other)override;
 		virtual void OnCollisionExit(class Collider* other)override;
+
+		void ChangeWeapon(eMarcoWeapon state);
 
 		eMarcoState GetState() { return mState; }
 		void SetState(eMarcoState state) { mState = state; }

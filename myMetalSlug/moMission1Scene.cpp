@@ -12,6 +12,7 @@
 #include "moCamera.h"
 #include "moTitleBG.h"
 #include "moParaglider.h";
+#include "moMachinegunBox.h"
 
 namespace mo
 {
@@ -28,6 +29,7 @@ namespace mo
 		Camera::SetLookPosition(pos);
 
 
+
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
 
@@ -40,9 +42,14 @@ namespace mo
 		AddGameObject(arabian, eLayerType::Monster);
 
 		Mission1BG* mission1BG = new Mission1BG();
-		AddGameObject(mission1BG, eLayerType::BG03);
+		AddGameObject(mission1BG, eLayerType::BG);
 
 		mission1BG->SetPlayer(marco);
+
+		MachinegunBox* M_Box = new MachinegunBox();
+		AddGameObject(M_Box, eLayerType::BulletBox);
+
+
 
 		Camera::SetTarget(marco);
 
@@ -76,10 +83,9 @@ namespace mo
 	}
 	void Mission1Scene::OnEnter()
 	{
-
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-
 		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Bullet, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
 	}
 	void Mission1Scene::OnExit()
 	{

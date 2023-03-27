@@ -148,6 +148,7 @@
     <ClInclude Include="moInput.h" />
     <ClInclude Include="moLayer.h" />
     <ClInclude Include="moMachinegun.h" />
+    <ClInclude Include="moMachinegunBox.h" />
     <ClInclude Include="moMarco.h" />
     <ClInclude Include="moMarcoBottom.h" />
     <ClInclude Include="moMath.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="moInput.cpp" />
     <ClCompile Include="moLayer.cpp" />
     <ClCompile Include="moMachinegun.cpp" />
+    <ClCompile Include="moMachinegunBox.cpp" />
     <ClCompile Include="moMarco.cpp" />
     <ClCompile Include="moMarcoBottom.cpp" />
     <ClCompile Include="moMath.cpp" />

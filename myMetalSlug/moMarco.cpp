@@ -81,11 +81,10 @@ namespace mo {
 	{
 
 		switch (mWeaponState) {
-			case mo::Marco::eMarcoWeapon::Pistol:
-				//pistol->Update();
-				machinegun->Update();
+			case eMarcoWeapon::Pistol:
+				pistol->Update();
 				break;
-			case mo::Marco::eMarcoWeapon::Machinegun:
+			case eMarcoWeapon::Machinegun:
 				machinegun->Update();
 				break;
 		}
@@ -128,6 +127,49 @@ namespace mo {
 	{
 		/*if (other->GetOwner()->GetLayerType() == eLayerType::Monster)
 			isKnife = false;*/
+	}
+
+	void Marco::ChangeWeapon(eMarcoWeapon state)
+	{
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		eDirection mDirection = tr->GetDirection();
+
+		mWeaponState = state;
+		bottom->SetWeaponState(state);
+
+		if (mState == eMarcoState::Sit) {
+			bottom->PlaySitAnimation();
+			mAnimator->Play(L"None", true);
+		}
+		else {
+			if (state == eMarcoWeapon::Pistol) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_MoveL", true);
+				else
+					mAnimator->Play(L"P_MoveR", true);
+			}
+			else if (state == eMarcoWeapon::Machinegun) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_MoveL", true);
+				else
+					mAnimator->Play(L"M_MoveR", true);
+			}
+			else if (state == eMarcoWeapon::Shotgun) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"S_MoveL", true);
+				else
+					mAnimator->Play(L"S_MoveR", true);
+			}
+			else {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"F_MoveL", true);
+				else
+					mAnimator->Play(L"F_MoveR", true);
+			}
+			mState = eMarcoState::Move;
+		}
+		
 	}
 
 }

@@ -14,9 +14,8 @@ enum class eSceneType
 
 enum class eLayerType
 {
-	BG01,
-	BG02,
-	BG03,
+	BG,
+	BulletBox,
 	Monster,
 	Player,
 	Bullet,
@@ -49,4 +48,11 @@ enum class eDirection
 	Left,
 	Right,
 	End,
+};
+
+enum class eMarcoWeapon {
+	Pistol,
+	Machinegun,
+	Shotgun,
+	Firegun,
 };

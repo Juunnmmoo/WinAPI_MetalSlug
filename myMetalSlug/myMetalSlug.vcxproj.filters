@@ -77,11 +77,11 @@
     <Filter Include="Contents\Scene">
       <UniqueIdentifier>{39a5973c-e4ee-4024-973c-97c04103ba96}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObj\Player">
-      <UniqueIdentifier>{749121a4-05eb-4137-8393-a33b2278562d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\PlayerObj">
       <UniqueIdentifier>{e368c851-e307-40f1-98b6-2578f7e1c259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Player">
+      <UniqueIdentifier>{749121a4-05eb-4137-8393-a33b2278562d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +211,9 @@
     <ClInclude Include="moFiregun.h">
       <Filter>Contents\PlayerObj</Filter>
     </ClInclude>
+    <ClInclude Include="moMachinegunBox.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -330,6 +333,9 @@
     </ClCompile>
     <ClCompile Include="moShotgun.cpp">
       <Filter>Contents\PlayerObj</Filter>
+    </ClCompile>
+    <ClCompile Include="moMachinegunBox.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
