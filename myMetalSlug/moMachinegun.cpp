@@ -785,37 +785,41 @@ namespace mo {
 		Scene* curScene = SceneManager::GetActiveScene();
 		BaseBullet* bullet = new BaseBullet();
 
-		if (mDirection == eDirection::Right) {
-			bullet->SetDirection(eDirection::Right);
-			bullet->SetDir(Vector2{ 5.0f, 0.0f });
+		if (mState == Marco::eMarcoState::Sit) {
+			if (mDirection == eDirection::Right) {
+				bullet->SetDirection(eDirection::RSit);
+				bullet->SetDir(Vector2{ 5.0f, 0.0f });
+			}
+			else if (mDirection == eDirection::Left) {
+				bullet->SetDirection(eDirection::LSit);
+				bullet->SetDir(Vector2{ -5.0f, 0.0f });
+			}
 		}
-		else if (mDirection == eDirection::Left) {
-			bullet->SetDirection(eDirection::Left);
-			bullet->SetDir(Vector2{ -5.0f, 0.0f });
-		}
-		else if (mDirection == eDirection::RTop) {
-			bullet->SetDirection(eDirection::Top);
-			bullet->SetDir(Vector2{ 0.0f, -5.0f });
-		}
-		else if (mDirection == eDirection::LTop) {
-			bullet->SetDirection(eDirection::Top);
-			bullet->SetDir(Vector2{ 0.0f, -5.0f });
-		}
-		else if (mDirection == eDirection::RSit) {
-			bullet->SetDirection(eDirection::RSit);
-			bullet->SetDir(Vector2{ 5.0f, 0.0f });
-		}
-		else if (mDirection == eDirection::LSit) {
-			bullet->SetDirection(eDirection::LSit);
-			bullet->SetDir(Vector2{ -5.0f, 0.0f });
-		}
-		else if (mDirection == eDirection::RBottom) {
-			bullet->SetDirection(eDirection::Bottom);
-			bullet->SetDir(Vector2{ 0.0f, 5.0f });
-		}
-		else if (mDirection == eDirection::LBottom) {
-			bullet->SetDirection(eDirection::Bottom);
-			bullet->SetDir(Vector2{ 0.0f, 5.0f });
+		else {
+			if (mDirection == eDirection::Right) {
+				bullet->SetDirection(eDirection::Right);
+				bullet->SetDir(Vector2{ 5.0f, 0.0f });
+			}
+			else if (mDirection == eDirection::Left) {
+				bullet->SetDirection(eDirection::Left);
+				bullet->SetDir(Vector2{ -5.0f, 0.0f });
+			}
+			else if (mDirection == eDirection::RTop) {
+				bullet->SetDirection(eDirection::Top);
+				bullet->SetDir(Vector2{ 0.0f, -5.0f });
+			}
+			else if (mDirection == eDirection::LTop) {
+				bullet->SetDirection(eDirection::Top);
+				bullet->SetDir(Vector2{ 0.0f, -5.0f });
+			}
+			else if (mDirection == eDirection::RBottom) {
+				bullet->SetDirection(eDirection::Bottom);
+				bullet->SetDir(Vector2{ 0.0f, 5.0f });
+			}
+			else if (mDirection == eDirection::LBottom) {
+				bullet->SetDirection(eDirection::Bottom);
+				bullet->SetDir(Vector2{ 0.0f, 5.0f });
+			}
 		}
 
 		//Ä«¸Þ¶ó ÁÂÇ¥
@@ -839,7 +843,20 @@ namespace mo {
 
 	void Machinegun::AttackEndEvent()
 	{
-		mAnimator->Play(mPrevAnimation->GetName(), true);
+		if (mRigidbody->GetGround() == false)
+		{
+			if (Input::GetKey(eKeyCode::Up))
+			{
+				if (Input::GetKey(eKeyCode::Right))
+					mAnimator->Play(L"M_IdleRT", true);
+				else if (Input::GetKey(eKeyCode::Left))
+					mAnimator->Play(L"M_IdleLT", true);
+			}
+			else
+				mAnimator->Play(mPrevAnimation->GetName(), true);
+		}
+		else
+			mAnimator->Play(mPrevAnimation->GetName(), true);
 	}
 
 

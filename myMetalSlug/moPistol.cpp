@@ -566,9 +566,13 @@ namespace mo {
 			if (Input::GetKey(eKeyCode::Down)) 
 			{
 				if (mDirection == eDirection::Right || mDirection == eDirection::RBottom)
+				{
 					mAnimator->Play(L"None", false);
-				else if (mDirection == eDirection::Left || mDirection == eDirection::LBottom)
+				}
+				else if (mDirection == eDirection::Left || mDirection == eDirection::LBottom) 
+				{
 					mAnimator->Play(L"None", false);
+				}
 
 				playerBottom->SetIsGround(true);
 				mState = Marco::eMarcoState::Sit;
@@ -856,13 +860,26 @@ namespace mo {
 				mPrevAnimation = prevAnimation;
 
 		//if(activeAnimation->GetName() != L"P_")
-
 	}
 
 
 	void Pistol::AttackEndEvent()
 	{
-		mAnimator->Play(mPrevAnimation->GetName(), true);
+		Animation* activeAnimation = mAnimator->GetActiveAnimation();
+
+			
+		if (mRigidbody->GetGround() == false)
+		{
+			if (Input::GetKey(eKeyCode::Up))
+			{
+				if (Input::GetKey(eKeyCode::Right))
+					mAnimator->Play(L"P_IdleRT", true);
+				else if (Input::GetKey(eKeyCode::Left))
+					mAnimator->Play(L"P_IdleLT", true);
+			}
+		}
+		else 
+			mAnimator->Play(mPrevAnimation->GetName(), true);
 	}
 
 
