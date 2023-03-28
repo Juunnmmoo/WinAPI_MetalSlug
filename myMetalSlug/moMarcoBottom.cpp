@@ -145,10 +145,31 @@ namespace mo {
 
 	void MarcoBottom::paraglider()
 	{
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		eDirection mDirection = tr->GetDirection();
 
 		if (isGround) {
-			mState = eMarcoState::Idle;
+			if (Input::GetKey(eKeyCode::Right))
+			{
+				mAnimator->Play(L"MoveR", true);
+				mDirection = eDirection::Right;
+				mState = eMarcoState::Move;
+			}
+			else if (Input::GetKey(eKeyCode::Left))
+			{
+				mAnimator->Play(L"MoveL", true);
+				mDirection = eDirection::Left;
+				mState = eMarcoState::Move;
+			}
+			else
+			{
+				mAnimator->Play(L"IdleR", true);
+				mState = eMarcoState::Idle;
+			}
 		}
+
+		tr->SetDirection(mDirection);
 	}
 
 	void MarcoBottom::move()
@@ -314,17 +335,25 @@ namespace mo {
 		if ((mAnimator->GetActiveAnimation()->GetName() == L"P_ReadySitL" || mAnimator->GetActiveAnimation()->GetName() == L"P_ReadySitR")
 			&& mAnimator->IsComplte())
 		{
-			if (Input::GetKey(eKeyCode::Right))
-				mAnimator->Play(L"P_SitMoveR", true);
-			if (Input::GetKey(eKeyCode::Left))
-				mAnimator->Play(L"P_SitMoveL", true);
-
-			if (Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
+			if(Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
 				if (mDirection == eDirection::Right)
 					mAnimator->Play(L"P_SitR", true);
-				else
+				else if (mDirection == eDirection::Left)
 					mAnimator->Play(L"P_SitL", true);
 			}
+
+			else if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_SitMoveR", true);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_SitMoveL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"P_SitMoveR", true);
+			else if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"P_SitMoveL", true);
+
 		}
 
 		//ÀÌµ¿Áß
@@ -372,6 +401,8 @@ namespace mo {
 				mAnimator->Play(L"P_SitL", true);
 		}
 
+		
+		
 		// To Idle
 		if (Input::GetKeyUp(eKeyCode::Down)
 			&& Input::GetKeyNone(eKeyCode::Right)
@@ -385,9 +416,6 @@ namespace mo {
 				mAnimator->Play(L"IdleL", true);
 			mState = eMarcoState::Idle;
 		}
-
-
-
 
 		tr->SetDirection(mDirection);
 
@@ -544,50 +572,78 @@ namespace mo {
 		tr = GetComponent<Transform>();
 		eDirection mDirection = tr->GetDirection();
 
+
 		if (isGround) {
-
-		/*	if (Input::GetKey(eKeyCode::Down)) {
-				if (mDirection == eDirection::Left)
-					mAnimator->Play(L"ReadySitL", false);
-				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"ReadySitR", false);
-
-				mState = eMarcoState::Sit;
-			}*/
-			
-				/*if (mDirection == eDirection::Left)
-					mAnimator->Play(L"MoveL", true);
-				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"MoveR", true);*/
-
-				if (Input::GetKey(eKeyCode::Left)) {
-					mDirection = eDirection::Left;
-					mAnimator->Play(L"MoveL", true);
+			if (Input::GetKey(eKeyCode::Down))
+			{
+				if (mWeaponState == eMarcoWeapon::Pistol) {
+					if (mDirection == eDirection::Left)
+						mAnimator->Play(L"P_ReadySitL", false);
+					else if (mDirection == eDirection::Right)
+						mAnimator->Play(L"P_ReadySitR", false);
 				}
-				if (Input::GetKey(eKeyCode::Right)) {
-					mDirection = eDirection::Right;
+				else if (mWeaponState == eMarcoWeapon::Machinegun) {
+					if (mDirection == eDirection::Left)
+						mAnimator->Play(L"M_ReadySitL", false);
+					else if (mDirection == eDirection::Right)
+						mAnimator->Play(L"M_ReadySitR", false);
+				}
+				mState = eMarcoState::Sit;
+			}
+			else 
+			{
+
+				if (Input::GetKeyNone(eKeyCode::Left) &&
+					Input::GetKeyNone(eKeyCode::Right))
+				{
+					
+					if (mDirection == eDirection::Right)
+						mAnimator->Play(L"IdleR", true);
+					else if (mDirection == eDirection::Left)
+						mAnimator->Play(L"IdleL", true);
+
+					mState = eMarcoState::Idle;
+				}
+				else if (Input::GetKey(eKeyCode::Left) && Input::GetKey(eKeyCode::Right))
+				{
+					if (mDirection == eDirection::Left)
+						mAnimator->Play(L"MoveL", true);
+					else if (mDirection == eDirection::Right)
+						mAnimator->Play(L"MoveR", true);
+
+					mState = eMarcoState::Move;
+				}
+				else if (Input::GetKey(eKeyCode::Left)) {
+					mAnimator->Play(L"MoveL", true);
+					mState = eMarcoState::Move;
+				}
+				else if (Input::GetKey(eKeyCode::Right)) {
 					mAnimator->Play(L"MoveR", true);
+					mState = eMarcoState::Move;
 				}
 					
-
-				mState = eMarcoState::Move;
+			}
 			
 		}
 
-			if (Input::GetKeyDown(eKeyCode::Left))
-				mDirection = eDirection::Left;
-
-			if (Input::GetKeyDown(eKeyCode::Right))
+		if (Input::GetKey(eKeyCode::Right)) {
+			if (Input::GetKeyUp(eKeyCode::Left)) 
 				mDirection = eDirection::Right;
+		}
+		if (Input::GetKey(eKeyCode::Left)) {
+			if (Input::GetKeyUp(eKeyCode::Right)) 
+				mDirection = eDirection::Left;
+		}
 
+		if (Input::GetKeyNone(eKeyCode::Right))
+			if (Input::GetKeyDown(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+			}
+		if (Input::GetKeyNone(eKeyCode::Left))
+			if (Input::GetKeyDown(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+			}
 
-			/*if (Input::GetKeyDown(eKeyCode::D)) {
-				if (mDirection == eDirection::Left)
-					mAnimator->Play(L"JumpIdleL", false);
-				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"JumpIdleR", false);
-			}*/
-		
 			tr->SetDirection(mDirection);
 		
 	}

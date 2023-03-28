@@ -17,12 +17,7 @@ namespace mo {
 		virtual void OnCollisionStay(class Collider* other)override;
 		virtual void OnCollisionExit(class Collider* other)override;
 
-		void SetPlayer(class Marco* marco) { mPlayer = marco; }
-
 	private:
-		class Image* main;
-		class Image* ground;
-		class Marco* mPlayer;
-		UINT TopDiff;
+		class Image* mImage;
 	};
 }
