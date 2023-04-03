@@ -8,7 +8,7 @@
 #include "moTime.h"
 #include "moAnimator.h"
 #include "Collider.h"
-#include "moBaseBullet.h"
+#include "moPistolBullet.h"
 #include "moScene.h"
 #include "moCamera.h"
 #include "moRigidBody.h"
@@ -343,7 +343,7 @@ namespace mo {
 			else if (mDirection == eDirection::Right || mDirection == eDirection::Left)
 			{
 				mDirection = eDirection::Right;
-				mAnimator->Play(L"M_IdleR", true);
+				mAnimator->Play(L"M_MoveR", true);
 			}
 
 			mState = Marco::eMarcoState::Move;
@@ -358,7 +358,7 @@ namespace mo {
 			else if (mDirection == eDirection::Right || mDirection == eDirection::Left)
 			{
 				mDirection = eDirection::Left;
-				mAnimator->Play(L"M_IdleL", true);
+				mAnimator->Play(L"M_MoveL", true);
 			}
 
 			mState = Marco::eMarcoState::Move;
@@ -439,22 +439,27 @@ namespace mo {
 		eDirection mDirection = mTransform->GetDirection();
 		Vector2 pos = mTransform->GetPos();
 
-		//이동중
-		if (Input::GetKey(eKeyCode::Left)
-			&& Camera::GetDistance().x < pos.x - 30.0f
-			&& Input::GetKeyNone(eKeyCode::Right))
-		{
-			pos.x -= 80.0f * Time::DeltaTime();
-			mDirection = eDirection::Left;
-		}
-		if (Input::GetKey(eKeyCode::Right)
-			&& Camera::GetDistance().x + application.GetWidth() > pos.x + 30.0f
-			&& Input::GetKeyNone(eKeyCode::Left))
-		{
-			pos.x += 80.0f * Time::DeltaTime();
-			mDirection = eDirection::Right;
+	
+			//이동중
+			if (Input::GetKey(eKeyCode::Left)
+				&& Camera::GetDistance().x < pos.x - 30.0f
+				&& Input::GetKeyNone(eKeyCode::Right))
+			{
+				if(!playerBottom->GetIsShooting())
+					pos.x -= 80.0f * Time::DeltaTime();
+				mDirection = eDirection::Left;
+			}
+			if (Input::GetKey(eKeyCode::Right)
+				&& Camera::GetDistance().x + application.GetWidth() > pos.x + 30.0f
+				&& Input::GetKeyNone(eKeyCode::Left))
+			{
+				if (!playerBottom->GetIsShooting())
+					pos.x += 80.0f * Time::DeltaTime();
+				mDirection = eDirection::Right;
 
-		}
+			}
+		
+
 
 
 		if (Input::GetKeyUp(eKeyCode::Down)) {
@@ -524,12 +529,9 @@ namespace mo {
 		mTransform->SetDirection(mDirection);
 
 		// Shooting
-		if (Input::GetKeyDown(eKeyCode::D)
-			&& Input::GetKeyNone(eKeyCode::Right)
-			&& Input::GetKeyNone(eKeyCode::Left))
+		if (Input::GetKeyDown(eKeyCode::D))
 		{
-
-			mTransform->SetDirection(mDirection);
+			//mTransform->SetDirection(mDirection);
 			shootStartEvent();
 		}
 
@@ -783,50 +785,50 @@ namespace mo {
 		eDirection mDirection = mTransform->GetDirection();
 
 		Scene* curScene = SceneManager::GetActiveScene();
-		BaseBullet* bullet = new BaseBullet();
+		PistolBullet* pistolBullet = new PistolBullet();
 
 		if (mState == Marco::eMarcoState::Sit) {
 			if (mDirection == eDirection::Right) {
-				bullet->SetDirection(eDirection::RSit);
-				bullet->SetDir(Vector2{ 5.0f, 0.0f });
+				pistolBullet->SetDirection(eDirection::RSit);
+				pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
 			}
 			else if (mDirection == eDirection::Left) {
-				bullet->SetDirection(eDirection::LSit);
-				bullet->SetDir(Vector2{ -5.0f, 0.0f });
+				pistolBullet->SetDirection(eDirection::LSit);
+				pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
 			}
 		}
 		else {
 			if (mDirection == eDirection::Right) {
-				bullet->SetDirection(eDirection::Right);
-				bullet->SetDir(Vector2{ 5.0f, 0.0f });
+				pistolBullet->SetDirection(eDirection::Right);
+				pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
 			}
 			else if (mDirection == eDirection::Left) {
-				bullet->SetDirection(eDirection::Left);
-				bullet->SetDir(Vector2{ -5.0f, 0.0f });
+				pistolBullet->SetDirection(eDirection::Left);
+				pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
 			}
 			else if (mDirection == eDirection::RTop) {
-				bullet->SetDirection(eDirection::Top);
-				bullet->SetDir(Vector2{ 0.0f, -5.0f });
+				pistolBullet->SetDirection(eDirection::Top);
+				pistolBullet->SetDir(Vector2{ 0.0f, -5.0f });
 			}
 			else if (mDirection == eDirection::LTop) {
-				bullet->SetDirection(eDirection::Top);
-				bullet->SetDir(Vector2{ 0.0f, -5.0f });
+				pistolBullet->SetDirection(eDirection::Top);
+				pistolBullet->SetDir(Vector2{ 0.0f, -5.0f });
 			}
 			else if (mDirection == eDirection::RBottom) {
-				bullet->SetDirection(eDirection::Bottom);
-				bullet->SetDir(Vector2{ 0.0f, 5.0f });
+				pistolBullet->SetDirection(eDirection::Bottom);
+				pistolBullet->SetDir(Vector2{ 0.0f, 5.0f });
 			}
 			else if (mDirection == eDirection::LBottom) {
-				bullet->SetDirection(eDirection::Bottom);
-				bullet->SetDir(Vector2{ 0.0f, 5.0f });
+				pistolBullet->SetDirection(eDirection::Bottom);
+				pistolBullet->SetDir(Vector2{ 0.0f, 5.0f });
 			}
 		}
 
 		//카메라 좌표
 		//bullet->GetComponent<Transform>()->SetPos(Camera::CaluatePos(tr->GetPos()));
-		bullet->GetComponent<Transform>()->SetPos(mTransform->GetPos());
-		curScene->AddGameObject(bullet, eLayerType::Bullet);
-		bullet->Initialize();
+		pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos());
+		curScene->AddGameObject(pistolBullet, eLayerType::Bullet);
+		pistolBullet->Initialize();
 
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();
 		Animation* prevAnimation = mAnimator->GetPrevAniamtion();

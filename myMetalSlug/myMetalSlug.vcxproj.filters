@@ -83,6 +83,9 @@
     <Filter Include="Contents\GameObj\Player">
       <UniqueIdentifier>{749121a4-05eb-4137-8393-a33b2278562d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\SelectPlayer">
+      <UniqueIdentifier>{67aa7def-29be-4e94-bc19-85f47db9f73f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -154,7 +157,7 @@
     <ClInclude Include="moMission1BG.h">
       <Filter>Contents\GameObj\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="moBaseBullet.h">
+    <ClInclude Include="moPistolBullet.h">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
@@ -213,6 +216,18 @@
     </ClInclude>
     <ClInclude Include="moMachinegunBox.h">
       <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="moSelectScene.h">
+      <Filter>Contents\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="moSelectElevator.h">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="moSelectBG.h">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="moSelectCharacters.h">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -280,7 +295,7 @@
     <ClCompile Include="moMission1BG.cpp">
       <Filter>Contents\GameObj\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="moBaseBullet.cpp">
+    <ClCompile Include="moPistolBullet.cpp">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
@@ -336,6 +351,18 @@
     </ClCompile>
     <ClCompile Include="moMachinegunBox.cpp">
       <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="moSelectScene.cpp">
+      <Filter>Contents\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="moSelectBG.cpp">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="moSelectCharacters.cpp">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="moSelectElevator.cpp">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

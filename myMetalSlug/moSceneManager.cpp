@@ -1,6 +1,7 @@
 #include "moSceneManager.h"
 #include "moTitleScene.h"
 #include "moMission1Scene.h"
+#include "moSelectScene.h"
 
 
 namespace mo {
@@ -12,7 +13,9 @@ namespace mo {
 	{
 		mScenes.resize((UINT)eSceneType::Max);
 		mScenes[(UINT)eSceneType::Title] = new TitleScene();
+		mScenes[(UINT)eSceneType::SelectPlayer] = new SelectScene();
 		mScenes[(UINT)eSceneType::Mission1] = new Mission1Scene();
+
 
 		mActiveScene = mScenes[(UINT)eSceneType::Title];
 

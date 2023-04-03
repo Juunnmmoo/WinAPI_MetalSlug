@@ -7,7 +7,6 @@
 #include "moTime.h"
 #include "moAnimator.h"
 #include "Collider.h"
-#include "moBaseBullet.h"
 #include "moScene.h"
 
 namespace mo {
@@ -64,6 +63,15 @@ namespace mo {
 
 		mAnimator->CreateAnimation(L"JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 15, 15, 6, Vector2::Zero, 0.15);
 		mAnimator->CreateAnimation(L"JumpMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 8), -120.0f, 15, 15, 6, Vector2::Zero, 0.15);
+
+		mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"P_SitShootL") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_SitShootL") = std::bind(&MarcoBottom::shootEndEvent, this);
+		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 
 
 		mAnimator->Play(L"IdleR", true);
@@ -335,7 +343,8 @@ namespace mo {
 		if ((mAnimator->GetActiveAnimation()->GetName() == L"P_ReadySitL" || mAnimator->GetActiveAnimation()->GetName() == L"P_ReadySitR")
 			&& mAnimator->IsComplte())
 		{
-			if(Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
+			isSitShooting = false;
+			if(Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left) ) {
 				if (mDirection == eDirection::Right)
 					mAnimator->Play(L"P_SitR", true);
 				else if (mDirection == eDirection::Left)
@@ -355,51 +364,51 @@ namespace mo {
 				mAnimator->Play(L"P_SitMoveL", true);
 
 		}
+			//이동중
+			if (Input::GetKey(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
 
-		//이동중
-		if (Input::GetKey(eKeyCode::Right)) {
-			mDirection = eDirection::Right;
+				if (Input::GetKeyUp(eKeyCode::Down)) {
+					mAnimator->Play(L"MoveR", true);
+					mState = eMarcoState::Move;
+				}
+				if (Input::GetKeyDown(eKeyCode::Left))
+					mAnimator->Play(L"P_SitR", true);
 
-			if (Input::GetKeyUp(eKeyCode::Down)) {
-				mAnimator->Play(L"MoveR", true);
-				mState = eMarcoState::Move;
+
+				if (Input::GetKeyUp(eKeyCode::Left))
+					mAnimator->Play(L"P_SitMoveR", true);
+
 			}
-			if (Input::GetKeyDown(eKeyCode::Left))
-				mAnimator->Play(L"P_SitR", true);
+			if (Input::GetKey(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
 
+				if (Input::GetKeyUp(eKeyCode::Down)) {
+					mAnimator->Play(L"MoveL", true);
+					mState = eMarcoState::Move;
+				}
+				if (Input::GetKeyDown(eKeyCode::Right))
+					mAnimator->Play(L"P_SitL", true);
 
-			if (Input::GetKeyUp(eKeyCode::Left))
-				mAnimator->Play(L"P_SitMoveR", true);
+				if (Input::GetKeyUp(eKeyCode::Right))
+					mAnimator->Play(L"P_SitMoveL", true);
 
-		}
-		if (Input::GetKey(eKeyCode::Left)) {
-			mDirection = eDirection::Left;
-
-			if (Input::GetKeyUp(eKeyCode::Down)) {
-				mAnimator->Play(L"MoveL", true);
-				mState = eMarcoState::Move;
 			}
-			if (Input::GetKeyDown(eKeyCode::Right))
-				mAnimator->Play(L"P_SitL", true);
 
-			if (Input::GetKeyUp(eKeyCode::Right))
-				mAnimator->Play(L"P_SitMoveL", true);
+			if (Input::GetKeyNone(eKeyCode::Left) && !isSitShooting) {
+				if (Input::GetKeyDown(eKeyCode::Right))
+					mAnimator->Play(L"P_SitMoveR", true);
+				if (Input::GetKeyUp(eKeyCode::Right))
+					mAnimator->Play(L"P_SitR", true);
+			}
 
-		}
-
-		if (Input::GetKeyNone(eKeyCode::Left)) {
-			if (Input::GetKeyDown(eKeyCode::Right))
-				mAnimator->Play(L"P_SitMoveR", true);
-			if (Input::GetKeyUp(eKeyCode::Right))
-				mAnimator->Play(L"P_SitR", true);
-		}
-
-		if (Input::GetKeyNone(eKeyCode::Right)) {
-			if (Input::GetKeyDown(eKeyCode::Left))
-				mAnimator->Play(L"P_SitMoveL", true);
-			if (Input::GetKeyUp(eKeyCode::Left))
-				mAnimator->Play(L"P_SitL", true);
-		}
+			if (Input::GetKeyNone(eKeyCode::Right) && !isSitShooting) {
+				if (Input::GetKeyDown(eKeyCode::Left))
+					mAnimator->Play(L"P_SitMoveL", true);
+				if (Input::GetKeyUp(eKeyCode::Left))
+					mAnimator->Play(L"P_SitL", true);
+			}
+		
 
 		
 		
@@ -419,9 +428,9 @@ namespace mo {
 
 		tr->SetDirection(mDirection);
 
-		if (Input::GetKeyDown(eKeyCode::D)
-			&& Input::GetKeyNone(eKeyCode::Right)
-			&& Input::GetKeyNone(eKeyCode::Left)) {
+		if (Input::GetKeyDown(eKeyCode::D)) 
+		{
+			isSitShooting = true;
 			if (mDirection == eDirection::Right)
 				mAnimator->Play(L"P_SitShootR", false);
 			if (mDirection == eDirection::Left)
@@ -453,7 +462,7 @@ namespace mo {
 
 		// 넘어 왔을때
 		if ((mAnimator->GetActiveAnimation()->GetName() == L"M_ReadySitL" || mAnimator->GetActiveAnimation()->GetName() == L"M_ReadySitR")
-			&& mAnimator->IsComplte())
+			&& mAnimator->IsComplte() && isSitShooting == false)
 		{
 			if (Input::GetKey(eKeyCode::Right))
 				mAnimator->Play(L"M_SitMoveR", true);
@@ -467,51 +476,53 @@ namespace mo {
 					mAnimator->Play(L"M_SitL", true);
 			}
 		}
+	
+		
+			//이동중
+			if (Input::GetKey(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
 
-		//이동중
-		if (Input::GetKey(eKeyCode::Right)) {
-			mDirection = eDirection::Right;
+				if (Input::GetKeyUp(eKeyCode::Down)) {
+					mAnimator->Play(L"MoveR", true);
+					mState = eMarcoState::Move;
+				}
+				if (Input::GetKeyDown(eKeyCode::Left))
+					mAnimator->Play(L"M_SitR", true);
 
-			if (Input::GetKeyUp(eKeyCode::Down)) {
-				mAnimator->Play(L"MoveR", true);
-				mState = eMarcoState::Move;
+
+				if (Input::GetKeyUp(eKeyCode::Left))
+					mAnimator->Play(L"M_SitMoveR", true);
+
 			}
-			if (Input::GetKeyDown(eKeyCode::Left))
-				mAnimator->Play(L"M_SitR", true);
+			if (Input::GetKey(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
 
+				if (Input::GetKeyUp(eKeyCode::Down)) {
+					mAnimator->Play(L"MoveL", true);
+					mState = eMarcoState::Move;
+				}
+				if (Input::GetKeyDown(eKeyCode::Right))
+					mAnimator->Play(L"M_SitL", true);
 
-			if (Input::GetKeyUp(eKeyCode::Left))
-				mAnimator->Play(L"M_SitMoveR", true);
+				if (Input::GetKeyUp(eKeyCode::Right))
+					mAnimator->Play(L"M_SitMoveL", true);
 
-		}
-		if (Input::GetKey(eKeyCode::Left)) {
-			mDirection = eDirection::Left;
-
-			if (Input::GetKeyUp(eKeyCode::Down)) {
-				mAnimator->Play(L"MoveL", true);
-				mState = eMarcoState::Move;
 			}
-			if (Input::GetKeyDown(eKeyCode::Right))
-				mAnimator->Play(L"M_SitL", true);
 
-			if (Input::GetKeyUp(eKeyCode::Right))
-				mAnimator->Play(L"M_SitMoveL", true);
+			if (Input::GetKeyNone(eKeyCode::Left) && !isSitShooting) {
+				if (Input::GetKeyDown(eKeyCode::Right))
+					mAnimator->Play(L"M_SitMoveR", true);
+				if (Input::GetKeyUp(eKeyCode::Right))
+					mAnimator->Play(L"M_SitR", true);
+			}
 
-		}
-
-		if (Input::GetKeyNone(eKeyCode::Left)) {
-			if (Input::GetKeyDown(eKeyCode::Right))
-				mAnimator->Play(L"M_SitMoveR", true);
-			if (Input::GetKeyUp(eKeyCode::Right))
-				mAnimator->Play(L"M_SitR", true);
-		}
-
-		if (Input::GetKeyNone(eKeyCode::Right)) {
-			if (Input::GetKeyDown(eKeyCode::Left))
-				mAnimator->Play(L"M_SitMoveL", true);
-			if (Input::GetKeyUp(eKeyCode::Left))
-				mAnimator->Play(L"M_SitL", true);
-		}
+			if (Input::GetKeyNone(eKeyCode::Right) && !isSitShooting) {
+				if (Input::GetKeyDown(eKeyCode::Left))
+					mAnimator->Play(L"M_SitMoveL", true);
+				if (Input::GetKeyUp(eKeyCode::Left))
+					mAnimator->Play(L"M_SitL", true);
+			}
+		
 
 		// To Idle
 		if (Input::GetKeyUp(eKeyCode::Down)
@@ -532,9 +543,9 @@ namespace mo {
 
 		tr->SetDirection(mDirection);
 
-		if (Input::GetKeyDown(eKeyCode::D)
-			&& Input::GetKeyNone(eKeyCode::Right)
-			&& Input::GetKeyNone(eKeyCode::Left)) {
+		if (Input::GetKeyDown(eKeyCode::D)) 
+		{
+			isSitShooting = true;
 			if (mDirection == eDirection::Right)
 				mAnimator->Play(L"M_SitShootR", false);
 			if (mDirection == eDirection::Left)
@@ -645,6 +656,68 @@ namespace mo {
 			}
 
 			tr->SetDirection(mDirection);
+		
+	}
+	void MarcoBottom::shootEndEvent()
+	{
+		isSitShooting = false;
+
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		eDirection mDirection = tr->GetDirection();
+
+		if (mWeaponState == eMarcoWeapon::Pistol)
+		{
+			if (Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_SitR", true);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_SitL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"P_SitMoveR", true);
+			else if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"P_SitMoveL", true);
+		}
+		else if (mWeaponState == eMarcoWeapon::Machinegun)  
+		{
+			if (Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"M_SitR", true);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_SitL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"M_SitMoveR", true);
+			else if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"M_SitMoveL", true);
+		}
+		/*else if (mWeaponState == eMarcoWeapon::Shotgun)
+		{
+			if (Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_SitR", true);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_SitL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"P_SitMoveR", true);
+			else if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"P_SitMoveL", true);
+		}
+		else if (mWeaponState == eMarcoWeapon::Firegun)
+		{
+			if (Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_SitR", true);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_SitL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"P_SitMoveR", true);
+			else if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"P_SitMoveL", true);
+		}*/
 		
 	}
 }

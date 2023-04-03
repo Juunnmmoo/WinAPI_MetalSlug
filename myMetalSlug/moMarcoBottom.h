@@ -30,6 +30,7 @@ namespace mo {
 		void SetIsGround(bool b) { isGround = b; }
 		void SetWeaponState(eMarcoWeapon state) { mWeaponState = state; }
 		void PlaySitAnimation();
+		bool GetIsShooting() { return isSitShooting; }
 
 		Animator* GetAnimator() { return mAnimator; }
 
@@ -45,11 +46,14 @@ namespace mo {
 		void f_sit();
 		void jump();
 
+		void shootEndEvent();
+
 
 	private:
 		eMarcoState mState;
 		Animator* mAnimator;
 		bool isGround;
+		bool isSitShooting;
 		eMarcoWeapon mWeaponState;
 	};
 }

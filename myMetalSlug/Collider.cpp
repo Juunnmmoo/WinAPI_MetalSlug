@@ -57,21 +57,22 @@ namespace mo {
 		(HPEN)SelectObject(mHdc, oldPen);
 		(HBRUSH)SelectObject(mHdc, oldBrush);
 		DeleteObject(pen);
+		colliderCheck = 0;
+
 	}
 	void Collider::OnCollisionEnter(Collider* other)
 	{
-		colliderCheck++;
 		GetOwner()->OnCollisionEnter(other);
 	}
 
 	void Collider::OnCollisionStay(Collider* other)
 	{
+		colliderCheck = 1;
 		GetOwner()->OnCollisionStay(other);
 	}
 
 	void Collider::OnCollisionExit(Collider* other)
 	{
-		colliderCheck--;
 		GetOwner()->OnCollisionExit(other);
 	}
 }

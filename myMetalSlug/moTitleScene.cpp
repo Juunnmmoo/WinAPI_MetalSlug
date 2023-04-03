@@ -3,6 +3,8 @@
 #include "moSceneManager.h"
 #include"moCollisionManager.h"
 #include "moTitleBG.h"
+#include "moObject.h"
+#include "moCamera.h"
 
 namespace mo
 {
@@ -17,14 +19,18 @@ namespace mo
 		TitleBG* titleBG = new TitleBG();
 		AddGameObject(titleBG, eLayerType::BG);
 
+
+
 		Scene::Initialize();
 	}
 	void TitleScene::Update()
 	{
-		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
+		if (Input::GetKeyDown(eKeyCode::D))
 		{
-			SceneManager::LoadScene(eSceneType::Mission1);
+			Camera::RestartFadeIn();
+			SceneManager::LoadScene(eSceneType::SelectPlayer);
 		}
+
 		Scene::Update();
 
 	}

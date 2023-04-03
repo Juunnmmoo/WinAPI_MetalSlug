@@ -127,4 +127,10 @@ namespace mo{
 
 	}
 
+	void Camera::RestartFadeIn()
+	{
+		Camera::mCuttonAlpha = 1.0f;
+		Camera::mAlphaTime = 0.0f;
+	}
+
 }

@@ -422,18 +422,26 @@
 //		eDirection mDirection = mTransform->GetDirection();
 //		Vector2 pos = mTransform->GetPos();
 //
-//		//이동중
-//		if (Input::GetKey(eKeyCode::Left)
-//			&& Camera::GetDistance().x < pos.x - 30.0f)
-//		{
-//			pos.x -= 80.0f * Time::DeltaTime();
-//			mDirection = eDirection::Left;
+//			if (!playerBottom->GetIsShooting())
+//{
+//	//이동중
+//	if (Input::GetKey(eKeyCode::Left)
+//		&& Camera::GetDistance().x < pos.x - 30.0f
+//		&& Input::GetKeyNone(eKeyCode::Right))
+//	{
+//		pos.x -= 80.0f * Time::DeltaTime();
+//		mDirection = eDirection::Left;
+//	}
+//	if (Input::GetKey(eKeyCode::Right)
+//		&& Camera::GetDistance().x + application.GetWidth() > pos.x + 30.0f
+//		&& Input::GetKeyNone(eKeyCode::Left))
+//	{
+//		pos.x += 80.0f * Time::DeltaTime();
+//		mDirection = eDirection::Right;
+//
+//	}
 //		}
-//		if (Input::GetKey(eKeyCode::Right)
-//			&& Camera::GetDistance().x + application.GetWidth() > pos.x + 30.0f)
-//		{
-//			pos.x += 80.0f * Time::DeltaTime();
-//			mDirection = eDirection::Right;
+//
 //
 //		}
 //

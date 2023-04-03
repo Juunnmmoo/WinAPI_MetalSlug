@@ -136,7 +136,7 @@
     <ClInclude Include="moAnimator.h" />
     <ClInclude Include="moApplication.h" />
     <ClInclude Include="moArabian.h" />
-    <ClInclude Include="moBaseBullet.h" />
+    <ClInclude Include="moPistolBullet.h" />
     <ClInclude Include="moCamera.h" />
     <ClInclude Include="moCollisionManager.h" />
     <ClInclude Include="moComponent.h" />
@@ -163,6 +163,10 @@
     <ClInclude Include="moRigidBody.h" />
     <ClInclude Include="moScene.h" />
     <ClInclude Include="moSceneManager.h" />
+    <ClInclude Include="moSelectBG.h" />
+    <ClInclude Include="moSelectCharacters.h" />
+    <ClInclude Include="moSelectElevator.h" />
+    <ClInclude Include="moSelectScene.h" />
     <ClInclude Include="moShotgun.h" />
     <ClInclude Include="moTime.h" />
     <ClInclude Include="moTitleBG.h" />
@@ -179,7 +183,7 @@
     <ClCompile Include="moAnimator.cpp" />
     <ClCompile Include="moApplication.cpp" />
     <ClCompile Include="moArabian.cpp" />
-    <ClCompile Include="moBaseBullet.cpp" />
+    <ClCompile Include="moPistolBullet.cpp" />
     <ClCompile Include="moCamera.cpp" />
     <ClCompile Include="moCollisionManager.cpp" />
     <ClCompile Include="moComponent.cpp" />
@@ -203,6 +207,10 @@
     <ClCompile Include="moRigidBody.cpp" />
     <ClCompile Include="moScene.cpp" />
     <ClCompile Include="moSceneManager.cpp" />
+    <ClCompile Include="moSelectBG.cpp" />
+    <ClCompile Include="moSelectCharacters.cpp" />
+    <ClCompile Include="moSelectElevator.cpp" />
+    <ClCompile Include="moSelectScene.cpp" />
     <ClCompile Include="moShotgun.cpp" />
     <ClCompile Include="moTime.cpp" />
     <ClCompile Include="moTitleBG.cpp" />

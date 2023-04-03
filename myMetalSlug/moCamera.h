@@ -30,6 +30,7 @@ namespace mo{
 
 
 		static bool GetIsMove() { return isMove; }
+		static void RestartFadeIn();
 
 
 	private:

@@ -7,7 +7,6 @@
 #include "moTime.h"
 #include "moAnimator.h"
 #include "Collider.h"
-#include "moBaseBullet.h"
 #include "moScene.h"
 #include "moCamera.h"
 #include "moRigidBody.h"
@@ -79,6 +78,18 @@ namespace mo {
 	}
 	void Marco::Update()
 	{
+		Collider* mCollider = GetComponent<Collider>();
+
+		if (mState == eMarcoState::Sit)
+		{
+			mCollider->SetSize(Vector2{ 60.0f, 75.0f });
+			mCollider->SetLeftTop(Vector2{ -30.50f, -35.0f });
+		}
+		else 
+		{
+			mCollider->SetSize(Vector2{ 60.0f, 110.0f });
+			mCollider->SetLeftTop(Vector2{ -30.50f, -70.0f });
+		}
 
 		switch (mWeaponState) {
 			case eMarcoWeapon::Pistol:
@@ -100,6 +111,7 @@ namespace mo {
 		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
 		
 		GameObject::Update();
+
 	}
 	void Marco::Render(HDC mHdc)
 	{
@@ -138,34 +150,112 @@ namespace mo {
 		mWeaponState = state;
 		bottom->SetWeaponState(state);
 
-		if (mState == eMarcoState::Sit) {
+		if (mState == eMarcoState::Sit) 
+		{
 			bottom->PlaySitAnimation();
 			mAnimator->Play(L"None", true);
 		}
-		else {
+		else if (mState == eMarcoState::Jump)
+		{
+			if (state == eMarcoWeapon::Pistol) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_IdleL", true);
+				else if(mDirection == eDirection::Right)
+					mAnimator->Play(L"P_IdleR", true);
+				else if(mDirection == eDirection::RTop)
+					mAnimator->Play(L"P_IdleRT", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"P_IdleLT", true);
+				else if (mDirection == eDirection::RBottom)
+					mAnimator->Play(L"P_JumpDownR", true);
+				else if (mDirection == eDirection::LBottom)
+					mAnimator->Play(L"P_JumpDownL", true);
+			}
+			else if (state == eMarcoWeapon::Machinegun) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_IdleL", true);
+				else if (mDirection == eDirection::Right)
+					mAnimator->Play(L"M_IdleR", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"M_IdleRT", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"M_IdleLT", true);
+				else if (mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_JumpDownR", true);
+				else if (mDirection == eDirection::LBottom)
+					mAnimator->Play(L"M_JumpDownL", true);
+			}
+			else if (state == eMarcoWeapon::Shotgun) {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"S_IdleL", true);
+				else if (mDirection == eDirection::Right)
+					mAnimator->Play(L"S_IdleR", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"S_IdleRT", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"S_IdleLT", true);
+				else if (mDirection == eDirection::RBottom)
+					mAnimator->Play(L"S_JumpDownR", true);
+				else if (mDirection == eDirection::LBottom)
+					mAnimator->Play(L"S_JumpDownL", true);
+			}
+			else {
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"F_IdleL", true);
+				else if (mDirection == eDirection::Right)
+					mAnimator->Play(L"F_IdleR", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"F_IdleRT", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"F_IdleLT", true);
+				else if (mDirection == eDirection::RBottom)
+					mAnimator->Play(L"F_JumpDownR", true);
+				else if (mDirection == eDirection::LBottom)
+					mAnimator->Play(L"F_JumpDownL", true);
+			}
+		}
+		else 
+		{
 			if (state == eMarcoWeapon::Pistol) {
 				if (mDirection == eDirection::Left)
 					mAnimator->Play(L"P_MoveL", true);
-				else
+				else if(mDirection == eDirection::Right)
 					mAnimator->Play(L"P_MoveR", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"P_IdleLT", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"P_IdleRT", true);
+
 			}
 			else if (state == eMarcoWeapon::Machinegun) {
 				if (mDirection == eDirection::Left)
 					mAnimator->Play(L"M_MoveL", true);
-				else
+				else if (mDirection == eDirection::Right)
 					mAnimator->Play(L"M_MoveR", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"M_IdleLT", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"M_IdleRT", true);
 			}
 			else if (state == eMarcoWeapon::Shotgun) {
 				if (mDirection == eDirection::Left)
 					mAnimator->Play(L"S_MoveL", true);
-				else
+				else if(mDirection == eDirection::Right)
 					mAnimator->Play(L"S_MoveR", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"S_IdleLT", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"S_IdleRT", true);
 			}
 			else {
 				if (mDirection == eDirection::Left)
 					mAnimator->Play(L"F_MoveL", true);
-				else
+				else if (mDirection == eDirection::Right)
 					mAnimator->Play(L"F_MoveR", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"F_IdleLT", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"F_IdleRT", true);
 			}
 			mState = eMarcoState::Move;
 		}
