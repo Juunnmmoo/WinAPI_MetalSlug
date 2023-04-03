@@ -229,6 +229,9 @@
     <ClInclude Include="moSelectCharacters.h">
       <Filter>Contents\GameObj\SelectPlayer</Filter>
     </ClInclude>
+    <ClInclude Include="moDropWeapon.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -363,6 +366,9 @@
     </ClCompile>
     <ClCompile Include="moSelectElevator.cpp">
       <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="moDropWeapon.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

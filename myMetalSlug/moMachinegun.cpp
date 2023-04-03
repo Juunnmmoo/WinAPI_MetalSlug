@@ -781,6 +781,9 @@ namespace mo {
 
 	void Machinegun::shootStartEvent()
 	{
+		int bulletNum = player->GetBulletNum();
+		bulletNum--;
+		player->SetBulletNum(bulletNum);
 
 		eDirection mDirection = mTransform->GetDirection();
 

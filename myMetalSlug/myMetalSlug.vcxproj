@@ -136,6 +136,7 @@
     <ClInclude Include="moAnimator.h" />
     <ClInclude Include="moApplication.h" />
     <ClInclude Include="moArabian.h" />
+    <ClInclude Include="moDropWeapon.h" />
     <ClInclude Include="moPistolBullet.h" />
     <ClInclude Include="moCamera.h" />
     <ClInclude Include="moCollisionManager.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="moAnimator.cpp" />
     <ClCompile Include="moApplication.cpp" />
     <ClCompile Include="moArabian.cpp" />
+    <ClCompile Include="moDropWeapon.cpp" />
     <ClCompile Include="moPistolBullet.cpp" />
     <ClCompile Include="moCamera.cpp" />
     <ClCompile Include="moCollisionManager.cpp" />

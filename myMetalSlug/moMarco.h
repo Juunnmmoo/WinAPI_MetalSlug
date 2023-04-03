@@ -34,6 +34,8 @@ namespace mo {
 		virtual void OnCollisionExit(class Collider* other)override;
 
 		void ChangeWeapon(eMarcoWeapon state);
+		void SetBulletNum(int num) { bulletNum = num; }
+		int GetBulletNum() { return bulletNum; }
 
 		eMarcoState GetState() { return mState; }
 		void SetState(eMarcoState state) { mState = state; }
@@ -47,5 +49,6 @@ namespace mo {
 		Machinegun* machinegun;
 		eMarcoWeapon mWeaponState;
 		bool isKnife;
+		int bulletNum;
 	};
 }

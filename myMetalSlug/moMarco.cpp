@@ -14,6 +14,7 @@
 #include "moWeapon.h"
 #include "moPistol.h"
 #include "moMachinegun.h"
+#include "moDropWeapon.h"
 
 extern mo::Application application;
 
@@ -25,6 +26,7 @@ namespace mo {
 		, bottom(obj)
 		, pistol(nullptr)
 		, mWeaponState(eMarcoWeapon::Pistol)
+		, bulletNum(1)
 	{
 	}
 	Marco::~Marco()
@@ -99,6 +101,72 @@ namespace mo {
 				machinegun->Update();
 				break;
 		}
+
+
+
+		if (bulletNum == 0)
+		{
+			Transform* tr = GetComponent<Transform>();
+			eDirection mDirection = tr->GetDirection();
+
+			DropWeapon* drop = new DropWeapon();
+			Scene* curScene = SceneManager::GetActiveScene();
+			curScene->AddGameObject(drop, eLayerType::Bullet);
+
+			drop->Initialize();
+			drop->GetComponent<Transform>()->SetPos(tr->GetPos() );
+			drop->PlayAnimation(mDirection);
+
+			mWeaponState = eMarcoWeapon::Pistol;
+			bottom->SetWeaponState(eMarcoWeapon::Pistol);
+
+			if (mState == eMarcoState::Idle)
+			{
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_IdleL", true);
+				else if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_IdleR", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"P_IdleRT", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"P_IdleLT", true);
+			}
+			else if (mState == eMarcoState::Sit)
+			{
+				bottom->PlaySitAnimation();
+				mAnimator->Play(L"None", true);
+			}
+			else if (mState == eMarcoState::Jump)
+			{
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_IdleL", true);
+				else if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_IdleR", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"P_IdleRT", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"P_IdleLT", true);
+				else if (mDirection == eDirection::RBottom)
+					mAnimator->Play(L"P_JumpDownR", true);
+				else if (mDirection == eDirection::LBottom)
+					mAnimator->Play(L"P_JumpDownL", true);
+				
+			}
+			else 
+			{
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_MoveL", true);
+				else if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_MoveR", true);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"P_IdleLT", true);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"P_IdleRT", true);
+			}		
+			bulletNum = 1;
+		}
+
+
 		
 
 		// PlayerBottom À§Ä¡ update
@@ -110,6 +178,8 @@ namespace mo {
 		bottomTr = bottom->GetComponent<Transform>();
 		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
 		
+
+
 		GameObject::Update();
 
 	}
