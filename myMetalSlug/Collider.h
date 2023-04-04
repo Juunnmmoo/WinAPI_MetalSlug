@@ -40,5 +40,6 @@ namespace mo {
 		static UINT ColliderNumber;
 		UINT mID;
 		int colliderCheck;
+		bool colliderRender;
 	};
 }

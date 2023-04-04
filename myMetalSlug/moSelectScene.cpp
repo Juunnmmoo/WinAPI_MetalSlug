@@ -55,7 +55,7 @@ namespace mo {
 
 
 		SelectBG* selectBG = new SelectBG();
-		AddGameObject(selectBG, eLayerType::Monster);
+		AddGameObject(selectBG, eLayerType::Enemy);
 
 		
 

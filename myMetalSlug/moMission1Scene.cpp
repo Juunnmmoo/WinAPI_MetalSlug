@@ -11,8 +11,9 @@
 #include "moObject.h"
 #include "moCamera.h"
 #include "moTitleBG.h"
-#include "moParaglider.h";
+#include "moParaglider.h"
 #include "moMachinegunBox.h"
+#include "moArabianCreator.h"
 
 namespace mo
 {
@@ -38,18 +39,16 @@ namespace mo
 		AddGameObject(paraglider, eLayerType::Player);
 		AddGameObject(marco, eLayerType::Player);
 
-		Arabian* arabian = new Arabian(Vector2(1000.0f, 700.0f));
-		AddGameObject(arabian, eLayerType::Monster);
-
-		Mission1BG* mission1BG = new Mission1BG();
+		Mission1BG* mission1BG = new Mission1BG(this);
 		AddGameObject(mission1BG, eLayerType::BG);
-
-		mission1BG->SetPlayer(marco);
 
 		MachinegunBox* M_Box = new MachinegunBox();
 		AddGameObject(M_Box, eLayerType::BulletBox);
 
+		ArabianCreator* aCreator = new ArabianCreator(marco);
+		AddGameObject(aCreator, eLayerType::EnemyCreator);
 
+		mission1BG->SetPlayer(marco);
 
 		Camera::SetTarget(marco);
 
@@ -83,9 +82,11 @@ namespace mo
 	}
 	void Mission1Scene::OnEnter()
 	{
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
-		CollisionManager::SetLayer(eLayerType::Monster, eLayerType::Bullet, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Enemy, true);
+		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::Bullet, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyCreator, true);
+
 	}
 	void Mission1Scene::OnExit()
 	{

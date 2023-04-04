@@ -86,6 +86,12 @@
     <Filter Include="Contents\GameObj\SelectPlayer">
       <UniqueIdentifier>{67aa7def-29be-4e94-bc19-85f47db9f73f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\EnemyCreator">
+      <UniqueIdentifier>{cfac4078-1a82-4fe9-923b-f17bab870bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\EnemyCreator\Mission1">
+      <UniqueIdentifier>{5d2f6ffe-dd6e-4a7d-8e7e-47e95ace8308}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -232,6 +238,12 @@
     <ClInclude Include="moDropWeapon.h">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="moArabianWeapon.h">
+      <Filter>Contents\GameObj\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="moArabianCreator.h">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -369,6 +381,12 @@
     </ClCompile>
     <ClCompile Include="moDropWeapon.cpp">
       <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="moArabianWeapon.cpp">
+      <Filter>Contents\GameObj\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="moArabianCreator.cpp">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,19 +5,22 @@ namespace mo {
 	class Transform;
 	class Animator;
 	class AnimatorR;
+	class Marco;
+	class Scene;
 	class Arabian : public GameObject
 	{
 	public:
 
-		enum class eMarcoState {
+		enum class eArabianState {
 			Move,
-			Shoot,
+			Attack,
 			Death,
 			Idle,
+			Throwing,
 		};
 
 
-		Arabian(Vector2 pos);
+		Arabian(Marco* p, Scene* scene);
 		~Arabian();
 
 		virtual void Initialize() override;
@@ -31,15 +34,17 @@ namespace mo {
 
 	private:
 		void move();
-		void shoot();
+		void attack();
 		void death();
 		void idle();
-
-		void deathCompleteEvent();
-
+		void throwing();
 	private:
 		Vector2 mPos;
-		eMarcoState mState;
 		Animator* mAnimator;
+		eArabianState mState;
+		Marco* player;
+		Scene* curScene;
+		bool isThrowing;
+		float time;
 	};
 }

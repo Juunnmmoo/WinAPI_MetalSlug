@@ -16,7 +16,8 @@ enum class eLayerType
 {
 	BG,
 	BulletBox,
-	Monster,
+	Enemy,
+	EnemyCreator,
 	Player,
 	Bullet,
 	Effect,

@@ -86,7 +86,7 @@ namespace mo {
 	}
 	void PistolBullet::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Monster)
+		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
 			object::Destory(this);
 	}
 

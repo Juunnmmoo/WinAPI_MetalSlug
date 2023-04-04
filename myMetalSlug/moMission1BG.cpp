@@ -6,12 +6,14 @@
 #include "moTransform.h"
 #include "moMarco.h"
 #include "moRigidBody.h"
+#include "moScene.h"
 
 extern mo::Application application;
 
 namespace mo {
-	Mission1BG::Mission1BG()
+	Mission1BG::Mission1BG(Scene* scene)
 		:TopDiff(133)
+		, curScene(scene)
 	{
 	}
 
@@ -25,28 +27,50 @@ namespace mo {
 		main = Resources::Load<Image>(L"Mission1BG_Main", L"..\\Resources\\BackGround\\Mission1BG_Main.bmp");
 		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_Ground.bmp");
 		
+		layers.push_back(eLayerType::BulletBox);
+		layers.push_back(eLayerType::Enemy);
 
 		GameObject::Initialize();
 	}
 
 	void Mission1BG::Update()
 	{
-		
-		Transform* marcoTr = mPlayer->GetComponent<Transform>();
-		Vector2 pos = marcoTr->GetPos();
+	
+		for (eLayerType layer : layers)
+		{
+
+			std::vector<GameObject*>& gameObj = curScene->GetGameObjects(layer);
+
+			for (GameObject* obj : gameObj)
+			{
+
+				Transform* tr = obj->GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				RigidBody* rb = obj->GetComponent<RigidBody>();
+
+				if (ground->GetPixel(pos.x, pos.y) == RGB(248, 0, 248)) {
+					pos.y--;
+					rb->SetGround(true);
+					tr->SetPos(pos);
+				}
+				else {
+					rb->SetGround(false);
+				}
+			}
+		}
+
+		Transform* marcoTR = mPlayer->GetComponent<Transform>();
+		Vector2 pos = marcoTR->GetPos();
 		RigidBody* rb = mPlayer->GetComponent<RigidBody>();
 
-		if (ground->GetPixel(pos.x, pos.y+40) == RGB(248, 0, 248)) {
+		if (ground->GetPixel(pos.x, pos.y + 40) == RGB(248, 0, 248)) {
 			pos.y--;
 			rb->SetGround(true);
-			marcoTr->SetPos(pos);
+			marcoTR->SetPos(pos);
 		}
 		else {
 			rb->SetGround(false);
 		}
-
-
-		
 		
 		GameObject::Update();
 	}

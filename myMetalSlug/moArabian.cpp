@@ -9,10 +9,16 @@
 #include "Collider.h"
 #include "moScene.h"
 #include "moObject.h"
+#include "moArabianWeapon.h"
+#include "moMarco.h"
+#include "moScene.h"
+#include "moRigidBody.h"
 
 namespace mo{
-	Arabian::Arabian(Vector2 pos)
-		:mPos (pos)
+	Arabian::Arabian(Marco* marco, Scene* scene)
+		: player(marco)
+		, curScene(scene)
+		, time(0.0f)
 	{
 	}
 
@@ -28,18 +34,24 @@ namespace mo{
 		
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2{ 700.0f, 600.0f });
-		tr->SetPos( mPos);
+		tr->SetPos(Vector2(1100.0f, 600.0f));
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetDisToBottom(Vector2{ 0.0f, 40.0f });
+		tr->SetDirection(eDirection::Left);
+
+		RigidBody* mRigidbody = AddComponent<RigidBody>();
+		mRigidbody->SetMass(1.0f);
+		mRigidbody->SetGravity(Vector2(0.0f, 600.0f));
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 20, 15, 6, Vector2::Zero, 0.15);
 		mAnimator->CreateAnimation(L"DeathL", mImageL, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 20, 15, 11, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"MoveL", mImageL, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 20, 15, 12, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"ThrowingL", mImageL, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 20, 15, 19, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"AttackL", mImageL, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 20, 15, 8, Vector2::Zero, 0.1);
 
-		mAnimator->GetCompleteEvent(L"DeathL") = std::bind(&Arabian::deathCompleteEvent, this);
-
-		mAnimator->Play(L"IdleL", true);
+		mAnimator->Play(L"MoveL", true);
+		mState = eArabianState::Move;
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 60.0f, 100.0f });
@@ -50,20 +62,37 @@ namespace mo{
 
 	void Arabian::Update()
 	{
+		
+		if (GetIsDeath())
+		{
+			mState = eArabianState::Death;
+		}
+		
+		
 
-		//Transform* tr = GetComponent<Transform>();
-		//Vector2 pos = tr->GetPos();
 
-		///*if(mDirection == eDirection::Right)
-		//	pos.x += 1200.0f * Time::DeltaTime();
-		//if (mDirection == eDirection::Left)
-		//	pos.x -= 1200.0f * Time::DeltaTime();*/
+		switch (mState) {
+		case mo::Arabian::eArabianState::Move:
+			move();
+			break;
+		case mo::Arabian::eArabianState::Attack:
+			attack();
+			break;
+		case mo::Arabian::eArabianState::Death:
+			death();
+			break;
+		case mo::Arabian::eArabianState::Idle:
+			idle();
+			break;
+		case mo::Arabian::eArabianState::Throwing:
+			throwing();
+			break;
+		default:
+			break;
+		}
+		
 
-
-		//pos.x += 100.0f * Time::DeltaTime();
-	
-		//tr->SetPos(pos);
-
+		
 		GameObject::Update();
 	}
 
@@ -84,11 +113,11 @@ namespace mo{
 
 	void Arabian::OnCollisionStay(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Player
+		/*if (other->GetOwner()->GetLayerType() == eLayerType::Player
 			&& Input::GetKeyDown(eKeyCode::D)) {
 			mAnimator->Play(L"DeathL", false);
 			SetIsDeath(true);
-		}
+		}*/
 	}
 
 	void Arabian::OnCollisionExit(Collider* other)
@@ -97,21 +126,62 @@ namespace mo{
 
 	void Arabian::move()
 	{
+		Transform* tr = GetComponent<Transform>();
+		eDirection mDir = tr->GetDirection();
+		Vector2 mPos = tr->GetPos();
+		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
+
+		if (playerPos.x < mPos.x)
+		{
+			mPos.x -= 200.0f * Time::DeltaTime();
+			tr->SetPos(mPos);
+		}
+
+		if (playerPos.x + 300.0f > mPos.x)
+		{
+			mAnimator->Play(L"ThrowingL", false);
+			mState = eArabianState::Throwing;
+		}
 	}
 
-	void Arabian::shoot()
+	void Arabian::attack()
 	{
 	}
 
 	void Arabian::death()
 	{
+		if(mAnimator->IsComplte())
+			object::Destory(this);
 	}
 
 	void Arabian::idle()
 	{
 	}
-	void Arabian::deathCompleteEvent()
+	void Arabian::throwing()
 	{
-		object::Destory(this);
+		Transform* tr = GetComponent<Transform>();
+		eDirection mDir = tr->GetDirection();
+		Vector2 mPos = tr->GetPos();
+		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
+
+		time += Time::DeltaTime();
+
+		if (!isThrowing && time >=0.6)
+		{
+			isThrowing = true;
+			ArabianWeapon* weapon = new ArabianWeapon();
+			curScene->AddGameObject(weapon, eLayerType::Bullet);
+			weapon->Initialize();
+			weapon->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, -30.0f));
+			weapon->PlayAnimation(mDir);
+		}
+		if (mAnimator->IsComplte())
+		{
+			isThrowing = false;
+			mAnimator->Play(L"IdleL", true);
+			mState = eArabianState::Idle;
+		}
+		
 	}
+	
 }

@@ -195,7 +195,7 @@ namespace mo {
 		/*if ( other->GetOwner()->GetLayerType() == eLayerType::Monster)
 			isKnife = true;*/
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Monster) {
+		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy) {
 			mAnimator->SetUseinvincibility(true);
 			bottom->GetAnimator()->SetUseinvincibility(true);
 		}

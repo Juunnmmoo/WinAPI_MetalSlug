@@ -9,7 +9,7 @@
 #include "moCamera.h"
 #include "moMarco.h"
 #include "moObject.h"
-
+#include "moRigidBody.h"
 
 namespace mo {
 	MachinegunBox::MachinegunBox()
@@ -27,6 +27,10 @@ namespace mo {
 		
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 55.0f, 50.0f });
+
+		RigidBody* mRigidbody = AddComponent<RigidBody>();
+		mRigidbody->SetMass(1.0f);
+		mRigidbody->SetGravity(Vector2(0.0f, 600.0f));
 		
 		GameObject::Initialize();
 
@@ -51,7 +55,7 @@ namespace mo {
 		if (other->GetOwner()->GetLayerType() == eLayerType::Player) {
 			Marco* marco = dynamic_cast<Marco*>(other->GetOwner());
 			marco->ChangeWeapon(eMarcoWeapon::Machinegun);
-			marco->SetBulletNum(5);
+			marco->SetBulletNum(15);
 			object::Destory(this);
 		}
 	}
