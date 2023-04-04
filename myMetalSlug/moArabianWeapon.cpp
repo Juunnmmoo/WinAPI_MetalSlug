@@ -32,9 +32,9 @@ namespace mo {
 
 		
 
-		/*Collider* mCollider = AddComponent<Collider>();
+		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 60.0f, 100.0f });
-		mCollider->SetLeftTop(Vector2{ -30.50f, -100.0f });*/
+		mCollider->SetLeftTop(Vector2{ -30.50f, -100.0f });
 
 		mImage = Resources::Load<Image>(L"ArabianWeapon", L"..\\Resources\\Enemy\\ArabianWeapon.bmp");
 

@@ -83,7 +83,7 @@ namespace mo
 	void Mission1Scene::OnEnter()
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Enemy, true);
-		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::Bullet, true);
+		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerBullet, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyCreator, true);
 

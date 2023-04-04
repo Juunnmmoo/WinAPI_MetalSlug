@@ -71,5 +71,6 @@ namespace mo {
 		eState mState;
 		eLayerType mLayerType;
 		bool isDeath;
+		bool useColliderBox;
 	};
 }

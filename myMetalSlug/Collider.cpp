@@ -15,7 +15,6 @@ namespace mo {
 		, mSize(Vector2::One)
 		, mID(ColliderNumber++)
 		, colliderCheck(0)
-		, colliderRender(false)
 	{
 	}
 
@@ -33,22 +32,13 @@ namespace mo {
 
 	void Collider::Update()
 	{
-		if (Input::GetKeyDown(eKeyCode::P))
-		{
-			if (colliderRender)
-				colliderRender = false;
-			else
-				colliderRender = true;
-		}
-
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		mPos = tr->GetPos() + mLeftTopPos;
 	}
 
 	void Collider::Render(HDC mHdc)
 	{
-		if (colliderRender)
-		{
+		
 			HPEN pen = NULL;
 
 			if(colliderCheck<=0)
@@ -71,7 +61,7 @@ namespace mo {
 			DeleteObject(pen);
 			colliderCheck = 0;
 
-		}
+		
 	}
 	void Collider::OnCollisionEnter(Collider* other)
 	{

@@ -845,7 +845,7 @@ namespace mo {
 		//Ä«¸Þ¶ó ÁÂÇ¥
 		//bullet->GetComponent<Transform>()->SetPos(Camera::CaluatePos(tr->GetPos()));
 		pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos());
-		curScene->AddGameObject(pistolBullet, eLayerType::Bullet);
+		curScene->AddGameObject(pistolBullet, eLayerType::PlayerBullet);
 		pistolBullet->Initialize();
 
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();

@@ -105,7 +105,7 @@ namespace mo{
 	{	
 		
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Bullet) {
+		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBullet) {
 			mAnimator->Play(L"DeathL", false);
 			SetIsDeath(true);
 		}
@@ -170,7 +170,7 @@ namespace mo{
 		{
 			isThrowing = true;
 			ArabianWeapon* weapon = new ArabianWeapon();
-			curScene->AddGameObject(weapon, eLayerType::Bullet);
+			curScene->AddGameObject(weapon, eLayerType::EnemyBullet);
 			weapon->Initialize();
 			weapon->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, -30.0f));
 			weapon->PlayAnimation(mDir);

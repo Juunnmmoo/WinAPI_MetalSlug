@@ -111,7 +111,7 @@ namespace mo {
 
 			DropWeapon* drop = new DropWeapon();
 			Scene* curScene = SceneManager::GetActiveScene();
-			curScene->AddGameObject(drop, eLayerType::Bullet);
+			curScene->AddGameObject(drop, eLayerType::PlayerBullet);
 
 			drop->Initialize();
 			drop->GetComponent<Transform>()->SetPos(tr->GetPos() );

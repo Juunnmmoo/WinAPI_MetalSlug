@@ -1,11 +1,12 @@
 #include "moGameObject.h"
 #include "moTransform.h"
-
+#include "moInput.h"
 namespace mo {
 	GameObject::GameObject()
 		: mState(eState::Active)
 		, mLayerType(eLayerType::End)
 		, isDeath(false)
+		, useColliderBox(false)
 	{
 		mComponents.resize((UINT)eComponentType::End);
 		AddComponent<Transform>();
@@ -32,11 +33,22 @@ namespace mo {
 				continue;
 			comp->Update();
 		}
+		if (Input::GetKeyDown(eKeyCode::P))
+		{
+			if (useColliderBox)
+				useColliderBox = false;
+			else
+				useColliderBox = true;
+		
+		}
+		
 	}
 	void GameObject::Render(HDC mHdc)
 	{
 		for (Component* comp : mComponents) {
 			if (comp == nullptr)
+				continue;
+			if (!useColliderBox && comp->GetType() == eComponentType::Collider)
 				continue;
 			comp->Render(mHdc);
 		}
