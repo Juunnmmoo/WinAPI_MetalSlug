@@ -68,9 +68,6 @@ namespace mo{
 			mState = eArabianState::Death;
 		}
 		
-		
-
-
 		switch (mState) {
 		case mo::Arabian::eArabianState::Move:
 			move();
@@ -156,6 +153,17 @@ namespace mo{
 
 	void Arabian::idle()
 	{
+		Transform* tr = GetComponent<Transform>();
+		eDirection mDir = tr->GetDirection();
+		Vector2 mPos = tr->GetPos();
+		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
+
+		if (playerPos.x + 300.0f < mPos.x)
+		{
+			mAnimator->Play(L"MoveL", true);
+			mState = eArabianState::Move;
+		}
+
 	}
 	void Arabian::throwing()
 	{
@@ -166,9 +174,10 @@ namespace mo{
 
 		time += Time::DeltaTime();
 
-		if (!isThrowing && time >=0.6)
+		if (!isThrowing && time >=0.5)
 		{
 			isThrowing = true;
+			
 			ArabianWeapon* weapon = new ArabianWeapon();
 			curScene->AddGameObject(weapon, eLayerType::EnemyBullet);
 			weapon->Initialize();
@@ -177,6 +186,7 @@ namespace mo{
 		}
 		if (mAnimator->IsComplte())
 		{
+			time = 0.0f;
 			isThrowing = false;
 			mAnimator->Play(L"IdleL", true);
 			mState = eArabianState::Idle;

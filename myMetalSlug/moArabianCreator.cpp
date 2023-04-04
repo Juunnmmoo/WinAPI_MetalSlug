@@ -38,7 +38,7 @@ namespace mo {
 	{
 		time += Time::DeltaTime();
 
-		if (time >= 3.0f && !stopCreate)
+		if (time >= 3.5f && !stopCreate)
 		{
 			time = 0.0f;
 
