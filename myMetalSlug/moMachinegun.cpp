@@ -13,6 +13,7 @@
 #include "moCamera.h"
 #include "moRigidBody.h"
 #include "moApplication.h"
+#include "moPlayerBomb.h"
 
 extern mo::Application application;
 
@@ -799,6 +800,7 @@ namespace mo {
 		
 
 		eDirection mDirection = mTransform->GetDirection();
+		Vector2 mPos = mTransform->GetPos();
 		Scene* curScene = SceneManager::GetActiveScene();
 		
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();
@@ -810,7 +812,13 @@ namespace mo {
 				activeAnimation->GetName() == L"M_ThrowingBombL" ||
 				isBomb)
 			{
-				isBomb = false;
+				isBomb = false; 
+				
+				PlayerBomb* bomb = new PlayerBomb();
+				curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
+				bomb->Initialize();
+				bomb->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, 0.0f));
+				bomb->PlayAnimation(mDirection);
 			}
 			else if (player->GetIsKnife())
 			{
@@ -839,6 +847,11 @@ namespace mo {
 			if (activeAnimation->GetName() == L"M_ThrowingBombR" ||
 				activeAnimation->GetName() == L"M_ThrowingBombL")
 			{
+				PlayerBomb* bomb = new PlayerBomb();
+				curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
+				bomb->Initialize();
+				bomb->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, -30.0f));
+				bomb->PlayAnimation(mDirection);
 			}
 			else if (player->GetIsKnife())
 			{

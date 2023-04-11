@@ -96,6 +96,7 @@ namespace mo
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyCreator, true);
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerKnife, true);
+		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerBomb, true);
 
 	}
 	void Mission1Scene::OnExit()

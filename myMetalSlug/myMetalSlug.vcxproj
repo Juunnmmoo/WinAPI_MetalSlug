@@ -162,6 +162,7 @@
     <ClInclude Include="moObject.h" />
     <ClInclude Include="moParaglider.h" />
     <ClInclude Include="moPistol.h" />
+    <ClInclude Include="moPlayerBomb.h" />
     <ClInclude Include="moPlayerKnife.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="moMission1Scene.cpp" />
     <ClCompile Include="moParaglider.cpp" />
     <ClCompile Include="moPistol.cpp" />
+    <ClCompile Include="moPlayerBomb.cpp" />
     <ClCompile Include="moPlayerKnife.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />

@@ -163,9 +163,6 @@
     <ClInclude Include="moMission1BG.h">
       <Filter>Contents\GameObj\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="moPistolBullet.h">
-      <Filter>Contents\GameObj\Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Engine\Component\Collider</Filter>
     </ClInclude>
@@ -250,6 +247,12 @@
     <ClInclude Include="moPlayerKnife.h">
       <Filter>Contents\PlayerObj</Filter>
     </ClInclude>
+    <ClInclude Include="moPistolBullet.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="moPlayerBomb.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -315,9 +318,6 @@
     </ClCompile>
     <ClCompile Include="moMission1BG.cpp">
       <Filter>Contents\GameObj\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="moPistolBullet.cpp">
-      <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Engine\Component\Collider</Filter>
@@ -399,6 +399,12 @@
     </ClCompile>
     <ClCompile Include="moPlayerKnife.cpp">
       <Filter>Contents\PlayerObj</Filter>
+    </ClCompile>
+    <ClCompile Include="moPistolBullet.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="moPlayerBomb.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -25,6 +25,7 @@ enum class eLayerType
 	PlayerKnife,
 	PlayerPistol,
 	PlayerMachinegun,
+	PlayerBomb,
 	Effect,
 	UI,
 	End,
@@ -67,5 +68,5 @@ enum class eBulletType {
 	None,
 	Bullet,
 	knife,
-	Boom,
+	Bomb,
 };

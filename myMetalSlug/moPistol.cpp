@@ -13,6 +13,7 @@
 #include "moCamera.h"
 #include "moRigidBody.h"
 #include "moApplication.h"
+#include "moPlayerBomb.h"
 
 extern mo::Application application;
 
@@ -588,7 +589,7 @@ namespace mo {
 			mTransform->SetDirection(mDirection);
 			shootStartEvent();
 		}
-		if (Input::GetKeyDown(eKeyCode::D))
+		if (Input::GetKeyDown(eKeyCode::F))
 		{
 			isBomb = true;
 			mTransform->SetDirection(mDirection);
@@ -859,6 +860,7 @@ namespace mo {
 	{
 
 		eDirection mDirection = mTransform->GetDirection();
+		Vector2 mPos = mTransform->GetPos();
 
 		Scene* curScene = SceneManager::GetActiveScene();
 		
@@ -867,8 +869,16 @@ namespace mo {
 
 		if (mState == Marco::eMarcoState::Sit) {
 			if (activeAnimation->GetName() == L"P_ThrowingBombR" ||
-				activeAnimation->GetName() == L"P_ThrowingBombL")
+				activeAnimation->GetName() == L"P_ThrowingBombL" || 
+				isBomb)
 			{
+				isBomb = false;
+
+				PlayerBomb* bomb = new PlayerBomb();
+				curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
+				bomb->Initialize();
+				bomb->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, 0.0f));
+				bomb->PlayAnimation(mDirection);
 			}
 			else if (player->GetIsKnife())
 			{
@@ -891,10 +901,14 @@ namespace mo {
 		}
 		else {
 			if (activeAnimation->GetName() == L"P_ThrowingBombR" ||
-				activeAnimation->GetName() == L"P_ThrowingBombL" ||
-				isBomb)
+				activeAnimation->GetName() == L"P_ThrowingBombL"
+				)
 			{
-				isBomb = false;
+				PlayerBomb* bomb = new PlayerBomb();
+				curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
+				bomb->Initialize();
+				bomb->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, -30.0f));
+				bomb->PlayAnimation(mDirection);
 			}
 			else if (player->GetIsKnife())
 			{

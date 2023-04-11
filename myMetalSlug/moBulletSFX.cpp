@@ -7,9 +7,11 @@
 #include "moImage.h"
 
 namespace mo {
-	BulletSFX::BulletSFX(eLayerType layer, Vector2 pos)
+	BulletSFX::BulletSFX(eLayerType layer, Vector2 pos, Vector2 scale, Vector2 topdiff)
 		: mLayerType(layer)
 		, mPos(pos)
+		, mScale(scale)
+		, mTopdiff(topdiff)
 	{
 	}
 
@@ -20,15 +22,17 @@ namespace mo {
 	{
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(mPos);
-		tr->SetDisToBottom(Vector2(0.0f, 49.0f));
-		tr->SetScale(Vector2(2.0f, 2.0f));
+		tr->SetDisToBottom(mTopdiff);
+		tr->SetScale(mScale);
 
 		Image* weaponSFX = Resources::Load<Image>(L"weaponSFX", L"..\\Resources\\Weapon\\WeaponSFX.bmp");
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"BulletSFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 30, 11, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"PlayerPistolBulletSFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 11, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"PlayerBombBulletSFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 24, Vector2::Zero, 0.05);
 
-		mAnimator->GetCompleteEvent(L"BulletSFX") = std::bind(&BulletSFX::destroySFX, this);
+		mAnimator->GetCompleteEvent(L"PlayerPistolBulletSFX") = std::bind(&BulletSFX::destroySFX, this);
+		mAnimator->GetCompleteEvent(L"PlayerBombBulletSFX") = std::bind(&BulletSFX::destroySFX, this);
 
 		GameObject::Initialize();
 	}
@@ -43,8 +47,12 @@ namespace mo {
 	}
 	void BulletSFX::PlayAnimation()
 	{
-		//if(mLayerType == eLayerType::PlayerPistol)
-			mAnimator->Play(L"BulletSFX", false);
+		if(mLayerType == eLayerType::PlayerPistol)
+			mAnimator->Play(L"PlayerPistolBulletSFX", false);
+		else if (mLayerType == eLayerType::PlayerBomb)
+			mAnimator->Play(L"PlayerBombBulletSFX", false);
+
+		
 	}
 	void BulletSFX::destroySFX()
 	{

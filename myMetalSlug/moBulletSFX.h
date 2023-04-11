@@ -8,7 +8,7 @@ namespace mo {
 	{
 	public:
 
-		BulletSFX( eLayerType layer, Vector2 pos);
+		BulletSFX( eLayerType layer, Vector2 pos, Vector2 scale, Vector2 topdiff);
 		~BulletSFX();
 
 		virtual void Initialize() override;	
@@ -23,5 +23,7 @@ namespace mo {
 		Animator* mAnimator;
 		eLayerType mLayerType;
 		Vector2 mPos;
+		Vector2 mScale;
+		Vector2 mTopdiff;
 	};
 }

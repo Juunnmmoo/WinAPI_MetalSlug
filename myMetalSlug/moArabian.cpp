@@ -110,6 +110,9 @@ namespace mo{
 		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol) {
 			SetState(eState::Pause);
 		}
+		else if(other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb)
+			SetState(eState::Pause);
+
 	}
 
 	void Arabian::OnCollisionStay(Collider* other)
@@ -169,7 +172,7 @@ namespace mo{
 		Transform* tr = GetComponent<Transform>();
 		eDirection mDir = tr->GetDirection();
 		Vector2 mPos = tr->GetPos();
-		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
+		//Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
 
 		time += Time::DeltaTime();
 

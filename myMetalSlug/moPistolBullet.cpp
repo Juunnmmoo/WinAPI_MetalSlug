@@ -49,7 +49,7 @@ namespace mo {
 		else if (GetState() == eState::Pause)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
-			BulletSFX* bulletSFX = new BulletSFX(eLayerType::PlayerPistol, pos);
+			BulletSFX* bulletSFX = new BulletSFX(eLayerType::PlayerPistol, pos, Vector2(2.0f, 2.0f),Vector2(0.0f, 49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 			bulletSFX->Initialize();
 			bulletSFX->PlayAnimation();
