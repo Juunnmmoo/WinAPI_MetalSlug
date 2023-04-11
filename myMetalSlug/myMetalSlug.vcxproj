@@ -138,6 +138,7 @@
     <ClInclude Include="moArabian.h" />
     <ClInclude Include="moArabianCreator.h" />
     <ClInclude Include="moArabianWeapon.h" />
+    <ClInclude Include="moBulletSFX.h" />
     <ClInclude Include="moDropWeapon.h" />
     <ClInclude Include="moPistolBullet.h" />
     <ClInclude Include="moCamera.h" />
@@ -161,6 +162,7 @@
     <ClInclude Include="moObject.h" />
     <ClInclude Include="moParaglider.h" />
     <ClInclude Include="moPistol.h" />
+    <ClInclude Include="moPlayerKnife.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
     <ClInclude Include="moRigidBody.h" />
@@ -188,6 +190,7 @@
     <ClCompile Include="moArabian.cpp" />
     <ClCompile Include="moArabianCreator.cpp" />
     <ClCompile Include="moArabianWeapon.cpp" />
+    <ClCompile Include="moBulletSFX.cpp" />
     <ClCompile Include="moDropWeapon.cpp" />
     <ClCompile Include="moPistolBullet.cpp" />
     <ClCompile Include="moCamera.cpp" />
@@ -208,6 +211,7 @@
     <ClCompile Include="moMission1Scene.cpp" />
     <ClCompile Include="moParaglider.cpp" />
     <ClCompile Include="moPistol.cpp" />
+    <ClCompile Include="moPlayerKnife.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />
     <ClCompile Include="moRigidBody.cpp" />

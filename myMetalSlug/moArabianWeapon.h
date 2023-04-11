@@ -7,7 +7,11 @@ namespace mo {
 	class ArabianWeapon : public GameObject
 	{
 	public:
-
+		enum class eWeaponObjectState {
+			None,
+			Move,
+			Drop,
+		};
 		ArabianWeapon();
 		~ArabianWeapon();
 
@@ -18,6 +22,13 @@ namespace mo {
 		void PlayAnimation(eDirection direction);
 
 	private:
+		void none();
+		void move();
+		void drop();
+
+
+	private:
+		eWeaponObjectState mState;
 		Image* mImage;
 		class Animator* mAnimator;
 		eDirection mDir;

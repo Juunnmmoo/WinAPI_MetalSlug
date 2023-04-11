@@ -61,16 +61,19 @@ namespace mo {
 		eLayerType GetLayerType() { return mLayerType; }
 		void SetLayerType(eLayerType type) { mLayerType = type; }
 
-		bool GetIsDeath() { return isDeath; }
-		void SetIsDeath(bool b) { isDeath = b; }
+		bool GetIsCrash() { return isCrash; }
+		void SetIsCrash(bool b) { isCrash = b; }
 
+		void SetBulletType(eBulletType type) { mBulletType = type; };
+		eBulletType GetBulletType() { return mBulletType; }
 
 	private:
 
 		std::vector<Component*> mComponents;
 		eState mState;
 		eLayerType mLayerType;
-		bool isDeath;
-		bool useColliderBox;
+		bool isCrash;
+
+		eBulletType mBulletType;
 	};
 }

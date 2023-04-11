@@ -21,7 +21,9 @@ namespace mo {
 		void jump();
 
 		void shootStartEvent();
-		void AttackEndEvent();
+		void attackEndEvent();
+		void deathEndEvent();
+		void resurrectionEndEvent();
 
 	private:
 		Marco* player;
@@ -32,5 +34,6 @@ namespace mo {
 		RigidBody* mRigidbody;
 		Transform* mTransform;
 		bool unUsedParaglider;
+		bool isBackToLife;
 	};
 }

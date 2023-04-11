@@ -8,6 +8,7 @@ namespace mo {
 	class RigidBody;
 	class Animator;
 	class Animation;
+	class PlayerKnife;
 	class Marco : public GameObject
 	{
 	public:
@@ -22,7 +23,7 @@ namespace mo {
 		};
 
 
-		Marco(MarcoBottom* obj);
+		Marco(MarcoBottom* obj, PlayerKnife* right, PlayerKnife* left);
 		~Marco();
 
 		virtual void Initialize() override;
@@ -37,8 +38,11 @@ namespace mo {
 		void SetBulletNum(int num) { bulletNum = num; }
 		int GetBulletNum() { return bulletNum; }
 
-		eMarcoState GetState() { return mState; }
-		void SetState(eMarcoState state) { mState = state; }
+		void SetIsKnife(bool b) { isKnife = b; }
+		bool GetIsKnife() { return isKnife; }
+
+		eMarcoState GetMarcoState() { return mState; }
+		void SetMarcoState(eMarcoState state) { mState = state; }
 
 	private:
 		MarcoBottom* bottom;
@@ -48,6 +52,9 @@ namespace mo {
 		Pistol* pistol;
 		Machinegun* machinegun;
 		eMarcoWeapon mWeaponState;
+		PlayerKnife* leftKnife;
+		PlayerKnife* rightKnife;
+
 		bool isKnife;
 		int bulletNum;
 	};

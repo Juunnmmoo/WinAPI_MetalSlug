@@ -17,7 +17,7 @@ namespace mo {
 			if (gameObj == nullptr)
 				continue;
 
-			if (gameObj->GetState() != GameObject::eState::Active)
+			if (gameObj->GetState() == GameObject::eState::Death)
 				continue;
 
 			gameObj->Initialize();
@@ -29,7 +29,7 @@ namespace mo {
 			if (gameObj == nullptr)
 				continue;
 
-			if (gameObj->GetState() != GameObject::eState::Active)
+			if (gameObj->GetState() == GameObject::eState::Death)
 				continue;
 			gameObj->Update();
 		}
@@ -40,7 +40,7 @@ namespace mo {
 			if (gameObj == nullptr)
 				continue;
 
-			if (gameObj->GetState() != GameObject::eState::Active)
+			if (gameObj->GetState() == GameObject::eState::Death)
 				continue;
 			gameObj->Render(mHdc);
 		}

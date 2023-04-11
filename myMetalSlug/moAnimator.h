@@ -55,6 +55,7 @@ namespace mo {
 		void SetAlpha(bool b) { isAlpha = b; }
 
 		void SetUseinvincibility(bool b) { Useinvincibility = b; }
+		bool GetUseinvincibility() {return Useinvincibility;}
 		bool IsComplte() { return mActiveAnimation->isComplete(); }
 
 	private:

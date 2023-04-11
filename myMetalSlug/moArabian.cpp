@@ -49,6 +49,7 @@ namespace mo{
 		mAnimator->CreateAnimation(L"MoveL", mImageL, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 20, 15, 12, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"ThrowingL", mImageL, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 20, 15, 19, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"AttackL", mImageL, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 20, 15, 8, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"TurnL", mImageL, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 20, 15, 2, Vector2::Zero, 0.5);
 
 		mAnimator->Play(L"MoveL", true);
 		mState = eArabianState::Move;
@@ -62,9 +63,13 @@ namespace mo{
 
 	void Arabian::Update()
 	{
-		
-		if (GetIsDeath())
+
+		if (GetState() == eState::Pause &&
+			(
+			mAnimator->GetActiveAnimation()->GetName() != L"DeathL" //|| mAnimator->GetActiveAnimation()->GetName() != L"DeathR"
+			))
 		{
+			mAnimator->Play(L"DeathL", false);
 			mState = eArabianState::Death;
 		}
 		
@@ -102,19 +107,13 @@ namespace mo{
 	{	
 		
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBullet) {
-			mAnimator->Play(L"DeathL", false);
-			SetIsDeath(true);
+		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol) {
+			SetState(eState::Pause);
 		}
 	}
 
 	void Arabian::OnCollisionStay(Collider* other)
 	{
-		/*if (other->GetOwner()->GetLayerType() == eLayerType::Player
-			&& Input::GetKeyDown(eKeyCode::D)) {
-			mAnimator->Play(L"DeathL", false);
-			SetIsDeath(true);
-		}*/
 	}
 
 	void Arabian::OnCollisionExit(Collider* other)
@@ -179,7 +178,7 @@ namespace mo{
 			isThrowing = true;
 			
 			ArabianWeapon* weapon = new ArabianWeapon();
-			curScene->AddGameObject(weapon, eLayerType::EnemyBullet);
+			curScene->AddGameObject(weapon, eLayerType::EnemyBulletR);
 			weapon->Initialize();
 			weapon->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, -30.0f));
 			weapon->PlayAnimation(mDir);

@@ -28,5 +28,8 @@ namespace mo {
 		Image* mImage;
 		eDirection mDirection;
 		Vector2 mDir;
+		class Animator* mAnimator;
+		bool useWeaponSFX;
+
 	};
 }

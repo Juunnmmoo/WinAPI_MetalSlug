@@ -30,7 +30,7 @@ namespace mo {
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetLeftTop(Vector2(0.0f, -750.0f));
-		mCollider->SetSize(Vector2{ 20.0f, 750.0f });
+		mCollider->SetSize(Vector2{ 700.0f, 750.0f });
 
 		GameObject::Initialize();
 	}
@@ -38,7 +38,7 @@ namespace mo {
 	{
 		time += Time::DeltaTime();
 
-		if (time >= 3.5f && !stopCreate)
+		if (time >= 5.0f && !stopCreate)
 		{
 			time = 0.0f;
 
@@ -48,7 +48,7 @@ namespace mo {
 
 			curScene->AddGameObject(arabian, eLayerType::Enemy);
 			arabian->Initialize();
-			arabian->GetComponent<Transform>()->SetPos(Vector2(1800.0f, 600.0f));
+			arabian->GetComponent<Transform>()->SetPos(Vector2(2500.0f, 600.0f));
 		}
 		GameObject::Update();
 	}

@@ -32,7 +32,7 @@ namespace mo {
 			playerBottom = GetBottom();*/
 
 
-		mState = player->GetState();
+		mState = player->GetMarcoState();
 		mAnimator = player->GetComponent<Animator>();
 		mRigidbody = player->GetComponent<RigidBody>();
 		mTransform = player->GetComponent<Transform>();
@@ -58,8 +58,8 @@ namespace mo {
 		mAnimator->CreateAnimation(L"M_ShootLB", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 60, 4, Vector2::Zero, 0.07);
 
 
-		//mAnimator->CreateAnimation(L"M_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
-		//mAnimator->CreateAnimation(L"M_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 60, 6, Vector2::Zero, 0.05);
 
 		mAnimator->CreateAnimation(L"M_MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 60, 12, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"M_MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 12, Vector2::Zero, 0.05);
@@ -76,11 +76,15 @@ namespace mo {
 		mAnimator->CreateAnimation(L"M_JumpDownR", mImageR, Vector2(120.0f * 0, 120.0f * 11), 120.0f, 30, 60, 7, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"M_JumpDownL", mImageL, Vector2(120.0f * 29, 120.0f * 11), -120.0f, 30, 60, 7, Vector2::Zero, 0.07);
 
+		mAnimator->CreateAnimation(L"M_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 12), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 12), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
+
+
 		mAnimator->CreateAnimation(L"M_paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
 
 
-		/*mAnimator->GetStartEvent(L"KnifeR") = std::bind(&Pistol::AttackEndEvent, this);
-		mAnimator->GetStartEvent(L"KnifeL") = std::bind(&Pistol::AttackEndEvent, this);*/
+		mAnimator->GetStartEvent(L"M_KnifeR") = std::bind(&Machinegun::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"M_KnifeL") = std::bind(&Machinegun::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"M_ShootR") = std::bind(&Machinegun::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"M_ShootL") = std::bind(&Machinegun::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"M_ShootRT") = std::bind(&Machinegun::shootStartEvent, this);
@@ -89,8 +93,8 @@ namespace mo {
 		mAnimator->GetStartEvent(L"M_ShootLB") = std::bind(&Machinegun::shootStartEvent, this);
 
 
-		/*	mAnimator->GetCompleteEvent(L"KnifeR") = std::bind(&Pistol::AttackEndEvent, this);
-			mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Pistol::AttackEndEvent, this);*/
+		mAnimator->GetCompleteEvent(L"M_KnifeR") = std::bind(&Machinegun::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_KnifeL") = std::bind(&Machinegun::AttackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_ShootR") = std::bind(&Machinegun::AttackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_ShootL") = std::bind(&Machinegun::AttackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_ShootRT") = std::bind(&Machinegun::AttackEndEvent, this);
@@ -102,7 +106,7 @@ namespace mo {
 	}
 	void Machinegun::Update()
 	{
-		mState = player->GetState();
+		mState = player->GetMarcoState();
 
 		switch (mState) {
 		/*case mo::Marco::eMarcoState::Paraglider:
@@ -131,29 +135,9 @@ namespace mo {
 			break;
 		}
 
-		player->SetState(mState);
+		player->SetMarcoState(mState);
 	}
 
-	/*void Machinegun::paraglider()
-	{
-
-		if (unUsedParaglider == false) {
-			if (Input::GetKeyDown(eKeyCode::S)) {
-				unUsedParaglider = true;
-				Vector2 velocity = mRigidbody->GetVelocity();
-				velocity.y -= 300.0f;
-				mRigidbody->SetVelocity(velocity);
-				mRigidbody->SetGround(false);
-				mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
-			}
-		}
-		if (mRigidbody->GetGround()) {
-			mAnimator->Play(L"M_IdleR", true);
-			playerBottom->SetIsGround(true);
-			mRigidbody->SetGravity(Vector2(0.0f, 1500.0f));
-			mState = Marco::eMarcoState::Idle;
-		}
-	}*/
 	void Machinegun::move()
 	{
 		Vector2 pos = mTransform->GetPos();
@@ -284,22 +268,22 @@ namespace mo {
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)) {
 
-			/*if (isKnife) {
+			if (player->GetIsKnife()) {
+				if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+					mAnimator->Play(L"M_KnifeR", false);
+				else if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+					mAnimator->Play(L"M_KnifeL", false);
+			}
+			else {
 				if (mDirection == eDirection::Right)
-					mAnimator->Play(L"KnifeR", false);
+					mAnimator->Play(L"M_ShootR", false);
 				else if (mDirection == eDirection::Left)
-					mAnimator->Play(L"KnifeL", false);
-			}*/
-			//else {
-			if (mDirection == eDirection::Right)
-				mAnimator->Play(L"M_ShootR", false);
-			else if (mDirection == eDirection::Left)
-				mAnimator->Play(L"M_ShootL", false);
-			else if (mDirection == eDirection::RTop)
-				mAnimator->Play(L"M_ShootRT", false);
-			else if (mDirection == eDirection::LTop)
-				mAnimator->Play(L"M_ShootLT", false);
-			//}
+					mAnimator->Play(L"M_ShootL", false);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"M_ShootRT", false);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"M_ShootLT", false);
+			}
 		}
 		if (Input::GetKey(eKeyCode::Left)
 			&& Camera::GetDistance().x < pos.x - 30.0f)
@@ -413,22 +397,22 @@ namespace mo {
 		// Shooting
 		if (Input::GetKeyDown(eKeyCode::D)) {
 
-			/*	if (isKnife) {
-					if (mDirection == eDirection::Right)
-						mAnimator->Play(L"KnifeR", false);
-					else if (mDirection == eDirection::Left)
-						mAnimator->Play(L"KnifeL", false);
-				}
-				else {*/
-			if (mDirection == eDirection::Right)
-				mAnimator->Play(L"M_ShootR", false);
-			else if (mDirection == eDirection::Left)
-				mAnimator->Play(L"M_ShootL", false);
-			else if (mDirection == eDirection::RTop)
-				mAnimator->Play(L"M_ShootRT", false);
-			else if (mDirection == eDirection::LTop)
-				mAnimator->Play(L"M_ShootLT", false);
-			//}
+			if (player->GetIsKnife()) {
+				if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+					mAnimator->Play(L"M_KnifeR", false);
+				else if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+					mAnimator->Play(L"M_KnifeL", false);
+			}
+			else {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"M_ShootR", false);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_ShootL", false);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"M_ShootRT", false);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"M_ShootLT", false);
+			}
 		}
 
 	}
@@ -747,18 +731,26 @@ namespace mo {
 		if (Input::GetKeyDown(eKeyCode::D)) {
 
 
-			if (mDirection == eDirection::Right)
-				mAnimator->Play(L"M_ShootR", false);
-			else if (mDirection == eDirection::Left)
-				mAnimator->Play(L"M_ShootL", false);
-			else if (mDirection == eDirection::RTop)
-				mAnimator->Play(L"M_ShootRT", false);
-			else if (mDirection == eDirection::LTop)
-				mAnimator->Play(L"M_ShootLT", false);
-			else if (mDirection == eDirection::RBottom)
-				mAnimator->Play(L"M_ShootRB", false);
-			else if (mDirection == eDirection::LBottom)
-				mAnimator->Play(L"M_ShootLB", false);
+			if (player->GetIsKnife()) {
+				if (mDirection == eDirection::Right || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_KnifeR", false);
+				else if (mDirection == eDirection::Left || mDirection == eDirection::LTop || mDirection == eDirection::LBottom)
+					mAnimator->Play(L"M_KnifeL", false);
+			}
+			else {
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"M_ShootR", false);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_ShootL", false);
+				else if (mDirection == eDirection::RTop)
+					mAnimator->Play(L"M_ShootRT", false);
+				else if (mDirection == eDirection::LTop)
+					mAnimator->Play(L"M_ShootLT", false);
+				else if (mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_ShootRB", false);
+				else if (mDirection == eDirection::LBottom)
+					mAnimator->Play(L"M_ShootLB", false);
+			}
 
 		}
 
@@ -781,57 +773,70 @@ namespace mo {
 
 	void Machinegun::shootStartEvent()
 	{
-		int bulletNum = player->GetBulletNum();
-		bulletNum--;
-		player->SetBulletNum(bulletNum);
+		
 
 		eDirection mDirection = mTransform->GetDirection();
-
 		Scene* curScene = SceneManager::GetActiveScene();
-		PistolBullet* pistolBullet = new PistolBullet();
-
+		
 		if (mState == Marco::eMarcoState::Sit) {
-			if (mDirection == eDirection::Right) {
-				pistolBullet->SetDirection(eDirection::RSit);
-				pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
+			if (player->GetIsKnife())
+			{
+
 			}
-			else if (mDirection == eDirection::Left) {
-				pistolBullet->SetDirection(eDirection::LSit);
-				pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
+			else
+			{
+				PistolBullet* pistolBullet = new PistolBullet();
+				int bulletNum = player->GetBulletNum();
+				bulletNum--;
+				player->SetBulletNum(bulletNum);
+
+				if (mDirection == eDirection::Right || mDirection == eDirection::RBottom) {
+					pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
+					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -10.0f));
+				}
+				else if (mDirection == eDirection::Left || mDirection == eDirection::LBottom) {
+					pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
+					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -10.0f));
+				}
+				curScene->AddGameObject(pistolBullet, eLayerType::PlayerPistol);
+				pistolBullet->Initialize();
 			}
 		}
 		else {
-			if (mDirection == eDirection::Right) {
-				pistolBullet->SetDirection(eDirection::Right);
-				pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
+			if (player->GetIsKnife())
+			{
+
 			}
-			else if (mDirection == eDirection::Left) {
-				pistolBullet->SetDirection(eDirection::Left);
-				pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
-			}
-			else if (mDirection == eDirection::RTop) {
-				pistolBullet->SetDirection(eDirection::Top);
-				pistolBullet->SetDir(Vector2{ 0.0f, -5.0f });
-			}
-			else if (mDirection == eDirection::LTop) {
-				pistolBullet->SetDirection(eDirection::Top);
-				pistolBullet->SetDir(Vector2{ 0.0f, -5.0f });
-			}
-			else if (mDirection == eDirection::RBottom) {
-				pistolBullet->SetDirection(eDirection::Bottom);
-				pistolBullet->SetDir(Vector2{ 0.0f, 5.0f });
-			}
-			else if (mDirection == eDirection::LBottom) {
-				pistolBullet->SetDirection(eDirection::Bottom);
-				pistolBullet->SetDir(Vector2{ 0.0f, 5.0f });
+			else
+			{
+				PistolBullet* pistolBullet = new PistolBullet();
+				int bulletNum = player->GetBulletNum();
+				bulletNum--;
+				player->SetBulletNum(bulletNum);
+
+				if (mDirection == eDirection::Right) {
+					pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
+					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -50.0f));
+
+				}
+				else if (mDirection == eDirection::Left) {
+					pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
+					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -50.0f));
+
+				}
+				else if (mDirection == eDirection::RTop || mDirection == eDirection::LTop) {
+					pistolBullet->SetDir(Vector2{ 0.0f, -5.0f });
+					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, -90.0f));
+				}
+				else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom) {
+					pistolBullet->SetDir(Vector2{ 0.0f, 5.0f });
+					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, 90.0f));
+
+				}
+				curScene->AddGameObject(pistolBullet, eLayerType::PlayerPistol);
+				pistolBullet->Initialize();
 			}
 		}
-
-		//Ä«¸Þ¶ó ÁÂÇ¥
-		//bullet->GetComponent<Transform>()->SetPos(Camera::CaluatePos(tr->GetPos()));
-		pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos());
-		curScene->AddGameObject(pistolBullet, eLayerType::PlayerBullet);
-		pistolBullet->Initialize();
 
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();
 		Animation* prevAnimation = mAnimator->GetPrevAniamtion();
@@ -841,7 +846,9 @@ namespace mo {
 			prevAnimation->GetName() != L"M_ShootL" &&
 			prevAnimation->GetName() != L"M_ShootLT" &&
 			prevAnimation->GetName() != L"M_ShootRB" &&
-			prevAnimation->GetName() != L"M_ShootLB")
+			prevAnimation->GetName() != L"M_ShootLB"&&
+			prevAnimation->GetName() != L"M_KnifeR" &&
+			prevAnimation->GetName() != L"M_KnifeL")
 				mPrevAnimation = prevAnimation;
 	}
 

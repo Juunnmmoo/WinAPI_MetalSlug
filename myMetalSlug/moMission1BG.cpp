@@ -7,6 +7,8 @@
 #include "moMarco.h"
 #include "moRigidBody.h"
 #include "moScene.h"
+#include "moObject.h"
+#include "moBulletSFX.h"
 
 extern mo::Application application;
 
@@ -22,23 +24,24 @@ namespace mo {
 	}
 
 	void Mission1BG::Initialize()
-	{
-		
+	{		
+
 		main = Resources::Load<Image>(L"Mission1BG_Main", L"..\\Resources\\BackGround\\Mission1BG_Main.bmp");
 		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_Ground.bmp");
 		
 		layers.push_back(eLayerType::BulletBox);
 		layers.push_back(eLayerType::Enemy);
+		layers.push_back(eLayerType::EnemyBulletR);
+		layers.push_back(eLayerType::PlayerPistol);
 
 		GameObject::Initialize();
 	}
 
 	void Mission1BG::Update()
 	{
-	
+
 		for (eLayerType layer : layers)
 		{
-
 			std::vector<GameObject*>& gameObj = curScene->GetGameObjects(layer);
 
 			for (GameObject* obj : gameObj)
@@ -46,15 +49,26 @@ namespace mo {
 
 				Transform* tr = obj->GetComponent<Transform>();
 				Vector2 pos = tr->GetPos();
-				RigidBody* rb = obj->GetComponent<RigidBody>();
+				
+				if (layer == eLayerType::PlayerPistol)
+				{
 
-				if (ground->GetPixel(pos.x, pos.y) == RGB(248, 0, 248)) {
-					pos.y--;
-					rb->SetGround(true);
-					tr->SetPos(pos);
+					if (ground->GetPixel(pos.x, pos.y) == RGB(248, 0, 248)) {
+						obj->SetState(eState::Pause);
+					}
 				}
-				else {
-					rb->SetGround(false);
+				else
+				{
+					RigidBody* rb = obj->GetComponent<RigidBody>();
+
+					if (ground->GetPixel(pos.x, pos.y) == RGB(248, 0, 248)) {
+						pos.y--;
+						rb->SetGround(true);
+						tr->SetPos(pos);
+					}
+					else {
+						rb->SetGround(false);
+					}
 				}
 			}
 		}

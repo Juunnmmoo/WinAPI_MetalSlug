@@ -17,13 +17,14 @@ namespace mo {
 		void SetPlayer(class Marco* marco) { mPlayer = marco; }
 		void SetObject(GameObject* obj) { mObjects.push_back(obj); }
 
+		bool checkCrash();
 	private:
 		class Image* main;
 		class Image* ground;
 		class Marco* mPlayer;
 		Scene* curScene;
-		std::vector<eLayerType> layers;
 		UINT TopDiff;
+		std::vector<eLayerType> layers;
 		std::vector<GameObject*> mObjects;
 	};
 }

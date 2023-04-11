@@ -14,6 +14,7 @@
 #include "moParaglider.h"
 #include "moMachinegunBox.h"
 #include "moArabianCreator.h"
+#include "moPlayerKnife.h"
 
 namespace mo
 {
@@ -34,10 +35,17 @@ namespace mo
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
 
-		Marco* marco = new Marco(marcoBottom);
+		PlayerKnife* rightKnife = new PlayerKnife();
+		PlayerKnife* leftKnife = new PlayerKnife();
+		AddGameObject(rightKnife, eLayerType::PlayerKnife);
+		AddGameObject(leftKnife, eLayerType::PlayerKnife);
+
+		Marco* marco = new Marco(marcoBottom, rightKnife, leftKnife);
 		Paraglider* paraglider = new Paraglider(marco);
 		AddGameObject(paraglider, eLayerType::Player);
 		AddGameObject(marco, eLayerType::Player);
+
+		
 
 		Mission1BG* mission1BG = new Mission1BG(this);
 		AddGameObject(mission1BG, eLayerType::BG);
@@ -82,10 +90,12 @@ namespace mo
 	}
 	void Mission1Scene::OnEnter()
 	{
-		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Enemy, true);
-		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerBullet, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBullet, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBulletR, true);
+		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerPistol, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyCreator, true);
+		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerKnife, true);
 
 	}
 	void Mission1Scene::OnExit()

@@ -9,7 +9,7 @@ namespace mo {
 	{
 	public:
 
-		enum class eMarcoState{
+		enum class eMarcoState {
 			Paraglider,
 			Move,
 			Shoot,
@@ -26,13 +26,16 @@ namespace mo {
 		virtual void Initialize() override;
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
-		
+
 		void SetIsGround(bool b) { isGround = b; }
 		void SetWeaponState(eMarcoWeapon state) { mWeaponState = state; }
 		void PlaySitAnimation();
 		bool GetIsShooting() { return isSitShooting; }
 
 		Animator* GetAnimator() { return mAnimator; }
+		void SetBottomState(eMarcoState state) { mState = state; }
+
+		void SetIsKnife(bool b) { isKnife = b; }
 
 	private:
 		void paraglider();
@@ -54,6 +57,7 @@ namespace mo {
 		Animator* mAnimator;
 		bool isGround;
 		bool isSitShooting;
+		bool isKnife;
 		eMarcoWeapon mWeaponState;
 	};
 }

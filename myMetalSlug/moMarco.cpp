@@ -15,11 +15,13 @@
 #include "moPistol.h"
 #include "moMachinegun.h"
 #include "moDropWeapon.h"
+#include "moObject.h"
+#include "moPlayerKnife.h"
 
 extern mo::Application application;
 
 namespace mo {
-	Marco::Marco(MarcoBottom* obj)
+	Marco::Marco(MarcoBottom* obj, PlayerKnife* right, PlayerKnife* left)
 		: isKnife(false)
 		, mAnimator(nullptr)
 		, mState(eMarcoState::Paraglider)
@@ -27,6 +29,8 @@ namespace mo {
 		, pistol(nullptr)
 		, mWeaponState(eMarcoWeapon::Pistol)
 		, bulletNum(1)
+		, rightKnife(right)
+		, leftKnife(left)
 	{
 	}
 	Marco::~Marco()
@@ -67,6 +71,7 @@ namespace mo {
 		mRigidbody->SetGravity(Vector2(0.0f, 250.0f));
 
 
+	
 
 		pistol = new Pistol(this, bottom);
 		pistol->Initialize();
@@ -81,6 +86,14 @@ namespace mo {
 	void Marco::Update()
 	{
 		Collider* mCollider = GetComponent<Collider>();
+		
+		Transform* tr = GetComponent<Transform>();
+		eDirection mDirection = tr->GetDirection();
+		Vector2 pos = tr->GetPos();
+		
+		Transform* bottomTr;
+		bottomTr = bottom->GetComponent<Transform>();
+		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
 
 		if (mState == eMarcoState::Sit)
 		{
@@ -106,12 +119,11 @@ namespace mo {
 
 		if (bulletNum == 0)
 		{
-			Transform* tr = GetComponent<Transform>();
-			eDirection mDirection = tr->GetDirection();
+		
 
 			DropWeapon* drop = new DropWeapon();
 			Scene* curScene = SceneManager::GetActiveScene();
-			curScene->AddGameObject(drop, eLayerType::PlayerBullet);
+			curScene->AddGameObject(drop, eLayerType::DropWeapon);
 
 			drop->Initialize();
 			drop->GetComponent<Transform>()->SetPos(tr->GetPos() );
@@ -166,20 +178,45 @@ namespace mo {
 			bulletNum = 1;
 		}
 
-
+		rightKnife->SetPos(pos + Vector2(20.0f, -70.0f));
+		leftKnife->SetPos(pos + Vector2(-70.0f, -70.0f));
 		
-
-		// PlayerBottom À§Ä¡ update
-		Transform* tr;
-		tr = GetComponent<Transform>();
-		Vector2 pos = tr->GetPos();
-
-		Transform* bottomTr;
-		bottomTr = bottom->GetComponent<Transform>();
-		bottomTr->SetPos(tr->GetPos() + Vector2(0.0f, 40.0f));
-		
-
-
+		if (mDirection == eDirection::Right ||
+			mDirection == eDirection::RTop ||
+			mDirection == eDirection::RSit ||
+			mDirection == eDirection::RBottom)
+		{
+			if (rightKnife->GetIsCollide())
+			{
+				isKnife = true;
+				bottom->SetIsKnife(true);
+				rightKnife->SetIsUse(true);
+			}
+			else
+			{
+				isKnife = false;
+				bottom->SetIsKnife(false);
+				rightKnife->SetIsUse(false);
+			}
+		}
+		else if (mDirection == eDirection::Left ||
+			     mDirection == eDirection::LTop ||
+			     mDirection == eDirection::LSit || 
+				 mDirection == eDirection::LBottom)
+		{
+			if (leftKnife->GetIsCollide())
+			{
+				isKnife = true;
+				bottom->SetIsKnife(true);
+				leftKnife->SetIsUse(true);
+			}
+			else
+			{
+				isKnife = false;
+				bottom->SetIsKnife(false);
+				leftKnife->SetIsUse(false);
+			}
+		}
 		GameObject::Update();
 
 	}
@@ -195,9 +232,38 @@ namespace mo {
 		/*if ( other->GetOwner()->GetLayerType() == eLayerType::Monster)
 			isKnife = true;*/
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy) {
-			mAnimator->SetUseinvincibility(true);
-			bottom->GetAnimator()->SetUseinvincibility(true);
+		if ((other->GetOwner()->GetLayerType() == eLayerType::EnemyBulletR || 
+			other->GetOwner()->GetLayerType() == eLayerType::EnemyBullet))
+		{
+			object::Destory(other->GetOwner());
+
+			if (other->GetOwner()->GetBulletType() == eBulletType::knife
+				)
+			{
+				SetState(eState::Pause);
+				Transform* tr = GetComponent<Transform>();
+				eDirection mDirection = tr->GetDirection();
+
+				if (mDirection == eDirection::Left ||
+					mDirection == eDirection::LSit ||
+					mDirection == eDirection::LBottom ||
+					mDirection == eDirection::LTop)
+				{
+					mAnimator->Play(L"None", false);
+					bottom->GetAnimator()->Play(L"KnifeDeathL", false);
+				}
+				else
+				{
+					mAnimator->Play(L"None", false);
+					bottom->GetAnimator()->Play(L"KnifeDeathR", false);
+				}
+				mWeaponState = eMarcoWeapon::Pistol;
+				bottom->SetWeaponState(eMarcoWeapon::Pistol);
+				mState = eMarcoState::Death;
+				bottom->SetBottomState(MarcoBottom::eMarcoState::Death);
+
+			}
+			
 		}
 	}
 
@@ -284,7 +350,7 @@ namespace mo {
 					mAnimator->Play(L"F_JumpDownL", true);
 			}
 		}
-		else 
+		else if (mState == eMarcoState::Move)
 		{
 			if (state == eMarcoWeapon::Pistol) {
 				if (mDirection == eDirection::Left)

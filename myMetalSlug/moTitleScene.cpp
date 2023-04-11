@@ -19,8 +19,6 @@ namespace mo
 		TitleBG* titleBG = new TitleBG();
 		AddGameObject(titleBG, eLayerType::BG);
 
-
-
 		Scene::Initialize();
 	}
 	void TitleScene::Update()

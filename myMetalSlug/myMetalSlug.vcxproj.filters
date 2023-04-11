@@ -244,6 +244,12 @@
     <ClInclude Include="moArabianCreator.h">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClInclude>
+    <ClInclude Include="moBulletSFX.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="moPlayerKnife.h">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -387,6 +393,12 @@
     </ClCompile>
     <ClCompile Include="moArabianCreator.cpp">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBulletSFX.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="moPlayerKnife.cpp">
+      <Filter>Contents\PlayerObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -97,8 +97,8 @@ namespace mo {
 
 		if (fabs(leftPos.x - rightPos.x) < (leftSize.x / 2.0f) + (rightSize.x / 2.0f)
 			&& fabs(leftPos.y - rightPos.y) < (leftSize.y / 2.0f) + (rightSize.y / 2.0f)
-			&& left->GetOwner()->GetIsDeath() == false
-			&& right->GetOwner()->GetIsDeath() == false
+			&& left->GetOwner()->GetState() == GameObject::eState::Active
+			&& right->GetOwner()->GetState() == GameObject::eState::Active
 			) {
 
 			return true;

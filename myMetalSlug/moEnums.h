@@ -19,8 +19,12 @@ enum class eLayerType
 	Enemy,
 	EnemyCreator,
 	Player,
+	EnemyBulletR,
 	EnemyBullet,
-	PlayerBullet,
+	DropWeapon,
+	PlayerKnife,
+	PlayerPistol,
+	PlayerMachinegun,
 	Effect,
 	UI,
 	End,
@@ -31,8 +35,8 @@ enum class eComponentType
 	Transform,
 	SpriteRenderer,
 	Animator,
-	Collider,
 	Rigidbody,
+	Collider,
 	Audio,
 	End,
 };
@@ -57,4 +61,11 @@ enum class eMarcoWeapon {
 	Machinegun,
 	Shotgun,
 	Firegun,
+};
+
+enum class eBulletType {
+	None,
+	Bullet,
+	knife,
+	Boom,
 };

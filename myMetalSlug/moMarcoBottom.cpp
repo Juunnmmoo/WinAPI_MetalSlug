@@ -22,52 +22,76 @@ namespace mo {
 	{
 		Image* mImageR = Resources::Load<Image>(L"MarcoBottomRight", L"..\\Resources\\Player\\MarcoBottomRight.bmp");
 		Image* mImageL = Resources::Load<Image>(L"MarcoBottomLeft", L"..\\Resources\\Player\\MarcoBottomLeft.bmp");
+		Image* mImage = Resources::Load<Image>(L"PlayerResurrection", L"..\\Resources\\Player\\PlayerResurrection.bmp");
+		
 		mAnimator = AddComponent<Animator>();
 		mAnimator->SetAlpha(true);
 
+		mAnimator->CreateAnimation(L"P_Resurrection", mImage, Vector2(0.0f, 0.0f), 32.0f, 7, 1, 7, Vector2::Zero, 0.04);
+
 
 		// Coulmn : За	row : ї­
-		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 15, 15, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 15, 15, 12, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 30, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 30, 12, Vector2::Zero, 0.05);
 
-		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 14, 120.0f * 0), -120.0f, 15, 15, 1, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"MoveL", mImageL, Vector2(120.0f * 14, 120.0f * 2), -120.0f, 15, 15, 12, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 29, 120.0f * 0), -120.0f, 30, 30, 1, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 30, 12, Vector2::Zero, 0.05);
 
-		mAnimator->CreateAnimation(L"P_ReadySitR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 15, 15, 3, Vector2::Zero, 0.03);
-		mAnimator->CreateAnimation(L"P_ReadySitL", mImageL, Vector2(120.0f * 14, 120.0f * 3), -120.0f, 15, 15, 3, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"P_ReadySitR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 30, 3, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"P_ReadySitL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 30, 3, Vector2::Zero, 0.03);
 
-		mAnimator->CreateAnimation(L"P_SitR", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 15, 15, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"P_SitL", mImageL, Vector2(120.0f * 14, 120.0f * 4), -120.0f, 15, 15, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"P_SitR", mImageR, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 30, 30, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"P_SitL", mImageL, Vector2(120.0f * 29, 120.0f * 4), -120.0f, 30, 30, 4, Vector2::Zero, 0.1);
 
-		mAnimator->CreateAnimation(L"P_SitMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 15, 15, 7, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"P_SitMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 5), -120.0f, 15, 15, 7, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"P_SitMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 30, 30, 7, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"P_SitMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 5), -120.0f, 30, 30, 7, Vector2::Zero, 0.15);
 
-		mAnimator->CreateAnimation(L"P_SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 15, 15, 10, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_SitShootL", mImageL, Vector2(120.0f * 14, 120.0f * 6), -120.0f, 15, 15, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"P_SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 30, 10, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"P_SitShootL", mImageL, Vector2(120.0f * 29, 120.0f * 6), -120.0f, 30, 30, 10, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"M_ReadySitR", mImageR, Vector2(120.0f * 0, 120.0f * 12), 120.0f, 15, 15, 3, Vector2::Zero, 0.03);
-		mAnimator->CreateAnimation(L"M_ReadySitL", mImageL, Vector2(120.0f * 14, 120.0f * 12), -120.0f, 15, 15, 3, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"M_ReadySitR", mImageR, Vector2(120.0f * 0, 120.0f * 12), 120.0f, 30, 30, 3, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"M_ReadySitL", mImageL, Vector2(120.0f * 29, 120.0f * 12), -120.0f, 30, 30, 3, Vector2::Zero, 0.03);
 
-		mAnimator->CreateAnimation(L"M_SitR", mImageR, Vector2(120.0f * 0, 120.0f * 11), 120.0f, 15, 15, 4, Vector2::Zero, 0.1);
-		mAnimator->CreateAnimation(L"M_SitL", mImageL, Vector2(120.0f * 14, 120.0f * 11), -120.0f, 15, 15, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"M_SitR", mImageR, Vector2(120.0f * 0, 120.0f * 11), 120.0f, 30, 30, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"M_SitL", mImageL, Vector2(120.0f * 29, 120.0f * 11), -120.0f, 30, 30, 4, Vector2::Zero, 0.1);
 	
-		mAnimator->CreateAnimation(L"M_SitMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 15, 15, 7, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"M_SitMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 9), -120.0f, 15, 15, 7, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_SitMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 30, 7, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"M_SitMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 30, 7, Vector2::Zero, 0.15);
 
-		mAnimator->CreateAnimation(L"M_SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 10), 120.0f, 15, 15, 4, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_SitShootL", mImageL, Vector2(120.0f * 14, 120.0f * 10), -120.0f, 15, 15, 4, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_SitShootR", mImageR, Vector2(120.0f * 0, 120.0f * 10), 120.0f, 30, 30, 4, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_SitShootL", mImageL, Vector2(120.0f * 29, 120.0f * 10), -120.0f, 30, 30, 4, Vector2::Zero, 0.07);
 
 
-		mAnimator->CreateAnimation(L"JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 15, 15, 6, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"JumpIdleL", mImageL, Vector2(120.0f * 14, 120.0f * 7), -120.0f, 15, 15, 6, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"JumpIdleR", mImageR, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 30, 30, 6, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"JumpIdleL", mImageL, Vector2(120.0f * 29, 120.0f * 7), -120.0f, 30, 30, 6, Vector2::Zero, 0.15);
 
-		mAnimator->CreateAnimation(L"JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 15, 15, 6, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"JumpMoveL", mImageL, Vector2(120.0f * 14, 120.0f * 8), -120.0f, 15, 15, 6, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"JumpMoveR", mImageR, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 30, 30, 6, Vector2::Zero, 0.15);
+		mAnimator->CreateAnimation(L"JumpMoveL", mImageL, Vector2(120.0f * 29, 120.0f * 8), -120.0f, 30, 30, 6, Vector2::Zero, 0.15);
+
+		mAnimator->CreateAnimation(L"KnifeDeathR", mImageR, Vector2(120.0f * 0, 120.0f * 13), 120.0f, 30, 30, 19, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"KnifeDeathL", mImageL, Vector2(120.0f * 29, 120.0f * 13), -120.0f, 30, 30, 19, Vector2::Zero, 0.07);
+
+		mAnimator->CreateAnimation(L"P_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 14), 120.0f, 30, 30, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"P_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 14),-120.0f, 30, 30, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 15), 120.0f, 30, 30, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 15),-120.0f, 30, 30, 6, Vector2::Zero, 0.07);
+
+
+		mAnimator->CreateAnimation(L"P_KnifeAttackR", mImageR, Vector2(120.0f * 0, 120.0f * 16), 120.0f, 30, 30, 7, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"P_KnifeAttackL", mImageL, Vector2(120.0f * 29, 120.0f * 16),-120.0f, 30, 30, 7, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_KnifeAttackR", mImageR, Vector2(120.0f * 0, 120.0f * 17), 120.0f, 30, 30, 7, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_KnifeAttackL", mImageL, Vector2(120.0f * 29, 120.0f * 17),-120.0f, 30, 30, 7, Vector2::Zero, 0.05);
+
 
 		mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"P_SitShootL") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_SitShootL") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"P_KnifeAttackR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"P_KnifeAttackL") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_KnifeAttackR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_KnifeAttackL") = std::bind(&MarcoBottom::shootEndEvent, this);
+		
 		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
@@ -431,10 +455,20 @@ namespace mo {
 		if (Input::GetKeyDown(eKeyCode::D)) 
 		{
 			isSitShooting = true;
-			if (mDirection == eDirection::Right)
-				mAnimator->Play(L"P_SitShootR", false);
-			if (mDirection == eDirection::Left)
-				mAnimator->Play(L"P_SitShootL", false);
+			if (isKnife)
+			{
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_KnifeAttackR", false);
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_KnifeAttackL", false);
+			}
+			else
+			{
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"P_SitShootR", false);
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"P_SitShootL", false);
+			}
 		}
 
 		// ToJunp
@@ -546,10 +580,20 @@ namespace mo {
 		if (Input::GetKeyDown(eKeyCode::D)) 
 		{
 			isSitShooting = true;
-			if (mDirection == eDirection::Right)
-				mAnimator->Play(L"M_SitShootR", false);
-			if (mDirection == eDirection::Left)
-				mAnimator->Play(L"M_SitShootL", false);
+			if (isKnife)
+			{
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"M_KnifeAttackR", false);
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_KnifeAttackL", false);
+			}
+			else
+			{
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"M_SitShootR", false);
+				if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_SitShootL", false);
+			}
 		}
 
 		// ToJunp
