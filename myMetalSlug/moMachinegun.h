@@ -32,5 +32,6 @@ namespace mo {
 		RigidBody* mRigidbody;
 		Transform* mTransform;
 		bool unUsedParaglider;
+		bool isBomb;
 	};
 }

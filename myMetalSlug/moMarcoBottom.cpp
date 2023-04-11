@@ -71,10 +71,10 @@ namespace mo {
 		mAnimator->CreateAnimation(L"KnifeDeathR", mImageR, Vector2(120.0f * 0, 120.0f * 13), 120.0f, 30, 30, 19, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"KnifeDeathL", mImageL, Vector2(120.0f * 29, 120.0f * 13), -120.0f, 30, 30, 19, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"P_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 14), 120.0f, 30, 30, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"P_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 14),-120.0f, 30, 30, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 15), 120.0f, 30, 30, 6, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"M_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 15),-120.0f, 30, 30, 6, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"P_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 14), 120.0f, 30, 30, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"P_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 14),-120.0f, 30, 30, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 15), 120.0f, 30, 30, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"M_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 15),-120.0f, 30, 30, 6, Vector2::Zero, 0.05);
 
 
 		mAnimator->CreateAnimation(L"P_KnifeAttackR", mImageR, Vector2(120.0f * 0, 120.0f * 16), 120.0f, 30, 30, 7, Vector2::Zero, 0.05);
@@ -91,7 +91,10 @@ namespace mo {
 		mAnimator->GetCompleteEvent(L"P_KnifeAttackL") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_KnifeAttackR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_KnifeAttackL") = std::bind(&MarcoBottom::shootEndEvent, this);
-		
+		mAnimator->GetCompleteEvent(L"P_ThrowingBombR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"P_ThrowingBombL") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ThrowingBombR") = std::bind(&MarcoBottom::shootEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ThrowingBombL") = std::bind(&MarcoBottom::shootEndEvent, this);
 		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		//mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
@@ -470,6 +473,13 @@ namespace mo {
 					mAnimator->Play(L"P_SitShootL", false);
 			}
 		}
+		if (Input::GetKeyDown(eKeyCode::F)) {
+			isSitShooting = true;
+			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+				mAnimator->Play(L"P_ThrowingBombR", false);
+			else if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+				mAnimator->Play(L"P_ThrowingBombL", false);
+		}
 
 		// ToJunp
 		if (Input::GetKeyDown(eKeyCode::S))
@@ -595,7 +605,13 @@ namespace mo {
 					mAnimator->Play(L"M_SitShootL", false);
 			}
 		}
-
+		if (Input::GetKeyDown(eKeyCode::F)) {
+			isSitShooting = true;
+			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+				mAnimator->Play(L"M_ThrowingBombR", false);
+			else if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+				mAnimator->Play(L"M_ThrowingBombL", false);
+		}
 		// ToJunp
 		if (Input::GetKeyDown(eKeyCode::S))
 		{

@@ -79,7 +79,8 @@ namespace mo {
 
 		mAnimator->CreateAnimation(L"P_paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 30, 6, Vector2::Zero, 0.05);
 
-
+		mAnimator->GetStartEvent(L"P_ThrowingBombR") = std::bind(&Pistol::shootStartEvent, this);
+		mAnimator->GetStartEvent(L"P_ThrowingBombL") = std::bind(&Pistol::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"P_KnifeR") = std::bind(&Pistol::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"P_KnifeL") = std::bind(&Pistol::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"P_ShootR") = std::bind(&Pistol::shootStartEvent, this);
@@ -89,7 +90,8 @@ namespace mo {
 		mAnimator->GetStartEvent(L"P_ShootRB") = std::bind(&Pistol::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"P_ShootLB") = std::bind(&Pistol::shootStartEvent, this);
 
-
+		mAnimator->GetCompleteEvent(L"P_ThrowingBombR") = std::bind(&Pistol::attackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"P_ThrowingBombL") = std::bind(&Pistol::attackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"P_KnifeR") = std::bind(&Pistol::attackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"P_KnifeL") = std::bind(&Pistol::attackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"P_ShootR") = std::bind(&Pistol::attackEndEvent, this);
@@ -336,6 +338,13 @@ namespace mo {
 					mAnimator->Play(L"P_ShootLT", false);
 			}
 		}
+		if (Input::GetKeyDown(eKeyCode::F)) {
+			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+				mAnimator->Play(L"P_ThrowingBombR", false);
+			else if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+				mAnimator->Play(L"P_ThrowingBombL", false);	
+		}
+
 		if (Input::GetKey(eKeyCode::Left)
 			&& Camera::GetDistance().x < pos.x - 30.0f)
 		{
@@ -473,7 +482,12 @@ namespace mo {
 					mAnimator->Play(L"P_ShootLT", false);
 			}
 		}
-
+		if (Input::GetKeyDown(eKeyCode::F)) {
+			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+				mAnimator->Play(L"P_ThrowingBombR", false);
+			else if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+				mAnimator->Play(L"P_ThrowingBombL", false);
+		}
 	}
 
 	void Pistol::sit()
@@ -574,9 +588,14 @@ namespace mo {
 			mTransform->SetDirection(mDirection);
 			shootStartEvent();
 		}
+		if (Input::GetKeyDown(eKeyCode::D))
+		{
+			isBomb = true;
+			mTransform->SetDirection(mDirection);
+			shootStartEvent();
+		}
 
-
-
+		
 	}
 
 	void Pistol::jump()
@@ -812,6 +831,12 @@ namespace mo {
 			}
 		
 		}
+		if (Input::GetKeyDown(eKeyCode::F)) {
+			if (mDirection == eDirection::Right || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
+				mAnimator->Play(L"P_ThrowingBombR", false);
+			else if (mDirection == eDirection::Left || mDirection == eDirection::LTop || mDirection == eDirection::LBottom)
+				mAnimator->Play(L"P_ThrowingBombL", false);
+		}
 
 		if (Input::GetKey(eKeyCode::Left)
 			&& Camera::GetDistance().x < pos.x - 30.0f)
@@ -837,11 +862,16 @@ namespace mo {
 
 		Scene* curScene = SceneManager::GetActiveScene();
 		
+		Animation* activeAnimation = mAnimator->GetActiveAnimation();
+		Animation* prevAnimation = mAnimator->GetPrevAniamtion();
 
 		if (mState == Marco::eMarcoState::Sit) {
-			if (player->GetIsKnife())
+			if (activeAnimation->GetName() == L"P_ThrowingBombR" ||
+				activeAnimation->GetName() == L"P_ThrowingBombL")
 			{
-
+			}
+			else if (player->GetIsKnife())
+			{
 			}
 			else
 			{
@@ -860,9 +890,14 @@ namespace mo {
 			}
 		}
 		else {
-			if (player->GetIsKnife())
+			if (activeAnimation->GetName() == L"P_ThrowingBombR" ||
+				activeAnimation->GetName() == L"P_ThrowingBombL" ||
+				isBomb)
 			{
-
+				isBomb = false;
+			}
+			else if (player->GetIsKnife())
+			{
 			}
 			else
 			{
@@ -894,8 +929,7 @@ namespace mo {
 		
 		
 
-		Animation* activeAnimation = mAnimator->GetActiveAnimation();
-		Animation* prevAnimation = mAnimator->GetPrevAniamtion();
+		
 
 		if (prevAnimation->GetName() != L"P_ShootR" &&
 			prevAnimation->GetName() != L"P_ShootRT" &&
@@ -904,7 +938,9 @@ namespace mo {
 			prevAnimation->GetName() != L"P_ShootRB" &&
 			prevAnimation->GetName() != L"P_ShootLB" &&
 			prevAnimation->GetName() != L"P_KnifeR" &&
-			prevAnimation->GetName() != L"P_KnifeL")
+			prevAnimation->GetName() != L"P_KnifeL" &&
+			prevAnimation->GetName() != L"P_ThrowingBombR" &&
+			prevAnimation->GetName() != L"P_ThrowingBombL")
 				mPrevAnimation = prevAnimation;
 
 		//if(activeAnimation->GetName() != L"P_")
@@ -1052,5 +1088,5 @@ namespace mo {
 		
 	}
 
-
+	
 }

@@ -35,5 +35,6 @@ namespace mo {
 		Transform* mTransform;
 		bool unUsedParaglider;
 		bool isBackToLife;
+		bool isBomb;
 	};
 }
