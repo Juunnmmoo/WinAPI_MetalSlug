@@ -33,6 +33,9 @@ namespace mo {
 		layers.push_back(eLayerType::Enemy);
 		layers.push_back(eLayerType::EnemyBulletR);
 		layers.push_back(eLayerType::PlayerPistol);
+		layers.push_back(eLayerType::PlayerMachinegun);
+		layers.push_back(eLayerType::PlayerBomb);
+
 
 		GameObject::Initialize();
 	}
@@ -50,7 +53,7 @@ namespace mo {
 				Transform* tr = obj->GetComponent<Transform>();
 				Vector2 pos = tr->GetPos();
 				
-				if (layer == eLayerType::PlayerPistol)
+				if (layer == eLayerType::PlayerPistol || layer == eLayerType::PlayerMachinegun)
 				{
 
 					if (ground->GetPixel(pos.x, pos.y) == RGB(248, 0, 248)) {

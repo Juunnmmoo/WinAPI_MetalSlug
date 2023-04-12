@@ -253,6 +253,9 @@
     <ClInclude Include="moPlayerBomb.h">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="moMachinegunBullet.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -404,6 +407,9 @@
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="moPlayerBomb.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="moMachinegunBullet.cpp">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
   </ItemGroup>

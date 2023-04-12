@@ -140,6 +140,7 @@
     <ClInclude Include="moArabianWeapon.h" />
     <ClInclude Include="moBulletSFX.h" />
     <ClInclude Include="moDropWeapon.h" />
+    <ClInclude Include="moMachinegunBullet.h" />
     <ClInclude Include="moPistolBullet.h" />
     <ClInclude Include="moCamera.h" />
     <ClInclude Include="moCollisionManager.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="moArabianWeapon.cpp" />
     <ClCompile Include="moBulletSFX.cpp" />
     <ClCompile Include="moDropWeapon.cpp" />
+    <ClCompile Include="moMachinegunBullet.cpp" />
     <ClCompile Include="moPistolBullet.cpp" />
     <ClCompile Include="moCamera.cpp" />
     <ClCompile Include="moCollisionManager.cpp" />

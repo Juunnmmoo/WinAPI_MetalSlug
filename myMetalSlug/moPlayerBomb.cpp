@@ -114,7 +114,7 @@ namespace mo {
 		}
 		RigidBody* mRigidbody = GetComponent<RigidBody>();
 		Vector2 velocity = mRigidbody->GetVelocity();
-		velocity.y -= 400.0f;
+		velocity.y -= 350.0f;
 		mRigidbody->SetVelocity(velocity);
 		mRigidbody->SetGround(false);
 
@@ -137,7 +137,7 @@ namespace mo {
 		{
 			RigidBody* mRigidbody = GetComponent<RigidBody>();
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 900.0f;
+			velocity.y -= 850.0f;
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
 

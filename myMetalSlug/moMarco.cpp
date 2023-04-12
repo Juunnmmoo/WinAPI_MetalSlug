@@ -31,6 +31,7 @@ namespace mo {
 		, bulletNum(1)
 		, rightKnife(right)
 		, leftKnife(left)
+		, bombNum(10)
 	{
 	}
 	Marco::~Marco()

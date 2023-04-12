@@ -873,12 +873,15 @@ namespace mo {
 				isBomb)
 			{
 				isBomb = false;
-
-				PlayerBomb* bomb = new PlayerBomb();
-				curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
-				bomb->Initialize();
-				bomb->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, 0.0f));
-				bomb->PlayAnimation(mDirection);
+				if (player->GetBombNum() > 0)
+				{
+					player->SetBombNum(player->GetBombNum() - 1);
+					PlayerBomb* bomb = new PlayerBomb();
+					curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
+					bomb->Initialize();
+					bomb->GetComponent<Transform>()->SetPos(mPos);
+					bomb->PlayAnimation(mDirection);
+				}
 			}
 			else if (player->GetIsKnife())
 			{
@@ -904,11 +907,15 @@ namespace mo {
 				activeAnimation->GetName() == L"P_ThrowingBombL"
 				)
 			{
-				PlayerBomb* bomb = new PlayerBomb();
-				curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
-				bomb->Initialize();
-				bomb->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, -30.0f));
-				bomb->PlayAnimation(mDirection);
+				if (player->GetBombNum() > 0)
+				{
+					player->SetBombNum(player->GetBombNum() - 1);
+					PlayerBomb* bomb = new PlayerBomb();
+					curScene->AddGameObject(bomb, eLayerType::PlayerBomb);
+					bomb->Initialize();
+					bomb->GetComponent<Transform>()->SetPos(mPos + Vector2(0.0f, -30.0f));
+					bomb->PlayAnimation(mDirection);
+				}
 			}
 			else if (player->GetIsKnife())
 			{
