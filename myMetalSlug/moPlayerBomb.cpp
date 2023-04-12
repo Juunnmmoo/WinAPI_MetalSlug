@@ -77,7 +77,7 @@ namespace mo {
 			Vector2 pos = tr->GetPos();
 
 			Scene* curScene = SceneManager::GetActiveScene();
-			BulletSFX* bulletSFX = new BulletSFX(eLayerType::PlayerBomb, pos, Vector2(5.0f, 5.0f), Vector2(0.0f, 49.0f));
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBombSFX, pos, Vector2(5.0f, 5.0f), Vector2(0.0f, 49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 			bulletSFX->Initialize();
 			bulletSFX->PlayAnimation();
@@ -114,7 +114,7 @@ namespace mo {
 		}
 		RigidBody* mRigidbody = GetComponent<RigidBody>();
 		Vector2 velocity = mRigidbody->GetVelocity();
-		velocity.y -= 350.0f;
+		velocity.y -= 300.0f;
 		mRigidbody->SetVelocity(velocity);
 		mRigidbody->SetGround(false);
 
@@ -127,9 +127,9 @@ namespace mo {
 		Vector2 pos = tr->GetPos();
 
 		if (mDir == eDirection::Left)
-			pos.x -= 450.0f * Time::DeltaTime();
+			pos.x -= 550.0f * Time::DeltaTime();
 		else if (mDir == eDirection::Right)
-			pos.x += 450.0f * Time::DeltaTime();
+			pos.x += 550.0f * Time::DeltaTime();
 
 		tr->SetPos(pos);
 
@@ -137,7 +137,7 @@ namespace mo {
 		{
 			RigidBody* mRigidbody = GetComponent<RigidBody>();
 			Vector2 velocity = mRigidbody->GetVelocity();
-			velocity.y -= 850.0f;
+			velocity.y -= 750.0f;
 			mRigidbody->SetVelocity(velocity);
 			mRigidbody->SetGround(false);
 
@@ -160,7 +160,7 @@ namespace mo {
 		if (GetComponent<RigidBody>()->GetGround())
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
-			BulletSFX* bulletSFX = new BulletSFX(eLayerType::PlayerBomb, pos, Vector2(5.0f, 5.0f), Vector2(0.0f,49.0f));
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBombSFX, pos, Vector2(5.0f, 5.0f), Vector2(0.0f,49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 			bulletSFX->Initialize();
 			bulletSFX->PlayAnimation();

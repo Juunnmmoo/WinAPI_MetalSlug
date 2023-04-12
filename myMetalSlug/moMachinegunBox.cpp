@@ -55,7 +55,7 @@ namespace mo {
 		if (other->GetOwner()->GetLayerType() == eLayerType::Player) {
 			Marco* marco = dynamic_cast<Marco*>(other->GetOwner());
 			marco->ChangeWeapon(eMarcoWeapon::Machinegun);
-			marco->SetBulletNum(15);
+			marco->SetBulletNum(48);
 			object::Destory(this);
 		}
 	}

@@ -31,6 +31,12 @@ enum class eLayerType
 	End,
 };
 
+enum class eSfxType {
+	PlayerBulletGroundSFX,
+	PlayerBombSFX,
+	PlayerBulletEnemySFX,
+	End,
+};
 enum class eComponentType
 {
 	Transform,

@@ -92,11 +92,13 @@ namespace mo
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBullet, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBulletR, true);
-		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerPistol, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyCreator, true);
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerKnife, true);
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerBomb, true);
+		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerMachinegun, true);
+		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerPistol, true);
+
 
 	}
 	void Mission1Scene::OnExit()

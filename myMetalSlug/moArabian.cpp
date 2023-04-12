@@ -112,7 +112,8 @@ namespace mo{
 		}
 		else if(other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb)
 			SetState(eState::Pause);
-
+		else if (other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)
+			SetState(eState::Pause);
 	}
 
 	void Arabian::OnCollisionStay(Collider* other)

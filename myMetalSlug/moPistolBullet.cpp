@@ -49,7 +49,7 @@ namespace mo {
 		else if (GetState() == eState::Pause)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
-			BulletSFX* bulletSFX = new BulletSFX(eLayerType::PlayerPistol, pos, Vector2(2.0f, 2.0f),Vector2(0.0f, 49.0f));
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletGroundSFX, pos, Vector2(2.0f, 2.0f),Vector2(0.0f, 49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 			bulletSFX->Initialize();
 			bulletSFX->PlayAnimation();
@@ -84,8 +84,19 @@ namespace mo {
 	}
 	void PistolBullet::OnCollisionEnter(Collider* other)
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
 		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));
+			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+			bulletSFX->Initialize();
+			bulletSFX->PlayAnimation();
 			object::Destory(this);
+		}
+	
 	}
 
 	void PistolBullet::OnCollisionStay(Collider* other)

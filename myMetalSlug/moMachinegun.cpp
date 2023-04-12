@@ -831,21 +831,80 @@ namespace mo {
 			}
 			else
 			{
-				PistolBullet* pistolBullet = new PistolBullet();
-				int bulletNum = player->GetBulletNum();
-				bulletNum--;
-				player->SetBulletNum(bulletNum);
-
 				if (mDirection == eDirection::Right || mDirection == eDirection::RBottom) {
-					pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -10.0f));
+					for (int i = 0; i < 4; i++)
+					{
+						int bulletNum = player->GetBulletNum();
+						if (bulletNum > 0)
+						{
+							bulletNum--;
+							player->SetBulletNum(bulletNum);
+							MachinegunBullet* machinegunBullet = new MachinegunBullet();
+							if (i == 0) {
+								machinegunBullet->SetDir(Vector2{ 5.0f, 0.0f });
+								machinegunBullet->SetTime(0.0f);
+							}
+							else if (i == 1)
+							{
+								machinegunBullet->SetDir(Vector2{ 5.0f, 0.05f });
+								machinegunBullet->SetTime(0.06f);
+							}
+							else if (i == 2)
+							{
+								machinegunBullet->SetDir(Vector2{ 5.0f, -0.05f });
+								machinegunBullet->SetTime(0.12f);
+							}
+							else if (i == 3)
+							{
+								machinegunBullet->SetDir(Vector2{ 5.0f, 0.1f });
+								machinegunBullet->SetTime(0.18f);
+							}
+
+							machinegunBullet->SetDirection(eDirection::Right);
+							machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, 0.0f));
+							curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+							machinegunBullet->Initialize();
+						}
+					}
+				
 				}
 				else if (mDirection == eDirection::Left || mDirection == eDirection::LBottom) {
-					pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -10.0f));
+					for (int i = 0; i < 4; i++)
+					{
+						int bulletNum = player->GetBulletNum();
+						if (bulletNum > 0)
+						{
+							bulletNum--;
+							player->SetBulletNum(bulletNum);
+							MachinegunBullet* machinegunBullet = new MachinegunBullet();
+							if (i == 0) {
+								machinegunBullet->SetDir(Vector2{ -5.0f, 0.0f });
+								machinegunBullet->SetTime(0.0f);
+							}
+							else if (i == 1)
+							{
+								machinegunBullet->SetDir(Vector2{ -5.0f, 0.05f });
+								machinegunBullet->SetTime(0.06f);
+							}
+							else if (i == 2)
+							{
+								machinegunBullet->SetDir(Vector2{ -5.0f, -0.05f });
+								machinegunBullet->SetTime(0.12f);
+							}
+							else if (i == 3)
+							{
+								machinegunBullet->SetDir(Vector2{ -5.0f, 0.1f });
+								machinegunBullet->SetTime(0.18f);
+							}
+
+							machinegunBullet->SetDirection(eDirection::Left);
+							machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, 0.0f));
+							curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+							machinegunBullet->Initialize();
+
+						}
+					}
 				}
-				curScene->AddGameObject(pistolBullet, eLayerType::PlayerPistol);
-				pistolBullet->Initialize();
 			}
 		}
 		else {
@@ -883,44 +942,138 @@ namespace mo {
 								}
 								else if (i == 1)
 								{
-									machinegunBullet->SetDir(Vector2{ 5.0f, 0.04f });
-									machinegunBullet->SetTime(0.05f);
+									machinegunBullet->SetDir(Vector2{ 5.0f, 0.05f });
+									machinegunBullet->SetTime(0.06f);
 								}	
 								else if (i == 2)
 								{
-									machinegunBullet->SetDir(Vector2{ 5.0f, -0.04f });
-									machinegunBullet->SetTime(0.1f);
+									machinegunBullet->SetDir(Vector2{ 5.0f, -0.05f });
+									machinegunBullet->SetTime(0.12f);
 								}
 								else if (i == 3)
 								{
-									machinegunBullet->SetDir(Vector2{ 5.0f, 0.08f });
-									machinegunBullet->SetTime(0.15f);
+									machinegunBullet->SetDir(Vector2{ 5.0f, 0.1f });
+									machinegunBullet->SetTime(0.18f);
 								}
 
 								machinegunBullet->SetDirection(eDirection::Right);
-								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -20.0f));
+								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -15.0f));
+								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+								machinegunBullet->Initialize();
+							}
+						}
+					}
+					else if (mDirection == eDirection::Left) {
+						for (int i = 0; i < 4; i++)
+						{
+							int bulletNum = player->GetBulletNum();
+							if (bulletNum > 0)
+							{
+								bulletNum--;
+								player->SetBulletNum(bulletNum);
+								MachinegunBullet* machinegunBullet = new MachinegunBullet();
+								if (i == 0) {
+									machinegunBullet->SetDir(Vector2{ -5.0f, 0.0f });
+									machinegunBullet->SetTime(0.0f);
+								}
+								else if (i == 1)
+								{
+									machinegunBullet->SetDir(Vector2{ -5.0f, 0.05f });
+									machinegunBullet->SetTime(0.06f);
+								}
+								else if (i == 2)
+								{
+									machinegunBullet->SetDir(Vector2{ -5.0f, -0.05f });
+									machinegunBullet->SetTime(0.12f);
+								}
+								else if (i == 3)
+								{
+									machinegunBullet->SetDir(Vector2{ -5.0f, 0.1f });
+									machinegunBullet->SetTime(0.18f);
+								}
+
+								machinegunBullet->SetDirection(eDirection::Left);
+								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -15.0f));
 								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
 								machinegunBullet->Initialize();
 
 							}
 						}
-
-					}
-					else if (mDirection == eDirection::Left) {
-						MachinegunBullet* machinegunBullet = new MachinegunBullet();
-						machinegunBullet->SetDir(Vector2{ -5.0f, 0.0f });
-						machinegunBullet->SetDirection(eDirection::Left);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -20.0f));
 					}
 					else if (mDirection == eDirection::RTop || mDirection == eDirection::LTop) {
-						MachinegunBullet* machinegunBullet = new MachinegunBullet();
-						machinegunBullet->SetDir(Vector2{ 0.0f, -5.0f });
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, -90.0f));
+						
+						for (int i = 0; i < 4; i++)
+						{
+							int bulletNum = player->GetBulletNum();
+							if (bulletNum > 0)
+							{
+								bulletNum--;
+								player->SetBulletNum(bulletNum);
+								MachinegunBullet* machinegunBullet = new MachinegunBullet();
+								if (i == 0) {
+									machinegunBullet->SetDir(Vector2{ 0.0f, -5.0f });
+									machinegunBullet->SetTime(0.0f);
+								}
+								else if (i == 1)
+								{
+									machinegunBullet->SetDir(Vector2{ 0.05F, -5.0f });
+									machinegunBullet->SetTime(0.06f);
+								}
+								else if (i == 2)
+								{
+									machinegunBullet->SetDir(Vector2{ -0.05f, -5.0f });
+									machinegunBullet->SetTime(0.12f);
+								}
+								else if (i == 3)
+								{
+									machinegunBullet->SetDir(Vector2{ 0.1f, -5.0f });
+									machinegunBullet->SetTime(0.18f);
+								}
+
+								machinegunBullet->SetDirection(eDirection::RTop);
+								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, -90.0f));
+								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+								machinegunBullet->Initialize();
+
+							}
+						}
 					}
 					else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom) {
-						MachinegunBullet* machinegunBullet = new MachinegunBullet();
-						machinegunBullet->SetDir(Vector2{ 0.0f, 5.0f });
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, 90.0f));
+						for (int i = 0; i < 4; i++)
+						{
+							int bulletNum = player->GetBulletNum();
+							if (bulletNum > 0)
+							{
+								bulletNum--;
+								player->SetBulletNum(bulletNum);
+								MachinegunBullet* machinegunBullet = new MachinegunBullet();
+								if (i == 0) {
+									machinegunBullet->SetDir(Vector2{ 0.0f, 5.0f });
+									machinegunBullet->SetTime(0.0f);
+								}
+								else if (i == 1)
+								{
+									machinegunBullet->SetDir(Vector2{ 0.05f, 5.0f });
+									machinegunBullet->SetTime(0.06f);
+								}
+								else if (i == 2)
+								{
+									machinegunBullet->SetDir(Vector2{ -0.05f, 5.0f });
+									machinegunBullet->SetTime(0.12f);
+								}
+								else if (i == 3)
+								{
+									machinegunBullet->SetDir(Vector2{ 0.1f, 5.0f });
+									machinegunBullet->SetTime(0.18f);
+								}
+
+								machinegunBullet->SetDirection(eDirection::RBottom);
+								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, 90.0f));
+								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+								machinegunBullet->Initialize();
+
+							}
+						}
 
 					}
 					

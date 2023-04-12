@@ -506,19 +506,26 @@ namespace mo {
 
 		// 넘어 왔을때
 		if ((mAnimator->GetActiveAnimation()->GetName() == L"M_ReadySitL" || mAnimator->GetActiveAnimation()->GetName() == L"M_ReadySitR")
-			&& mAnimator->IsComplte() && isSitShooting == false)
+			&& mAnimator->IsComplte())
 		{
-			if (Input::GetKey(eKeyCode::Right))
-				mAnimator->Play(L"M_SitMoveR", true);
-			if (Input::GetKey(eKeyCode::Left))
-				mAnimator->Play(L"M_SitMoveL", true);
-
+			isSitShooting = false;
 			if (Input::GetKeyNone(eKeyCode::Right) && Input::GetKeyNone(eKeyCode::Left)) {
 				if (mDirection == eDirection::Right)
 					mAnimator->Play(L"M_SitR", true);
 				else
 					mAnimator->Play(L"M_SitL", true);
 			}
+			else if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right)
+					mAnimator->Play(L"M_SitMoveR", true);
+				else if (mDirection == eDirection::Left)
+					mAnimator->Play(L"M_SitMoveL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+				mAnimator->Play(L"M_SitMoveR", true);
+			else if (Input::GetKey(eKeyCode::Left))
+				mAnimator->Play(L"M_SitMoveL", true);
 		}
 	
 		

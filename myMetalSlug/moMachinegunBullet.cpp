@@ -29,6 +29,8 @@ namespace mo {
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"MachinegunBulletR", mImage, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 10, 4, 1, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"MachinegunBulletL", mImage, Vector2(120.0f * 9, 120.0f * 0), -120.0f, 10, 4, 1, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"MachinegunBulletT", mImage, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 10, 4, 1, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"MachinegunBulletB", mImage, Vector2(120.0f * 0, 120.0f * 3), -120.0f, 10, 4, 1, Vector2::Zero, 0.05);
 
 		mAnimator->CreateAnimation(L"MachinegunBulletRT_1", mImage, Vector2(120.0f * 1, 120.0f * 1), 120.0f, 10, 4, 1, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"MachinegunBulletLT_1", mImage, Vector2(120.0f * 8, 120.0f * 1), -120.0f, 10, 4, 1, Vector2::Zero, 0.05);
@@ -99,7 +101,7 @@ namespace mo {
 		else if (GetState() == eState::Pause)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
-			BulletSFX* bulletSFX = new BulletSFX(eLayerType::PlayerPistol, pos, Vector2(2.0f, 2.0f), Vector2(0.0f, 49.0f));
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletGroundSFX, pos, Vector2(2.0f, 2.0f), Vector2(0.0f, 49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 			bulletSFX->Initialize();
 			bulletSFX->PlayAnimation();
@@ -116,8 +118,18 @@ namespace mo {
 
 	void MachinegunBullet::OnCollisionEnter(Collider* other)
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
 		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));
+			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+			bulletSFX->Initialize();
+			bulletSFX->PlayAnimation();
 			object::Destory(this);
+		}
 	}
 
 	void MachinegunBullet::OnCollisionStay(Collider* other)
@@ -138,5 +150,9 @@ namespace mo {
 			mAnimator->Play(L"MachinegunBulletL", false);
 		else if (mDirection == eDirection::Right)
 			mAnimator->Play(L"MachinegunBulletR", false);
+		else if (mDirection == eDirection::RTop|| mDirection == eDirection::LTop)
+			mAnimator->Play(L"MachinegunBulletT", false);
+		else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom)
+			mAnimator->Play(L"MachinegunBulletB", false);
 	}
 }

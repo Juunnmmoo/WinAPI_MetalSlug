@@ -7,8 +7,8 @@
 #include "moImage.h"
 
 namespace mo {
-	BulletSFX::BulletSFX(eLayerType layer, Vector2 pos, Vector2 scale, Vector2 topdiff)
-		: mLayerType(layer)
+	BulletSFX::BulletSFX(eSfxType type, Vector2 pos, Vector2 scale, Vector2 topdiff)
+		: mSfxType(type)
 		, mPos(pos)
 		, mScale(scale)
 		, mTopdiff(topdiff)
@@ -28,11 +28,14 @@ namespace mo {
 		Image* weaponSFX = Resources::Load<Image>(L"weaponSFX", L"..\\Resources\\Weapon\\WeaponSFX.bmp");
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"PlayerPistolBulletSFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 11, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"PlayerPistolBulletGroundSFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 60, 11, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"PlayerBombBulletSFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 30, 60, 24, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"PlayerPistolBulletEnemySFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 4, Vector2::Zero, 0.05);
 
-		mAnimator->GetCompleteEvent(L"PlayerPistolBulletSFX") = std::bind(&BulletSFX::destroySFX, this);
+
+		mAnimator->GetCompleteEvent(L"PlayerPistolBulletGroundSFX") = std::bind(&BulletSFX::destroySFX, this);
 		mAnimator->GetCompleteEvent(L"PlayerBombBulletSFX") = std::bind(&BulletSFX::destroySFX, this);
+		mAnimator->GetCompleteEvent(L"PlayerPistolBulletEnemySFX") = std::bind(&BulletSFX::destroySFX, this);
 
 		GameObject::Initialize();
 	}
@@ -47,11 +50,12 @@ namespace mo {
 	}
 	void BulletSFX::PlayAnimation()
 	{
-		if(mLayerType == eLayerType::PlayerPistol)
-			mAnimator->Play(L"PlayerPistolBulletSFX", false);
-		else if (mLayerType == eLayerType::PlayerBomb)
+		if(mSfxType == eSfxType::PlayerBulletGroundSFX)
+			mAnimator->Play(L"PlayerPistolBulletGroundSFX", false);
+		else if (mSfxType == eSfxType::PlayerBombSFX)
 			mAnimator->Play(L"PlayerBombBulletSFX", false);
-
+		else if (mSfxType == eSfxType::PlayerBulletEnemySFX)
+			mAnimator->Play(L"PlayerPistolBulletEnemySFX", false);
 		
 	}
 	void BulletSFX::destroySFX()
