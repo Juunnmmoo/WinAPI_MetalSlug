@@ -23,6 +23,7 @@ namespace mo {
 		: unUsedParaglider(false)
 		, player(marco)
 		, playerBottom(bottom)
+		, isShooting (false)
 	{
 	}
 	Machinegun::~Machinegun()
@@ -81,8 +82,15 @@ namespace mo {
 		mAnimator->CreateAnimation(L"M_ThrowingBombR", mImageR, Vector2(120.0f * 0, 120.0f * 12), 120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"M_ThrowingBombL", mImageL, Vector2(120.0f * 29, 120.0f * 12), -120.0f, 30, 60, 6, Vector2::Zero, 0.07);
 
+		mAnimator->CreateAnimation(L"M_ShootR_RT", mImageR, Vector2(120.0f * 0, 120.0f * 13), 120.0f, 30, 60, 2, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR_TR", mImageR, Vector2(120.0f * 0, 120.0f * 14), 120.0f, 30, 60, 2, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR_RB", mImageR, Vector2(120.0f * 0, 120.0f * 15), 120.0f, 30, 60, 2, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR_BR", mImageR, Vector2(120.0f * 0, 120.0f * 16), 120.0f, 30, 60, 2, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR_LT", mImageL, Vector2(120.0f * 29, 120.0f * 13), -120.0f, 30, 60, 2, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR_TL", mImageL, Vector2(120.0f * 29, 120.0f * 14), -120.0f, 30, 60, 2, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR_LB", mImageL, Vector2(120.0f * 29, 120.0f * 15), -120.0f, 30, 60, 2, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"M_ShootR_BL", mImageL, Vector2(120.0f * 29, 120.0f * 16), -120.0f, 30, 60, 2, Vector2::Zero, 0.07);
 
-		mAnimator->CreateAnimation(L"M_paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
 
 		mAnimator->GetStartEvent(L"M_ThrowingBombR") = std::bind(&Machinegun::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"M_ThrowingBombL") = std::bind(&Machinegun::shootStartEvent, this);
@@ -95,17 +103,48 @@ namespace mo {
 		mAnimator->GetStartEvent(L"M_ShootRB") = std::bind(&Machinegun::shootStartEvent, this);
 		mAnimator->GetStartEvent(L"M_ShootLB") = std::bind(&Machinegun::shootStartEvent, this);
 
-		mAnimator->GetCompleteEvent(L"M_ThrowingBombR") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_ThrowingBombL") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_KnifeR") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_KnifeL") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_ShootR") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_ShootL") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_ShootRT") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_ShootLT") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_ShootRB") = std::bind(&Machinegun::AttackEndEvent, this);
-		mAnimator->GetCompleteEvent(L"M_ShootLB") = std::bind(&Machinegun::AttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ThrowingBombR") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ThrowingBombL") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_KnifeR") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_KnifeL") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootL") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootRT") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootLT") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootRB") = std::bind(&Machinegun::attackCompleteEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootLB") = std::bind(&Machinegun::attackCompleteEvent, this);
 
+		mAnimator->GetEndEvent(L"M_ThrowingBombR") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_ThrowingBombL") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_KnifeR") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_KnifeL") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_ShootR") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_ShootL") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_ShootRT") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_ShootLT") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_ShootRB") = std::bind(&Machinegun::attackEndEvent, this);
+		mAnimator->GetEndEvent(L"M_ShootLB") = std::bind(&Machinegun::attackEndEvent, this);
+
+		mAnimator->GetStartEvent(L"M_ShootR_RT") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR_TR") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR_RB") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR_BR") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR_LT") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR_TL") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR_LB") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+		mAnimator->GetStartEvent(L"M_ShootR_BL") = std::bind(&Machinegun::diagonalAttackStartEvent, this);
+
+		mAnimator->GetCompleteEvent(L"M_ShootR_RT") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR_TR") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR_RB") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR_BR") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR_LT") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR_TL") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR_LB") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+		mAnimator->GetCompleteEvent(L"M_ShootR_BL") = std::bind(&Machinegun::diagonalAttackEndEvent, this);
+
+
+		
 		//mAnimator->Play(L"M_paraglider", false);
 	}
 	void Machinegun::Update()
@@ -116,7 +155,7 @@ namespace mo {
 		/*case mo::Marco::eMarcoState::Paraglider:
 			paraglider();
 			break;*/
-		case mo::Marco::eMarcoState::Move:
+		case mo::Marco::eMarcoState::Move:       
 			move();
 			break;
 		case mo::Marco::eMarcoState::Shoot:
@@ -170,13 +209,27 @@ namespace mo {
 				}
 
 			}
-			if (Input::GetKeyDown(eKeyCode::Up)) {
-				mDirection = eDirection::RTop;
-				mAnimator->Play(L"M_IdleRT", true);
+			if (!isShooting)
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::RTop;
+					mAnimator->Play(L"M_IdleRT", true);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Right;
+					mAnimator->Play(L"M_MoveR", true);
+				}
 			}
-			if (Input::GetKeyUp(eKeyCode::Up)) {
-				mDirection = eDirection::Right;
-				mAnimator->Play(L"M_MoveR", true);
+			else
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::RTop;
+					mAnimator->Play(L"M_ShootR_RT", false);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Right;
+					mAnimator->Play(L"M_ShootR_TR", false);
+				}
 			}
 
 		}
@@ -201,16 +254,40 @@ namespace mo {
 					mAnimator->Play(L"M_MoveL", true);
 				}
 			}
-			if (Input::GetKeyDown(eKeyCode::Up)) {
-				mDirection = eDirection::LTop;
-				mAnimator->Play(L"M_IdleLT", true);
+			if (!isShooting)
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::LTop;
+					mAnimator->Play(L"M_IdleLT", true);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"M_MoveL", true);
+				}
 			}
-			if (Input::GetKeyUp(eKeyCode::Up)) {
-				mDirection = eDirection::Left;
-				mAnimator->Play(L"M_MoveL", true);
+			else
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::LTop;
+					mAnimator->Play(L"M_ShootR_LT", false);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"M_ShootR_TL", false);
+				}
 			}
 		}
 
+		if (Input::GetKeyUp(eKeyCode::Right))
+			if (Input::GetKeyDown(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"M_MoveL", true);
+			}
+		if (Input::GetKeyUp(eKeyCode::Left))
+			if (Input::GetKeyDown(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"M_MoveR", true);
+			}
 		if (Input::GetKeyNone(eKeyCode::Right))
 			if (Input::GetKeyDown(eKeyCode::Left)) {
 				mDirection = eDirection::Left;
@@ -221,7 +298,6 @@ namespace mo {
 				mDirection = eDirection::Right;
 				mAnimator->Play(L"M_MoveR", true);
 			}
-
 
 		// To Idle
 		if ((Input::GetKeyNone(eKeyCode::Right)
@@ -358,23 +434,50 @@ namespace mo {
 			mState = Marco::eMarcoState::Move;
 		}
 
-		//Idle
-		if (Input::GetKey(eKeyCode::Up) && (mDirection == eDirection::Right)) {
-			mDirection = eDirection::RTop;
-			mAnimator->Play(L"M_IdleRT", true);
-		}
-		else if (Input::GetKey(eKeyCode::Up) && (mDirection == eDirection::Left)) {
-			mDirection = eDirection::LTop;
-			mAnimator->Play(L"M_IdleLT", true);
-		}
 
-		if (Input::GetKeyNone(eKeyCode::Up) && (mDirection == eDirection::RTop)) {
-			mDirection = eDirection::Right;
-			mAnimator->Play(L"M_IdleR", true);
+		if (!isShooting) 
+		{
+			//Idle
+			if (Input::GetKey(eKeyCode::Up) && (mDirection == eDirection::Right)) {
+				mDirection = eDirection::RTop;
+				mAnimator->Play(L"M_IdleRT", true);
+			}
+			else if (Input::GetKey(eKeyCode::Up) && (mDirection == eDirection::Left)) {
+				mDirection = eDirection::LTop;
+				mAnimator->Play(L"M_IdleLT", true);
+			}
+
+			if (Input::GetKeyNone(eKeyCode::Up) && (mDirection == eDirection::RTop)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"M_IdleR", true);
+			}
+			else if (Input::GetKeyNone(eKeyCode::Up) && (mDirection == eDirection::LTop)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"M_IdleL", true);
+			}
 		}
-		else if (Input::GetKeyNone(eKeyCode::Up) && (mDirection == eDirection::LTop)) {
-			mDirection = eDirection::Left;
-			mAnimator->Play(L"M_IdleL", true);
+		else
+		{
+			//Idle
+			if (Input::GetKeyDown(eKeyCode::Up) && (mDirection == eDirection::Right)) {
+				mDirection = eDirection::RTop;
+				mAnimator->Play(L"M_ShootR_RT", false);
+			}
+			else if (Input::GetKeyDown(eKeyCode::Up) && (mDirection == eDirection::Left)) {
+				mDirection = eDirection::LTop;
+				mAnimator->Play(L"M_ShootR_LT", false);
+			}
+
+			if (Input::GetKeyUp(eKeyCode::Up) && (mDirection == eDirection::RTop)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"M_ShootR_TR", false);
+			}
+			else if (Input::GetKeyUp(eKeyCode::Up) && (mDirection == eDirection::LTop)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"M_ShootR_TL", false);
+			}
+			mTransform->SetDirection(mDirection);
+
 		}
 		mTransform->SetDirection(mDirection);
 
@@ -621,26 +724,50 @@ namespace mo {
 
 
 
-
-		if (Input::GetKeyDown(eKeyCode::Down)) {
-			if (mDirection == eDirection::Right) {
-				mDirection = eDirection::RBottom;
-				mAnimator->Play(L"M_JumpDownR", false);
+		if (!isShooting)
+		{
+			if (Input::GetKeyDown(eKeyCode::Down)) {
+				if (mDirection == eDirection::Right) {
+					mDirection = eDirection::RBottom;
+					mAnimator->Play(L"M_JumpDownR", false);
+				}
+				if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LBottom;
+					mAnimator->Play(L"M_JumpDownL", false);
+				}
 			}
-			if (mDirection == eDirection::Left) {
-				mDirection = eDirection::LBottom;
-				mAnimator->Play(L"M_JumpDownL", false);
+			if (Input::GetKeyUp(eKeyCode::Down)) {
+				if (mDirection == eDirection::RBottom) {
+					mDirection = eDirection::Right;
+					mAnimator->Play(L"M_JumpIdleR", false);
+				}
+				if (mDirection == eDirection::LBottom) {
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"M_JumpIdleL", false);
+				}
 			}
 		}
-
-		if (Input::GetKeyUp(eKeyCode::Down)) {
-			if (mDirection == eDirection::RBottom) {
-				mDirection = eDirection::Right;
-				mAnimator->Play(L"M_JumpIdleR", false);
+		else
+		{
+			if (Input::GetKeyDown(eKeyCode::Down)) {
+				if (mDirection == eDirection::Right) {
+					mDirection = eDirection::RBottom;
+					mAnimator->Play(L"M_ShootR_RB", false);
+				}
+				if (mDirection == eDirection::Left) {
+					mDirection = eDirection::LBottom;
+					mAnimator->Play(L"M_ShootR_LB", false);
+				}
 			}
-			if (mDirection == eDirection::LBottom) {
-				mDirection = eDirection::Left;
-				mAnimator->Play(L"M_JumpIdleL", false);
+			if (Input::GetKeyUp(eKeyCode::Down)) {
+				if (mDirection == eDirection::RBottom) {
+					mDirection = eDirection::Right;
+					mAnimator->Play(L"M_ShootR_BR", false);
+				}
+				if (mDirection == eDirection::LBottom) {
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"M_ShootR_BL", false);
+				}
 			}
 		}
 
@@ -656,11 +783,25 @@ namespace mo {
 				else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom)
 					mDirection = eDirection::RBottom;
 			}
-			if (Input::GetKeyDown(eKeyCode::Up)) {
-				mDirection = eDirection::RTop;
-			}
-			if (Input::GetKeyUp(eKeyCode::Up)) {
-				mDirection = eDirection::Right;
+			if (!isShooting)
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::RTop;
+					
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Right;
+				}
+			}else
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::RTop;
+					mAnimator->Play(L"M_ShootR_RT", false);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Right;
+					mAnimator->Play(L"M_ShootR_TR", false);
+				}
 			}
 
 		}
@@ -673,11 +814,25 @@ namespace mo {
 				else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom)
 					mDirection = eDirection::LBottom;
 			}
-			if (Input::GetKeyDown(eKeyCode::Up)) {
-				mDirection = eDirection::LTop;
+			if(!isShooting)
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::LTop;
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Left;
+				}
 			}
-			if (Input::GetKeyUp(eKeyCode::Up)) {
-				mDirection = eDirection::Left;
+			else
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::LTop;
+					mAnimator->Play(L"M_ShootR_LT", false);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"M_ShootR_TL", false);
+				}
 			}
 		}
 
@@ -714,6 +869,32 @@ namespace mo {
 
 		}*/
 
+		if (isShooting)
+		{
+			if (mDirection == eDirection::Right || mDirection == eDirection::RTop)
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::RTop;
+					mAnimator->Play(L"M_ShootR_RT", false);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Right;
+					mAnimator->Play(L"M_ShootR_TR", false);
+				}
+			}
+			else if (mDirection == eDirection::Left || mDirection == eDirection::LTop)
+			{
+				if (Input::GetKeyDown(eKeyCode::Up)) {
+					mDirection = eDirection::LTop;
+					mAnimator->Play(L"M_ShootR_LT", false);
+				}
+				if (Input::GetKeyUp(eKeyCode::Up)) {
+					mDirection = eDirection::Left;
+					mAnimator->Play(L"M_ShootR_TL", false);
+				}
+			}
+		}
+
 		// up키 눌렀을때 mDirection설정
 		if (Input::GetKey(eKeyCode::Up))
 		{
@@ -729,6 +910,7 @@ namespace mo {
 			if (mDirection == eDirection::LTop)
 				mDirection = eDirection::Left;
 		}
+
 
 		// Down키 눌렀을때 mDirection설정
 		if (Input::GetKey(eKeyCode::Down))
@@ -807,6 +989,7 @@ namespace mo {
 		Animation* activeAnimation = mAnimator->GetActiveAnimation();
 		Animation* prevAnimation = mAnimator->GetPrevAniamtion();
 
+		isShooting = true;
 
 		if (mState == Marco::eMarcoState::Sit) {
 			if (activeAnimation->GetName() == L"M_ThrowingBombR" ||
@@ -839,28 +1022,28 @@ namespace mo {
 						{
 							bulletNum--;
 							player->SetBulletNum(bulletNum);
-							MachinegunBullet* machinegunBullet = new MachinegunBullet();
+							MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
 							if (i == 0) {
 								machinegunBullet->SetDir(Vector2{ 5.0f, 0.0f });
 								machinegunBullet->SetTime(0.0f);
 							}
 							else if (i == 1)
 							{
-								machinegunBullet->SetDir(Vector2{ 5.0f, 0.05f });
+								machinegunBullet->SetDir(Vector2{ 5.0f, -0.08f });
 								machinegunBullet->SetTime(0.06f);
 							}
 							else if (i == 2)
 							{
-								machinegunBullet->SetDir(Vector2{ 5.0f, -0.05f });
+								machinegunBullet->SetDir(Vector2{ 5.0f, 0.08f });
 								machinegunBullet->SetTime(0.12f);
 							}
 							else if (i == 3)
 							{
-								machinegunBullet->SetDir(Vector2{ 5.0f, 0.1f });
+								machinegunBullet->SetDir(Vector2{ 5.0f, 0.14f });
 								machinegunBullet->SetTime(0.18f);
 							}
 
-							machinegunBullet->SetDirection(eDirection::Right);
+							machinegunBullet->SetDirection(eDirection::Right, 0);
 							machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, 0.0f));
 							curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
 							machinegunBullet->Initialize();
@@ -876,28 +1059,28 @@ namespace mo {
 						{
 							bulletNum--;
 							player->SetBulletNum(bulletNum);
-							MachinegunBullet* machinegunBullet = new MachinegunBullet();
+							MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
 							if (i == 0) {
 								machinegunBullet->SetDir(Vector2{ -5.0f, 0.0f });
 								machinegunBullet->SetTime(0.0f);
 							}
 							else if (i == 1)
 							{
-								machinegunBullet->SetDir(Vector2{ -5.0f, 0.05f });
+								machinegunBullet->SetDir(Vector2{ -5.0f, -0.08f });
 								machinegunBullet->SetTime(0.06f);
 							}
 							else if (i == 2)
 							{
-								machinegunBullet->SetDir(Vector2{ -5.0f, -0.05f });
+								machinegunBullet->SetDir(Vector2{ -5.0f, 0.08f });
 								machinegunBullet->SetTime(0.12f);
 							}
 							else if (i == 3)
 							{
-								machinegunBullet->SetDir(Vector2{ -5.0f, 0.1f });
+								machinegunBullet->SetDir(Vector2{ -5.0f, 0.14f });
 								machinegunBullet->SetTime(0.18f);
 							}
 
-							machinegunBullet->SetDirection(eDirection::Left);
+							machinegunBullet->SetDirection(eDirection::Left, 0);
 							machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, 0.0f));
 							curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
 							machinegunBullet->Initialize();
@@ -935,28 +1118,28 @@ namespace mo {
 							{
 								bulletNum--;
 								player->SetBulletNum(bulletNum);
-								MachinegunBullet* machinegunBullet = new MachinegunBullet();
+								MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
 								if (i == 0) {
 									machinegunBullet->SetDir(Vector2{ 5.0f, 0.0f });
 									machinegunBullet->SetTime(0.0f);
 								}
 								else if (i == 1)
 								{
-									machinegunBullet->SetDir(Vector2{ 5.0f, 0.05f });
+									machinegunBullet->SetDir(Vector2{ 5.0f, -0.08f });
 									machinegunBullet->SetTime(0.06f);
 								}	
 								else if (i == 2)
 								{
-									machinegunBullet->SetDir(Vector2{ 5.0f, -0.05f });
+									machinegunBullet->SetDir(Vector2{ 5.0f, 0.08f });
 									machinegunBullet->SetTime(0.12f);
 								}
 								else if (i == 3)
 								{
-									machinegunBullet->SetDir(Vector2{ 5.0f, 0.1f });
+									machinegunBullet->SetDir(Vector2{ 5.0f, 0.14f });
 									machinegunBullet->SetTime(0.18f);
 								}
 
-								machinegunBullet->SetDirection(eDirection::Right);
+								machinegunBullet->SetDirection(eDirection::Right, 0);
 								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -15.0f));
 								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
 								machinegunBullet->Initialize();
@@ -971,28 +1154,28 @@ namespace mo {
 							{
 								bulletNum--;
 								player->SetBulletNum(bulletNum);
-								MachinegunBullet* machinegunBullet = new MachinegunBullet();
+								MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
 								if (i == 0) {
 									machinegunBullet->SetDir(Vector2{ -5.0f, 0.0f });
 									machinegunBullet->SetTime(0.0f);
 								}
 								else if (i == 1)
 								{
-									machinegunBullet->SetDir(Vector2{ -5.0f, 0.05f });
+									machinegunBullet->SetDir(Vector2{ -5.0f, -0.08f });
 									machinegunBullet->SetTime(0.06f);
 								}
 								else if (i == 2)
 								{
-									machinegunBullet->SetDir(Vector2{ -5.0f, -0.05f });
+									machinegunBullet->SetDir(Vector2{ -5.0f, 0.08f });
 									machinegunBullet->SetTime(0.12f);
 								}
 								else if (i == 3)
 								{
-									machinegunBullet->SetDir(Vector2{ -5.0f, 0.1f });
+									machinegunBullet->SetDir(Vector2{ -5.0f, 0.14f });
 									machinegunBullet->SetTime(0.18f);
 								}
 
-								machinegunBullet->SetDirection(eDirection::Left);
+								machinegunBullet->SetDirection(eDirection::Left, 0);
 								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -15.0f));
 								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
 								machinegunBullet->Initialize();
@@ -1009,7 +1192,7 @@ namespace mo {
 							{
 								bulletNum--;
 								player->SetBulletNum(bulletNum);
-								MachinegunBullet* machinegunBullet = new MachinegunBullet();
+								MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
 								if (i == 0) {
 									machinegunBullet->SetDir(Vector2{ 0.0f, -5.0f });
 									machinegunBullet->SetTime(0.0f);
@@ -1030,7 +1213,7 @@ namespace mo {
 									machinegunBullet->SetTime(0.18f);
 								}
 
-								machinegunBullet->SetDirection(eDirection::RTop);
+								machinegunBullet->SetDirection(eDirection::RTop, 0);
 								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, -90.0f));
 								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
 								machinegunBullet->Initialize();
@@ -1046,7 +1229,7 @@ namespace mo {
 							{
 								bulletNum--;
 								player->SetBulletNum(bulletNum);
-								MachinegunBullet* machinegunBullet = new MachinegunBullet();
+								MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
 								if (i == 0) {
 									machinegunBullet->SetDir(Vector2{ 0.0f, 5.0f });
 									machinegunBullet->SetTime(0.0f);
@@ -1067,7 +1250,7 @@ namespace mo {
 									machinegunBullet->SetTime(0.18f);
 								}
 
-								machinegunBullet->SetDirection(eDirection::RBottom);
+								machinegunBullet->SetDirection(eDirection::RBottom, 0);
 								machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, 90.0f));
 								curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
 								machinegunBullet->Initialize();
@@ -1096,8 +1279,10 @@ namespace mo {
 	}
 
 
-	void Machinegun::AttackEndEvent()
+	void Machinegun::attackCompleteEvent()
 	{
+		isShooting = false;
+		
 		if (mRigidbody->GetGround() == false)
 		{
 			if (Input::GetKey(eKeyCode::Up))
@@ -1112,6 +1297,386 @@ namespace mo {
 		}
 		else
 			mAnimator->Play(mPrevAnimation->GetName(), true);
+	}
+
+	void Machinegun::attackEndEvent()
+	{
+		isShooting = false;
+	}
+
+	void Machinegun::diagonalAttackStartEvent()
+	{
+		isShooting = false;
+	
+		eDirection mDirection = mTransform->GetDirection();
+		Vector2 mPos = mTransform->GetPos();
+		Scene* curScene = SceneManager::GetActiveScene();
+
+		if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_RT")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ 5.0f, -2.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -35.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, -4.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -65.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, -7.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(40.0f, -80.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, -11.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(35.0f, -105.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::RTop, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+		else if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_TR")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ 5.0f, -11.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(35.0f, -90.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, -7.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(40.0f, -60.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, -4.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -30.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, -2.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -15.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::Right, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+		else if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_RB")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ 5.0f, 2.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, 35.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, 4.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, 65.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, 7.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(40.0f, 80.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, 11.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(35.0f, 105.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::RBottom, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+		else if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_BR")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ 5.0f, 11.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(35.0f, 105.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, 7.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(40.0f, 80.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, 4.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, 65.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ 5.0f, 2.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, 35.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::RSit, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+		else if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_LT")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ -5.0f, -2.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -35.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, -4.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -65.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, -7.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-40.0f, -80.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, -11.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-35.0f, -105.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::LTop, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+		else if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_TL")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ -5.0f, -11.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-35.0f, -105.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, -7.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-40.0f, -80.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, -4.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -65.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, -2.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -35.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::Left, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+		else if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_LB")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ -5.0f, 2.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, 35.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, 4.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, 65.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, 7.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-40.0f, 80.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, 11.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-35.0f, 105.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::RBottom, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+		else if (mAnimator->GetActiveAnimation()->GetName() == L"M_ShootR_BL")
+		{
+			for (int i = 1; i < 5; i++)
+			{
+				int bulletNum = player->GetBulletNum();
+				if (bulletNum > 0)
+				{
+					bulletNum--;
+					player->SetBulletNum(bulletNum);
+					MachinegunBullet* machinegunBullet = new MachinegunBullet(player);
+					if (i == 1) {
+						machinegunBullet->SetDir(Vector2{ -5.0f, 11.0f });
+						machinegunBullet->SetTime(0.0f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-35.0f, 105.0f));
+
+					}
+					else if (i == 2)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, 7.0f });
+						machinegunBullet->SetTime(0.06f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-40.0f, 80.0f));
+
+					}
+					else if (i == 3)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, 4.0f });
+						machinegunBullet->SetTime(0.12f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, 65.0f));
+
+					}
+					else if (i == 4)
+					{
+						machinegunBullet->SetDir(Vector2{ -5.0f, 2.0f });
+						machinegunBullet->SetTime(0.18f);
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, 35.0f));
+
+					}
+
+					machinegunBullet->SetDirection(eDirection::LSit, i);
+					curScene->AddGameObject(machinegunBullet, eLayerType::PlayerMachinegun);
+					machinegunBullet->Initialize();
+
+				}
+			}
+		}
+	}
+
+	void Machinegun::diagonalAttackEndEvent()
+	{
+		isShooting = false;
 	}
 
 

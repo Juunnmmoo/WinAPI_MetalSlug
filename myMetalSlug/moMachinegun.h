@@ -21,7 +21,12 @@ namespace mo {
 		void jump();
 
 		void shootStartEvent();
-		void AttackEndEvent();
+		void attackCompleteEvent();
+		void attackEndEvent();
+		void diagonalAttackStartEvent();
+		void diagonalAttackEndEvent();
+
+			
 
 	private:
 		Marco* player;
@@ -33,5 +38,6 @@ namespace mo {
 		Transform* mTransform;
 		bool unUsedParaglider;
 		bool isBomb;
+		bool isShooting;
 	};
 }

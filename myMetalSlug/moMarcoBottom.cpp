@@ -247,7 +247,16 @@ namespace mo {
 				mDirection = eDirection::Right;
 				mAnimator->Play(L"MoveR", true);
 			}
-
+		if (Input::GetKeyUp(eKeyCode::Right))
+			if (Input::GetKeyDown(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"MoveL", true);
+			}
+		if (Input::GetKeyUp(eKeyCode::Left))
+			if (Input::GetKeyDown(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"MoveR", true);
+			}
 		tr->SetDirection(mDirection);
 
 

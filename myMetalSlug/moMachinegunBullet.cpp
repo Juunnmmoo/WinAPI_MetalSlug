@@ -12,11 +12,12 @@
 #include "moBulletSFX.h"
 #include "moSceneManager.h"
 #include "moScene.h"
-
+#include "moMarco.h"
 namespace mo {
-	MachinegunBullet::MachinegunBullet()
+	MachinegunBullet::MachinegunBullet(Marco* marco)
 		:time(0.0f)
 		,mTime(0.0f)
+		,mPlayer(marco)
 	{
 	}
 	MachinegunBullet::~MachinegunBullet()
@@ -71,7 +72,9 @@ namespace mo {
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 20.0f, 20.0f });
 		mCollider->SetLeftTop(Vector2(0.0f, -20.0f));
+
 		Transform* tr = GetComponent<Transform>();
+		//tr->SetPos(Vector2(-100.0f, -100.0f));
 		tr->SetScale(Vector2(2.8f, 2.8f));
 		tr->SetDisToBottom(Vector2(0.0f, 57.0f));
 
@@ -146,13 +149,211 @@ namespace mo {
 	}
 	void MachinegunBullet::PlayAnimation()
 	{
+		Transform* marcoTR = mPlayer->GetComponent<Transform>();
+		Transform* tr = GetComponent<Transform>();
+		
+
 		if (mDirection == eDirection::Left)
-			mAnimator->Play(L"MachinegunBulletL", false);
+		{	
+			if (animationNum == 0)
+			{
+				mAnimator->Play(L"MachinegunBulletL", false);
+			}
+			else if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletTL_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-35.0f, -90.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletTL_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-40.0f, -60.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletTL_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, -30.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletTL_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, -15.0f));
+			}
+
+			
+		}	
 		else if (mDirection == eDirection::Right)
-			mAnimator->Play(L"MachinegunBulletR", false);
-		else if (mDirection == eDirection::RTop|| mDirection == eDirection::LTop)
-			mAnimator->Play(L"MachinegunBulletT", false);
-		else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom)
-			mAnimator->Play(L"MachinegunBulletB", false);
+		{
+			if (animationNum == 0)
+			{
+				mAnimator->Play(L"MachinegunBulletR", false);
+			}
+			else if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletTR_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(35.0f, -90.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletTR_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(40.0f, -60.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletTR_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, -30.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletTR_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, -15.0f));
+			}
+		}	
+		else if (mDirection == eDirection::RTop)
+		{
+			if (animationNum == 0)
+			{
+				mAnimator->Play(L"MachinegunBulletT", false);
+			}
+			else if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletRT_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, -35.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletRT_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, -65.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletRT_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(40.0f, -80.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletRT_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(35.0f, -105.0f));
+			}
+		}	
+		else if (mDirection == eDirection::LTop)
+		{
+			if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletLT_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, -35.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletLT_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, -65.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletLT_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, -65.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletLT_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-35.0f, -105.0f));
+			}
+		}
+		else if (mDirection == eDirection::RBottom)
+		{
+			if (animationNum == 0)
+			{
+				mAnimator->Play(L"MachinegunBulletB", false);
+			}
+			else if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletRB_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, 35.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletRB_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, 65.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletRB_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(40.0f, 80.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletRB_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(35.0f, 105.0f));
+			}
+		}
+		else if (mDirection == eDirection::LBottom)
+		{
+			if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletLB_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, 35.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletLB_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, 65.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletLB_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-40.0f, 80.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletLB_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-35.0f, 105.0f));
+			}
+		}
+		else if (mDirection == eDirection::LSit)
+		{	
+			if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletBL_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-35.0f, 105.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletBL_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-40.0f, 80.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletBL_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, 65.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletBL_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(-50.0f, 35.0f));
+			}
+		}
+		else if (mDirection == eDirection::RSit)
+		{
+			if (animationNum == 1)
+			{
+				mAnimator->Play(L"MachinegunBulletBR_1", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(35.0f, 105.0f));
+			}
+			else if (animationNum == 2)
+			{
+				mAnimator->Play(L"MachinegunBulletBR_2", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(40.0f, 80.0f));
+			}
+			else if (animationNum == 3)
+			{
+				mAnimator->Play(L"MachinegunBulletBR_3", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, 65.0f));
+			}
+			else if (animationNum == 4)
+			{
+				mAnimator->Play(L"MachinegunBulletBR_4", false);
+				tr->SetPos(marcoTR->GetPos() + Vector2(50.0f, 35.0f));
+			}
+		}
 	}
 }

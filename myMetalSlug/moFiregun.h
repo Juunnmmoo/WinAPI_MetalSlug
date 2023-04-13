@@ -21,7 +21,7 @@
 //		void jump();
 //
 //		void shootStartEvent();
-//		void AttackEndEvent();
+//		void attackCompleteEvent();
 //
 //	private:
 //		Marco* player;

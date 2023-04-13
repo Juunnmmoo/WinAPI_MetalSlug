@@ -198,7 +198,7 @@ namespace mo {
 		eDirection mDirection = mTransform->GetDirection();
 
 		// 좌우 애니메이션
-
+		
 		if (Input::GetKey(eKeyCode::Right)) {
 			if (Input::GetKeyDown(eKeyCode::Left)) {
 				if (mDirection == eDirection::Right) {
@@ -271,7 +271,16 @@ namespace mo {
 				mDirection = eDirection::Right;
 				mAnimator->Play(L"P_MoveR", true);
 			}
-
+		if (Input::GetKeyUp(eKeyCode::Right))
+			if (Input::GetKeyDown(eKeyCode::Left)) {
+				mDirection = eDirection::Left;
+				mAnimator->Play(L"P_MoveL", true);
+			}
+		if (Input::GetKeyUp(eKeyCode::Left))
+			if (Input::GetKeyDown(eKeyCode::Right)) {
+				mDirection = eDirection::Right;
+				mAnimator->Play(L"P_MoveR", true);
+			}
 
 		// To Idle
 		if ((Input::GetKeyNone(eKeyCode::Right)

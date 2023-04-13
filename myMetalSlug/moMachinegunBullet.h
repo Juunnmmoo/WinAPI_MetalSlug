@@ -3,10 +3,11 @@
 
 namespace mo {
 	class Image;
+	class Marco;
 	class MachinegunBullet : public GameObject
 	{
 	public:
-		MachinegunBullet();
+		MachinegunBullet(Marco* marco);
 		~MachinegunBullet();
 
 		virtual void Initialize() override;
@@ -17,7 +18,10 @@ namespace mo {
 		virtual void OnCollisionStay(class Collider* other)override;
 		virtual void OnCollisionExit(class Collider* other)override;
 
-		void SetDirection(eDirection direction) { mDirection = direction; }
+		void SetDirection(eDirection direction, int num) {
+			mDirection = direction;
+			animationNum = num;
+		}
 		void SetDir(Vector2 dir);
 		void PlayAnimation();
 		void SetTime(float t) { mTime = t; }
@@ -27,7 +31,9 @@ namespace mo {
 		Image* mImage;
 		eDirection mDirection;
 		Vector2 mDir;
+		Marco* mPlayer;
 		class Animator* mAnimator;
+		int animationNum;
 		bool isPlayed;
 		float time;
 	};

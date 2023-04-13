@@ -76,8 +76,8 @@
 //		mAnimator->CreateAnimation(L"paraglider", mImageR, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 6, Vector2::Zero, 0.05);
 //
 //
-//		/*mAnimator->GetStartEvent(L"KnifeR") = std::bind(&Pistol::AttackEndEvent, this);
-//		mAnimator->GetStartEvent(L"KnifeL") = std::bind(&Pistol::AttackEndEvent, this);*/
+//		/*mAnimator->GetStartEvent(L"KnifeR") = std::bind(&Pistol::attackCompleteEvent, this);
+//		mAnimator->GetStartEvent(L"KnifeL") = std::bind(&Pistol::attackCompleteEvent, this);*/
 //		mAnimator->GetStartEvent(L"ShootR") = std::bind(&Machinegun::shootStartEvent, this);
 //		mAnimator->GetStartEvent(L"ShootL") = std::bind(&Machinegun::shootStartEvent, this);
 //		mAnimator->GetStartEvent(L"ShootRT") = std::bind(&Machinegun::shootStartEvent, this);
@@ -86,14 +86,14 @@
 //		mAnimator->GetStartEvent(L"ShootLB") = std::bind(&Machinegun::shootStartEvent, this);
 //
 //
-//		/*	mAnimator->GetCompleteEvent(L"KnifeR") = std::bind(&Pistol::AttackEndEvent, this);
-//			mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Pistol::AttackEndEvent, this);*/
-//		mAnimator->GetCompleteEvent(L"ShootR") = std::bind(&Machinegun::AttackEndEvent, this);
-//		mAnimator->GetCompleteEvent(L"ShootL") = std::bind(&Machinegun::AttackEndEvent, this);
-//		mAnimator->GetCompleteEvent(L"ShootRT") = std::bind(&Machinegun::AttackEndEvent, this);
-//		mAnimator->GetCompleteEvent(L"ShootLT") = std::bind(&Machinegun::AttackEndEvent, this);
-//		mAnimator->GetCompleteEvent(L"ShootRB") = std::bind(&Machinegun::AttackEndEvent, this);
-//		mAnimator->GetCompleteEvent(L"ShootLB") = std::bind(&Machinegun::AttackEndEvent, this);
+//		/*	mAnimator->GetCompleteEvent(L"KnifeR") = std::bind(&Pistol::attackCompleteEvent, this);
+//			mAnimator->GetCompleteEvent(L"KnifeL") = std::bind(&Pistol::attackCompleteEvent, this);*/
+//		mAnimator->GetCompleteEvent(L"ShootR") = std::bind(&Machinegun::attackCompleteEvent, this);
+//		mAnimator->GetCompleteEvent(L"ShootL") = std::bind(&Machinegun::attackCompleteEvent, this);
+//		mAnimator->GetCompleteEvent(L"ShootRT") = std::bind(&Machinegun::attackCompleteEvent, this);
+//		mAnimator->GetCompleteEvent(L"ShootLT") = std::bind(&Machinegun::attackCompleteEvent, this);
+//		mAnimator->GetCompleteEvent(L"ShootRB") = std::bind(&Machinegun::attackCompleteEvent, this);
+//		mAnimator->GetCompleteEvent(L"ShootLB") = std::bind(&Machinegun::attackCompleteEvent, this);
 //
 //		mAnimator->Play(L"paraglider", false);
 //	}
@@ -753,7 +753,7 @@
 //	}
 //
 //
-//	void Machinegun::AttackEndEvent()
+//	void Machinegun::attackCompleteEvent()
 //	{
 //		mAnimator->Play(mPrevAnimation->GetName(), true);
 //	}
