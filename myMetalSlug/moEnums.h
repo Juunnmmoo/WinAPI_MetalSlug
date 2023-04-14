@@ -28,6 +28,7 @@ enum class eLayerType
 	PlayerBomb,
 	Effect,
 	UI,
+	OutSideWall,
 	End,
 };
 

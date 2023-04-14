@@ -1325,28 +1325,28 @@ namespace mo {
 					if (i == 1) {
 						machinegunBullet->SetDir(Vector2{ 5.0f, -2.0f });
 						machinegunBullet->SetTime(0.0f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -35.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(70.0f, -35.0f));
 
 					}
 					else if (i == 2)
 					{
 						machinegunBullet->SetDir(Vector2{ 5.0f, -4.0f });
 						machinegunBullet->SetTime(0.06f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -65.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(70.0f, -65.0f));
 
 					}
 					else if (i == 3)
 					{
 						machinegunBullet->SetDir(Vector2{ 5.0f, -7.0f });
 						machinegunBullet->SetTime(0.12f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(40.0f, -80.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(60.0f, -80.0f));
 
 					}
 					else if (i == 4)
 					{
 						machinegunBullet->SetDir(Vector2{ 5.0f, -11.0f });
 						machinegunBullet->SetTime(0.18f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(35.0f, -105.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(55.0f, -105.0f));
 
 					}
 
@@ -1370,28 +1370,28 @@ namespace mo {
 					if (i == 1) {
 						machinegunBullet->SetDir(Vector2{ 5.0f, -11.0f });
 						machinegunBullet->SetTime(0.0f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(35.0f, -90.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(45.0f, -90.0f));
 
 					}
 					else if (i == 2)
 					{
 						machinegunBullet->SetDir(Vector2{ 5.0f, -7.0f });
 						machinegunBullet->SetTime(0.06f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(40.0f, -60.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -60.0f));
 
 					}
 					else if (i == 3)
 					{
 						machinegunBullet->SetDir(Vector2{ 5.0f, -4.0f });
 						machinegunBullet->SetTime(0.12f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -30.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(60.0f, -30.0f));
 
 					}
 					else if (i == 4)
 					{
 						machinegunBullet->SetDir(Vector2{ 5.0f, -2.0f });
 						machinegunBullet->SetTime(0.18f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -15.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(60.0f, -15.0f));
 
 					}
 
@@ -1505,28 +1505,28 @@ namespace mo {
 					if (i == 1) {
 						machinegunBullet->SetDir(Vector2{ -5.0f, -2.0f });
 						machinegunBullet->SetTime(0.0f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -35.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-70.0f, -35.0f));
 
 					}
 					else if (i == 2)
 					{
 						machinegunBullet->SetDir(Vector2{ -5.0f, -4.0f });
 						machinegunBullet->SetTime(0.06f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -65.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-70.0f, -65.0f));
 
 					}
 					else if (i == 3)
 					{
 						machinegunBullet->SetDir(Vector2{ -5.0f, -7.0f });
 						machinegunBullet->SetTime(0.12f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-40.0f, -80.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-60.0f, -80.0f));
 
 					}
 					else if (i == 4)
 					{
 						machinegunBullet->SetDir(Vector2{ -5.0f, -11.0f });
 						machinegunBullet->SetTime(0.18f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-35.0f, -105.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-55.0f, -105.0f));
 
 					}
 
@@ -1550,28 +1550,28 @@ namespace mo {
 					if (i == 1) {
 						machinegunBullet->SetDir(Vector2{ -5.0f, -11.0f });
 						machinegunBullet->SetTime(0.0f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-35.0f, -105.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-45.0f, -105.0f));
 
 					}
 					else if (i == 2)
 					{
 						machinegunBullet->SetDir(Vector2{ -5.0f, -7.0f });
 						machinegunBullet->SetTime(0.06f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-40.0f, -80.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -80.0f));
 
 					}
 					else if (i == 3)
 					{
 						machinegunBullet->SetDir(Vector2{ -5.0f, -4.0f });
 						machinegunBullet->SetTime(0.12f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -65.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-60.0f, -65.0f));
 
 					}
 					else if (i == 4)
 					{
 						machinegunBullet->SetDir(Vector2{ -5.0f, -2.0f });
 						machinegunBullet->SetTime(0.18f);
-						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -35.0f));
+						machinegunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-60.0f, -35.0f));
 
 					}
 
@@ -1677,6 +1677,87 @@ namespace mo {
 	void Machinegun::diagonalAttackEndEvent()
 	{
 		isShooting = false;
+
+		eDirection mDirection = mTransform->GetDirection();
+		Vector2 mPos = mTransform->GetPos();
+		Scene* curScene = SceneManager::GetActiveScene();
+
+		if (Input::GetKey(eKeyCode::Up))
+		{
+			if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right || mDirection == eDirection::RSit|| mDirection == eDirection::RTop|| mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_IdleRT", true);
+				else
+					mAnimator->Play(L"M_IdleLT", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+			{
+				mAnimator->Play(L"M_IdleRT", true);
+			}
+			else if (Input::GetKey(eKeyCode::Left))
+			{
+				mAnimator->Play(L"M_IdleLT", true);
+			}
+			else if (Input::GetKeyNone(eKeyCode::Right) || Input::GetKeyNone(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right || mDirection == eDirection::RSit || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_IdleRT", true);
+				else
+					mAnimator->Play(L"M_IdleLT", true);
+			}
+		}
+		else if (Input::GetKey(eKeyCode::Down))
+		{
+			if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right || mDirection == eDirection::RSit || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_JumpDownR", true);
+				else
+					mAnimator->Play(L"M_JumpDownL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+			{
+				mAnimator->Play(L"M_JumpDownR", true);
+			}
+			else if (Input::GetKey(eKeyCode::Left))
+			{
+				mAnimator->Play(L"M_JumpDownL", true);
+			}
+			else if (Input::GetKeyNone(eKeyCode::Right) || Input::GetKeyNone(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right || mDirection == eDirection::RSit || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_JumpDownR", true);
+				else
+					mAnimator->Play(L"M_JumpDownL", true);
+			}
+		}
+		else if (Input::GetKeyNone(eKeyCode::Up) || Input::GetKeyNone(eKeyCode::Down))
+		{
+			if (Input::GetKey(eKeyCode::Right) && Input::GetKey(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right || mDirection == eDirection::RSit || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_IdleR", true);
+				else
+					mAnimator->Play(L"M_IdleL", true);
+			}
+			else if (Input::GetKey(eKeyCode::Right))
+			{
+				mAnimator->Play(L"M_IdleR", true);
+			}
+			else if (Input::GetKey(eKeyCode::Left))
+			{
+				mAnimator->Play(L"M_IdleL", true);
+			}
+			else if (Input::GetKeyNone(eKeyCode::Right) || Input::GetKeyNone(eKeyCode::Left))
+			{
+				if (mDirection == eDirection::Right || mDirection == eDirection::RSit || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
+					mAnimator->Play(L"M_IdleR", true);
+				else
+					mAnimator->Play(L"M_IdleL", true);
+			}
+		}
+
 	}
 
 

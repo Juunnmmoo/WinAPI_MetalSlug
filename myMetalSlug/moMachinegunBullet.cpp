@@ -1,6 +1,7 @@
 #include "moMachinegunBullet.h"
 #include "moImage.h"
 #include "moResources.h"
+#include "moApplication.h"
 #include "moTransform.h"
 #include "moTime.h"
 #include "Collider.h"
@@ -13,6 +14,8 @@
 #include "moSceneManager.h"
 #include "moScene.h"
 #include "moMarco.h"
+
+extern mo::Application application;
 namespace mo {
 	MachinegunBullet::MachinegunBullet(Marco* marco)
 		:time(0.0f)
@@ -70,12 +73,12 @@ namespace mo {
 		mAnimator->CreateAnimation(L"MachinegunBulletBL_4", mImage, Vector2(120.0f * 5, 120.0f * 3), -120.0f, 10, 4, 1, Vector2::Zero, 0.05);
 
 		Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2{ 20.0f, 20.0f });
-		mCollider->SetLeftTop(Vector2(0.0f, -20.0f));
+		mCollider->SetSize(Vector2{ 30.0f, 30.0f });
+		mCollider->SetLeftTop(Vector2(0.0f, -30.0f));
 
 		Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(-100.0f, -100.0f));
-		tr->SetScale(Vector2(2.8f, 2.8f));
+		tr->SetScale(Vector2(3.0f, 3.0f));
 		tr->SetDisToBottom(Vector2(0.0f, 57.0f));
 
 		GameObject::Initialize();
@@ -110,6 +113,10 @@ namespace mo {
 			bulletSFX->PlayAnimation();
 			object::Destory(this);
 		}
+		// ÀÚµ¿ destory
+		Vector2 cPos = Camera::CaluatePos(pos);
+		if (cPos.x <  -100.0f  || cPos.x > application.GetWidth() + 100.0f|| cPos.y < -100.0f)
+			object::Destory(this);
 
 		GameObject::Update();
 	}

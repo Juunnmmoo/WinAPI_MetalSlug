@@ -12,7 +12,10 @@
 #include "moBulletSFX.h"
 #include "moSceneManager.h"
 #include "moScene.h"
+#include "moCamera.h"
+#include "moApplication.h"
 
+extern mo::Application application;
 namespace mo {
 	PistolBullet::PistolBullet() 
 		: mDirection(eDirection::Right)
@@ -49,12 +52,17 @@ namespace mo {
 		else if (GetState() == eState::Pause)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
-			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletGroundSFX, pos, Vector2(2.0f, 2.0f),Vector2(0.0f, 49.0f));
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletGroundSFX, pos, Vector2(2.0f, 2.0f), Vector2(0.0f, 49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 			bulletSFX->Initialize();
 			bulletSFX->PlayAnimation();
 			object::Destory(this);
 		}
+		
+		// ÀÚµ¿ destory
+		Vector2 cPos = Camera::CaluatePos(pos);
+		if (cPos.x <  -100.0f || cPos.x > application.GetWidth() + 100.0f || cPos.y < -100.0f)			
+			object::Destory(this);
 
 		GameObject::Update();
 	}
@@ -63,22 +71,7 @@ namespace mo {
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = Camera::CaluatePos(tr->GetPos());
-
-		/*if (mDirection == eDirection::Right)
-			TransparentBlt(mHdc, pos.x + 50.0f, pos.y - 50.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
-		else if (mDirection == eDirection::Left)
-			TransparentBlt(mHdc, pos.x - 50.0f, pos.y - 50.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
-		else if (mDirection == eDirection::Top)
-			TransparentBlt(mHdc, pos.x - 5.0f, pos.y - 90.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
-		else if (mDirection == eDirection::RSit)
-			TransparentBlt(mHdc, pos.x + 50.0f, pos.y - 10.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
-		else if (mDirection == eDirection::LSit)
-			TransparentBlt(mHdc, pos.x - 50.0f, pos.y - 10.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));
-		else if (mDirection == eDirection::Bottom)
-			TransparentBlt(mHdc, pos.x - 5.0f, pos.y + 90.0f, 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234));*/
-	
 		TransparentBlt(mHdc, pos.x, pos.y , 20, 20, mImage->GetHdc(), 0, 0, mImage->GetWidth(), mImage->GetHeight(), RGB(153, 217, 234)); 
-
 
 		GameObject::Render(mHdc);
 	}
