@@ -236,8 +236,6 @@ namespace mo {
 		if ((other->GetOwner()->GetLayerType() == eLayerType::EnemyBulletR || 
 			other->GetOwner()->GetLayerType() == eLayerType::EnemyBullet))
 		{
-			object::Destory(other->GetOwner());
-
 			if (other->GetOwner()->GetBulletType() == eBulletType::knife
 				)
 			{

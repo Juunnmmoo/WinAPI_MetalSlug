@@ -19,6 +19,10 @@ namespace mo {
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
 
+		virtual void OnCollisionEnter(class Collider* other)override;
+		virtual void OnCollisionStay(class Collider* other)override;
+		virtual void OnCollisionExit(class Collider* other)override;
+
 		void PlayAnimation(eDirection direction);
 
 	private:

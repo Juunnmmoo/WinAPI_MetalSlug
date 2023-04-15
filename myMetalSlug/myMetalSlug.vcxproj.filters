@@ -256,14 +256,8 @@
     <ClInclude Include="moMachinegunBullet.h">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="moOutSideWallL.h">
-      <Filter>Contents\GameObj\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="moOutSideWallR.h">
-      <Filter>Contents\GameObj\BackGround</Filter>
-    </ClInclude>
-    <ClInclude Include="moOutSideWallT.h">
-      <Filter>Contents\GameObj\BackGround</Filter>
+    <ClInclude Include="moEnemyAttackCollider.h">
+      <Filter>Contents\GameObj\Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -421,14 +415,8 @@
     <ClCompile Include="moMachinegunBullet.cpp">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="moOutSideWallL.cpp">
-      <Filter>Contents\GameObj\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="moOutSideWallR.cpp">
-      <Filter>Contents\GameObj\BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="moOutSideWallT.cpp">
-      <Filter>Contents\GameObj\BackGround</Filter>
+    <ClCompile Include="moEnemyAttackCollider.cpp">
+      <Filter>Contents\GameObj\Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

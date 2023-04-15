@@ -42,6 +42,7 @@ namespace mo {
 
 			if (gameObj->GetState() == GameObject::eState::Death)
 				continue;
+
 			gameObj->Render(mHdc);
 		}
 	}

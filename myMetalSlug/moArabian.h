@@ -13,9 +13,12 @@ namespace mo {
 
 		enum class eArabianState {
 			Move,
+			Run,
 			Attack,
 			Death,
+			BackJump,
 			Idle,
+			Turn,
 			Throwing,
 		};
 
@@ -38,6 +41,8 @@ namespace mo {
 		void death();
 		void idle();
 		void throwing();
+		void turn();
+		void run();
 	private:
 		Vector2 mPos;
 		Animator* mAnimator;

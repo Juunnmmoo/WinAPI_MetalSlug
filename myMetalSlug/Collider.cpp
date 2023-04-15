@@ -21,9 +21,6 @@ namespace mo {
 	Collider::~Collider()
 	{
 	}
-
-	
-
 	void Collider::Initialize()
 	{
 		Transform* tr = GetOwner()->GetComponent<Transform>();

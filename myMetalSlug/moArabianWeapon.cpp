@@ -75,6 +75,17 @@ namespace mo {
 		GameObject::Render(mHdc);
 
 	}
+	void ArabianWeapon::OnCollisionEnter(Collider* other)
+	{
+		if (other->GetOwner()->GetLayerType() == eLayerType::Player)
+			object::Destory(this);
+	}
+	void ArabianWeapon::OnCollisionStay(Collider* other)
+	{
+	}
+	void ArabianWeapon::OnCollisionExit(Collider* other)
+	{
+	}
 	void ArabianWeapon::PlayAnimation(eDirection direction)
 	{
 		mDir = direction;
