@@ -35,6 +35,8 @@ namespace mo {
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 20.0f, 20.0f });
 
+		SetBulletType(eBulletType::Bullet);
+
 		GameObject::Initialize();
 
 	}
@@ -80,7 +82,7 @@ namespace mo {
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
+		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::Enemy)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));

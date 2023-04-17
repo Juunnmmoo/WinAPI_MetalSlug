@@ -57,8 +57,8 @@ namespace mo {
 		mAnimator->CreateAnimation(L"P_ShootLB", mImageL, Vector2(120.0f * 29, 120.0f * 9), -120.0f, 30, 30, 6, Vector2::Zero, 0.07);
 
 
-		mAnimator->CreateAnimation(L"P_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 30, 6, Vector2::Zero, 0.05);
-		mAnimator->CreateAnimation(L"P_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 30, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"P_KnifeR", mImageR, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 30, 6, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"P_KnifeL", mImageL, Vector2(120.0f * 29, 120.0f * 3), -120.0f, 30, 30, 6, Vector2::Zero, 0.1);
 
 		mAnimator->CreateAnimation(L"P_MoveR", mImageR, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 30, 30, 12, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"P_MoveL", mImageL, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 30, 12, Vector2::Zero, 0.05);

@@ -51,5 +51,6 @@ namespace mo {
 		Scene* curScene;
 		bool isThrowing;
 		float time;
+		float attackTime;
 	};
 }

@@ -202,6 +202,7 @@ namespace mo{
 		Vector2 mPos = tr->GetPos();
 		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
 
+
 		if (mAnimator->IsComplte())
 		{
 			if (mDir == eDirection::Left)

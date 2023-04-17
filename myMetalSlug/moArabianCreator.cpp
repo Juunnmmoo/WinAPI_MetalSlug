@@ -16,7 +16,7 @@
 namespace mo {
 	ArabianCreator::ArabianCreator(Marco* marco)
 		: time(0.0f)
-		, stopCreate(false)
+		, startCreate(false)
 		, player(marco)
 	{
 	}
@@ -30,7 +30,7 @@ namespace mo {
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetLeftTop(Vector2(0.0f, -750.0f));
-		mCollider->SetSize(Vector2{ 700.0f, 750.0f });
+		mCollider->SetSize(Vector2{ 1800.0f, 750.0f });
 
 		GameObject::Initialize();
 	}
@@ -38,7 +38,7 @@ namespace mo {
 	{
 		time += Time::DeltaTime();
 
-		if (time >= 5.0f && !stopCreate)
+		if (time >= 5.0f && startCreate)
 		{
 			time = 0.0f;
 
@@ -46,9 +46,9 @@ namespace mo {
 
 			Arabian* arabian = new Arabian(player, curScene);
 
-			curScene->AddGameObject(arabian, eLayerType::Enemy);
+			curScene->AddGameObject(arabian, eLayerType::EnemyR);
 			arabian->Initialize();
-			arabian->GetComponent<Transform>()->SetPos(Vector2(2500.0f, 600.0f));
+			arabian->GetComponent<Transform>()->SetPos(Vector2(3800.0f, 600.0f));
 		}
 		GameObject::Update();
 	}
@@ -59,14 +59,15 @@ namespace mo {
 	}
 	void ArabianCreator::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Player) {
-			object::Destory(this);
-		}
+		startCreate = true;
 	}
 	void ArabianCreator::OnCollisionStay(Collider* other)
 	{
 	}
 	void ArabianCreator::OnCollisionExit(Collider* other)
 	{
+		if (other->GetOwner()->GetLayerType() == eLayerType::Player && other->GetOwner()->GetState() == eState::Active) {
+			object::Destory(this);
+		}
 	}
 }

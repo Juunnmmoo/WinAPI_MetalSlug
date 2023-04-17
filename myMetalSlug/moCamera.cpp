@@ -23,6 +23,7 @@ namespace mo{
 	float Camera::mAlphaTime = 0.0f;
 	float Camera::mEndTime = 3.0f;
 	bool Camera::isMove = false;
+	bool Camera::stop = false;
 
 	void Camera::Initialize()
 	{
@@ -56,15 +57,21 @@ namespace mo{
 
 		if (mTarget != nullptr) {
 				
-			if (mTargetPos.x >= mLookPosition.x - 120.0f)
+			if (!stop)
 			{
-				isMove = true;
-				if(Input::GetKey(eKeyCode::Right))
+				if (mTargetPos.x >= mLookPosition.x - 120.0f)
+				{
+					isMove = true;
+					/*if(Input::GetKey(eKeyCode::Right))
+						mLookPosition.x += 300.0f * Time::DeltaTime();*/
+
+					
 					mLookPosition.x += 300.0f * Time::DeltaTime();
-			
-			}
-			else {
-				isMove = false;
+				
+				}
+				else {
+					isMove = false;
+				}
 			}
 			//mLookPosition = mTarget->GetComponent<Transform>()->GetPos();
 		}

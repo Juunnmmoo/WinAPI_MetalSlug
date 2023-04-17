@@ -45,6 +45,9 @@ namespace mo {
 
 		mAnimator->CreateAnimation(L"MoveR", weaponSFX, Vector2(0.0f, 120.0f* 2), 120.0f, 30, 60, 30, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"MoveL", weaponSFX, Vector2(120.0f * 29, 120.0f * 2), -120.0f, 30, 60, 30, Vector2::Zero, 0.05);
+
+		SetBulletType(eBulletType::Bomb);
+
 		GameObject::Initialize();
 
 	}
@@ -70,7 +73,7 @@ namespace mo {
 	}
 	void PlayerBomb::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
+		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR)
 		{
 			Transform* tr;
 			tr = GetComponent<Transform>();

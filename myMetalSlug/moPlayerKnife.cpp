@@ -25,6 +25,8 @@ namespace mo {
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 50.0f, 110.0f });
 
+		SetBulletType(eBulletType::knife);
+
 		GameObject::Initialize();
 	}
 	void PlayerKnife::Update()
@@ -47,7 +49,7 @@ namespace mo {
 	}
 	void PlayerKnife::OnCollisionStay(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
+		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR)
 		{
 			isCollide = true;
 			if (Input::GetKeyDown(eKeyCode::D) && isUse)
@@ -56,7 +58,7 @@ namespace mo {
 	}
 	void PlayerKnife::OnCollisionExit(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
+		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR)
 		{
 			isCollide = false;
 		}

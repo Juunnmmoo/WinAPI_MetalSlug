@@ -32,6 +32,7 @@ namespace mo{
 		static bool GetIsMove() { return isMove; }
 		static void RestartFadeIn();
 
+		static void SetStop(bool b) { stop = b; }
 
 	private:
 
@@ -47,5 +48,6 @@ namespace mo{
 		static float mAlphaTime;
 		static float mEndTime;
 		static bool isMove;
+		static bool stop;
 	};
 }

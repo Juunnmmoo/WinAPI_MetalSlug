@@ -139,8 +139,13 @@
     <ClInclude Include="moArabianCreator.h" />
     <ClInclude Include="moArabianWeapon.h" />
     <ClInclude Include="moBulletSFX.h" />
+    <ClInclude Include="moCamel.h" />
+    <ClInclude Include="moCamelArabian01.h" />
+    <ClInclude Include="moCamelArabian02.h" />
+    <ClInclude Include="moCamelArabianCreator.h" />
     <ClInclude Include="moDropWeapon.h" />
     <ClInclude Include="moEnemyAttackCollider.h" />
+    <ClInclude Include="moEnemyPistolBullet.h" />
     <ClInclude Include="moMachinegunBullet.h" />
     <ClInclude Include="moPistolBullet.h" />
     <ClInclude Include="moCamera.h" />
@@ -194,8 +199,13 @@
     <ClCompile Include="moArabianCreator.cpp" />
     <ClCompile Include="moArabianWeapon.cpp" />
     <ClCompile Include="moBulletSFX.cpp" />
+    <ClCompile Include="moCamel.cpp" />
+    <ClCompile Include="moCamelArabian01.cpp" />
+    <ClCompile Include="moCamelArabian02.cpp" />
+    <ClCompile Include="moCamelArabianCreator.cpp" />
     <ClCompile Include="moDropWeapon.cpp" />
     <ClCompile Include="moEnemyAttackCollider.cpp" />
+    <ClCompile Include="moEnemyPistolBullet.cpp" />
     <ClCompile Include="moMachinegunBullet.cpp" />
     <ClCompile Include="moPistolBullet.cpp" />
     <ClCompile Include="moCamera.cpp" />

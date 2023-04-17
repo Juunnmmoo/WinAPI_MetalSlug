@@ -21,7 +21,7 @@ namespace mo {
 
 	private:
 		float time;
-		bool stopCreate;
+		bool startCreate;
 		Marco* player;
 	};
 }

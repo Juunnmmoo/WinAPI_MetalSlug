@@ -92,6 +92,12 @@
     <Filter Include="Contents\GameObj\EnemyCreator\Mission1">
       <UniqueIdentifier>{5d2f6ffe-dd6e-4a7d-8e7e-47e95ace8308}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\Monster\Arabian">
+      <UniqueIdentifier>{7129f24b-6343-41e6-b81f-b8dc3b259859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Monster\CamelArabian">
+      <UniqueIdentifier>{1a79d60d-4568-407d-89b2-2b02ba26d4d8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -184,9 +190,6 @@
     <ClInclude Include="moMarcoBottom.h">
       <Filter>Contents\GameObj\Player</Filter>
     </ClInclude>
-    <ClInclude Include="moArabian.h">
-      <Filter>Contents\GameObj\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="moObject.h">
       <Filter>Engine\GameObject</Filter>
     </ClInclude>
@@ -235,9 +238,6 @@
     <ClInclude Include="moDropWeapon.h">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="moArabianWeapon.h">
-      <Filter>Contents\GameObj\Monster</Filter>
-    </ClInclude>
     <ClInclude Include="moArabianCreator.h">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClInclude>
@@ -258,6 +258,27 @@
     </ClInclude>
     <ClInclude Include="moEnemyAttackCollider.h">
       <Filter>Contents\GameObj\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="moArabian.h">
+      <Filter>Contents\GameObj\Monster\Arabian</Filter>
+    </ClInclude>
+    <ClInclude Include="moArabianWeapon.h">
+      <Filter>Contents\GameObj\Monster\Arabian</Filter>
+    </ClInclude>
+    <ClInclude Include="moCamel.h">
+      <Filter>Contents\GameObj\Monster\CamelArabian</Filter>
+    </ClInclude>
+    <ClInclude Include="moCamelArabian01.h">
+      <Filter>Contents\GameObj\Monster\CamelArabian</Filter>
+    </ClInclude>
+    <ClInclude Include="moCamelArabian02.h">
+      <Filter>Contents\GameObj\Monster\CamelArabian</Filter>
+    </ClInclude>
+    <ClInclude Include="moEnemyPistolBullet.h">
+      <Filter>Contents\GameObj\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="moCamelArabianCreator.h">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -346,9 +367,6 @@
     <ClCompile Include="moMarcoBottom.cpp">
       <Filter>Contents\GameObj\Player</Filter>
     </ClCompile>
-    <ClCompile Include="moArabian.cpp">
-      <Filter>Contents\GameObj\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="moCamera.cpp">
       <Filter>Engine\Camera</Filter>
     </ClCompile>
@@ -394,9 +412,6 @@
     <ClCompile Include="moDropWeapon.cpp">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="moArabianWeapon.cpp">
-      <Filter>Contents\GameObj\Monster</Filter>
-    </ClCompile>
     <ClCompile Include="moArabianCreator.cpp">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClCompile>
@@ -417,6 +432,27 @@
     </ClCompile>
     <ClCompile Include="moEnemyAttackCollider.cpp">
       <Filter>Contents\GameObj\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="moArabian.cpp">
+      <Filter>Contents\GameObj\Monster\Arabian</Filter>
+    </ClCompile>
+    <ClCompile Include="moArabianWeapon.cpp">
+      <Filter>Contents\GameObj\Monster\Arabian</Filter>
+    </ClCompile>
+    <ClCompile Include="moCamel.cpp">
+      <Filter>Contents\GameObj\Monster\CamelArabian</Filter>
+    </ClCompile>
+    <ClCompile Include="moCamelArabian01.cpp">
+      <Filter>Contents\GameObj\Monster\CamelArabian</Filter>
+    </ClCompile>
+    <ClCompile Include="moCamelArabian02.cpp">
+      <Filter>Contents\GameObj\Monster\CamelArabian</Filter>
+    </ClCompile>
+    <ClCompile Include="moEnemyPistolBullet.cpp">
+      <Filter>Contents\GameObj\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="moCamelArabianCreator.cpp">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

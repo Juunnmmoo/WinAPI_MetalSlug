@@ -30,7 +30,7 @@ namespace mo {
 		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_Ground.bmp");
 		
 		layers.push_back(eLayerType::BulletBox);
-		layers.push_back(eLayerType::Enemy);
+		layers.push_back(eLayerType::EnemyR);
 		layers.push_back(eLayerType::EnemyBulletR);
 		layers.push_back(eLayerType::PlayerPistol);
 		layers.push_back(eLayerType::PlayerMachinegun);

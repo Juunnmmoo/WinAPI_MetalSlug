@@ -262,6 +262,33 @@ namespace mo {
 				bottom->SetBottomState(MarcoBottom::eMarcoState::Death);
 
 			}
+
+			else if (other->GetOwner()->GetBulletType() == eBulletType::Bullet
+				)
+			{
+				SetState(eState::Pause);
+				Transform* tr = GetComponent<Transform>();
+				eDirection mDirection = tr->GetDirection();
+
+				if (mDirection == eDirection::Left ||
+					mDirection == eDirection::LSit ||
+					mDirection == eDirection::LBottom ||
+					mDirection == eDirection::LTop)
+				{
+					mAnimator->Play(L"None", false);
+					bottom->GetAnimator()->Play(L"KnifeDeathL", false);
+				}
+				else
+				{
+					mAnimator->Play(L"None", false);
+					bottom->GetAnimator()->Play(L"KnifeDeathR", false);
+				}
+				mWeaponState = eMarcoWeapon::Pistol;
+				bottom->SetWeaponState(eMarcoWeapon::Pistol);
+				mState = eMarcoState::Death;
+				bottom->SetBottomState(MarcoBottom::eMarcoState::Death);
+
+			}
 			
 		}
 	}

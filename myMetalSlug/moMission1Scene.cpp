@@ -15,6 +15,10 @@
 #include "moMachinegunBox.h"
 #include "moArabianCreator.h"
 #include "moPlayerKnife.h"
+#include "moCamelArabian01.h"
+#include "moCamelArabian02.h"
+#include "moCamel.h"
+#include "moCamelArabianCreator.h"
 
 namespace mo
 {
@@ -56,6 +60,20 @@ namespace mo
 		ArabianCreator* aCreator = new ArabianCreator(marco);
 		AddGameObject(aCreator, eLayerType::EnemyCreator);
 
+		CamelArabianCreator* camelCreator = new CamelArabianCreator(marco);
+		AddGameObject(camelCreator, eLayerType::EnemyCreator);
+
+		/*Camel* camel = new Camel();
+		CamelArabian02* camelArabian02 = new CamelArabian02();
+		CamelArabian01* camelArabian01 = new CamelArabian01(marco, camel, camelArabian02, this);
+
+		AddGameObject(camelArabian01, eLayerType::Enemy);
+		AddGameObject(camel, eLayerType::Enemy);
+		AddGameObject(camelArabian02, eLayerType::Enemy);*/
+
+
+
+
 		mission1BG->SetPlayer(marco);
 
 		Camera::SetTarget(marco);
@@ -94,6 +112,12 @@ namespace mo
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBulletR, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyCreator, true);
+
+		CollisionManager::SetLayer(eLayerType::EnemyR, eLayerType::PlayerKnife, true);
+		CollisionManager::SetLayer(eLayerType::EnemyR, eLayerType::PlayerBomb, true);
+		CollisionManager::SetLayer(eLayerType::EnemyR, eLayerType::PlayerMachinegun, true);
+		CollisionManager::SetLayer(eLayerType::EnemyR, eLayerType::PlayerPistol, true);
+
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerKnife, true);
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerBomb, true);
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerMachinegun, true);

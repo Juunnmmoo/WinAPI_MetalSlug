@@ -76,6 +76,8 @@ namespace mo {
 		mCollider->SetSize(Vector2{ 30.0f, 30.0f });
 		mCollider->SetLeftTop(Vector2(0.0f, -30.0f));
 
+		SetBulletType(eBulletType::Bullet);
+
 		Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(-100.0f, -100.0f));
 		tr->SetScale(Vector2(3.0f, 3.0f));
@@ -131,7 +133,7 @@ namespace mo {
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::Enemy)
+		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::Enemy)
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));
