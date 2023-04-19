@@ -28,7 +28,7 @@ namespace mo {
 		, curScene(scene)
 		, stopPos(stop)
 		, dropTime(0.0f)
-		, heart(10)
+		, heart(50)
 
 	{
 	}
@@ -110,8 +110,9 @@ namespace mo {
 	}
 	void RebelTruck1::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol ||
-			other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)
+		if ((other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol ||
+			other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)&&
+			mState == eRebelTruckState::Drop)
 		{
 			heart--;
 		}
