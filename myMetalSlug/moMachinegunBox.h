@@ -19,5 +19,6 @@ namespace mo {
 
 	private:
 		class Image* mImage;
+		float mTime;
 	};
 }

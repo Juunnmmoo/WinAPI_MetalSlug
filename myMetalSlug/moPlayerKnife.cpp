@@ -13,6 +13,7 @@
 #include "moSceneManager.h"
 #include "moObject.h"
 #include "moAnimator.h"
+#include "moSlave.h"
 
 namespace mo {
 	PlayerKnife::PlayerKnife()
@@ -53,8 +54,14 @@ namespace mo {
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR)
 		{
 			isCollide = true;
+
+			/*Arabian* arabian = dynamic_cast<Arabian*>(other->GetOwner());
+			if (arabian == nullptr)
+				return;*/
+
 			if (Input::GetKeyDown(eKeyCode::D) && isUse)
 			{
+				
 				if (other->GetOwner()->GetComponent<Transform>()->GetDirection() == eDirection::Left)
 				{
 					other->GetOwner()->GetComponent<Animator>()->Play(L"KnifeDeathL", false);
@@ -66,6 +73,22 @@ namespace mo {
 				other->GetOwner()->SetState(eState::Pause);
 			}
 		}
+		
+		/*if (other->GetOwner()->GetLayerType() == eLayerType::Slave)
+		{
+			isCollide = true;
+
+			Slave* slave = dynamic_cast<Slave*>(other->GetOwner());
+			if (slave == nullptr)
+				return;
+
+			if (Input::GetKeyDown(eKeyCode::D) && isUse)
+			{
+				slave->SetIsRelease(true);
+				slave->GetAnimator()->Play(L"BeReleasedL", false);
+				slave->SetSlaveState(Slave::eSlaveState::BeReleased);
+			}
+		}*/
 
 	}
 	void PlayerKnife::OnCollisionExit(Collider* other)

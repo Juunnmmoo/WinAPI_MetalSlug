@@ -174,6 +174,7 @@
     <ClInclude Include="moPlayerKnife.h" />
     <ClInclude Include="moRebelTruck1.h" />
     <ClInclude Include="moRebelTruck2.h" />
+    <ClInclude Include="moRebelTruckCreator.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
     <ClInclude Include="moRigidBody.h" />
@@ -235,6 +236,7 @@
     <ClCompile Include="moPlayerKnife.cpp" />
     <ClCompile Include="moRebelTruck1.cpp" />
     <ClCompile Include="moRebelTruck2.cpp" />
+    <ClCompile Include="moRebelTruckCreator.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />
     <ClCompile Include="moRigidBody.cpp" />

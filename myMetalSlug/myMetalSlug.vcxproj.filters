@@ -298,6 +298,9 @@
     <ClInclude Include="moRebelTruck1.h">
       <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
     </ClInclude>
+    <ClInclude Include="moRebelTruckCreator.h">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -483,6 +486,9 @@
     </ClCompile>
     <ClCompile Include="moRebelTruck2.cpp">
       <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
+    </ClCompile>
+    <ClCompile Include="moRebelTruckCreator.cpp">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

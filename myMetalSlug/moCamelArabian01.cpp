@@ -692,6 +692,7 @@ namespace mo {
 		{
 			if (mAnimator->IsComplte())
 			{
+				bulletCnt = 0;
 				moveTime = 0.0f;
 				if (mDir == eDirection::Left)
 				{

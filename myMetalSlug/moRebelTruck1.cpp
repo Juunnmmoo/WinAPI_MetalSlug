@@ -38,15 +38,12 @@ namespace mo {
 	void RebelTruck1::Initialize()
 	{
 		mT = GetComponent<Transform>();
-		mT->SetPos(Vector2(1100.0f, 600.0f));
-		mT->SetScale(Vector2{ 3.0f, 3.0f });
+		mT->SetScale(Vector2{ 3.5f, 3.5f });
 		mT->SetDirection(eDirection::Left);
 
-
-
 		secondT = mSecond->GetComponent<Transform>();
-		secondT->SetPos(mT->GetPos() + Vector2(-138.0f, 0.0f));
-		secondT->SetScale(Vector2{ 3.0f, 3.0f });
+		secondT->SetPos(mT->GetPos() + Vector2(-161.0f, 0.0f));
+		secondT->SetScale(Vector2{ 3.5f, 3.5f });
 		secondT->SetDirection(eDirection::Left);
 
 		Image* mImage = Resources::Load<Image>(L"RebelTruck", L"..\\Resources\\Enemy\\RebelTruck.bmp");
@@ -71,7 +68,7 @@ namespace mo {
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 200.0f, 200.0f });
-		mCollider->SetLeftTop(Vector2{ -100.0f, -200.f });
+		mCollider->SetLeftTop(Vector2{ -150.0f, -200.f });
 
 
 		GameObject::Initialize();
@@ -98,7 +95,7 @@ namespace mo {
 			mState = eRebelTruckState::Death;
 
 
-		secondT->SetPos(mT->GetPos() + Vector2(-138.0f, 0.0f));
+		secondT->SetPos(mT->GetPos() + Vector2(-161.0f, 0.0f));
 
 		GameObject::Update();
 
@@ -153,7 +150,7 @@ namespace mo {
 
 				curScene->AddGameObject(arabian, eLayerType::EnemyR);
 				arabian->Initialize();
-				arabian->GetComponent<Transform>()->SetPos(pos);
+				arabian->GetComponent<Transform>()->SetPos(pos + Vector2(0.0f,-60.0f));
 			}
 		}
 	}
@@ -224,5 +221,10 @@ namespace mo {
 				
 			}
 		}
+		else
+		{
+			Camera::SetStop(false);
+		}
+
 	}
 }

@@ -13,6 +13,7 @@
 
 namespace mo {
 	MachinegunBox::MachinegunBox()
+		:mTime(0.0f)
 	{
 	}
 	MachinegunBox::~MachinegunBox()
@@ -39,6 +40,9 @@ namespace mo {
 	}
 	void MachinegunBox::Update()
 	{
+		mTime += Time::DeltaTime();
+
+
 		GameObject::Update();
 
 	}
@@ -54,8 +58,10 @@ namespace mo {
 	}
 	void MachinegunBox::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::Player) {
+		if (other->GetOwner()->GetLayerType() == eLayerType::Player && mTime >= 0.3f) {
 			Marco* marco = dynamic_cast<Marco*>(other->GetOwner());
+			if (marco == nullptr)
+				return;
 			marco->ChangeWeapon(eMarcoWeapon::Machinegun);
 			marco->SetBulletNum(1000);
 			object::Destory(this);

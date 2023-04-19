@@ -22,6 +22,7 @@
 #include "moSlave.h"
 #include "moRebelTruck1.h"
 #include "moRebelTruck2.h"
+#include "moRebelTruckCreator.h"
 
 namespace mo
 {
@@ -65,11 +66,10 @@ namespace mo
 		CamelArabianCreator* camelCreator = new CamelArabianCreator(marco);
 		AddGameObject(camelCreator, eLayerType::EnemyCreator);
 
-		RebelTruck2* truck2 = new RebelTruck2();
-		AddGameObject(truck2, eLayerType::front);
+		RebelTruckCreator* truckCreator = new RebelTruckCreator(marco);
+		AddGameObject(truckCreator, eLayerType::EnemyCreator);
 
-		RebelTruck1* truck1 = new RebelTruck1(marco, truck2, this, Vector2(800.0f, 0.0f));
-		AddGameObject(truck1, eLayerType::Enemy);
+		
 
 
 		Slave* slave1 = new Slave(marco, this, Vector2(2200.0f, 0.0f), eMarcoWeapon::Machinegun);
