@@ -34,6 +34,7 @@ namespace mo {
 		virtual void OnCollisionStay(class Collider* other)override;
 		virtual void OnCollisionExit(class Collider* other)override;
 
+		Animator* GetAnimator() { return mAnimator; }
 
 	private:
 		void move();
@@ -51,6 +52,6 @@ namespace mo {
 		Scene* curScene;
 		bool isThrowing;
 		float time;
-		float attackTime;
+		bool readyToAttack;
 	};
 }

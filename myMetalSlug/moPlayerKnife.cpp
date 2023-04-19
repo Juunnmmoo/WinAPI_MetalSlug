@@ -12,6 +12,7 @@
 #include "moArabian.h"
 #include "moSceneManager.h"
 #include "moObject.h"
+#include "moAnimator.h"
 
 namespace mo {
 	PlayerKnife::PlayerKnife()
@@ -23,7 +24,7 @@ namespace mo {
 	void PlayerKnife::Initialize()
 	{
 		Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2{ 50.0f, 110.0f });
+		mCollider->SetSize(Vector2{ 70.0f, 110.0f });
 
 		SetBulletType(eBulletType::knife);
 
@@ -53,8 +54,19 @@ namespace mo {
 		{
 			isCollide = true;
 			if (Input::GetKeyDown(eKeyCode::D) && isUse)
+			{
+				if (other->GetOwner()->GetComponent<Transform>()->GetDirection() == eDirection::Left)
+				{
+					other->GetOwner()->GetComponent<Animator>()->Play(L"KnifeDeathL", false);
+				}
+				else
+				{
+					other->GetOwner()->GetComponent<Animator>()->Play(L"KnifeDeathR", false);
+				}
 				other->GetOwner()->SetState(eState::Pause);
+			}
 		}
+
 	}
 	void PlayerKnife::OnCollisionExit(Collider* other)
 	{

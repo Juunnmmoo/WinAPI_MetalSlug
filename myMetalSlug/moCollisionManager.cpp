@@ -4,7 +4,7 @@
 
 namespace mo {
 
-	WORD CollisionManager::mMatrix[(UINT)eLayerType::End] = {};
+	DWORD CollisionManager::mMatrix[(UINT)eLayerType::End] = {};
 	std::map<UINT64, bool> CollisionManager::mCollisionMap;
 
 	void CollisionManager::Update()

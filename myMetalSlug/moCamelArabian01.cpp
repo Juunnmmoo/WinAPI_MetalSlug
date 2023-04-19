@@ -213,9 +213,6 @@ namespace mo {
 					secondAnimator->Play(L"DeathL", false);
 				else 
 					secondAnimator->Play(L"DeathR", false);
-
-				RigidBody* mRigidbody = GetComponent<RigidBody>();
-				mRigidbody->SetGround(false);
 				
 				SetState(eState::Pause);
 				mState = eCamelArabianState::Death;
@@ -557,13 +554,12 @@ namespace mo {
 		camelPos.x -= 300.0f * Time::DeltaTime();
 		camelT->SetPos(camelPos);
 		
-		if (mT->GetPos().y >= 700.0f) {
-			RigidBody* rg = GetComponent<RigidBody>();
-			rg->SetGround(true);
-		}
 		secondT->SetPos(mT->GetPos());
 
-		if (secondAnimator->IsComplte() && Camera::CaluatePos(camelPos).x < -150.0f)
+		if (secondAnimator->IsComplte())
+			secondAnimator->Play(L"None", true);
+
+		if (Camera::CaluatePos(camelPos).x < -150.0f)
 		{
 			object::Destory(this);
 			object::Destory(mCamel);
@@ -573,9 +569,6 @@ namespace mo {
 
 	}
 	void CamelArabian01::idle()
-	{
-	}
-	void CamelArabian01::turn()
 	{
 		Vector2 mPos = mT->GetPos();
 		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
@@ -612,6 +605,49 @@ namespace mo {
 				{
 					mAnimator->Play(L"NS_IdleR", true);
 					mState = eCamelArabianState::Move;
+
+				}
+
+			}
+		}
+	}
+	void CamelArabian01::turn()
+	{
+		Vector2 mPos = mT->GetPos();
+		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
+		eDirection mDir = mT->GetDirection();
+		Vector2 cPos = Camera::CaluatePos(mPos);
+		if (!noHeart)
+		{
+			if (mAnimator->IsComplte())
+			{
+				if (mDir == eDirection::Left)
+				{
+					mAnimator->Play(L"IdleL", false);
+					mState = eCamelArabianState::Idle;
+				}
+				else
+				{
+					mAnimator->Play(L"IdleR", false);
+					mState = eCamelArabianState::Idle;
+
+				}
+
+			}
+		}
+		else
+		{
+			if (mAnimator->IsComplte())
+			{
+				if (mDir == eDirection::Left)
+				{
+					mAnimator->Play(L"NS_IdleL", false);
+					mState = eCamelArabianState::Idle;
+				}
+				else
+				{
+					mAnimator->Play(L"NS_IdleR", false);
+					mState = eCamelArabianState::Idle;
 
 				}
 

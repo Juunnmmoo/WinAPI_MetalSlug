@@ -50,20 +50,25 @@ namespace mo{
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 20, 15, 6, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"DeathL", mImageL, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 20, 15, 11, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"KnifeDeathL", mImageL, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 20, 15, 11, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"MoveL", mImageL, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 20, 15, 12, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"ThrowingL", mImageL, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 20, 15, 19, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"AttackL", mImageL, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 20, 15, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"TurnL", mImageL, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 20, 15, 2, Vector2::Zero, 0.02);
-		mAnimator->CreateAnimation(L"BackJumpL", mImageL, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 20, 15, 8, Vector2::Zero, 0.5);
+		mAnimator->CreateAnimation(L"BackJumpL", mImageL, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 20, 15, 8, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"ReadyAttackL", mImageL, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 20, 15, 4, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"BulletDeathL", mImageL, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 20, 15, 20, Vector2::Zero, 0.07);
+
 
 		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 19, 120.0f * 0), -120.0f, 20, 15, 6, Vector2::Zero, 0.15);
-		mAnimator->CreateAnimation(L"DeathR", mImageR, Vector2(120.0f * 19, 120.0f * 1), -120.0f, 20, 15, 11, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"KnifeDeathR", mImageR, Vector2(120.0f * 19, 120.0f * 1), -120.0f, 20, 15, 11, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"MoveR", mImageR, Vector2(120.0f * 19, 120.0f * 2), -120.0f, 20, 15, 12, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"ThrowingR", mImageR, Vector2(120.0f * 19, 120.0f * 3), -120.0f, 20, 15, 19, Vector2::Zero, 0.07);
 		mAnimator->CreateAnimation(L"AttackR", mImageR, Vector2(120.0f * 19, 120.0f * 4), -120.0f, 20, 15, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"TurnR", mImageR, Vector2(120.0f * 19, 120.0f * 5), -120.0f, 20, 15, 2, Vector2::Zero, 0.02);
-		mAnimator->CreateAnimation(L"BackJumpR", mImageR, Vector2(120.0f * 19, 120.0f * 6), -120.0f, 20, 15, 8, Vector2::Zero, 0.5);
+		mAnimator->CreateAnimation(L"BackJumpR", mImageR, Vector2(120.0f * 19, 120.0f * 6), -120.0f, 20, 15, 8, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"ReadyAttackR", mImageR, Vector2(120.0f * 19, 120.0f * 7), -120.0f, 20, 15, 4, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"BulletDeathR", mImageR, Vector2(120.0f * 19, 120.0f * 8), -120.0f, 20, 15, 20, Vector2::Zero, 0.07);
 
 		mAnimator->Play(L"MoveL", true);
 		mState = eArabianState::Move;
@@ -78,12 +83,8 @@ namespace mo{
 	void Arabian::Update()
 	{
 
-		if (GetState() == eState::Pause &&
-			(
-			mAnimator->GetActiveAnimation()->GetName() != L"DeathL" //|| mAnimator->GetActiveAnimation()->GetName() != L"DeathR"
-			))
+		if (GetState() == eState::Pause )
 		{
-			mAnimator->Play(L"DeathL", false);
 			mState = eArabianState::Death;
 		}
 
@@ -125,14 +126,46 @@ namespace mo{
 
 	void Arabian::OnCollisionEnter(Collider* other)
 	{	
-		
+		Transform* tr = GetComponent<Transform>();
+		eDirection mDir = tr->GetDirection();
 
-		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol) 
+		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol)
+		{
+			if (mDir == eDirection::Left)
+			{
+				mAnimator->Play(L"BulletDeathL", false);
+			}
+			else 
+			{
+				mAnimator->Play(L"BulletDeathR", false);
+			}
 			SetState(eState::Pause);
-		else if(other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb)
+		}
+		 if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb)
+		{
+			if (mDir == eDirection::Left)
+			{
+				mAnimator->Play(L"KnifeDeathL", false);
+			}
+			else
+			{
+				mAnimator->Play(L"KnifeDeathR", false);
+			}
 			SetState(eState::Pause);
-		else if (other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)
+		}
+		 if (other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)
+		{
+
+			if (mDir == eDirection::Left)
+			{
+				mAnimator->Play(L"BulletDeathL", false);
+			}
+			else
+			{
+				mAnimator->Play(L"BulletDeathR", false);
+			}
 			SetState(eState::Pause);
+		}
 	}
 
 	void Arabian::OnCollisionStay(Collider* other)
@@ -162,12 +195,15 @@ namespace mo{
 				mAnimator->Play(L"ThrowingL", false);
 				mState = eArabianState::Throwing;
 			}
+			else if (playerPos.x + 250.0f >= mPos.x && playerPos.x + 150.0f < mPos.x)
+			{
+				mPos.x -= 200.0f * Time::DeltaTime();
+				tr->SetPos(mPos);
+			}
 			else if (playerPos.x + 150.0f >= mPos.x)
 			{
-				mAnimator->Play(L"AttackL", false);
-				EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(-120.0f, -100.0f), Vector2(120.0f, 80.0f));
-				curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
-				enemyKnife->Initialize();
+				mAnimator->Play(L"ReadyAttackL", false);
+				readyToAttack = true;
 				mState = eArabianState::Attack;
 			}
 		}
@@ -183,12 +219,15 @@ namespace mo{
 				mAnimator->Play(L"ThrowingR", false);
 				mState = eArabianState::Throwing;
 			}
+			else if (playerPos.x - 250.0f < mPos.x && playerPos.x - 150.0f >= mPos.x)
+			{
+				mPos.x += 200.0f * Time::DeltaTime();
+				tr->SetPos(mPos);
+			}
 			else if (playerPos.x - 150.0f < mPos.x)
 			{
-				mAnimator->Play(L"AttackR", false);
-				EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(120.0f, -100.0f), Vector2(120.0f, 80.0f));
-				curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
-				enemyKnife->Initialize();
+				mAnimator->Play(L"ReadyAttackR", false);
+				readyToAttack = true;
 				mState = eArabianState::Attack;
 			}
 
@@ -205,60 +244,112 @@ namespace mo{
 
 		if (mAnimator->IsComplte())
 		{
-			if (mDir == eDirection::Left)
+
+			if (readyToAttack)
 			{
-				if (playerPos.x >= mPos.x)
+				readyToAttack = false;
+				if (mDir == eDirection::Left)
 				{
-					mAnimator->Play(L"TurnL", false); 
-					mDir = eDirection::Right;
-					tr->SetDirection(mDir);
-					mState = eArabianState::Turn;
+					mAnimator->Play(L"AttackL", false);
+					EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(-120.0f, -100.0f), Vector2(120.0f, 80.0f));
+					curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
+					enemyKnife->Initialize();
 				}
-				else if (playerPos.x + 250.0f >= mPos.x)
+				else
 				{
-					mAnimator->Play(L"MoveR", true);
-					mDir = eDirection::Right;
-					tr->SetDirection(mDir);
-					mState = eArabianState::Run;
-				}
-				else if (playerPos.x + 300.0f >= mPos.x && playerPos.x + 250.0f < mPos.x)
-				{
-					mAnimator->Play(L"ThrowingL", false);
-					mState = eArabianState::Throwing;
-				}
-				else if (playerPos.x + 300.0f < mPos.x)
-				{
-					mAnimator->Play(L"MoveL", true);
-					mState = eArabianState::Move;
+					mAnimator->Play(L"AttackR", false);
+					EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(120.0f, -100.0f), Vector2(120.0f, 80.0f));
+					curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
+					enemyKnife->Initialize();
 				}
 			}
-			else if (mDir == eDirection::Right)
+			else
 			{
-				if (playerPos.x < mPos.x)
+				if (mDir == eDirection::Left)
 				{
-					mAnimator->Play(L"TurnR", false);
-					mDir = eDirection::Left;
-					tr->SetDirection(mDir);
-					mState = eArabianState::Turn;
+					if (playerPos.x >= mPos.x)
+					{
+						mAnimator->Play(L"TurnL", false);
+						mDir = eDirection::Right;
+						tr->SetDirection(mDir);
+						mState = eArabianState::Turn;
+					}
+					else if (playerPos.x + 250.0f >= mPos.x && playerPos.x + 150.0f < mPos.x)
+					{
+						mAnimator->Play(L"MoveR", true);
+						mDir = eDirection::Right;
+						tr->SetDirection(mDir);
+						mState = eArabianState::Run;
+					}
+					else if (playerPos.x + 300.0f >= mPos.x && playerPos.x + 250.0f < mPos.x)
+					{
+						mAnimator->Play(L"ThrowingL", false);
+						mState = eArabianState::Throwing;
+					}
+					else if (playerPos.x + 300.0f < mPos.x)
+					{
+						mAnimator->Play(L"MoveL", true);
+						mState = eArabianState::Move;
+					}
+					else if (playerPos.x + 150.0f >= mPos.x)
+					{
+						mAnimator->Play(L"ReadyAttackL", false);
+						readyToAttack = true;
+					}
 				}
-				else if (playerPos.x - 250.0f < mPos.x)
+				else if (mDir == eDirection::Right)
 				{
-					mAnimator->Play(L"MoveL", true);
-					mDir = eDirection::Left;
-					tr->SetDirection(mDir);
-					mState = eArabianState::Run;
+					if (playerPos.x < mPos.x)
+					{
+						mAnimator->Play(L"TurnR", false);
+						mDir = eDirection::Left;
+						tr->SetDirection(mDir);
+						mState = eArabianState::Turn;
+					}
+					else if (playerPos.x - 250.0f < mPos.x)
+					{
+						mAnimator->Play(L"MoveL", true);
+						mDir = eDirection::Left;
+						tr->SetDirection(mDir);
+						mState = eArabianState::Run;
+					}
+					else if (playerPos.x - 300.0f < mPos.x && playerPos.x - 250.0f >= mPos.x)
+					{
+						mAnimator->Play(L"ThrowingR", false);
+						mState = eArabianState::Throwing;
+					}
+					else if (playerPos.x - 300.0f >= mPos.x)
+					{
+						mAnimator->Play(L"MoveR", true);
+						mState = eArabianState::Move;
+					}
+					else if (playerPos.x - 150.0f < mPos.x)
+					{
+						mAnimator->Play(L"ReadyAttackR", false);
+						readyToAttack = true;
+					}
 				}
-				else if (playerPos.x - 300.0f < mPos.x && playerPos.x - 250.0f >= mPos.x)
+				if (player->GetState() == eState::Pause && !player->GetComponent<Animator>()->GetUseinvincibility())
 				{
-					mAnimator->Play(L"ThrowingR", false);
-					mState = eArabianState::Throwing;
-				}
-				else if (playerPos.x - 300.0f >= mPos.x)
-				{
-					mAnimator->Play(L"MoveR", true);
-					mState = eArabianState::Move;
+					if (mDir == eDirection::Left)
+					{
+						mAnimator->Play(L"MoveR", true);
+						mDir = eDirection::Right;
+						tr->SetDirection(mDir);
+						mState = eArabianState::Run;
+					}
+					else if (mDir == eDirection::Right)
+					{
+						mAnimator->Play(L"MoveL", true);
+						mDir = eDirection::Left;
+						tr->SetDirection(mDir);
+						mState = eArabianState::Run;
+					}
 				}
 			}
+
+
+			
 		}
 	}
 
@@ -284,22 +375,24 @@ namespace mo{
 				tr->SetDirection(mDir);
 				mState = eArabianState::Turn;
 			}
-			else if (playerPos.x + 300.0f < mPos.x)
+			else if (playerPos.x + 250.0f < mPos.x)
 			{
 				mAnimator->Play(L"MoveL", true);
 				mState = eArabianState::Move;
 			}
-		/*	else if (playerPos.x + 300.0f >= mPos.x && playerPos.x + 250.0f < mPos.x)
+			else if (playerPos.x + 250.0f >= mPos.x && playerPos.x + 150.0f < mPos.x)
 			{
-				mAnimator->Play(L"ThrowingL", false);
-				mState = eArabianState::Throwing;
-			}*/
+				/*mAnimator->Play(L"MoveL", true);
+				mDir = eDirection::Left;
+				tr->SetDirection(mDir);
+				mState = eSlaveState::Run;*/
+				mAnimator->Play(L"MoveL", true);
+				mState = eArabianState::Move;
+			}
 			else if (playerPos.x + 150.0f >= mPos.x)
 			{
-				mAnimator->Play(L"AttackL", false);
-				EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(-120.0f, -100.0f), Vector2(120.0f, 80.0f));
-				curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
-				enemyKnife->Initialize();
+				mAnimator->Play(L"ReadyAttackL", false);
+				readyToAttack = true;
 				mState = eArabianState::Attack;
 			}
 		}
@@ -312,28 +405,30 @@ namespace mo{
 				tr->SetDirection(mDir);
 				mState = eArabianState::Turn;
 			}
-			else if (playerPos.x - 300.0f > mPos.x)
+			else if (playerPos.x - 250.0f > mPos.x)
 			{
 				mAnimator->Play(L"MoveR", true);
 				mState = eArabianState::Move;
 			}
-		/*	else if (playerPos.x - 300.0f < mPos.x && playerPos.x - 250.0f >= mPos.x)
+			else if (playerPos.x - 250.0f < mPos.x && playerPos.x - 150.0f >= mPos.x)
 			{
-				mAnimator->Play(L"ThrowingR", false);
-				mState = eArabianState::Throwing;
-			}*/
+				/*	mAnimator->Play(L"MoveR", true);
+						mDir = eDirection::Right;
+						tr->SetDirection(mDir);
+						mState = eSlaveState::Run;*/
+				mAnimator->Play(L"MoveR", true);
+				mState = eArabianState::Move;
+			}
 			else if (playerPos.x - 150.0f < mPos.x)
 			{
-				mAnimator->Play(L"AttackR", false);
-				EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(120.0f, -100.0f), Vector2(120.0f, 80.0f));
-				curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
-				enemyKnife->Initialize();
+				mAnimator->Play(L"ReadyAttackR", false);
+				readyToAttack = true;
 				mState = eArabianState::Attack;
 			}
 		
 		}
 		
-		if (player->GetState() == eState::Pause)
+		if (player->GetState() == eState::Pause && !player->GetComponent<Animator>()->GetUseinvincibility())
 		{
 			if (mDir == eDirection::Left)
 			{

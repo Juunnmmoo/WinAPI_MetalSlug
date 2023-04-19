@@ -36,5 +36,6 @@ namespace mo {
 		bool unUsedParaglider;
 		bool isBackToLife;
 		bool isBomb;
+		float reTime;
 	};
 }

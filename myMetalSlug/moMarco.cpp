@@ -52,7 +52,7 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 300.0f, 200.0f });
+		tr->SetPos(Vector2{ 300.0f, 100.0f });
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetDisToBottom(Vector2{ 0.0f, 50.0f });
 
@@ -180,7 +180,7 @@ namespace mo {
 		}
 
 		rightKnife->SetPos(pos + Vector2(20.0f, -70.0f));
-		leftKnife->SetPos(pos + Vector2(-70.0f, -70.0f));
+		leftKnife->SetPos(pos + Vector2(-90.0f, -70.0f));
 		
 		if (mDirection == eDirection::Right ||
 			mDirection == eDirection::RTop ||

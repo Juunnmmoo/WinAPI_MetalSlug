@@ -23,6 +23,7 @@ namespace mo {
 		, player(marco)
 		, playerBottom(bottom)
 		, isBackToLife(false)
+		, reTime(0.0f)
 	{
 	}
 	Pistol::~Pistol()
@@ -102,8 +103,8 @@ namespace mo {
 		mAnimator->GetCompleteEvent(L"P_ShootRB") = std::bind(&Pistol::attackEndEvent, this);
 		mAnimator->GetCompleteEvent(L"P_ShootLB") = std::bind(&Pistol::attackEndEvent, this);
 
-		playerBottom->GetAnimator()->GetCompleteEvent(L"KnifeDeathR") = std::bind(&Pistol::deathEndEvent, this);
-		playerBottom->GetAnimator()->GetCompleteEvent(L"KnifeDeathL") = std::bind(&Pistol::deathEndEvent, this);
+		//playerBottom->GetAnimator()->GetCompleteEvent(L"KnifeDeathR") = std::bind(&Pistol::deathEndEvent, this);
+		//playerBottom->GetAnimator()->GetCompleteEvent(L"KnifeDeathL") = std::bind(&Pistol::deathEndEvent, this);
 
 		playerBottom->GetAnimator()->GetCompleteEvent(L"P_Resurrection") = std::bind(&Pistol::resurrectionEndEvent, this);
 
@@ -376,13 +377,14 @@ namespace mo {
 
 	void Pistol::death()
 	{
-		if (mAnimator->GetUseinvincibility() == false &&
-			isBackToLife)
+
+		reTime += Time::DeltaTime();
+
+		if (reTime >= 5.0f && !isBackToLife)
 		{
-			isBackToLife = false;
+			isBackToLife = true;
 			playerBottom->GetComponent<Transform>()->SetDisToBottom(Vector2{ 0.0f, -210.0f });
 			playerBottom->GetAnimator()->Play(L"P_Resurrection", false);
-
 		}
 	}
 
@@ -998,16 +1000,13 @@ namespace mo {
 
 	void Pistol::deathEndEvent()
 	{
-		if (!isBackToLife)
-		{
-			isBackToLife = true;
-			mAnimator->SetUseinvincibility(true);
-			playerBottom->GetAnimator()->SetUseinvincibility(true);
-		}
+		
 	}
 
 	void Pistol::resurrectionEndEvent()
 	{
+		reTime = 0.0f;
+		isBackToLife = false;
 		eDirection mDirection = mTransform->GetDirection();
 		eDirection mBottomDirection = playerBottom->GetComponent<Transform>()->GetDirection();
 		playerBottom->GetComponent<Transform>()->SetDisToBottom(Vector2{ 0.0f, 50.0f });

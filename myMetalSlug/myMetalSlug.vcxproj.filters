@@ -98,6 +98,12 @@
     <Filter Include="Contents\GameObj\Monster\CamelArabian">
       <UniqueIdentifier>{1a79d60d-4568-407d-89b2-2b02ba26d4d8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\Npc">
+      <UniqueIdentifier>{2fd14978-9422-4593-924f-0f74ea94d53a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Monster\RebelTruck">
+      <UniqueIdentifier>{41f4c699-aa5d-4b20-a5ec-28156379326a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -280,6 +286,18 @@
     <ClInclude Include="moCamelArabianCreator.h">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClInclude>
+    <ClInclude Include="moSlave.h">
+      <Filter>Contents\GameObj\Npc</Filter>
+    </ClInclude>
+    <ClInclude Include="moRebelTruck2.h">
+      <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
+    </ClInclude>
+    <ClInclude Include="moArabianFighter.h">
+      <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
+    </ClInclude>
+    <ClInclude Include="moRebelTruck1.h">
+      <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -453,6 +471,18 @@
     </ClCompile>
     <ClCompile Include="moCamelArabianCreator.cpp">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClCompile>
+    <ClCompile Include="moSlave.cpp">
+      <Filter>Contents\GameObj\Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="moArabianFighter.cpp">
+      <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
+    </ClCompile>
+    <ClCompile Include="moRebelTruck1.cpp">
+      <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
+    </ClCompile>
+    <ClCompile Include="moRebelTruck2.cpp">
+      <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

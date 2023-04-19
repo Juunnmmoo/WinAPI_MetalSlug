@@ -15,16 +15,22 @@ namespace mo {
 		virtual void Render(HDC mHdc)override;
 
 		void SetPlayer(class Marco* marco) { mPlayer = marco; }
-		void SetObject(GameObject* obj) { mObjects.push_back(obj); }
+		void SetObject(GameObject* obj) { weaponObj.push_back(obj); }
 
 		bool checkCrash();
 	private:
 		class Image* main;
 		class Image* ground;
+		class Image* sky;
 		class Marco* mPlayer;
+	
 		Scene* curScene;
 		UINT TopDiff;
-		std::vector<eLayerType> layers;
-		std::vector<GameObject*> mObjects;
+		std::vector<eLayerType> weaponLayers;
+		std::vector<eLayerType> charLayers;
+
+		std::vector<GameObject*> weaponObj;
+		std::vector<GameObject*> charObj;
+
 	};
 }

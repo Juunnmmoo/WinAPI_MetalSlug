@@ -28,22 +28,40 @@ namespace mo {
 
 		main = Resources::Load<Image>(L"Mission1BG_Main", L"..\\Resources\\BackGround\\Mission1BG_Main.bmp");
 		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_Ground.bmp");
-		
-		layers.push_back(eLayerType::BulletBox);
-		layers.push_back(eLayerType::EnemyR);
-		layers.push_back(eLayerType::EnemyBulletR);
-		layers.push_back(eLayerType::PlayerPistol);
-		layers.push_back(eLayerType::PlayerMachinegun);
-		layers.push_back(eLayerType::PlayerBomb);
+		sky = Resources::Load<Image>(L"Mission1BG_Sky", L"..\\Resources\\BackGround\\Mission1BG_Sky.bmp");
 
+		weaponLayers.push_back(eLayerType::EnemyBulletR);
+		weaponLayers.push_back(eLayerType::PlayerPistol);
+		weaponLayers.push_back(eLayerType::PlayerMachinegun);
+		weaponLayers.push_back(eLayerType::PlayerBomb);
+
+		charLayers.push_back(eLayerType::BulletBox);
+		charLayers.push_back(eLayerType::EnemyR);
+		charLayers.push_back(eLayerType::Slave);
+
+
+		Transform* tr = GetComponent<Transform>();
+		tr->SetPos(Vector2(0.0f, 150.0f));
 
 		GameObject::Initialize();
 	}
 
 	void Mission1BG::Update()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 mPos = tr->GetPos();
+		Vector2 cameraPos = Camera::GetDistance();
 
-		for (eLayerType layer : layers)
+		if (cameraPos.x >= 3250.0f &&
+			mPos.y >= 96.0f &&
+			Camera::GetIsMove())
+		{
+			mPos.y -= 2;
+		}
+
+		tr->SetPos(Vector2(cameraPos.x, mPos.y));
+
+		for (eLayerType layer : weaponLayers)
 		{
 			std::vector<GameObject*>& gameObj = curScene->GetGameObjects(layer);
 
@@ -56,7 +74,7 @@ namespace mo {
 				if (layer == eLayerType::PlayerPistol || layer == eLayerType::PlayerMachinegun)
 				{
 
-					if (ground->GetPixel(pos.x, pos.y) == RGB(248, 0, 248)) {
+					if (ground->GetPixel(pos.x, pos.y + mPos.y) == RGB(248, 0, 248)) {
 						obj->SetState(eState::Pause);
 					}
 				}
@@ -64,7 +82,7 @@ namespace mo {
 				{
 					RigidBody* rb = obj->GetComponent<RigidBody>();
 
-					if (ground->GetPixel(pos.x, pos.y) == RGB(248, 0, 248)) {
+					if (ground->GetPixel(pos.x, pos.y + mPos.y) == RGB(248, 0, 248)) {
 						pos.y--;
 						rb->SetGround(true);
 						tr->SetPos(pos);
@@ -76,30 +94,84 @@ namespace mo {
 			}
 		}
 
+		for (eLayerType layer : charLayers)
+		{
+			std::vector<GameObject*>& gameObj = curScene->GetGameObjects(layer);
+
+			for (GameObject* obj : gameObj)
+			{
+				Transform* tr = obj->GetComponent<Transform>();
+				Vector2 pos = tr->GetPos();
+				RigidBody* rb = obj->GetComponent<RigidBody>();
+
+				if (ground->GetPixel(pos.x, pos.y + mPos.y) == RGB(248, 0, 248)) {
+					pos.y--;
+					rb->SetGround(true);
+					tr->SetPos(pos);
+				}
+				else if (ground->GetPixel(pos.x, pos.y + mPos.y) == RGB(0, 255, 255)) {
+					if (rb->GetVelocity().y >= 0.0f)
+					{
+						pos.y--;
+						rb->SetGround(true);
+						tr->SetPos(pos);
+					}
+					else
+					{
+						rb->SetGround(false);
+					}
+				}
+				else {
+					rb->SetGround(false);
+				}
+				
+			}
+		}
+
 		Transform* marcoTR = mPlayer->GetComponent<Transform>();
 		Vector2 pos = marcoTR->GetPos();
 		RigidBody* rb = mPlayer->GetComponent<RigidBody>();
 
-		if (ground->GetPixel(pos.x, pos.y + 40) == RGB(248, 0, 248)) {
+		if (ground->GetPixel(pos.x, pos.y + 40 + mPos.y) == RGB(248, 0, 248)) {
 			pos.y--;
 			rb->SetGround(true);
 			marcoTR->SetPos(pos);
 		}
+		else if (ground->GetPixel(pos.x, pos.y + 40 + mPos.y) == RGB(0, 255, 255)) {
+			if (rb->GetVelocity().y >= 0.0f)
+			{
+				pos.y--;
+				rb->SetGround(true);
+				marcoTR->SetPos(pos);
+			}
+			else
+			{
+				rb->SetGround(false);
+			}
+		}
 		else {
 			rb->SetGround(false);
 		}
+			
 		
+
+
+
 		GameObject::Update();
 	}
 
 	void Mission1BG::Render(HDC mHdc)
 	{
 
-		Vector2 pos = Camera::GetDistance();
+		Transform* tr = GetComponent<Transform>();
+		Vector2 mPos = tr->GetPos();
 
-		BitBlt(mHdc, -pos.x, -pos.y, ground->GetWidth(), ground->GetHeight(), ground->GetHdc(), 0, 0, SRCCOPY);
+		//BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), pos.x, pos.y, SRCCOPY);
+		BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), mPos.x, mPos.y, SRCCOPY);
+		BitBlt(mHdc, 0, 0, application.GetWidth(), sky->GetHeight(), sky->GetHdc(), mPos.x * 0.5, 0, SRCCOPY);
+
 		//TransparentBlt(mHdc, -pos.x, -pos.y, main->GetWidth(), main->GetHeight(), main->GetHdc(), 0, 0, main->GetWidth(), main->GetHeight(), RGB(248, 0, 248));
-		TransparentBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), main->GetHdc(), pos.x, pos.y, application.GetWidth(), application.GetHeight(), RGB(248, 0, 248));
+		TransparentBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), main->GetHdc(), mPos.x, mPos.y, application.GetWidth(), application.GetHeight(), RGB(255, 0, 255));
 
 
 		GameObject::Render(mHdc);

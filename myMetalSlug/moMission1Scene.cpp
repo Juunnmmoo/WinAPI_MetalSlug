@@ -19,6 +19,9 @@
 #include "moCamelArabian02.h"
 #include "moCamel.h"
 #include "moCamelArabianCreator.h"
+#include "moSlave.h"
+#include "moRebelTruck1.h"
+#include "moRebelTruck2.h"
 
 namespace mo
 {
@@ -30,11 +33,6 @@ namespace mo
 	}
 	void Mission1Scene::Initialize()
 	{
-		Vector2 pos = Camera::GetLookPosition();
-		pos += Vector2(0.0f, 133.0f);
-		Camera::SetLookPosition(pos);
-
-
 
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
@@ -49,19 +47,38 @@ namespace mo
 		AddGameObject(paraglider, eLayerType::Player);
 		AddGameObject(marco, eLayerType::Player);
 
-		
-
 		Mission1BG* mission1BG = new Mission1BG(this);
-		AddGameObject(mission1BG, eLayerType::BG);
+		AddGameObject(mission1BG, eLayerType::BG1);
 
-		MachinegunBox* M_Box = new MachinegunBox();
-		AddGameObject(M_Box, eLayerType::BulletBox);
+		ArabianCreator* aCreator1 = new ArabianCreator(marco, Vector2(700.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(2200.0f, 200.0f));
+		AddGameObject(aCreator1, eLayerType::EnemyCreator);
 
-		ArabianCreator* aCreator = new ArabianCreator(marco);
-		AddGameObject(aCreator, eLayerType::EnemyCreator);
+		ArabianCreator* aCreator2 = new ArabianCreator(marco, Vector2(900.0f, 0.0f), Vector2(900.0f, 750.0f), Vector2(2600.0f, 500.0f));
+		AddGameObject(aCreator2, eLayerType::EnemyCreator);
+		
+		ArabianCreator* aCreator3 = new ArabianCreator(marco, Vector2(1600.0f, 0.0f), Vector2(900.0f, 750.0f), Vector2(3400.0f, 500.0f));
+		AddGameObject(aCreator3, eLayerType::EnemyCreator);
+
+		ArabianCreator* aCreator4 = new ArabianCreator(marco, Vector2(2200.0f, 0.0f), Vector2(600.0f, 750.0f), Vector2(3600.0f, 500.0f));
+		AddGameObject(aCreator4, eLayerType::EnemyCreator);
 
 		CamelArabianCreator* camelCreator = new CamelArabianCreator(marco);
 		AddGameObject(camelCreator, eLayerType::EnemyCreator);
+
+		RebelTruck2* truck2 = new RebelTruck2();
+		AddGameObject(truck2, eLayerType::front);
+
+		RebelTruck1* truck1 = new RebelTruck1(marco, truck2, this, Vector2(800.0f, 0.0f));
+		AddGameObject(truck1, eLayerType::Enemy);
+
+
+		Slave* slave1 = new Slave(marco, this, Vector2(2200.0f, 0.0f), eMarcoWeapon::Machinegun);
+		AddGameObject(slave1, eLayerType::Slave);
+		
+		Slave* slave2 = new Slave(marco, this, Vector2(2300.0f, 600.0f), eMarcoWeapon::Machinegun);
+		AddGameObject(slave2, eLayerType::Slave);
+		//MachinegunBox* M_Box = new MachinegunBox();
+		//AddGameObject(M_Box, eLayerType::BulletBox);
 
 		/*Camel* camel = new Camel();
 		CamelArabian02* camelArabian02 = new CamelArabian02();
@@ -83,15 +100,7 @@ namespace mo
 	}
 	void Mission1Scene::Update()
 	{
-		Vector2 pos = Camera::GetLookPosition();
-
-		if (pos.x >= 3100.0f
-			&& pos.y >= 455.0f
-			&& Camera::GetIsMove)
-		{
-			pos.y--;
-			Camera::SetLookPosition(pos);
-		}
+		
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
@@ -112,6 +121,8 @@ namespace mo
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBulletR, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyCreator, true);
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Slave, true);
+
 
 		CollisionManager::SetLayer(eLayerType::EnemyR, eLayerType::PlayerKnife, true);
 		CollisionManager::SetLayer(eLayerType::EnemyR, eLayerType::PlayerBomb, true);
@@ -123,6 +134,11 @@ namespace mo
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerMachinegun, true);
 		CollisionManager::SetLayer(eLayerType::Enemy, eLayerType::PlayerPistol, true);
 
+		CollisionManager::SetLayer(eLayerType::Slave, eLayerType::PlayerKnife, true);
+		CollisionManager::SetLayer(eLayerType::Slave, eLayerType::PlayerShotgun, true);
+		CollisionManager::SetLayer(eLayerType::Slave, eLayerType::PlayerFiregun, true);
+		CollisionManager::SetLayer(eLayerType::Slave, eLayerType::PlayerMachinegun, true);
+		CollisionManager::SetLayer(eLayerType::Slave, eLayerType::PlayerPistol, true);
 
 	}
 	void Mission1Scene::OnExit()

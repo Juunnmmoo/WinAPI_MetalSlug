@@ -247,7 +247,7 @@
 //		}
 //
 //		// To Sit
-//		if (Input::GetKeyDown(eKeyCode::Down)) {
+//		if (Input::GetKeyDown(eKeyCode::Flying)) {
 //			mAnimator->Play(L"None", false);
 //			mState = Marco::eMarcoState::Sit;
 //		}
@@ -370,7 +370,7 @@
 //
 //
 //		// To Sit
-//		if (Input::GetKeyDown(eKeyCode::Down)) {
+//		if (Input::GetKeyDown(eKeyCode::Flying)) {
 //			mAnimator->Play(L"None", false);
 //			mState = Marco::eMarcoState::Sit;
 //		}
@@ -437,7 +437,7 @@
 //		}
 //
 //
-//		if (Input::GetKeyUp(eKeyCode::Down)) {
+//		if (Input::GetKeyUp(eKeyCode::Flying)) {
 //			if (Input::GetKey(eKeyCode::Right)) {
 //				mDirection = eDirection::Right;
 //				mAnimator->Play(L"MoveR", true);
@@ -557,7 +557,7 @@
 //
 //		}
 //
-//		if (Input::GetKeyDown(eKeyCode::Down)) {
+//		if (Input::GetKeyDown(eKeyCode::Flying)) {
 //			if (mDirection == eDirection::Right) {
 //				mDirection = eDirection::RBottom;
 //				mAnimator->Play(L"JumpDownR", false);
@@ -568,7 +568,7 @@
 //			}
 //		}
 //
-//		if (Input::GetKeyUp(eKeyCode::Down)) {
+//		if (Input::GetKeyUp(eKeyCode::Flying)) {
 //			if (mDirection == eDirection::RBottom) {
 //				mDirection = eDirection::Right;
 //				mAnimator->Play(L"JumpIdleR", false);

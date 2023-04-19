@@ -14,11 +14,16 @@ enum class eSceneType
 
 enum class eLayerType
 {
-	BG,
-	BulletBox,
+	BG1,
+	BG2,
+	BG3,
+	BG4,
+	front,
 	EnemyR,
 	Enemy,
 	EnemyCreator,
+	Slave,
+	BulletBox,
 	Player,
 	EnemyBulletR,
 	EnemyBullet,
@@ -26,10 +31,11 @@ enum class eLayerType
 	PlayerKnife,
 	PlayerPistol,
 	PlayerMachinegun,
+	PlayerShotgun,
+	PlayerFiregun,
 	PlayerBomb,
 	Effect,
 	UI,
-	OutSideWall,
 	End,
 };
 
@@ -37,6 +43,7 @@ enum class eSfxType {
 	PlayerBulletGroundSFX,
 	PlayerBombSFX,
 	PlayerBulletEnemySFX,
+	NomalExplosionM,
 	End,
 };
 enum class eComponentType
@@ -70,6 +77,7 @@ enum class eMarcoWeapon {
 	Machinegun,
 	Shotgun,
 	Firegun,
+	Bomb,
 };
 
 enum class eBulletType {
@@ -78,3 +86,4 @@ enum class eBulletType {
 	knife,
 	Bomb,
 };
+

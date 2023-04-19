@@ -30,32 +30,32 @@ namespace mo {
 	void SelectScene::Initialize()
 	{
 		elevator1 = new SelectElevator(Vector2(84.0f, 221.0f), 0.5f);
-		AddGameObject(elevator1, eLayerType::BulletBox);
+		AddGameObject(elevator1, eLayerType::BG2);
 		elevator2 = new SelectElevator(Vector2(84.0f + (235 * 1), 221.0f), 1.0f);
-		AddGameObject(elevator2, eLayerType::BulletBox);
+		AddGameObject(elevator2, eLayerType::BG2);
 
 		elevator3 = new SelectElevator(Vector2(84.0f + (235 * 2), 221.0f), 0.7f);
-		AddGameObject(elevator3, eLayerType::BulletBox);
+		AddGameObject(elevator3, eLayerType::BG2);
 
 		elevator4 = new SelectElevator(Vector2(84.0f + (235 * 3), 221.0f), 1.3f);
-		AddGameObject(elevator4, eLayerType::BulletBox);
+		AddGameObject(elevator4, eLayerType::BG2);
 
 		charactor1 = new SelectCharactor(Vector2(84.0f, 221.0f), Vector2(223.0f * 0, 0.0f));
-		AddGameObject(charactor1, eLayerType::BG);
+		AddGameObject(charactor1, eLayerType::BG1);
 
 		charactor2 = new SelectCharactor(Vector2(84.0f + (235 * 1), 221.0f), Vector2((223.0f * 1), 0.0f));
-		AddGameObject(charactor2, eLayerType::BG);
+		AddGameObject(charactor2, eLayerType::BG1);
 
 		charactor3 = new SelectCharactor(Vector2(84.0f + (235 * 2), 221.0f), Vector2((223.0f * 2), 0.0f));
-		AddGameObject(charactor3, eLayerType::BG);
+		AddGameObject(charactor3, eLayerType::BG1);
 
 		charactor4 = new SelectCharactor(Vector2(84.0f + (235 * 3), 221.0f), Vector2((223.0f * 3) , 0.0f));
-		AddGameObject(charactor4, eLayerType::BG);
+		AddGameObject(charactor4, eLayerType::BG1);
 
 
 
 		SelectBG* selectBG = new SelectBG();
-		AddGameObject(selectBG, eLayerType::EnemyR);
+		AddGameObject(selectBG, eLayerType::BG3);
 
 		
 

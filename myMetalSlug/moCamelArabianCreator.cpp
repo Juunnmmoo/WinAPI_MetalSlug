@@ -26,10 +26,9 @@ namespace mo {
 	void CamelArabianCreator::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(3600.0f, 750.0f));
+		tr->SetPos(Vector2(3200.0f, 0.0f));
 
 		Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetLeftTop(Vector2(0.0f, -750.0f));
 		mCollider->SetSize(Vector2{ 20.0f, 750.0f });
 
 		GameObject::Initialize();
@@ -67,7 +66,7 @@ namespace mo {
 				camelArabian01->Initialize();
 				camel->Initialize();
 				camelArabian02->Initialize();
-				camelArabian01->GetComponent<Transform>()->SetPos(Vector2(4400.0f, 600.0f));
+				camelArabian01->GetComponent<Transform>()->SetPos(Vector2(4400.0f, 480.0f));
 
 				Camera::SetStop(true);
 

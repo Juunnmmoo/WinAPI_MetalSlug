@@ -8,7 +8,7 @@ namespace mo {
 	{
 	public:
 
-		ArabianCreator(Marco* marco);
+		ArabianCreator(Marco* marco,Vector2 pos, Vector2 size, Vector2 create);
 		~ArabianCreator();
 
 		virtual void Initialize() override;
@@ -23,5 +23,8 @@ namespace mo {
 		float time;
 		bool startCreate;
 		Marco* player;
+		Vector2 createVector;
+		Vector2 mPos;
+		Vector2 mSize;
 	};
 }

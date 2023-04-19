@@ -137,6 +137,7 @@
     <ClInclude Include="moApplication.h" />
     <ClInclude Include="moArabian.h" />
     <ClInclude Include="moArabianCreator.h" />
+    <ClInclude Include="moArabianFighter.h" />
     <ClInclude Include="moArabianWeapon.h" />
     <ClInclude Include="moBulletSFX.h" />
     <ClInclude Include="moCamel.h" />
@@ -171,6 +172,8 @@
     <ClInclude Include="moPistol.h" />
     <ClInclude Include="moPlayerBomb.h" />
     <ClInclude Include="moPlayerKnife.h" />
+    <ClInclude Include="moRebelTruck1.h" />
+    <ClInclude Include="moRebelTruck2.h" />
     <ClInclude Include="moResource.h" />
     <ClInclude Include="moResources.h" />
     <ClInclude Include="moRigidBody.h" />
@@ -181,6 +184,7 @@
     <ClInclude Include="moSelectElevator.h" />
     <ClInclude Include="moSelectScene.h" />
     <ClInclude Include="moShotgun.h" />
+    <ClInclude Include="moSlave.h" />
     <ClInclude Include="moTime.h" />
     <ClInclude Include="moTitleBG.h" />
     <ClInclude Include="moTitleScene.h" />
@@ -197,6 +201,7 @@
     <ClCompile Include="moApplication.cpp" />
     <ClCompile Include="moArabian.cpp" />
     <ClCompile Include="moArabianCreator.cpp" />
+    <ClCompile Include="moArabianFighter.cpp" />
     <ClCompile Include="moArabianWeapon.cpp" />
     <ClCompile Include="moBulletSFX.cpp" />
     <ClCompile Include="moCamel.cpp" />
@@ -228,6 +233,8 @@
     <ClCompile Include="moPistol.cpp" />
     <ClCompile Include="moPlayerBomb.cpp" />
     <ClCompile Include="moPlayerKnife.cpp" />
+    <ClCompile Include="moRebelTruck1.cpp" />
+    <ClCompile Include="moRebelTruck2.cpp" />
     <ClCompile Include="moResource.cpp" />
     <ClCompile Include="moResources.cpp" />
     <ClCompile Include="moRigidBody.cpp" />
@@ -238,6 +245,7 @@
     <ClCompile Include="moSelectElevator.cpp" />
     <ClCompile Include="moSelectScene.cpp" />
     <ClCompile Include="moShotgun.cpp" />
+    <ClCompile Include="moSlave.cpp" />
     <ClCompile Include="moTime.cpp" />
     <ClCompile Include="moTitleBG.cpp" />
     <ClCompile Include="moTitleScene.cpp" />

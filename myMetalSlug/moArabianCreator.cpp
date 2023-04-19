@@ -14,10 +14,13 @@
 #include "moObject.h"
 
 namespace mo {
-	ArabianCreator::ArabianCreator(Marco* marco)
+	ArabianCreator::ArabianCreator(Marco* marco, Vector2 pos, Vector2 size, Vector2 create)
 		: time(0.0f)
 		, startCreate(false)
 		, player(marco)
+		, mPos(pos)
+		, createVector(create)
+		, mSize(size)
 	{
 	}
 	ArabianCreator::~ArabianCreator()
@@ -26,11 +29,10 @@ namespace mo {
 	void ArabianCreator::Initialize()
 	{
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(1100.0f, 750.0f));
+		tr->SetPos(mPos);
 
 		Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetLeftTop(Vector2(0.0f, -750.0f));
-		mCollider->SetSize(Vector2{ 1800.0f, 750.0f });
+		mCollider->SetSize(mSize);
 
 		GameObject::Initialize();
 	}
@@ -38,7 +40,7 @@ namespace mo {
 	{
 		time += Time::DeltaTime();
 
-		if (time >= 5.0f && startCreate)
+		if (time >= 3.0f && startCreate)
 		{
 			time = 0.0f;
 
@@ -48,7 +50,7 @@ namespace mo {
 
 			curScene->AddGameObject(arabian, eLayerType::EnemyR);
 			arabian->Initialize();
-			arabian->GetComponent<Transform>()->SetPos(Vector2(3800.0f, 600.0f));
+			arabian->GetComponent<Transform>()->SetPos(createVector);
 		}
 		GameObject::Update();
 	}
