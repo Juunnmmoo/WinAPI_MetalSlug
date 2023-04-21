@@ -38,6 +38,7 @@ namespace mo {
 		charLayers.push_back(eLayerType::BulletBox);
 		charLayers.push_back(eLayerType::EnemyR);
 		charLayers.push_back(eLayerType::Slave);
+		charLayers.push_back(eLayerType::EnemyR_F);
 
 
 		Transform* tr = GetComponent<Transform>();

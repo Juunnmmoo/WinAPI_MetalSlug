@@ -22,5 +22,6 @@ namespace mo {
 		float time;
 		Marco* player;
 		bool stopCreate;
+		bool isFighterFoword;
 	};
 }

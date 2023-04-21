@@ -140,6 +140,16 @@ namespace mo
 		CollisionManager::SetLayer(eLayerType::Slave, eLayerType::PlayerMachinegun, true);
 		CollisionManager::SetLayer(eLayerType::Slave, eLayerType::PlayerPistol, true);
 
+		CollisionManager::SetLayer(eLayerType::EnemyR_F, eLayerType::PlayerKnife, true);
+		CollisionManager::SetLayer(eLayerType::EnemyR_F, eLayerType::PlayerBomb, true);
+		CollisionManager::SetLayer(eLayerType::EnemyR_F, eLayerType::PlayerMachinegun, true);
+		CollisionManager::SetLayer(eLayerType::EnemyR_F, eLayerType::PlayerPistol, true);
+
+		CollisionManager::SetLayer(eLayerType::Enemy_F, eLayerType::PlayerKnife, true);
+		CollisionManager::SetLayer(eLayerType::Enemy_F, eLayerType::PlayerBomb, true);
+		CollisionManager::SetLayer(eLayerType::Enemy_F, eLayerType::PlayerMachinegun, true);
+		CollisionManager::SetLayer(eLayerType::Enemy_F, eLayerType::PlayerPistol, true);
+
 	}
 	void Mission1Scene::OnExit()
 	{

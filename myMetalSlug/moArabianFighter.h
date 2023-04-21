@@ -11,19 +11,17 @@ namespace mo {
 	{
 	public:
 
-		enum class eArabianState {
+		enum class eArabianFighterState {
 			Move,
-			Run,
+			Sit,
+			Foword,
 			Attack,
 			Death,
-			BackJump,
-			Idle,
 			Turn,
-			Throwing,
 		};
 
 
-		ArabianFighter(Marco* p, Scene* scene);
+		ArabianFighter(Marco* p, Vector2 stop);
 		~ArabianFighter();
 
 		virtual void Initialize() override;
@@ -35,22 +33,23 @@ namespace mo {
 		virtual void OnCollisionExit(class Collider* other)override;
 
 		Animator* GetAnimator() { return mAnimator; }
+		void SetStartFoword(bool b) { startFoword = b; }
 
 	private:
 		void move();
+		void sit();
+		void foword();
 		void attack();
-		void death();
-		void idle();
-		void throwing();
 		void turn();
-		void run();
+		void death();
 	private:
-		Vector2 mPos;
+
+		Vector2 stopPos;
 		Animator* mAnimator;
-		eArabianState mState;
+		eArabianFighterState mState;
 		Marco* player;
 		Scene* curScene;
-		bool isThrowing;
+		bool startFoword;
 		float time;
 		bool readyToAttack;
 	};

@@ -21,7 +21,9 @@
 #include "moEnemyPistolBullet.h"
 
 namespace mo {
-	ArabianFighter::ArabianFighter(Marco* p, Scene* scene)
+	ArabianFighter::ArabianFighter(Marco* p, Vector2 stop)
+		: player(p)
+		, stopPos(stop)
 	{
 	}
 	ArabianFighter::~ArabianFighter()
@@ -29,12 +31,80 @@ namespace mo {
 	}
 	void ArabianFighter::Initialize()
 	{
+		Image* mImageL = Resources::Load<Image>(L"ArabianFighterLeft", L"..\\Resources\\Enemy\\ArabianFighterLeft.bmp");
+		Image* mImageR = Resources::Load<Image>(L"ArabianFighterRight", L"..\\Resources\\Enemy\\ArabianFighterRight.bmp");
+
+
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		//tr->SetPos(Vector2(1100.0f, 600.0f));
+		tr->SetScale(Vector2{ 3.0f, 3.0f });
+		tr->SetDirection(eDirection::Left);
+
+		RigidBody* mRigidbody = AddComponent<RigidBody>();
+		mRigidbody->SetMass(1.0f);
+		mRigidbody->SetGravity(Vector2(0.0f, 600.0f));
+
+		mAnimator = AddComponent<Animator>();
+		mAnimator->CreateAnimation(L"SitL", mImageL, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 10, 10, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"StandL", mImageL, Vector2(120.0f * 0, 120.0f * 1), 120.0f, 10, 10, 4, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"ReadyFowordL", mImageL, Vector2(120.0f * 0, 120.0f * 2), 120.0f, 10, 10, 3, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"FowordL", mImageL, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 10, 10, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"TurnL", mImageL, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 10, 10, 3, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"AttackL", mImageL, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 10, 10, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"DeathL", mImageL, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 10, 10, 9, Vector2::Zero, 0.05);
+
+		mAnimator->CreateAnimation(L"SitR", mImageR, Vector2(120.0f * 9, 120.0f * 0), -120.0f, 10, 10, 4, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"StandR", mImageR, Vector2(120.0f * 9, 120.0f * 1), -120.0f, 10, 10, 4, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"ReadyFowordR", mImageR, Vector2(120.0f * 9, 120.0f * 2), -120.0f, 10, 10, 3, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"FowordR", mImageR, Vector2(120.0f * 9, 120.0f * 3), -120.0f, 10, 10, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"TurnR", mImageR, Vector2(120.0f * 9, 120.0f * 4), -120.0f, 10, 10, 3, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"AttackR", mImageR, Vector2(120.0f * 9, 120.0f * 5), -120.0f, 10, 10, 6, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"DeathR", mImageR, Vector2(120.0f * 9, 120.0f * 6), -120.0f, 10, 10, 9, Vector2::Zero, 0.05);
+		mAnimator->Play(L"FowordL", true);
+		mState = eArabianFighterState::Move;
+
+		Collider* mCollider = AddComponent<Collider>();		
+		mCollider->SetLeftTop(Vector2{ -30.50f, -100.0f });
+		mCollider->SetSize(Vector2{ 60.0f, 100.0f });
+
+		GameObject::Initialize();
 	}
 	void ArabianFighter::Update()
 	{
+		time += Time::DeltaTime();
+
+		if (!startFoword && time >= 5.0f)
+		{
+			startFoword = true;
+		}
+
+		switch (mState) {
+		case::mo::ArabianFighter::eArabianFighterState::Move:
+			move();
+			break;
+		case::mo::ArabianFighter::eArabianFighterState::Sit:
+			sit();
+			break;
+		case::mo::ArabianFighter::eArabianFighterState::Foword:
+			foword();
+			break;
+		case::mo::ArabianFighter::eArabianFighterState::Attack:
+			attack();
+			break;
+		case::mo::ArabianFighter::eArabianFighterState::Death:
+			death();
+			break;
+		case::mo::ArabianFighter::eArabianFighterState::Turn:
+			turn();
+			break;
+		}
+
+		GameObject::Update();
 	}
 	void ArabianFighter::Render(HDC mHdc)
 	{
+		GameObject::Render(mHdc);
 	}
 	void ArabianFighter::OnCollisionEnter(Collider* other)
 	{
@@ -47,23 +117,136 @@ namespace mo {
 	}
 	void ArabianFighter::move()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		pos.x -= 200.0f * Time::DeltaTime();
+		tr->SetPos(pos);
+
+		if (pos.x <= stopPos.x)
+		{
+			mAnimator->Play(L"SitL", true);
+			mState = eArabianFighterState::Sit;
+		}
+	}
+	void ArabianFighter::sit()
+	{
+		if (startFoword)
+		{
+			mAnimator->Play(L"FowordL", true);
+			mState = eArabianFighterState::Foword;
+		}
+	}
+	void ArabianFighter::foword()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		eDirection mDir = tr->GetDirection();
+		Vector2 cPos = Camera::CaluatePos(pos);
+
+		
+		Transform* playerTR = player->GetComponent<Transform>();
+		Vector2 playerPos = playerTR->GetPos();
+
+		if (mDir == eDirection::Left)
+		{
+			pos.x -= 200.0f * Time::DeltaTime();
+			tr->SetPos(pos);
+
+			if (pos.x <= playerPos.x + 80.0f && pos.x > playerPos.x )
+			{
+				mAnimator->Play(L"AttackL", false);
+				mState = eArabianFighterState::Attack;
+			}
+			
+			if (cPos.x <= 50.0f) {
+				mAnimator->Play(L"TurnL", false);
+				tr->SetDirection(eDirection::Right);
+				mState = eArabianFighterState::Turn;
+			}
+			
+		}
+		else
+		{
+			pos.x += 200.0f * Time::DeltaTime();
+			tr->SetPos(pos);
+
+			if (pos.x >= playerPos.x - 80.0f && pos.x < playerPos.x)
+			{
+				mAnimator->Play(L"AttackR", false);
+				mState = eArabianFighterState::Attack;
+			}
+			if (cPos.x >= 800.0f) {
+				mAnimator->Play(L"TurnR", false);
+				tr->SetDirection(eDirection::Left);
+				mState = eArabianFighterState::Turn;
+			}
+		}
+
 	}
 	void ArabianFighter::attack()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		eDirection mDir = tr->GetDirection();
+		Vector2 cPos = Camera::CaluatePos(pos);
+
+		if (mDir == eDirection::Left)
+		{
+			pos.x -= 200.0f * Time::DeltaTime();
+			tr->SetPos(pos);
+
+			if (mAnimator->IsComplte())
+			{
+				mAnimator->Play(L"FowordL", true);
+				mState = eArabianFighterState::Foword;
+			}
+			if (cPos.x <= 50.0f) {
+				mAnimator->Play(L"TurnL", false);
+				tr->SetDirection(eDirection::Right);
+				mState = eArabianFighterState::Turn;
+			}
+		}
+		else
+		{
+			pos.x += 200.0f * Time::DeltaTime();
+			tr->SetPos(pos);
+			if (mAnimator->IsComplte())
+			{
+				mAnimator->Play(L"FowordR", true);
+				mState = eArabianFighterState::Foword;
+			}
+			if (cPos.x >= 800.0f) {
+				mAnimator->Play(L"TurnR", false);
+				tr->SetDirection(eDirection::Left);
+				mState = eArabianFighterState::Turn;
+			}
+		}
+
+		
 	}
 	void ArabianFighter::death()
 	{
 	}
-	void ArabianFighter::idle()
-	{
-	}
-	void ArabianFighter::throwing()
-	{
-	}
 	void ArabianFighter::turn()
 	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		eDirection mDir = tr->GetDirection();
+		Vector2 cPos = Camera::CaluatePos(pos);
+		
+		if (mAnimator->IsComplte())
+		{
+			if (mDir == eDirection::Left)
+			{
+				mAnimator->Play(L"FowordL", true);
+				mState = eArabianFighterState::Foword;
+			}
+			else
+			{
+				mAnimator->Play(L"FowordR", true);
+				mState = eArabianFighterState::Foword;
+			}
+		}
 	}
-	void ArabianFighter::run()
-	{
-	}
+
 }

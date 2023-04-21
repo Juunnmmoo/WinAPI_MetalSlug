@@ -38,12 +38,12 @@ namespace mo {
 	void RebelTruck1::Initialize()
 	{
 		mT = GetComponent<Transform>();
-		mT->SetScale(Vector2{ 3.5f, 3.5f });
+		mT->SetScale(Vector2{ 3.2f, 3.2f });
 		mT->SetDirection(eDirection::Left);
 
 		secondT = mSecond->GetComponent<Transform>();
-		secondT->SetPos(mT->GetPos() + Vector2(-161.0f, 0.0f));
-		secondT->SetScale(Vector2{ 3.5f, 3.5f });
+		secondT->SetPos(mT->GetPos() + Vector2(-147.2f, 0.0f));
+		secondT->SetScale(Vector2{ 3.2f, 3.2f });
 		secondT->SetDirection(eDirection::Left);
 
 		Image* mImage = Resources::Load<Image>(L"RebelTruck", L"..\\Resources\\Enemy\\RebelTruck.bmp");
@@ -95,7 +95,7 @@ namespace mo {
 			mState = eRebelTruckState::Death;
 
 
-		secondT->SetPos(mT->GetPos() + Vector2(-161.0f, 0.0f));
+		secondT->SetPos(mT->GetPos() + Vector2(-147.2f, 0.0f));
 
 		GameObject::Update();
 

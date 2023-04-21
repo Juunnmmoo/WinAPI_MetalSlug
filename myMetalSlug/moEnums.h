@@ -21,6 +21,8 @@ enum class eLayerType
 	front,
 	EnemyR,
 	Enemy,
+	EnemyR_F,
+	Enemy_F,
 	EnemyCreator,
 	Slave,
 	Player,

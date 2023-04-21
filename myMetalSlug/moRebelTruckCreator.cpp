@@ -14,8 +14,7 @@
 #include "moObject.h"
 #include "moRebelTruck1.h"
 #include "moRebelTruck2.h"
-#include "moCamel.h"
-
+#include "moArabianFighter.h"
 namespace mo {
 	RebelTruckCreator::RebelTruckCreator(Marco* marco)
 		:player(marco)
@@ -36,11 +35,18 @@ namespace mo {
 	}
 	void RebelTruckCreator::Update()
 	{
-		GameObject::Update();
 
+		GameObject::Update();
 	}
 	void RebelTruckCreator::Render(HDC mHdc)
 	{
+		time += Time::DeltaTime();
+
+		if (!isFighterFoword && time >= 1.5f)
+		{
+
+		}
+
 		GameObject::Render(mHdc);
 
 	}
@@ -63,6 +69,22 @@ namespace mo {
 				truck1->Initialize();
 				truck2->Initialize();
 				truck1->GetComponent<Transform>()->SetPos(Vector2(6200.0f, 650.0f));
+
+				ArabianFighter* fighter1 = new ArabianFighter(player, Vector2(5600.0f, 0.0f));
+				curScene->AddGameObject(fighter1, eLayerType::EnemyR_F);
+				fighter1->Initialize();
+				fighter1->GetComponent<Transform>()->SetPos(Vector2(6200.0f, 650.0f));
+
+				ArabianFighter* fighter12 = new ArabianFighter(player, Vector2(5660.0f, 0.0f));
+				curScene->AddGameObject(fighter12, eLayerType::EnemyR_F);
+				fighter12->Initialize();
+				fighter12->GetComponent<Transform>()->SetPos(Vector2(6260.0f, 650.0f));
+				
+				ArabianFighter* fighter3 = new ArabianFighter(player, Vector2(5720.0f, 0.0f));
+				curScene->AddGameObject(fighter3, eLayerType::EnemyR_F);
+				fighter3->Initialize();
+				fighter3->GetComponent<Transform>()->SetPos(Vector2(6320.0f, 650.0f));
+
 
 				Camera::SetStop(true);
 
