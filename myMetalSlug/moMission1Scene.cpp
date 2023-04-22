@@ -51,17 +51,42 @@ namespace mo
 		Mission1BG* mission1BG = new Mission1BG(this);
 		AddGameObject(mission1BG, eLayerType::BG1);
 
-		ArabianCreator* aCreator1 = new ArabianCreator(marco, Vector2(700.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(2200.0f, 200.0f));
+		ArabianCreator* aCreator1 = new ArabianCreator(marco, Vector2(500.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(2100.0f, 200.0f));
 		AddGameObject(aCreator1, eLayerType::EnemyCreator);
 
-		ArabianCreator* aCreator2 = new ArabianCreator(marco, Vector2(900.0f, 0.0f), Vector2(900.0f, 750.0f), Vector2(2600.0f, 500.0f));
+		ArabianCreator* aCreator2 = new ArabianCreator(marco, Vector2(900.0f, 0.0f), Vector2(900.0f, 750.0f), Vector2(2700.0f, 500.0f));
 		AddGameObject(aCreator2, eLayerType::EnemyCreator);
 		
-		ArabianCreator* aCreator3 = new ArabianCreator(marco, Vector2(1600.0f, 0.0f), Vector2(900.0f, 750.0f), Vector2(3400.0f, 500.0f));
+		ArabianCreator* aCreator3 = new ArabianCreator(marco, Vector2(1300.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(2750.0f, 100.0f));
 		AddGameObject(aCreator3, eLayerType::EnemyCreator);
 
-		ArabianCreator* aCreator4 = new ArabianCreator(marco, Vector2(2200.0f, 0.0f), Vector2(600.0f, 750.0f), Vector2(3600.0f, 500.0f));
-		AddGameObject(aCreator4, eLayerType::EnemyCreator);
+		/*ArabianCreator* aCreator4 = new ArabianCreator(marco, Vector2(2200.0f, 0.0f), Vector2(600.0f, 750.0f), Vector2(3600.0f, 500.0f));
+		AddGameObject(aCreator4, eLayerType::EnemyCreator);		*/
+
+		ArabianCreator* aCreator5 = new ArabianCreator(marco, Vector2(2400.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(3800.0f, 500.0f));
+		AddGameObject(aCreator5, eLayerType::EnemyCreator);
+
+		ArabianCreator* aCreator6 = new ArabianCreator(marco, Vector2(3900.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(5500.0f, 500.0f));
+		AddGameObject(aCreator6, eLayerType::EnemyCreator);
+
+		ArabianCreator* aCreator7 = new ArabianCreator(marco, Vector2(2400.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(3800.0f, 500.0f));
+		AddGameObject(aCreator7, eLayerType::EnemyCreator);
+
+		Arabian* arabian1 = new Arabian(marco, this, Arabian::eArabianState::Idle);
+		AddGameObject(arabian1, eLayerType::EnemyR);
+		arabian1->GetComponent<Transform>()->SetPos(Vector2(2250.0f, 0.0f));
+
+		Arabian* arabian2 = new Arabian(marco, this, Arabian::eArabianState::Idle);
+		AddGameObject(arabian2, eLayerType::EnemyR);
+		arabian2->GetComponent<Transform>()->SetPos(Vector2(4600.0f, 0.0f));
+
+		Arabian* arabian4 = new Arabian(marco, this, Arabian::eArabianState::Idle);
+		AddGameObject(arabian4, eLayerType::EnemyR);
+		arabian4->GetComponent<Transform>()->SetPos(Vector2(4900.0f, 0.0f));
+
+		Arabian* arabian3 = new Arabian(marco, this, Arabian::eArabianState::Idle);
+		AddGameObject(arabian3, eLayerType::EnemyR);
+		arabian3->GetComponent<Transform>()->SetPos(Vector2(5500.0f, 0.0f));	
 
 		CamelArabianCreator* camelCreator = new CamelArabianCreator(marco);
 		AddGameObject(camelCreator, eLayerType::EnemyCreator);
@@ -77,6 +102,10 @@ namespace mo
 		
 		Slave* slave2 = new Slave(marco, this, Vector2(2300.0f, 600.0f), eMarcoWeapon::Machinegun);
 		AddGameObject(slave2, eLayerType::Slave);
+
+		Slave* slave3 = new Slave(marco, this, Vector2(4550.0f, 700.0f), eMarcoWeapon::Machinegun);
+		AddGameObject(slave3, eLayerType::Slave);
+
 		//MachinegunBox* M_Box = new MachinegunBox();
 		//AddGameObject(M_Box, eLayerType::BulletBox);
 

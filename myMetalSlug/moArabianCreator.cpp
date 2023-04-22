@@ -46,7 +46,7 @@ namespace mo {
 
 			Scene* curScene = SceneManager::GetActiveScene();
 
-			Arabian* arabian = new Arabian(player, curScene);
+			Arabian* arabian = new Arabian(player, curScene, Arabian::eArabianState::Move);
 
 			curScene->AddGameObject(arabian, eLayerType::EnemyR);
 			arabian->Initialize();

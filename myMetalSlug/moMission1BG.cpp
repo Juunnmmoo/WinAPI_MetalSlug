@@ -27,7 +27,7 @@ namespace mo {
 	{		
 
 		main = Resources::Load<Image>(L"Mission1BG_Main", L"..\\Resources\\BackGround\\Mission1BG_Main.bmp");
-		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_Ground.bmp");
+		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_GroundTest.bmp");
 		sky = Resources::Load<Image>(L"Mission1BG_Sky", L"..\\Resources\\BackGround\\Mission1BG_Sky.bmp");
 
 		weaponLayers.push_back(eLayerType::EnemyBulletR);
@@ -108,6 +108,7 @@ namespace mo {
 				if (ground->GetPixel(pos.x, pos.y + mPos.y) == RGB(248, 0, 248)) {
 					pos.y--;
 					rb->SetGround(true);
+					rb->SetFall(false);
 					tr->SetPos(pos);
 				}
 				else if (ground->GetPixel(pos.x, pos.y + mPos.y) == RGB(0, 255, 255)) {
@@ -115,12 +116,17 @@ namespace mo {
 					{
 						pos.y--;
 						rb->SetGround(true);
+						rb->SetFall(false);
 						tr->SetPos(pos);
 					}
 					else
 					{
 						rb->SetGround(false);
 					}
+				}
+				else if (ground->GetPixel(pos.x, pos.y + mPos.y) == RGB(255, 255, 0)) {
+					rb->SetGround(false);
+					rb->SetFall(true);
 				}
 				else {
 					rb->SetGround(false);

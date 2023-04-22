@@ -19,10 +19,11 @@
 extern mo::Application application;
 
 namespace mo{
-	Arabian::Arabian(Marco* marco, Scene* scene)
+	Arabian::Arabian(Marco* marco, Scene* scene, eArabianState state)
 		: player(marco)
 		, curScene(scene)
 		, time(0.0f)
+		, mState(state)
 	{
 	}
 
@@ -46,7 +47,7 @@ namespace mo{
 
 		RigidBody* mRigidbody = AddComponent<RigidBody>();
 		mRigidbody->SetMass(1.0f);
-		mRigidbody->SetGravity(Vector2(0.0f, 600.0f));
+		mRigidbody->SetGravity(Vector2(0.0f, 1000.0f));
 
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"IdleL", mImageL, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 20, 15, 6, Vector2::Zero, 0.15);
@@ -58,6 +59,7 @@ namespace mo{
 		mAnimator->CreateAnimation(L"BackJumpL", mImageL, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 20, 15, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"ReadyAttackL", mImageL, Vector2(120.0f * 0, 120.0f * 7), 120.0f, 20, 15, 4, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"BulletDeathL", mImageL, Vector2(120.0f * 0, 120.0f * 8), 120.0f, 20, 15, 20, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"JumpL", mImageL, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 20, 15, 13, Vector2::Zero, 0.07);
 
 
 		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 19, 120.0f * 0), -120.0f, 20, 15, 6, Vector2::Zero, 0.15);
@@ -69,9 +71,12 @@ namespace mo{
 		mAnimator->CreateAnimation(L"BackJumpR", mImageR, Vector2(120.0f * 19, 120.0f * 6), -120.0f, 20, 15, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"ReadyAttackR", mImageR, Vector2(120.0f * 19, 120.0f * 7), -120.0f, 20, 15, 4, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"BulletDeathR", mImageR, Vector2(120.0f * 19, 120.0f * 8), -120.0f, 20, 15, 20, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"JumpR", mImageL, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 20, 15, 13, Vector2::Zero, 0.07);
 
-		mAnimator->Play(L"MoveL", true);
-		mState = eArabianState::Move;
+		if(mState == eArabianState::Move)
+			mAnimator->Play(L"MoveL", true);
+		else 
+			mAnimator->Play(L"IdleL", true);
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 60.0f, 100.0f });
@@ -110,11 +115,36 @@ namespace mo{
 		case mo::Arabian::eArabianState::Run:
 			run();
 			break;
+		case mo::Arabian::eArabianState::Jump:
+			jump();
+			break;
 		default:
 			break;
 		}
 		
+		RigidBody* mRigidbody = GetComponent<RigidBody>();
+		if (mState == eArabianState::Move && mRigidbody->GetFall())
+		{
 
+			Transform* tr = GetComponent<Transform>();
+			eDirection mDir = tr->GetDirection();
+
+			if (mDir == eDirection::Left)
+			{
+				mAnimator->Play(L"JumpL", false);
+			}
+			else
+			{
+				mAnimator->Play(L"JumpR", false);
+			}
+
+			Vector2 velocity = mRigidbody->GetVelocity();
+			velocity.y -= 300.0f;
+			mRigidbody->SetVelocity(velocity);
+			mRigidbody->SetGround(false);
+
+			mState = eArabianState::Jump;
+		}
 		
 		GameObject::Update();
 	}
@@ -176,6 +206,12 @@ namespace mo{
 	{
 	}
 
+	void Arabian::SetArabianIdle()
+	{
+		mState = eArabianState::Idle;
+		mAnimator->Play(L"Idle", true);
+	}
+
 	void Arabian::move()
 	{
 		Transform* tr = GetComponent<Transform>();
@@ -183,54 +219,85 @@ namespace mo{
 		Vector2 mPos = tr->GetPos();
 		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
 
+
+
 		if (mDir == eDirection::Left)
 		{
-			if (playerPos.x + 300.0f < mPos.x)
+			if (mPos.y < playerPos.y - 20.0f)
 			{
 				mPos.x -= 200.0f * Time::DeltaTime();
 				tr->SetPos(mPos);
 			}
-			else if (playerPos.x + 300.0f>= mPos.x && playerPos.x + 250.0f < mPos.x)
+			else
 			{
-				mAnimator->Play(L"ThrowingL", false);
-				mState = eArabianState::Throwing;
-			}
-			else if (playerPos.x + 250.0f >= mPos.x && playerPos.x + 150.0f < mPos.x)
-			{
-				mPos.x -= 200.0f * Time::DeltaTime();
-				tr->SetPos(mPos);
-			}
-			else if (playerPos.x + 150.0f >= mPos.x)
-			{
-				mAnimator->Play(L"ReadyAttackL", false);
-				readyToAttack = true;
-				mState = eArabianState::Attack;
+				if (mPos.x <= playerPos.x)
+				{
+					mAnimator->Play(L"TurnL", false);
+					mDir = eDirection::Right;
+					tr->SetDirection(mDir);
+					mState = eArabianState::Turn;
+				}
+				else if (mPos.x <= playerPos.x + 100.0f && mPos.x > playerPos.x)
+				{
+					mAnimator->Play(L"ReadyAttackL", false);
+					readyToAttack = true;
+					mState = eArabianState::Attack;
+				}
+				else if (mPos.x <= playerPos.x + 250.0f && mPos.x > playerPos.x + 100.0f)
+				{
+					mPos.x -= 200.0f * Time::DeltaTime();
+					tr->SetPos(mPos);
+				}
+				else if (mPos.x <= playerPos.x + 300.0f && mPos.x > playerPos.x + 250.0f)
+				{
+					mAnimator->Play(L"ThrowingL", false);
+					mState = eArabianState::Throwing;
+				}
+				else if (mPos.x > playerPos.x + 300.0f)
+				{
+					mPos.x -= 200.0f * Time::DeltaTime();
+					tr->SetPos(mPos);
+				}
 			}
 		}
 		else if (mDir == eDirection::Right)
 		{
-			if (playerPos.x - 300.0f >= mPos.x)
+			if (mPos.y < playerPos.y - 20.0f)
 			{
 				mPos.x += 200.0f * Time::DeltaTime();
 				tr->SetPos(mPos);
 			}
-			else if (playerPos.x - 300.0f < mPos.x && playerPos.x - 250.0f >= mPos.x)
+			else
 			{
-				mAnimator->Play(L"ThrowingR", false);
-				mState = eArabianState::Throwing;
+				if (mPos.x > playerPos.x)
+				{
+					mAnimator->Play(L"TurnR", false);
+					mDir = eDirection::Left;
+					tr->SetDirection(mDir);
+					mState = eArabianState::Turn;
+				}
+				else if (mPos.x > playerPos.x - 100.0f && mPos.x <= playerPos.x)
+				{
+					mAnimator->Play(L"ReadyAttackR", false);
+					readyToAttack = true;
+					mState = eArabianState::Attack;
+				}
+				else if (mPos.x > playerPos.x - 250.0f && mPos.x <= playerPos.x - 100.0f)
+				{
+					mPos.x += 200.0f * Time::DeltaTime();
+					tr->SetPos(mPos);
+				}
+				else if (mPos.x > playerPos.x - 300.0f && mPos.x <= playerPos.x - 250.0f)
+				{
+					mAnimator->Play(L"ThrowingR", false);
+					mState = eArabianState::Throwing;
+				}
+				else if (mPos.x <= playerPos.x - 300.0f)
+				{
+					mPos.x += 200.0f * Time::DeltaTime();
+					tr->SetPos(mPos);
+				}
 			}
-			else if (playerPos.x - 250.0f < mPos.x && playerPos.x - 150.0f >= mPos.x)
-			{
-				mPos.x += 200.0f * Time::DeltaTime();
-				tr->SetPos(mPos);
-			}
-			else if (playerPos.x - 150.0f < mPos.x)
-			{
-				mAnimator->Play(L"ReadyAttackR", false);
-				readyToAttack = true;
-				mState = eArabianState::Attack;
-			}
-
 		}
 	}
 
@@ -251,14 +318,14 @@ namespace mo{
 				if (mDir == eDirection::Left)
 				{
 					mAnimator->Play(L"AttackL", false);
-					EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(-120.0f, -100.0f), Vector2(120.0f, 80.0f));
+					EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(-100.0f, -100.0f), Vector2(10.0f, 80.0f), 0.5);
 					curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
 					enemyKnife->Initialize();
 				}
 				else
 				{
 					mAnimator->Play(L"AttackR", false);
-					EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(120.0f, -100.0f), Vector2(120.0f, 80.0f));
+					EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(mPos, Vector2(0.0f, -100.0f), Vector2(100.0f, 80.0f), 0.5);
 					curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
 					enemyKnife->Initialize();
 				}
@@ -267,66 +334,63 @@ namespace mo{
 			{
 				if (mDir == eDirection::Left)
 				{
-					if (playerPos.x >= mPos.x)
+
+					if (mPos.x <= playerPos.x)
 					{
 						mAnimator->Play(L"TurnL", false);
 						mDir = eDirection::Right;
 						tr->SetDirection(mDir);
 						mState = eArabianState::Turn;
 					}
-					else if (playerPos.x + 250.0f >= mPos.x && playerPos.x + 150.0f < mPos.x)
-					{
-						mAnimator->Play(L"MoveR", true);
-						mDir = eDirection::Right;
-						tr->SetDirection(mDir);
-						mState = eArabianState::Run;
-					}
-					else if (playerPos.x + 300.0f >= mPos.x && playerPos.x + 250.0f < mPos.x)
-					{
-						mAnimator->Play(L"ThrowingL", false);
-						mState = eArabianState::Throwing;
-					}
-					else if (playerPos.x + 300.0f < mPos.x)
-					{
-						mAnimator->Play(L"MoveL", true);
-						mState = eArabianState::Move;
-					}
-					else if (playerPos.x + 150.0f >= mPos.x)
+					else if (mPos.x <= playerPos.x + 100.0f && mPos.x > playerPos.x)
 					{
 						mAnimator->Play(L"ReadyAttackL", false);
 						readyToAttack = true;
 					}
+					else if (mPos.x <= playerPos.x + 250.0f && mPos.x > playerPos.x + 100.0f)
+					{
+						mAnimator->Play(L"MoveL", true);
+						mState = eArabianState::Move;
+					}
+					else if (mPos.x <= playerPos.x + 300.0f && mPos.x > playerPos.x + 250.0f)
+					{
+						mAnimator->Play(L"ThrowingL", false);
+						mState = eArabianState::Throwing;
+					}
+					else if (mPos.x > playerPos.x + 300.0f)
+					{
+						mAnimator->Play(L"MoveL", true);
+						mState = eArabianState::Move;
+					}
 				}
 				else if (mDir == eDirection::Right)
 				{
-					if (playerPos.x < mPos.x)
+					if (mPos.x > playerPos.x)
 					{
 						mAnimator->Play(L"TurnR", false);
 						mDir = eDirection::Left;
 						tr->SetDirection(mDir);
 						mState = eArabianState::Turn;
 					}
-					else if (playerPos.x - 250.0f < mPos.x)
+					else if (mPos.x > playerPos.x - 100.0f && mPos.x <= playerPos.x)
 					{
-						mAnimator->Play(L"MoveL", true);
-						mDir = eDirection::Left;
-						tr->SetDirection(mDir);
-						mState = eArabianState::Run;
+						mAnimator->Play(L"ReadyAttackR", false);
+						readyToAttack = true;
 					}
-					else if (playerPos.x - 300.0f < mPos.x && playerPos.x - 250.0f >= mPos.x)
-					{
-						mAnimator->Play(L"ThrowingR", false);
-						mState = eArabianState::Throwing;
-					}
-					else if (playerPos.x - 300.0f >= mPos.x)
+					else if (mPos.x > playerPos.x - 250.0f && mPos.x <= playerPos.x - 100.0f)
 					{
 						mAnimator->Play(L"MoveR", true);
 						mState = eArabianState::Move;
 					}
-					else if (playerPos.x - 150.0f < mPos.x)
+					else if (mPos.x > playerPos.x - 300.0f && mPos.x <= playerPos.x - 250.0f)
 					{
-						mAnimator->Play(L"ReadyAttackR", false);
-						readyToAttack = true;
+						mAnimator->Play(L"ThrowingR", false);
+						mState = eArabianState::Throwing;
+					}
+					else if (mPos.x <= playerPos.x - 300.0f)
+					{
+						mAnimator->Play(L"MoveR", true);
+						mState = eArabianState::Move;
 					}
 				}
 				if (player->GetState() == eState::Pause && !player->GetComponent<Animator>()->GetUseinvincibility())
@@ -348,7 +412,6 @@ namespace mo{
 				}
 			}
 
-
 			
 		}
 	}
@@ -364,87 +427,15 @@ namespace mo{
 		Transform* tr = GetComponent<Transform>();
 		eDirection mDir = tr->GetDirection();
 		Vector2 mPos = tr->GetPos();
+		Vector2 cPos = Camera::CaluatePos(mPos);
 		Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
 
-		if (mDir == eDirection::Left)
+		if (cPos.x <= 950.0f)
 		{
-			if (playerPos.x >= mPos.x)
-			{
-				mAnimator->Play(L"TurnL", false);
-				mDir = eDirection::Right;
-				tr->SetDirection(mDir);
-				mState = eArabianState::Turn;
-			}
-			else if (playerPos.x + 250.0f < mPos.x)
-			{
-				mAnimator->Play(L"MoveL", true);
-				mState = eArabianState::Move;
-			}
-			else if (playerPos.x + 250.0f >= mPos.x && playerPos.x + 150.0f < mPos.x)
-			{
-				/*mAnimator->Play(L"MoveL", true);
-				mDir = eDirection::Left;
-				tr->SetDirection(mDir);
-				mState = eSlaveState::Run;*/
-				mAnimator->Play(L"MoveL", true);
-				mState = eArabianState::Move;
-			}
-			else if (playerPos.x + 150.0f >= mPos.x)
-			{
-				mAnimator->Play(L"ReadyAttackL", false);
-				readyToAttack = true;
-				mState = eArabianState::Attack;
-			}
+			mAnimator->Play(L"MoveL", true);
+			mState = eArabianState::Move;
 		}
-		else if (mDir == eDirection::Right)
-		{
-			if (playerPos.x < mPos.x)
-			{
-				mAnimator->Play(L"TurnR", false);
-				mDir = eDirection::Left;
-				tr->SetDirection(mDir);
-				mState = eArabianState::Turn;
-			}
-			else if (playerPos.x - 250.0f > mPos.x)
-			{
-				mAnimator->Play(L"MoveR", true);
-				mState = eArabianState::Move;
-			}
-			else if (playerPos.x - 250.0f < mPos.x && playerPos.x - 150.0f >= mPos.x)
-			{
-				/*	mAnimator->Play(L"MoveR", true);
-						mDir = eDirection::Right;
-						tr->SetDirection(mDir);
-						mState = eSlaveState::Run;*/
-				mAnimator->Play(L"MoveR", true);
-				mState = eArabianState::Move;
-			}
-			else if (playerPos.x - 150.0f < mPos.x)
-			{
-				mAnimator->Play(L"ReadyAttackR", false);
-				readyToAttack = true;
-				mState = eArabianState::Attack;
-			}
-		
-		}
-		
-		if (player->GetState() == eState::Pause && !player->GetComponent<Animator>()->GetUseinvincibility())
-		{
-			if (mDir == eDirection::Left)
-			{
-				mAnimator->Play(L"MoveR", true);
-				mDir = eDirection::Right;
-				tr->SetDirection(mDir);
-				mState = eArabianState::Run;
-			}
-			else if (mDir == eDirection::Right)
-			{
-				mAnimator->Play(L"MoveL", true);
-				mDir = eDirection::Left;
-				tr->SetDirection(mDir);
-				mState = eArabianState::Run;
-			}
-		}
+
 
 	}
 	void Arabian::throwing()
@@ -455,7 +446,7 @@ namespace mo{
 		//Vector2 playerPos = player->GetComponent<Transform>()->GetPos();
 
 		time += Time::DeltaTime();
-		if (player->GetState() == eState::Pause)
+		if (player->GetState() == eState::Pause && !player->GetComponent<Animator>()->GetUseinvincibility())
 		{
 			if (mDir == eDirection::Left)
 			{
@@ -490,8 +481,8 @@ namespace mo{
 				
 				time = 0.0f;
 				isThrowing = false;
-				mAnimator->Play(L"IdleL", true);
-				mState = eArabianState::Idle;
+				mAnimator->Play(L"MoveL", true);
+				mState = eArabianState::Move;
 			}
 		}
 		else if (mDir == eDirection::Right)
@@ -511,8 +502,8 @@ namespace mo{
 				
 				time = 0.0f;
 				isThrowing = false;
-				mAnimator->Play(L"IdleR", true);
-				mState = eArabianState::Idle;
+				mAnimator->Play(L"MoveR", true);
+				mState = eArabianState::Move;
 			}
 		}
 	}
@@ -525,14 +516,14 @@ namespace mo{
 		{
 			if (mDir == eDirection::Right)
 			{
-				mAnimator->Play(L"IdleR", true);
-				mState = eArabianState::Idle;
+				mAnimator->Play(L"MoveR", true);
+				mState = eArabianState::Move;
 
 			}
 			else if (mDir == eDirection::Left)
 			{
-				mAnimator->Play(L"IdleL", true);
-				mState = eArabianState::Idle;
+				mAnimator->Play(L"MoveL", true);
+				mState = eArabianState::Move;
 			}
 			
 		}
@@ -563,6 +554,36 @@ namespace mo{
 	
 	}
 
-	
+	void Arabian::jump()
+	{
+		Transform* tr = GetComponent<Transform>();
+		eDirection mDir = tr->GetDirection();
+		Vector2 mPos = tr->GetPos();
+		RigidBody* mRigidbody = GetComponent<RigidBody>();
+
+		if (mDir == eDirection::Left)
+		{
+			mPos.x -= 100.0f * Time::DeltaTime();
+		
+			if (mRigidbody->GetGround())
+			{
+				mAnimator->Play(L"MoveL", true);
+				mState = eArabianState::Move;
+			}
+		}
+		else
+		{
+
+			mPos.x += 100.0f * Time::DeltaTime();
+			
+			if (mRigidbody->GetGround())
+			{
+				mAnimator->Play(L"MoveR", true);
+				mState = eArabianState::Move;
+			}
+		}
+
+		tr->SetPos(mPos);
+	}
 	
 }

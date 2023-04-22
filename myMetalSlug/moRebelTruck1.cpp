@@ -20,6 +20,7 @@
 #include "moRebelTruck2.h"
 #include "moArabian.h"
 #include "moBulletSFX.h"
+#include "moArabianFighter.h"
 
 namespace mo {
 	RebelTruck1::RebelTruck1(Marco* p, RebelTruck2* second, Scene* scene, Vector2 stop)
@@ -65,6 +66,8 @@ namespace mo {
 		secondAnimator->Play(L"Move", true);
 
 		mState = eRebelTruckState::Move;
+
+		createCnt = 5;
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 200.0f, 200.0f });
@@ -113,6 +116,11 @@ namespace mo {
 		{
 			heart--;
 		}
+		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb 
+			 && mState == eRebelTruckState::Drop)
+		{
+			heart-= 10;
+		}
 	}
 	void RebelTruck1::OnCollisionStay(Collider* other)
 	{
@@ -143,14 +151,21 @@ namespace mo {
 		{
 			Vector2 pos = mT->GetPos();
 			dropTime += Time::DeltaTime();
-			if (dropTime >= 2.0f)
+
+			if (dropTime >= 2.5f)
 			{
 				dropTime = 0.0f;
-				Arabian* arabian = new Arabian(player, curScene);
-
-				curScene->AddGameObject(arabian, eLayerType::EnemyR);
-				arabian->Initialize();
-				arabian->GetComponent<Transform>()->SetPos(pos + Vector2(0.0f,-60.0f));
+				if (createCnt >= 0)
+				{
+					createCnt--;
+					
+					ArabianFighter* fighter1 = new ArabianFighter(player, Vector2(5600.0f, 0.0f) ,50);
+					curScene->AddGameObject(fighter1, eLayerType::EnemyR);
+					fighter1->Initialize();
+					fighter1->GetComponent<Transform>()->SetPos(pos + Vector2(0.0f, -60.0f));
+					fighter1->SetFighterState(ArabianFighter::eArabianFighterState::Foword);
+				}
+				
 			}
 		}
 	}
@@ -171,49 +186,49 @@ namespace mo {
 			{
 				if (i == 0)
 				{
-					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-120.0f, 0.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
+					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-140.0f, 0.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 					curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 					bulletSFX->Initialize();
 					bulletSFX->PlayAnimation();
 				}	
 				else if (i == 1)
 				{
-					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-80.0f, 20.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
+					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-90.0f, 30.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 					curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 					bulletSFX->Initialize();
 					bulletSFX->PlayAnimation();
 				}
 				else if (i == 2)
 				{
-					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-40.0f, -50.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
+					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-50.0f, -70.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 					curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 					bulletSFX->Initialize();
 					bulletSFX->PlayAnimation();
 				}
 				else if (i == 3)
 				{
-					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(0.0f, 80.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
+					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-10.0f, 90.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 					curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 					bulletSFX->Initialize();
 					bulletSFX->PlayAnimation();
 				}
 				else if (i == 4)
 				{
-					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(20.0f, -80.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
+					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(20.0f, -90.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 					curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 					bulletSFX->Initialize();
 					bulletSFX->PlayAnimation();
 				}	
 				else if (i == 5)
 				{
-					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(50.0f, 0.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
+					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(60.0f, 10.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 					curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 					bulletSFX->Initialize();
 					bulletSFX->PlayAnimation();
 				}
 				else if (i == 6)
 				{
-					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(80.0f, -100.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
+					BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(120.0f, -110.0f), Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 					curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 					bulletSFX->Initialize();
 					bulletSFX->PlayAnimation();

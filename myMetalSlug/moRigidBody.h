@@ -18,6 +18,9 @@ namespace mo {
 		void SetGround(bool b) { mbGround = b; }
 		bool GetGround() { return mbGround; }
 
+		void SetFall(bool b) { mbFall = b; }
+		bool GetFall() { return mbFall; }
+
 		void SetVelocity(Vector2 velocity) { mVelocity = velocity; }
 		Vector2 GetVelocity() { return mVelocity; }
 
@@ -35,5 +38,6 @@ namespace mo {
 		Vector2 mGravity;
 		float mFriction;
 		bool mbGround;
+		bool mbFall;
 	};
 }

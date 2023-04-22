@@ -218,6 +218,23 @@ namespace mo {
 				mState = eCamelArabianState::Death;
 			}
 		}
+
+		if (other->GetOwner()->GetBulletType() == eBulletType::Bomb)
+		{
+			eDirection mDir = mT->GetDirection();
+			heart = 0;
+
+			mAnimator->Play(L"None", false);
+			camelAnimator->Play(L"MoveL", true);
+			if (mDir == eDirection::Left)
+				secondAnimator->Play(L"DeathL", false);
+			else
+				secondAnimator->Play(L"DeathR", false);
+
+			SetState(eState::Pause);
+			mState = eCamelArabianState::Death;
+			
+		}
 	}
 	void CamelArabian01::OnCollisionStay(Collider* other)
 	{

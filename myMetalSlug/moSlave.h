@@ -43,6 +43,7 @@ namespace mo {
 		Animator* GetAnimator() { return mAnimator; }
 		void SetIsRelease(bool b) { isReleased = b; }
 		void SetSlaveState(eSlaveState state) { mState = state; }
+		bool GetIsRelease() { return isReleased; }
 
 	private:
 		void idle();

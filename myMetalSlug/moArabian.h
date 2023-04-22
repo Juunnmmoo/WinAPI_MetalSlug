@@ -20,10 +20,11 @@ namespace mo {
 			Idle,
 			Turn,
 			Throwing,
+			Jump,
 		};
 
 
-		Arabian(Marco* p, Scene* scene);
+		Arabian(Marco* p, Scene* scene, eArabianState state);
 		~Arabian();
 
 		virtual void Initialize() override;
@@ -34,6 +35,8 @@ namespace mo {
 		virtual void OnCollisionStay(class Collider* other)override;
 		virtual void OnCollisionExit(class Collider* other)override;
 
+
+		void SetArabianIdle();
 		Animator* GetAnimator() { return mAnimator; }
 
 	private:
@@ -44,6 +47,8 @@ namespace mo {
 		void throwing();
 		void turn();
 		void run();
+		void jump();
+
 	private:
 		Vector2 mPos;
 		Animator* mAnimator;

@@ -5,11 +5,12 @@
 #include "moTime.h"
 
 namespace mo {
-	EnemyAttackCollider::EnemyAttackCollider(Vector2 pos, Vector2 leftTop, Vector2 size)
+	EnemyAttackCollider::EnemyAttackCollider(Vector2 pos, Vector2 leftTop, Vector2 size, float stop)
 		: mPos(pos)
 		, mLeftTop(leftTop)
 		, mSize(size)
 		, mTime(0.0f)
+		, stopTime(stop)
 	{
 	}
 	EnemyAttackCollider::~EnemyAttackCollider()
@@ -20,6 +21,7 @@ namespace mo {
 
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(mPos);
+
 
 		Collider* collider = AddComponent<Collider>();
 		collider->SetLeftTop(mLeftTop);
@@ -32,7 +34,7 @@ namespace mo {
 	void EnemyAttackCollider::Update()
 	{
 		mTime += Time::DeltaTime();
-		if (mTime >= 0.5f)
+		if (mTime >= stopTime)
 		{
 			object::Destory(this);
 		}

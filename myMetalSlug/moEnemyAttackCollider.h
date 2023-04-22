@@ -8,7 +8,7 @@ namespace mo {
 	{
 	public:
 
-		EnemyAttackCollider( Vector2 pos, Vector2 leftTop, Vector2 size);
+		EnemyAttackCollider( Vector2 pos, Vector2 leftTop, Vector2 size, float stop);
 		~EnemyAttackCollider();
 
 		virtual void Initialize() override;
@@ -24,5 +24,6 @@ namespace mo {
 		Vector2 mLeftTop;
 		Vector2 mSize;
 		float mTime;
+		float stopTime;
 	};
 }

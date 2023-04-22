@@ -58,6 +58,10 @@ namespace mo {
 	}
 	void MachinegunBox::OnCollisionEnter(Collider* other)
 	{
+		
+	}
+	void MachinegunBox::OnCollisionStay(Collider* other)
+	{
 		if (other->GetOwner()->GetLayerType() == eLayerType::Player && mTime >= 0.3f) {
 			Marco* marco = dynamic_cast<Marco*>(other->GetOwner());
 			if (marco == nullptr)
@@ -66,9 +70,6 @@ namespace mo {
 			marco->SetBulletNum(1000);
 			object::Destory(this);
 		}
-	}
-	void MachinegunBox::OnCollisionStay(Collider* other)
-	{
 	}
 	void MachinegunBox::OnCollisionExit(Collider* other)
 	{

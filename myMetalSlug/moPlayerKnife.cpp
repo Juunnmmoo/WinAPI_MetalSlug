@@ -51,7 +51,12 @@ namespace mo {
 	}
 	void PlayerKnife::OnCollisionStay(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR)
+
+	
+
+
+		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F||
+			other->GetOwner()->GetLayerType() == eLayerType::Enemy || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
 		{
 			isCollide = true;
 
@@ -76,18 +81,19 @@ namespace mo {
 		
 		if (other->GetOwner()->GetLayerType() == eLayerType::Slave)
 		{
-			isCollide = true;
-
-			
-
-			if (Input::GetKeyDown(eKeyCode::D) && isUse)
+			Slave* slave = dynamic_cast<Slave*>(other->GetOwner());
+			if (slave != nullptr && !slave->GetIsRelease())
 			{
-				Slave* slave = dynamic_cast<Slave*>(other->GetOwner());
-				if (slave != nullptr)
+				isCollide = true;
+
+				if (Input::GetKeyDown(eKeyCode::D) && isUse)
 				{
-					slave->SetIsRelease(true);
-					slave->GetAnimator()->Play(L"BeReleasedL", false);
-					slave->SetSlaveState(Slave::eSlaveState::BeReleased);
+					
+					
+						slave->SetIsRelease(true);
+						slave->GetAnimator()->Play(L"BeReleasedL", false);
+						slave->SetSlaveState(Slave::eSlaveState::BeReleased);
+					
 				}
 			}
 		}
@@ -95,9 +101,6 @@ namespace mo {
 	}
 	void PlayerKnife::OnCollisionExit(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR)
-		{
-			isCollide = false;
-		}
+		isCollide = false;
 	}
 }

@@ -18,10 +18,11 @@ namespace mo {
 			Attack,
 			Death,
 			Turn,
+			MoveAway,
 		};
 
 
-		ArabianFighter(Marco* p, Vector2 stop);
+		ArabianFighter(Marco* p, Vector2 stop, int max);
 		~ArabianFighter();
 
 		virtual void Initialize() override;
@@ -34,6 +35,7 @@ namespace mo {
 
 		Animator* GetAnimator() { return mAnimator; }
 		void SetStartFoword(bool b) { startFoword = b; }
+		void SetFighterState(eArabianFighterState state) { mState = state; }
 
 	private:
 		void move();
@@ -42,14 +44,17 @@ namespace mo {
 		void attack();
 		void turn();
 		void death();
+		void moveAway();
 	private:
 
 		Vector2 stopPos;
 		Animator* mAnimator;
 		eArabianFighterState mState;
 		Marco* player;
-		Scene* curScene;
 		bool startFoword;
+		int heart;
+		int maxTurn;
+		int runCnt;
 		float time;
 		bool readyToAttack;
 	};

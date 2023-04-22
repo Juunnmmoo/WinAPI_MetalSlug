@@ -105,15 +105,16 @@ namespace mo {
 
 		RigidBody* mRigidbody = GetComponent<RigidBody>();
 
-		/*if (mState == eSlaveState::MoveL ||
+		if (mState == eSlaveState::MoveL ||
 			mState == eSlaveState::MoveR)
 		{
-			if (!mRigidbody->GetGround())
+			if (mRigidbody->GetFall())
 			{
+				time = 0.0f;
 				mAnimator->Play(L"FlyingL", true);
 				mState = eSlaveState::Flying;
 			}
-		}*/
+		}
 
 		GameObject::Update();
 

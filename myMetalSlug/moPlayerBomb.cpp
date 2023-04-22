@@ -73,7 +73,8 @@ namespace mo {
 	}
 	void PlayerBomb::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR)
+		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F ||
+			other->GetOwner()->GetLayerType() == eLayerType::Enemy || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
 		{
 			Transform* tr;
 			tr = GetComponent<Transform>();
@@ -117,7 +118,7 @@ namespace mo {
 		}
 		RigidBody* mRigidbody = GetComponent<RigidBody>();
 		Vector2 velocity = mRigidbody->GetVelocity();
-		velocity.y -= 350.0f;
+		velocity.y -= 300.0f;
 		mRigidbody->SetVelocity(velocity);
 		mRigidbody->SetGround(false);
 
@@ -130,9 +131,9 @@ namespace mo {
 		Vector2 pos = tr->GetPos();
 
 		if (mDir == eDirection::Left)
-			pos.x -= 400.0f * Time::DeltaTime();
+			pos.x -= 300.0f * Time::DeltaTime();
 		else if (mDir == eDirection::Right)
-			pos.x += 400.0f * Time::DeltaTime();
+			pos.x += 300.0f * Time::DeltaTime();
 
 		tr->SetPos(pos);
 

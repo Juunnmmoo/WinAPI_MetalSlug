@@ -50,6 +50,7 @@ namespace mo {
 		int heart;
 		bool useSfx;
 		float dropTime;
+		int createCnt;
 		
 	};
 }

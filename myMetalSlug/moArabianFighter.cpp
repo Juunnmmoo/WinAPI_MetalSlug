@@ -21,9 +21,12 @@
 #include "moEnemyPistolBullet.h"
 
 namespace mo {
-	ArabianFighter::ArabianFighter(Marco* p, Vector2 stop)
+	ArabianFighter::ArabianFighter(Marco* p, Vector2 stop, int max)
 		: player(p)
 		, stopPos(stop)
+		, heart(8)
+		, maxTurn(max)
+		, runCnt(0)
 	{
 	}
 	ArabianFighter::~ArabianFighter()
@@ -97,7 +100,31 @@ namespace mo {
 			break;
 		case::mo::ArabianFighter::eArabianFighterState::Turn:
 			turn();
+			break; 
+		case::mo::ArabianFighter::eArabianFighterState::MoveAway:
+			moveAway();
 			break;
+		default:
+			break;
+		}
+
+		if (mState != eArabianFighterState::Death && heart == 0)
+		{
+			Transform* tr;
+			tr = GetComponent<Transform>();
+
+			SetState(eState::Pause);
+
+			if (tr->GetDirection() == eDirection::Left)
+			{
+				mAnimator->Play(L"DeathL", false);
+				mState = eArabianFighterState::Death;
+			}
+			else
+			{
+				mAnimator->Play(L"DeathR", false);
+				mState = eArabianFighterState::Death;
+			}
 		}
 
 		GameObject::Update();
@@ -108,6 +135,15 @@ namespace mo {
 	}
 	void ArabianFighter::OnCollisionEnter(Collider* other)
 	{
+		if ((other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol || other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)&&
+			heart > 0)
+		{
+			heart--;
+		}
+		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb &&heart > 0)
+		{
+			heart = 0;
+		}
 	}
 	void ArabianFighter::OnCollisionStay(Collider* other)
 	{
@@ -147,6 +183,8 @@ namespace mo {
 		Transform* playerTR = player->GetComponent<Transform>();
 		Vector2 playerPos = playerTR->GetPos();
 
+	
+
 		if (mDir == eDirection::Left)
 		{
 			pos.x -= 200.0f * Time::DeltaTime();
@@ -154,14 +192,34 @@ namespace mo {
 
 			if (pos.x <= playerPos.x + 80.0f && pos.x > playerPos.x )
 			{
-				mAnimator->Play(L"AttackL", false);
-				mState = eArabianFighterState::Attack;
+				
+				
+					mAnimator->Play(L"AttackL", false);
+
+					Scene* curScene;
+					curScene = SceneManager::GetActiveScene();
+					EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(pos, Vector2(-120.0f, -100.0f), Vector2(120.0f, 80.0f), 0.3);
+					curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
+					enemyKnife->Initialize();
+
+					mState = eArabianFighterState::Attack;
+				
 			}
 			
 			if (cPos.x <= 50.0f) {
-				mAnimator->Play(L"TurnL", false);
-				tr->SetDirection(eDirection::Right);
-				mState = eArabianFighterState::Turn;
+
+				runCnt++;
+				if (runCnt >= maxTurn)
+				{
+
+					mState = eArabianFighterState::MoveAway;
+				}
+				else
+				{
+					mAnimator->Play(L"TurnL", false);
+					tr->SetDirection(eDirection::Right);
+					mState = eArabianFighterState::Turn;
+				}
 			}
 			
 		}
@@ -173,9 +231,16 @@ namespace mo {
 			if (pos.x >= playerPos.x - 80.0f && pos.x < playerPos.x)
 			{
 				mAnimator->Play(L"AttackR", false);
+
+				Scene* curScene;
+				curScene = SceneManager::GetActiveScene();
+				EnemyAttackCollider* enemyKnife = new EnemyAttackCollider(pos, Vector2(0.0f, -100.0f), Vector2(120.0f, 80.0f), 0.3);
+				curScene->AddGameObject(enemyKnife, eLayerType::EnemyBullet);
+				enemyKnife->Initialize();
+
 				mState = eArabianFighterState::Attack;
 			}
-			if (cPos.x >= 800.0f) {
+			if (cPos.x >= 700.0f) {
 				mAnimator->Play(L"TurnR", false);
 				tr->SetDirection(eDirection::Left);
 				mState = eArabianFighterState::Turn;
@@ -226,6 +291,25 @@ namespace mo {
 	}
 	void ArabianFighter::death()
 	{
+		if (mAnimator->IsComplte())
+		{
+			object::Destory(this);
+		}
+	}
+	void ArabianFighter::moveAway()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		eDirection mDir = tr->GetDirection();
+		Vector2 cPos = Camera::CaluatePos(pos);
+
+		pos.x -= 200.0f * Time::DeltaTime();
+		tr->SetPos(pos);
+
+		if (cPos.x <= -100.0f)
+			object::Destory(this);
+
+
 	}
 	void ArabianFighter::turn()
 	{
