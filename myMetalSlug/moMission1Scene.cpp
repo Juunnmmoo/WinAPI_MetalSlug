@@ -23,6 +23,9 @@
 #include "moRebelTruck1.h"
 #include "moRebelTruck2.h"
 #include "moRebelTruckCreator.h"
+#include "moMissionStart.h"
+#include "moCharUI.h"
+#include "moArmsUI.h"
 
 namespace mo
 {
@@ -73,19 +76,19 @@ namespace mo
 		AddGameObject(aCreator7, eLayerType::EnemyCreator);
 
 		Arabian* arabian1 = new Arabian(marco, this, Arabian::eArabianState::Idle);
-		AddGameObject(arabian1, eLayerType::EnemyR);
+		AddGameObject(arabian1, eLayerType::EnemyR_F);
 		arabian1->GetComponent<Transform>()->SetPos(Vector2(2250.0f, 0.0f));
 
 		Arabian* arabian2 = new Arabian(marco, this, Arabian::eArabianState::Idle);
-		AddGameObject(arabian2, eLayerType::EnemyR);
+		AddGameObject(arabian2, eLayerType::EnemyR_F);
 		arabian2->GetComponent<Transform>()->SetPos(Vector2(4600.0f, 0.0f));
 
 		Arabian* arabian4 = new Arabian(marco, this, Arabian::eArabianState::Idle);
-		AddGameObject(arabian4, eLayerType::EnemyR);
+		AddGameObject(arabian4, eLayerType::EnemyR_F);
 		arabian4->GetComponent<Transform>()->SetPos(Vector2(4900.0f, 0.0f));
 
 		Arabian* arabian3 = new Arabian(marco, this, Arabian::eArabianState::Idle);
-		AddGameObject(arabian3, eLayerType::EnemyR);
+		AddGameObject(arabian3, eLayerType::EnemyR_F);
 		arabian3->GetComponent<Transform>()->SetPos(Vector2(5500.0f, 0.0f));	
 
 		CamelArabianCreator* camelCreator = new CamelArabianCreator(marco);
@@ -97,7 +100,7 @@ namespace mo
 		
 
 
-		Slave* slave1 = new Slave(marco, this, Vector2(2200.0f, 0.0f), eMarcoWeapon::Machinegun);
+		Slave* slave1 = new Slave(marco, this, Vector2(2200.0f, 0.0f), eMarcoWeapon::Bomb);
 		AddGameObject(slave1, eLayerType::Slave);
 		
 		Slave* slave2 = new Slave(marco, this, Vector2(2300.0f, 600.0f), eMarcoWeapon::Machinegun);
@@ -106,8 +109,20 @@ namespace mo
 		Slave* slave3 = new Slave(marco, this, Vector2(4550.0f, 700.0f), eMarcoWeapon::Machinegun);
 		AddGameObject(slave3, eLayerType::Slave);
 
+		MissionStart* startUi = new MissionStart(eSceneType::Mission1);
+		AddGameObject(startUi, eLayerType::UI);
+
+		ArmsUI* armsUI = new ArmsUI(marco, this);
+		AddGameObject(armsUI, eLayerType::UI);
+
+
+		//CharUI* ui = new CharUI(eCharType::M, Vector2(200.0f, 300.0f), Vector2(1.5f, 1.5f));
+		//AddGameObject(ui, eLayerType::UI);
+
+
 		//MachinegunBox* M_Box = new MachinegunBox();
 		//AddGameObject(M_Box, eLayerType::BulletBox);
+
 
 		/*Camel* camel = new Camel();
 		CamelArabian02* camelArabian02 = new CamelArabian02();

@@ -37,9 +37,11 @@ namespace mo {
 		void ChangeWeapon(eMarcoWeapon state);
 
 		void SetBulletNum(int num) { bulletNum = num; }
+		void AddBulletNum(int num) { bulletNum += num; }
 		int GetBulletNum() { return bulletNum; }
 
 		void SetBombNum(int num) { bombNum = num; }
+		void AddBombNum(int num) { bombNum += num; }
 		int GetBombNum() { return bombNum; }
 
 		void SetIsKnife(bool b) { isKnife = b; }
@@ -47,6 +49,8 @@ namespace mo {
 
 		eMarcoState GetMarcoState() { return mState; }
 		void SetMarcoState(eMarcoState state) { mState = state; }
+
+		eMarcoWeapon GetMarcoWeaponType() {	return mWeaponState;}
 
 	private:
 		MarcoBottom* bottom;

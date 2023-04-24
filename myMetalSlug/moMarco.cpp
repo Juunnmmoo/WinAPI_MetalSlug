@@ -28,7 +28,7 @@ namespace mo {
 		, bottom(obj)
 		, pistol(nullptr)
 		, mWeaponState(eMarcoWeapon::Pistol)
-		, bulletNum(1)
+		, bulletNum(-1)
 		, rightKnife(right)
 		, leftKnife(left)
 		, bombNum(10)
@@ -52,7 +52,7 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 300.0f, 100.0f });
+		tr->SetPos(Vector2{ 300.0f, 000.0f });
 		//tr->SetPos(Vector2{ 4500.0f, 100.0f });
 
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
@@ -178,7 +178,7 @@ namespace mo {
 				else if (mDirection == eDirection::RTop)
 					mAnimator->Play(L"P_IdleRT", true);
 			}		
-			bulletNum = 1;
+			bulletNum = -1;
 		}
 
 		rightKnife->SetPos(pos + Vector2(20.0f, -70.0f));

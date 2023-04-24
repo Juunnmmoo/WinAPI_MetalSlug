@@ -58,6 +58,8 @@ namespace mo {
 		bool GetUseinvincibility() {return Useinvincibility;}
 		bool IsComplte() { return mActiveAnimation->isComplete(); }
 
+		void SetunUseCameraPos(bool b) { unUseCameraPos = b; }
+
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
 		std::map < std::wstring, Events* > mEvents;
@@ -70,5 +72,6 @@ namespace mo {
 		int alpha;
 		float mTime;
 		int TimeCheck;
+		bool unUseCameraPos;
 	};
 }

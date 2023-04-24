@@ -380,7 +380,7 @@ namespace mo {
 
 		reTime += Time::DeltaTime();
 
-		if (reTime >= 5.0f && !isBackToLife)
+		if (reTime >= 3.0f && !isBackToLife)
 		{
 			isBackToLife = true;
 			playerBottom->GetComponent<Transform>()->SetDisToBottom(Vector2{ 0.0f, -210.0f });

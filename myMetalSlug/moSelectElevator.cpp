@@ -5,6 +5,10 @@
 #include "moCamera.h"
 #include "moTransform.h"
 #include "moTime.h"
+#include "moPlayerIdle.h"
+#include "moPlayerIdleBottom.h"
+#include "moScene.h"
+#include "moSceneManager.h"
 
 namespace mo {
 	SelectElevator::SelectElevator(Vector2 pos, float f)
@@ -42,6 +46,13 @@ namespace mo {
 		if (goingBack && mPos.y < 205)
 		{
 			mPos.y += 500.0f * Time::DeltaTime();
+
+
+			top->GetComponent<Transform>()->SetPos(mPos + Vector2(100.0f, 440.0f));
+			bottom->GetComponent<Transform>()->SetPos(mPos + Vector2(100.0f, 480.0f));
+
+
+
 		}
 		GameObject::Update();
 
@@ -53,5 +64,28 @@ namespace mo {
 
 		GameObject::Render(mHdc);
 
+	}
+	void SelectElevator::SetGoingBack()
+	{
+		goingBack = true; 
+		stopMove = true;
+
+		Scene* curScene = SceneManager::GetActiveScene();
+		
+		top= new PlayerIdle();
+		bottom = new PlayerIdleBottom();
+
+		top->GetComponent<Transform>()->SetPos(mPos + Vector2(100.0f, 440.0f));
+		bottom->GetComponent<Transform>()->SetPos(mPos + Vector2(100.0f, 480.0f));
+
+		top->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
+		bottom->GetComponent<Transform>()->SetScale(Vector2(3.0f, 3.0f));
+
+		curScene->AddGameObject(bottom, eLayerType::Slave);
+		curScene->AddGameObject(top, eLayerType::Slave);
+		
+
+		top->Initialize();
+		bottom->Initialize();
 	}
 }

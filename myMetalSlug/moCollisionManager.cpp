@@ -1,6 +1,7 @@
 #include "moCollisionManager.h"
 #include "moScene.h"
 #include "moSceneManager.h"
+#include "moAnimator.h"
 
 namespace mo {
 
@@ -133,7 +134,7 @@ namespace mo {
 
 	void CollisionManager::Clear()
 	{
-		memset(mMatrix, 0, sizeof(WORD) * (UINT)eLayerType::End);
+		memset(mMatrix, 0, sizeof(DWORD) * (UINT)eLayerType::End);
 		mCollisionMap.clear();
 	}
 }

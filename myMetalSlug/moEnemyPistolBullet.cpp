@@ -60,7 +60,7 @@ namespace mo {
 			object::Destory(this);
 		}*/
 
-		// 자동 destory
+		// 자동 isChanged
 		Vector2 cPos = Camera::CaluatePos(pos);
 		if (cPos.x <  -100.0f || cPos.x > application.GetWidth() + 100.0f || cPos.y < -100.0f)
 			object::Destory(this);

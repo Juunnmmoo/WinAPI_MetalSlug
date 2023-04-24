@@ -61,7 +61,7 @@ namespace mo {
 			object::Destory(this);
 		}
 		
-		// 자동 destory
+		// 자동 isChanged
 		Vector2 cPos = Camera::CaluatePos(pos);
 		if (cPos.x <  -100.0f || cPos.x > application.GetWidth() + 100.0f || cPos.y < -100.0f)			
 			object::Destory(this);
@@ -82,9 +82,13 @@ namespace mo {
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
+
+
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::Enemy ||
-			other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
+			other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F || 
+			other->GetOwner()->GetLayerType() == eLayerType::Slave)
 		{
+
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);

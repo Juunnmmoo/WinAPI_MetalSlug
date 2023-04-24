@@ -159,8 +159,10 @@ namespace mo{
 		Transform* tr = GetComponent<Transform>();
 		eDirection mDir = tr->GetDirection();
 
+
 		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol)
 		{
+
 			if (mDir == eDirection::Left)
 			{
 				mAnimator->Play(L"BulletDeathL", false);
@@ -225,7 +227,7 @@ namespace mo{
 		{
 			if (mPos.y < playerPos.y - 20.0f)
 			{
-				mPos.x -= 200.0f * Time::DeltaTime();
+				mPos.x -= 250.0f * Time::DeltaTime();
 				tr->SetPos(mPos);
 			}
 			else
@@ -245,7 +247,7 @@ namespace mo{
 				}
 				else if (mPos.x <= playerPos.x + 250.0f && mPos.x > playerPos.x + 100.0f)
 				{
-					mPos.x -= 200.0f * Time::DeltaTime();
+					mPos.x -= 250.0f * Time::DeltaTime();
 					tr->SetPos(mPos);
 				}
 				else if (mPos.x <= playerPos.x + 300.0f && mPos.x > playerPos.x + 250.0f)
@@ -255,7 +257,7 @@ namespace mo{
 				}
 				else if (mPos.x > playerPos.x + 300.0f)
 				{
-					mPos.x -= 200.0f * Time::DeltaTime();
+					mPos.x -= 250.0f * Time::DeltaTime();
 					tr->SetPos(mPos);
 				}
 			}
@@ -264,7 +266,7 @@ namespace mo{
 		{
 			if (mPos.y < playerPos.y - 20.0f)
 			{
-				mPos.x += 200.0f * Time::DeltaTime();
+				mPos.x += 250.0f * Time::DeltaTime();
 				tr->SetPos(mPos);
 			}
 			else
@@ -284,7 +286,7 @@ namespace mo{
 				}
 				else if (mPos.x > playerPos.x - 250.0f && mPos.x <= playerPos.x - 100.0f)
 				{
-					mPos.x += 200.0f * Time::DeltaTime();
+					mPos.x += 250.0f * Time::DeltaTime();
 					tr->SetPos(mPos);
 				}
 				else if (mPos.x > playerPos.x - 300.0f && mPos.x <= playerPos.x - 250.0f)
@@ -294,7 +296,7 @@ namespace mo{
 				}
 				else if (mPos.x <= playerPos.x - 300.0f)
 				{
-					mPos.x += 200.0f * Time::DeltaTime();
+					mPos.x += 250.0f * Time::DeltaTime();
 					tr->SetPos(mPos);
 				}
 			}
@@ -373,7 +375,7 @@ namespace mo{
 						mState = eArabianState::Turn;
 					}
 					else if (mPos.x > playerPos.x - 100.0f && mPos.x <= playerPos.x)
-					{
+					{	
 						mAnimator->Play(L"ReadyAttackR", false);
 						readyToAttack = true;
 					}

@@ -49,7 +49,7 @@ namespace mo {
 		mAnimator->CreateAnimation(L"StopL", mImage, Vector2(0.0f, 120.0f * 2), 120.0f, 11, 4, 1, Vector2::Zero, 0.08);
 		mAnimator->CreateAnimation(L"StopR", mImage, Vector2(0.0f, 120.0f * 3), 120.0f, 11, 4, 1, Vector2::Zero, 0.08);
 
-		//mAnimator->CreateAnimation(L"dropWeaponL", mImage, Vector2(120.0f * 5, 120.0f), -120.0f, 6, 2, 6, Vector2::Zero, 0.08);
+		//mAnimator->CreateAnimation(L"dropWeaponL", armsImage, Vector2(120.0f * 5, 120.0f), -120.0f, 6, 2, 6, Vector2::Zero, 0.08);
 
 		GameObject::Initialize();
 	}

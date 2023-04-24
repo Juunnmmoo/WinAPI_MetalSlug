@@ -24,6 +24,7 @@ namespace mo {
 	}
 	void Scene::Destroy()
 	{
+
 		std::vector<GameObject*>deleteGameObjects = {};
 		
 		for (Layer& layer : mLayers) {

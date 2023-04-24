@@ -48,7 +48,7 @@ namespace mo {
 
 			Arabian* arabian = new Arabian(player, curScene, Arabian::eArabianState::Move);
 
-			curScene->AddGameObject(arabian, eLayerType::EnemyR);
+			curScene->AddGameObject(arabian, eLayerType::EnemyR_F);
 			arabian->Initialize();
 			arabian->GetComponent<Transform>()->SetPos(createVector);
 		}

@@ -104,6 +104,9 @@
     <Filter Include="Contents\GameObj\Monster\RebelTruck">
       <UniqueIdentifier>{41f4c699-aa5d-4b20-a5ec-28156379326a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\UI">
+      <UniqueIdentifier>{8812507c-a9e5-486b-8e78-09985ab4a28b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -301,6 +304,27 @@
     <ClInclude Include="moRebelTruckCreator.h">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClInclude>
+    <ClInclude Include="moMissionStart.h">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="moCharUI.h">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="moArmsUI.h">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="moBombUI.h">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="moBombBox.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="moPlayerIdle.h">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="moPlayerIdleBottom.h">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -489,6 +513,27 @@
     </ClCompile>
     <ClCompile Include="moRebelTruckCreator.cpp">
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClCompile>
+    <ClCompile Include="moMissionStart.cpp">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="moCharUI.cpp">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="moArmsUI.cpp">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="moBombUI.cpp">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="moBombBox.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="moPlayerIdle.cpp">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="moPlayerIdleBottom.cpp">
+      <Filter>Contents\GameObj\SelectPlayer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

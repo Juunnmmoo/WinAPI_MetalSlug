@@ -58,13 +58,15 @@ namespace mo {
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F||
 			other->GetOwner()->GetLayerType() == eLayerType::Enemy || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
 		{
-			isCollide = true;
 
-			if (Input::GetKeyDown(eKeyCode::D) && isUse)
+			Arabian* arabian = dynamic_cast<Arabian*>(other->GetOwner());
+			if (arabian != nullptr)
 			{
-				Arabian* arabian = dynamic_cast<Arabian*>(other->GetOwner());
-				if (arabian != nullptr)
+				isCollide = true;
+
+				if (Input::GetKeyDown(eKeyCode::D) && isUse)
 				{
+
 					if (other->GetOwner()->GetComponent<Transform>()->GetDirection() == eDirection::Left)
 
 					{
@@ -75,6 +77,7 @@ namespace mo {
 						other->GetOwner()->GetComponent<Animator>()->Play(L"KnifeDeathR", false);
 					}
 					other->GetOwner()->SetState(eState::Pause);
+
 				}
 			}
 		}

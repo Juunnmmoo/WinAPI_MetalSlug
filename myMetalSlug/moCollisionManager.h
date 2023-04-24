@@ -28,3 +28,4 @@ namespace mo {
 		static std::map<UINT64, bool> mCollisionMap;
 	};
 }
+	

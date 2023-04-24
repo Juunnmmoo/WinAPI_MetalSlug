@@ -17,6 +17,7 @@
 #include "moCamera.h"
 #include "moApplication.h"
 #include "moMachinegunBox.h"
+#include "moBombBox.h"
 
 namespace mo {
 	Slave::Slave(Marco* p, Scene* scene, Vector2 pos, eMarcoWeapon weapon)
@@ -264,6 +265,13 @@ namespace mo {
 				curScene->AddGameObject(M_Box, eLayerType::BulletBox);
 				M_Box->GetComponent<Transform>()->SetPos(pos + Vector2(-60.0f, -50.0f));
 				M_Box->Initialize();	
+			}
+			else if (weaponType == eMarcoWeapon::Bomb)
+			{
+				BombBox* bomb_Box = new BombBox();
+				curScene->AddGameObject(bomb_Box, eLayerType::BulletBox);
+				bomb_Box->GetComponent<Transform>()->SetPos(pos + Vector2(-60.0f, -50.0f));
+				bomb_Box->Initialize();
 			}
 		}
 		if (isDrop)

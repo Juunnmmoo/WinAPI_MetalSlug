@@ -83,7 +83,7 @@ namespace mo {
 	{
 		if (mActiveAnimation)
 		{
-			mActiveAnimation->Render(mHdc, isAlpha, alpha);
+			mActiveAnimation->Render(mHdc, isAlpha, alpha, unUseCameraPos);
 			
 		}
 		

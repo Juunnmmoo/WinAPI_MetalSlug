@@ -13,7 +13,7 @@ namespace mo {
 		virtual void Initialize() override;
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
-		void SetGoingBack() { goingBack = true; stopMove = true; }
+		void SetGoingBack();
 		
 
 	private:
@@ -23,5 +23,7 @@ namespace mo {
 		float time;
 		bool stopMove;
 		bool goingBack;
+		class PlayerIdle* top;
+		class PlayerIdleBottom* bottom;
 	};
 }

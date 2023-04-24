@@ -30,15 +30,15 @@ namespace mo {
 	void SelectScene::Initialize()
 	{
 		elevator1 = new SelectElevator(Vector2(84.0f, 221.0f), 0.5f);
-		AddGameObject(elevator1, eLayerType::BG2);
+		AddGameObject(elevator1, eLayerType::front);
 		elevator2 = new SelectElevator(Vector2(84.0f + (235 * 1), 221.0f), 1.0f);
-		AddGameObject(elevator2, eLayerType::BG2);
+		AddGameObject(elevator2, eLayerType::front);
 
 		elevator3 = new SelectElevator(Vector2(84.0f + (235 * 2), 221.0f), 0.7f);
-		AddGameObject(elevator3, eLayerType::BG2);
+		AddGameObject(elevator3, eLayerType::front);
 
 		elevator4 = new SelectElevator(Vector2(84.0f + (235 * 3), 221.0f), 1.3f);
-		AddGameObject(elevator4, eLayerType::BG2);
+		AddGameObject(elevator4, eLayerType::front);
 
 		charactor1 = new SelectCharactor(Vector2(84.0f, 221.0f), Vector2(223.0f * 0, 0.0f));
 		AddGameObject(charactor1, eLayerType::BG1);
@@ -55,7 +55,7 @@ namespace mo {
 
 
 		SelectBG* selectBG = new SelectBG();
-		AddGameObject(selectBG, eLayerType::BG3);
+		AddGameObject(selectBG, eLayerType::Player);
 
 		
 
