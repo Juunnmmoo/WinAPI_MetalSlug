@@ -52,6 +52,15 @@ namespace mo {
 			arabian->Initialize();
 			arabian->GetComponent<Transform>()->SetPos(createVector);
 		}
+
+		Collider* mCollider = GetComponent<Collider>();
+		Transform* tr = GetComponent<Transform>();
+		Vector2 cPos = Camera::CaluatePos(tr->GetPos() + mCollider->GetSize());
+
+		if (player->GetComponent<Transform>()->GetPos().x > (tr->GetPos().x + mCollider->GetSize().x))
+			object::Destory(this);
+
+
 		GameObject::Update();
 	}
 	void ArabianCreator::Render(HDC mHdc)
@@ -61,10 +70,11 @@ namespace mo {
 	}
 	void ArabianCreator::OnCollisionEnter(Collider* other)
 	{
-		startCreate = true;
+		
 	}
 	void ArabianCreator::OnCollisionStay(Collider* other)
 	{
+		startCreate = true;
 	}
 	void ArabianCreator::OnCollisionExit(Collider* other)
 	{

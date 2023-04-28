@@ -24,6 +24,7 @@ namespace mo {
 		Image* mImageR = Resources::Load<Image>(L"PistolRight", L"..\\Resources\\Player\\PistolRight.bmp");
 
 		mAnimator = AddComponent<Animator>();
+		mAnimator->SetunUseCameraPos(true);
 		mAnimator->CreateAnimation(L"P_IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 30, 4, Vector2::Zero, 0.15);
 
 		mAnimator->Play(L"P_IdleR", true);

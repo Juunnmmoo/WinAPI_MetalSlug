@@ -66,7 +66,7 @@ namespace mo {
 				camelArabian01->Initialize();
 				camel->Initialize();
 				camelArabian02->Initialize();
-				camelArabian01->GetComponent<Transform>()->SetPos(Vector2(4400.0f, 480.0f));
+				camelArabian01->GetComponent<Transform>()->SetPos(Vector2(4400.0f, 625.0f));
 
 				Camera::SetStop(true);
 

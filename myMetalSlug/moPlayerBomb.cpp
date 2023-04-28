@@ -11,6 +11,7 @@
 #include "moTime.h"
 #include "Collider.h"
 #include "moBulletSFX.h"
+#include "moBoss1_Missile.h"
 
 namespace mo {
 	PlayerBomb::PlayerBomb()
@@ -73,12 +74,14 @@ namespace mo {
 	}
 	void PlayerBomb::OnCollisionEnter(Collider* other)
 	{
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F ||
 			other->GetOwner()->GetLayerType() == eLayerType::Enemy || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
 		{
-			Transform* tr;
-			tr = GetComponent<Transform>();
-			Vector2 pos = tr->GetPos();
+			
 
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBombSFX, pos, Vector2(5.0f, 5.0f), Vector2(0.0f, 49.0f));
@@ -88,6 +91,19 @@ namespace mo {
 
 			object::Destory(this);
 		}
+
+		Boss1_Missile* missile = dynamic_cast<Boss1_Missile*>(other->GetOwner());
+		if (missile != nullptr)
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBombSFX, pos, Vector2(5.0f, 5.0f), Vector2(0.0f, 49.0f));
+			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+			bulletSFX->Initialize();
+			bulletSFX->PlayAnimation();
+			object::Destory(this);
+
+		}
+
 	}
 	void PlayerBomb::OnCollisionStay(Collider* other)
 	{

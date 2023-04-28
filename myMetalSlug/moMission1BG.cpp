@@ -42,7 +42,10 @@ namespace mo {
 
 
 		Transform* tr = GetComponent<Transform>();
-		tr->SetPos(Vector2(0.0f, 150.0f));
+		tr->SetPos(Vector2(0.0f, 0.0f));
+
+		Vector2 lookPosition = Camera::GetLookPosition();
+		Camera::SetLookPosition(Vector2(550.0f, 525.0f));
 
 		GameObject::Initialize();
 	}
@@ -53,14 +56,26 @@ namespace mo {
 		Vector2 mPos = tr->GetPos();
 		Vector2 cameraPos = Camera::GetDistance();
 
-		if (cameraPos.x >= 3250.0f &&
+
+		/*if (cameraPos.x >= 3250.0f &&
 			mPos.y >= 96.0f &&
 			Camera::GetIsMove())
 		{
 			mPos.y -= 2;
 		}
 
-		tr->SetPos(Vector2(cameraPos.x, mPos.y));
+		tr->SetPos(Vector2(cameraPos.x, mPos.y));*/
+
+		Vector2 lookPosition = Camera::GetLookPosition();
+
+		if (cameraPos.x >= 3250.0f &&
+			lookPosition.y >= 465.0f &&
+			Camera::GetIsMove())
+		{
+			lookPosition.y -= 2;
+		}
+
+		Camera::SetLookPosition(lookPosition);
 
 		for (eLayerType layer : weaponLayers)
 		{
@@ -160,7 +175,11 @@ namespace mo {
 			rb->SetGround(false);
 		}
 			
-		
+		if (pos.x >= 6950.0f && pos.x < 7150.0f && !stopOnce)
+		{
+			stopOnce = true;
+			Camera::SetStop(true);
+		}
 
 
 
@@ -171,7 +190,9 @@ namespace mo {
 	{
 
 		Transform* tr = GetComponent<Transform>();
-		Vector2 mPos = tr->GetPos();
+		//Vector2 mPos = tr->GetPos();
+		Vector2 mPos = Camera::GetDistance();
+
 
 		//BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), pos.x, pos.y, SRCCOPY);
 		BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), mPos.x, mPos.y, SRCCOPY);

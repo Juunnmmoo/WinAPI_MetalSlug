@@ -26,6 +26,9 @@
 #include "moMissionStart.h"
 #include "moCharUI.h"
 #include "moArmsUI.h"
+#include "moBoss1_Base.h"
+#include "moBoss1_Missile.h"
+#include "moArabianFighter.h"
 
 namespace mo
 {
@@ -115,7 +118,13 @@ namespace mo
 		ArmsUI* armsUI = new ArmsUI(marco, this);
 		AddGameObject(armsUI, eLayerType::UI);
 
+		Boss1_Base* boss_Base = new Boss1_Base(marco, this);
+		AddGameObject(boss_Base, eLayerType::Enemy);
 
+
+		Slave* slave4 = new Slave(marco, this, Vector2(6700.0f, 700.0f), eMarcoWeapon::Machinegun);
+		AddGameObject(slave4, eLayerType::front);
+		
 		//CharUI* ui = new CharUI(eCharType::M, Vector2(200.0f, 300.0f), Vector2(1.5f, 1.5f));
 		//AddGameObject(ui, eLayerType::UI);
 
@@ -137,6 +146,7 @@ namespace mo
 
 		mission1BG->SetPlayer(marco);
 
+	
 		Camera::SetTarget(marco);
 
 		Scene::Initialize();
@@ -145,6 +155,7 @@ namespace mo
 	void Mission1Scene::Update()
 	{
 		
+
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)
 		{
@@ -194,6 +205,9 @@ namespace mo
 		CollisionManager::SetLayer(eLayerType::Enemy_F, eLayerType::PlayerMachinegun, true);
 		CollisionManager::SetLayer(eLayerType::Enemy_F, eLayerType::PlayerPistol, true);
 
+		CollisionManager::SetLayer(eLayerType::EnemyBullet, eLayerType::PlayerBomb, true);
+		CollisionManager::SetLayer(eLayerType::EnemyBullet, eLayerType::PlayerMachinegun, true);
+		CollisionManager::SetLayer(eLayerType::EnemyBullet, eLayerType::PlayerPistol, true);
 	}
 	void Mission1Scene::OnExit()
 	{

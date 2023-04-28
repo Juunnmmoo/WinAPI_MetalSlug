@@ -132,6 +132,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="moAbulAbbas.h" />
     <ClInclude Include="moAnimation.h" />
     <ClInclude Include="moAnimator.h" />
     <ClInclude Include="moApplication.h" />
@@ -142,6 +143,13 @@
     <ClInclude Include="moArmsUI.h" />
     <ClInclude Include="moBombBox.h" />
     <ClInclude Include="moBombUI.h" />
+    <ClInclude Include="moBoss1_Attackor.h" />
+    <ClInclude Include="moBoss1_Base.h" />
+    <ClInclude Include="moBoss1_CurtainIdle.h" />
+    <ClInclude Include="moBoss1_CurtainOpen.h" />
+    <ClInclude Include="moBoss1_Missile.h" />
+    <ClInclude Include="moBoss1_towrd.h" />
+    <ClInclude Include="moBoss1_WindowOpen.h" />
     <ClInclude Include="moBulletSFX.h" />
     <ClInclude Include="moCamel.h" />
     <ClInclude Include="moCamelArabian01.h" />
@@ -204,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="moAbulAbbas.cpp" />
     <ClCompile Include="moAnimation.cpp" />
     <ClCompile Include="moAnimator.cpp" />
     <ClCompile Include="moApplication.cpp" />
@@ -214,6 +223,13 @@
     <ClCompile Include="moArmsUI.cpp" />
     <ClCompile Include="moBombBox.cpp" />
     <ClCompile Include="moBombUI.cpp" />
+    <ClCompile Include="moBoss1_Attackor.cpp" />
+    <ClCompile Include="moBoss1_Base.cpp" />
+    <ClCompile Include="moBoss1_CurtainIdle.cpp" />
+    <ClCompile Include="moBoss1_CurtainOpen.cpp" />
+    <ClCompile Include="moBoss1_Missile.cpp" />
+    <ClCompile Include="moBoss1_towrd.cpp" />
+    <ClCompile Include="moBoss1_WindowOpen.cpp" />
     <ClCompile Include="moBulletSFX.cpp" />
     <ClCompile Include="moCamel.cpp" />
     <ClCompile Include="moCamelArabian01.cpp" />

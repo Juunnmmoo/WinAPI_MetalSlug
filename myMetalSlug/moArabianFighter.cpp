@@ -21,12 +21,13 @@
 #include "moEnemyPistolBullet.h"
 
 namespace mo {
-	ArabianFighter::ArabianFighter(Marco* p, Vector2 stop, int max)
+	ArabianFighter::ArabianFighter(Marco* p, Vector2 stop, int max, eArabianFighterState state)
 		: player(p)
 		, stopPos(stop)
 		, heart(8)
 		, maxTurn(max)
 		, runCnt(0)
+		, mState(state)
 	{
 	}
 	ArabianFighter::~ArabianFighter()
@@ -64,8 +65,12 @@ namespace mo {
 		mAnimator->CreateAnimation(L"TurnR", mImageR, Vector2(120.0f * 9, 120.0f * 4), -120.0f, 10, 10, 3, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"AttackR", mImageR, Vector2(120.0f * 9, 120.0f * 5), -120.0f, 10, 10, 6, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"DeathR", mImageR, Vector2(120.0f * 9, 120.0f * 6), -120.0f, 10, 10, 9, Vector2::Zero, 0.05);
-		mAnimator->Play(L"FowordL", true);
-		mState = eArabianFighterState::Move;
+		
+		if(mState == eArabianFighterState::Move || mState == eArabianFighterState::Foword)
+			mAnimator->Play(L"FowordL", true);
+		else if(mState == eArabianFighterState::Idle)
+			mAnimator->Play(L"SitL", true);
+
 
 		Collider* mCollider = AddComponent<Collider>();		
 		mCollider->SetLeftTop(Vector2{ -30.50f, -100.0f });
@@ -83,6 +88,9 @@ namespace mo {
 		}
 
 		switch (mState) {
+		case::mo::ArabianFighter::eArabianFighterState::Idle:
+			idle();
+			break;
 		case::mo::ArabianFighter::eArabianFighterState::Move:
 			move();
 			break;
@@ -150,6 +158,21 @@ namespace mo {
 	}
 	void ArabianFighter::OnCollisionExit(Collider* other)
 	{
+	}
+	void ArabianFighter::idle()
+	{
+		Transform* tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+		Vector2 cPos = Camera::CaluatePos(pos);
+
+	
+		if (Camera::GetStop() && cPos.x < 1100.0f && cPos.x >= 0.0f)
+		{
+
+			mAnimator->Play(L"FowordL", true);
+			mState = eArabianFighterState::Foword;
+		}
+		
 	}
 	void ArabianFighter::move()
 	{

@@ -33,6 +33,7 @@ namespace mo{
 		static void RestartFadeIn();
 
 		static void SetStop(bool b) { stop = b; }
+		static bool GetStop() { return stop;}
 
 	private:
 

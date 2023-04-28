@@ -44,6 +44,7 @@ enum class eSfxType {
 	PlayerBombSFX,
 	PlayerBulletEnemySFX,
 	NomalExplosionM,
+	Boss1SFX,
 	End,
 };
 enum class eComponentType

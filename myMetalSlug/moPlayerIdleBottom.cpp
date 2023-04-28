@@ -23,6 +23,7 @@ namespace mo {
 		Image* mImageR = Resources::Load<Image>(L"MarcoBottomRight", L"..\\Resources\\Player\\MarcoBottomRight.bmp");
 		
 		mAnimator = AddComponent<Animator>();
+		mAnimator->SetunUseCameraPos(true);
 		mAnimator->CreateAnimation(L"IdleR", mImageR, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 30, 30, 1, Vector2::Zero, 0.1);
 
 		mAnimator->Play(L"IdleR", true);

@@ -107,6 +107,9 @@
     <Filter Include="Contents\GameObj\UI">
       <UniqueIdentifier>{8812507c-a9e5-486b-8e78-09985ab4a28b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\Monster\Boss1">
+      <UniqueIdentifier>{0f2c2c00-38f6-440b-b8f1-a13fe8035112}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -325,6 +328,30 @@
     <ClInclude Include="moPlayerIdleBottom.h">
       <Filter>Contents\GameObj\SelectPlayer</Filter>
     </ClInclude>
+    <ClInclude Include="moBoss1_Base.h">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss1_towrd.h">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss1_WindowOpen.h">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss1_CurtainIdle.h">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss1_CurtainOpen.h">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss1_Attackor.h">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss1_Missile.h">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClInclude>
+    <ClInclude Include="moAbulAbbas.h">
+      <Filter>Contents\GameObj\Npc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -534,6 +561,30 @@
     </ClCompile>
     <ClCompile Include="moPlayerIdleBottom.cpp">
       <Filter>Contents\GameObj\SelectPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss1_Base.cpp">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss1_towrd.cpp">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss1_CurtainIdle.cpp">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss1_WindowOpen.cpp">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss1_CurtainOpen.cpp">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss1_Attackor.cpp">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss1_Missile.cpp">
+      <Filter>Contents\GameObj\Monster\Boss1</Filter>
+    </ClCompile>
+    <ClCompile Include="moAbulAbbas.cpp">
+      <Filter>Contents\GameObj\Npc</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

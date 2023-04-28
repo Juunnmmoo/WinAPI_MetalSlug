@@ -59,6 +59,7 @@ namespace mo {
 		bool IsComplte() { return mActiveAnimation->isComplete(); }
 
 		void SetunUseCameraPos(bool b) { unUseCameraPos = b; }
+		void SetUnUseCameraY(bool b) { unUseCameraY = b; }
 
 	private:
 		std::map<std::wstring, Animation*> mAnimations;
@@ -73,5 +74,6 @@ namespace mo {
 		float mTime;
 		int TimeCheck;
 		bool unUseCameraPos;
+		bool unUseCameraY;
 	};
 }

@@ -29,7 +29,7 @@ namespace mo {
 
 		void Initialize();
 		void Update();
-		void Render(HDC mHdc, bool isAlpha, int alpha, bool unUseCamera);
+		void Render(HDC mHdc, bool isAlpha, int alpha, bool unUseCamera, bool unUseCameraY);
 		void Create(Image* sheet, Vector2 leftTop, float next, UINT coulmn, UINT row, UINT spriteLength, Vector2 offset, float duration);
 		void Reset();
 

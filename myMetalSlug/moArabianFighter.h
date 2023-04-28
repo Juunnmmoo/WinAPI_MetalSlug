@@ -12,6 +12,7 @@ namespace mo {
 	public:
 
 		enum class eArabianFighterState {
+			Idle,
 			Move,
 			Sit,
 			Foword,
@@ -22,7 +23,7 @@ namespace mo {
 		};
 
 
-		ArabianFighter(Marco* p, Vector2 stop, int max);
+		ArabianFighter(Marco* p, Vector2 stop, int max, eArabianFighterState state);
 		~ArabianFighter();
 
 		virtual void Initialize() override;
@@ -36,8 +37,10 @@ namespace mo {
 		Animator* GetAnimator() { return mAnimator; }
 		void SetStartFoword(bool b) { startFoword = b; }
 		void SetFighterState(eArabianFighterState state) { mState = state; }
+		eArabianFighterState GetFighterState() { return mState; }
 
 	private:
+		void idle();
 		void move();
 		void sit();
 		void foword();

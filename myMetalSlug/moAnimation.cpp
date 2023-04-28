@@ -40,7 +40,7 @@ namespace mo {
 
 		}
 	}
-	void Animation::Render(HDC mHdc, bool isAlpha,int alpha, bool unUseCamera)
+	void Animation::Render(HDC mHdc, bool isAlpha,int alpha, bool unUseCamera, bool unUseCameraY)
 	{
 
 		Transform* tr = mAnimator->GetOwner()->GetComponent<Transform>();
@@ -50,10 +50,20 @@ namespace mo {
 		Vector2 pos = tr->GetPos();
 
 		// 카메라 좌표로 설정
-		if (!unUseCamera)
+		
+		if (unUseCameraY)
 		{
-			pos = Camera::CaluatePos(pos);
+		
+			pos.x = Camera::CaluatePos(pos).x;
 		}
+		else
+		{
+			if (!unUseCamera)
+			{
+				pos = Camera::CaluatePos(pos);
+			}
+		}
+		
 		
 		pos += mSpriteSheet[mSpriteIndex].offSet;
 		pos.x -= (mSpriteSheet[mSpriteIndex].size.x * scale.x) / 2;

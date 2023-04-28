@@ -51,6 +51,7 @@ namespace mo {
 		bool useSfx;
 		float dropTime;
 		int createCnt;
-		
+		bool isCameraStop;
+		class AbulAbbas* abul;
 	};
 }

@@ -24,6 +24,7 @@ namespace mo {
 		class Image* sky;
 		class Marco* mPlayer;
 	
+		bool stopOnce;
 		Scene* curScene;
 		UINT TopDiff;
 		std::vector<eLayerType> weaponLayers;

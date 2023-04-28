@@ -14,6 +14,7 @@
 #include "moScene.h"
 #include "moCamera.h"
 #include "moApplication.h"
+#include "moBoss1_Missile.h"
 
 extern mo::Application application;
 namespace mo {
@@ -97,6 +98,17 @@ namespace mo {
 			object::Destory(this);
 		}
 	
+
+		Boss1_Missile* missile = dynamic_cast<Boss1_Missile*>(other->GetOwner());
+		if (missile != nullptr)
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));
+			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+			bulletSFX->Initialize();
+			bulletSFX->PlayAnimation();
+			object::Destory(this);
+		}
 	}
 
 	void PistolBullet::OnCollisionStay(Collider* other)

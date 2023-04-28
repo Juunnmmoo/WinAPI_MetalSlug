@@ -40,7 +40,7 @@ namespace mo {
 	{
 
 		mT = GetComponent<Transform>();
-		mT->SetPos(Vector2(1300.0f, 600.0f));
+	//	mT->SetPos(Vector2(1300.0f, 750.0f));
 		mT->SetScale(Vector2{ 3.0f, 3.0f });
 		mT->SetDisToBottom(Vector2{ 0.0f, 60.0f });
 		mT->SetDirection(eDirection::Left);

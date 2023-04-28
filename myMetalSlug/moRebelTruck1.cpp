@@ -21,6 +21,7 @@
 #include "moArabian.h"
 #include "moBulletSFX.h"
 #include "moArabianFighter.h"
+#include "moAbulAbbas.h"
 
 namespace mo {
 	RebelTruck1::RebelTruck1(Marco* p, RebelTruck2* second, Scene* scene, Vector2 stop)
@@ -73,6 +74,11 @@ namespace mo {
 		mCollider->SetSize(Vector2{ 200.0f, 200.0f });
 		mCollider->SetLeftTop(Vector2{ -150.0f, -200.f });
 
+		abul = new AbulAbbas(Vector2(5800.0f, 0.0f), mo::AbulAbbas::eAbulAbbasState::MoveFoword);
+		curScene->AddGameObject(abul, eLayerType::EnemyR_F);
+		abul->Initialize();
+		abul->GetComponent<Transform>()->SetPos(Vector2(6320.0f, 750.0f));
+
 
 		GameObject::Initialize();
 	}
@@ -96,6 +102,9 @@ namespace mo {
 
 		if (heart <= 0)
 			mState = eRebelTruckState::Death;
+
+
+	
 
 
 		secondT->SetPos(mT->GetPos() + Vector2(-147.2f, 0.0f));
@@ -159,11 +168,10 @@ namespace mo {
 				{
 					createCnt--;
 					
-					ArabianFighter* fighter1 = new ArabianFighter(player, Vector2(5600.0f, 0.0f) ,50);
+					ArabianFighter* fighter1 = new ArabianFighter(player, Vector2(5600.0f, 0.0f) ,50, ArabianFighter::eArabianFighterState::Foword);
 					curScene->AddGameObject(fighter1, eLayerType::EnemyR);
 					fighter1->Initialize();
 					fighter1->GetComponent<Transform>()->SetPos(pos + Vector2(0.0f, -60.0f));
-					fighter1->SetFighterState(ArabianFighter::eArabianFighterState::Foword);
 				}
 				
 			}
@@ -177,6 +185,7 @@ namespace mo {
 		if (!useSfx)
 		{
 			useSfx = true;
+			abul->StartRun();
 			mAnimator->Play(L"Death", true);
 			secondAnimator->Play(L"None", true);
 			Scene* curScene = SceneManager::GetActiveScene();
@@ -238,7 +247,18 @@ namespace mo {
 		}
 		else
 		{
-			Camera::SetStop(false);
+			if (!isCameraStop)
+			{
+				isCameraStop = true;
+				Camera::SetStop(false);
+			}
+
+			Vector2 cPos = Camera::CaluatePos(mT->GetPos());
+
+			if (cPos.x < -100.0f)
+				object::Destory(this);
+			
+
 		}
 
 	}
