@@ -128,6 +128,10 @@ namespace mo {
 		Vector2 cPos = Camera::CaluatePos(pos);
 		if (GetState() == eState::Pause && cPos.x < -700.0f)
 		{
+
+			object::Destory(mLeftTowrd);
+			object::Destory(mRightTowrd);
+			object::Destory(mMiddleTowrd);
 			object::Destory(this);
 		}
 

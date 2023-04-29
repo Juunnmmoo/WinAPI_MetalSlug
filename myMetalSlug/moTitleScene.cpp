@@ -5,6 +5,8 @@
 #include "moTitleBG.h"
 #include "moObject.h"
 #include "moCamera.h"
+#include "moResources.h"
+#include "moSound.h"
 
 namespace mo
 {
@@ -16,6 +18,9 @@ namespace mo
 	}
 	void TitleScene::Initialize()
 	{
+		//titleBGM = Resources::Load<Sound>(L"selectBGM", L"..\\Resources\\Sound\\selectBGM.wav");
+
+
 		TitleBG* titleBG = new TitleBG();
 		AddGameObject(titleBG, eLayerType::BG1);
 

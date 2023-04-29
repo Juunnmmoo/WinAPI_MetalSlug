@@ -3,6 +3,7 @@
 
 namespace mo
 {
+	class Sound;
 	class TitleScene : public Scene
 	{
 	public:
@@ -16,6 +17,6 @@ namespace mo
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 	private:
-
+		Sound* titleBGM;
 	};
 }

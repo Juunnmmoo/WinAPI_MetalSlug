@@ -44,6 +44,7 @@ namespace mo
 	void Mission1Scene::Initialize()
 	{
 		mission1BGM = Resources::Load<Sound>(L"missionBGM", L"..\\Resources\\Sound\\mission1BGM.wav");
+		missionStart = Resources::Load<Sound>(L"mission1Start", L"..\\Resources\\Sound\\mission1Start.wav");
 
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
@@ -218,6 +219,8 @@ namespace mo
 	void Mission1Scene::OnExit()
 	{
 		mission1BGM->Stop(true);
+		missionStart->Play(false);
+
 		CollisionManager::Clear();
 	}
 }

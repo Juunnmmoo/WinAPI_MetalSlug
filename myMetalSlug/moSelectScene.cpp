@@ -8,7 +8,8 @@
 #include "moObject.h"
 #include "moCamera.h"
 #include "moTime.h"
-
+#include "moResources.h"
+#include "moSound.h"
 
 namespace mo {
 	SelectScene::SelectScene()
@@ -29,6 +30,9 @@ namespace mo {
 	}
 	void SelectScene::Initialize()
 	{
+		selectBGM = Resources::Load<Sound>(L"selectBGM", L"..\\Resources\\Sound\\selectBGM.wav");
+
+
 		elevator1 = new SelectElevator(Vector2(84.0f, 221.0f), 0.5f);
 		AddGameObject(elevator1, eLayerType::front);
 		elevator2 = new SelectElevator(Vector2(84.0f + (235 * 1), 221.0f), 1.0f);
@@ -151,8 +155,10 @@ namespace mo {
 	}
 	void SelectScene::OnEnter()
 	{
+		selectBGM->Play(true);
 	}
 	void SelectScene::OnExit()
 	{
+		selectBGM->Stop(true);
 	}
 }

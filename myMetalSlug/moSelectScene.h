@@ -3,6 +3,7 @@
 
 namespace mo
 {
+	class Sound;
 	class SelectElevator;
 	class SelectCharactor;
 	class SelectScene : public Scene
@@ -28,6 +29,7 @@ namespace mo
 		SelectElevator* elevator2;
 		SelectElevator* elevator3;
 		SelectElevator* elevator4;
+		Sound* selectBGM;
 		int selectNum;
 		bool SceneChange;
 		float time;
