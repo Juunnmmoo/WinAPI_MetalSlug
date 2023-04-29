@@ -4,6 +4,7 @@
 #include "moInput.h"
 #include "moCollisionManager.h"
 #include "moCamera.h"
+#include "moSoundManager.h"
 
 namespace mo {
 	Application::Application()
@@ -51,6 +52,7 @@ namespace mo {
 
 		Input::Initialize();
 		Time::Initizlize();
+		SoundManager::Initialize();
 		Camera::Initialize();
 		SceneManager::Initialize();
 		

@@ -82,6 +82,8 @@ namespace mo {
 		mAnimator->CreateAnimation(L"M_KnifeAttackR", mImageR, Vector2(120.0f * 0, 120.0f * 17), 120.0f, 30, 30, 7, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"M_KnifeAttackL", mImageL, Vector2(120.0f * 29, 120.0f * 17),-120.0f, 30, 30, 7, Vector2::Zero, 0.05);
 
+		mAnimator->CreateAnimation(L"BombDeathR", mImageR, Vector2(120.0f * 0, 120.0f * 18), 120.0f, 30, 30, 19, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"BombDeathL", mImageL, Vector2(120.0f * 29, 120.0f * 18), -120.0f, 30, 30, 19, Vector2::Zero, 0.05);
 
 		mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"P_SitShootL") = std::bind(&MarcoBottom::shootEndEvent, this);

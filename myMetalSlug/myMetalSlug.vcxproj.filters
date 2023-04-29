@@ -352,6 +352,12 @@
     <ClInclude Include="moAbulAbbas.h">
       <Filter>Contents\GameObj\Npc</Filter>
     </ClInclude>
+    <ClInclude Include="moSoundManager.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="moSound.h">
+      <Filter>Engine\Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -585,6 +591,12 @@
     </ClCompile>
     <ClCompile Include="moAbulAbbas.cpp">
       <Filter>Contents\GameObj\Npc</Filter>
+    </ClCompile>
+    <ClCompile Include="moSound.cpp">
+      <Filter>Engine\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="moSoundManager.cpp">
+      <Filter>Engine\Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -279,12 +279,12 @@ namespace mo {
 					mDirection == eDirection::LTop)
 				{
 					mAnimator->Play(L"None", false);
-					bottom->GetAnimator()->Play(L"KnifeDeathL", false);
+					bottom->GetAnimator()->Play(L"BombDeathL", false);
 				}
 				else
 				{
 					mAnimator->Play(L"None", false);
-					bottom->GetAnimator()->Play(L"KnifeDeathR", false);
+					bottom->GetAnimator()->Play(L"BombDeathR", false);
 				}
 				mWeaponState = eMarcoWeapon::Pistol;
 				bottom->SetWeaponState(eMarcoWeapon::Pistol);
@@ -305,12 +305,12 @@ namespace mo {
 					mDirection == eDirection::LTop)
 				{
 					mAnimator->Play(L"None", false);
-					bottom->GetAnimator()->Play(L"KnifeDeathL", false);
+					bottom->GetAnimator()->Play(L"BombDeathL", false);
 				}
 				else
 				{
 					mAnimator->Play(L"None", false);
-					bottom->GetAnimator()->Play(L"KnifeDeathR", false);
+					bottom->GetAnimator()->Play(L"BombDeathR", false);
 				}
 				mWeaponState = eMarcoWeapon::Pistol;
 				bottom->SetWeaponState(eMarcoWeapon::Pistol);

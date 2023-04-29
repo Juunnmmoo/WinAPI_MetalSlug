@@ -29,6 +29,9 @@
 #include "moBoss1_Base.h"
 #include "moBoss1_Missile.h"
 #include "moArabianFighter.h"
+#include "moSound.h"
+#include "moSoundManager.h"
+#include "moResources.h"
 
 namespace mo
 {
@@ -40,6 +43,7 @@ namespace mo
 	}
 	void Mission1Scene::Initialize()
 	{
+		mission1BGM = Resources::Load<Sound>(L"missionBGM", L"..\\Resources\\Sound\\mission1BGM.wav");
 
 		MarcoBottom* marcoBottom = new MarcoBottom();
 		AddGameObject(marcoBottom, eLayerType::Player);
@@ -172,6 +176,8 @@ namespace mo
 	}
 	void Mission1Scene::OnEnter()
 	{
+		mission1BGM->Play(true);
+
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBullet, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBulletR, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::BulletBox, true);
@@ -211,6 +217,7 @@ namespace mo
 	}
 	void Mission1Scene::OnExit()
 	{
+		mission1BGM->Stop(true);
 		CollisionManager::Clear();
 	}
 }

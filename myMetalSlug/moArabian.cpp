@@ -71,7 +71,7 @@ namespace mo{
 		mAnimator->CreateAnimation(L"BackJumpR", mImageR, Vector2(120.0f * 19, 120.0f * 6), -120.0f, 20, 15, 8, Vector2::Zero, 0.1);
 		mAnimator->CreateAnimation(L"ReadyAttackR", mImageR, Vector2(120.0f * 19, 120.0f * 7), -120.0f, 20, 15, 4, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"BulletDeathR", mImageR, Vector2(120.0f * 19, 120.0f * 8), -120.0f, 20, 15, 20, Vector2::Zero, 0.07);
-		mAnimator->CreateAnimation(L"JumpR", mImageL, Vector2(120.0f * 0, 120.0f * 9), 120.0f, 20, 15, 13, Vector2::Zero, 0.07);
+		mAnimator->CreateAnimation(L"JumpR", mImageR, Vector2(120.0f * 19, 120.0f * 9), -120.0f, 20, 15, 13, Vector2::Zero, 0.07);
 
 		if(mState == eArabianState::Move)
 			mAnimator->Play(L"MoveL", true);
