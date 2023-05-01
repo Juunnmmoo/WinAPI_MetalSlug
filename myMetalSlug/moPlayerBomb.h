@@ -36,5 +36,6 @@ namespace mo {
 		class Animator* mAnimator;
 		eDirection mDir;
 		bool isUsed;
+		class Sound* bombSound;
 	};
 }

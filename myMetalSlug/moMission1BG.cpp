@@ -29,6 +29,7 @@ namespace mo {
 		main = Resources::Load<Image>(L"Mission1BG_Main", L"..\\Resources\\BackGround\\Mission1BG_Main.bmp");
 		ground = Resources::Load<Image>(L"Mission1BG_Ground", L"..\\Resources\\BackGround\\Mission1BG_GroundTest.bmp");
 		sky = Resources::Load<Image>(L"Mission1BG_Sky", L"..\\Resources\\BackGround\\Mission1BG_Sky.bmp");
+		sky2 = Resources::Load<Image>(L"Mission1BG_Sky2", L"..\\Resources\\BackGround\\Mission1BG_Sky2.bmp");
 
 		weaponLayers.push_back(eLayerType::EnemyBulletR);
 		weaponLayers.push_back(eLayerType::PlayerPistol);
@@ -181,6 +182,13 @@ namespace mo {
 			Camera::SetStop(true);
 		}
 
+		if (!skyChange)
+		{
+			if (pos.x >= 7800.0f)
+			{
+				skyChange = true;
+			}
+		}
 
 
 		GameObject::Update();
@@ -196,7 +204,15 @@ namespace mo {
 
 		//BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), pos.x, pos.y, SRCCOPY);
 		BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), mPos.x, mPos.y, SRCCOPY);
-		BitBlt(mHdc, 0, 0, application.GetWidth(), sky->GetHeight(), sky->GetHdc(), mPos.x * 0.5, 0, SRCCOPY);
+
+		if (skyChange)
+		{
+			BitBlt(mHdc, 0, 0, application.GetWidth(), sky2->GetHeight(), sky2->GetHdc(), mPos.x * 0.5 - 4000, 0, SRCCOPY);
+		}
+		else
+		{
+			BitBlt(mHdc, 0, 0, application.GetWidth(), sky->GetHeight(), sky->GetHdc(), mPos.x * 0.5, 0, SRCCOPY);
+		}
 
 		//TransparentBlt(mHdc, -pos.x, -pos.y, main->GetWidth(), main->GetHeight(), main->GetHdc(), 0, 0, main->GetWidth(), main->GetHeight(), RGB(248, 0, 248));
 		TransparentBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), main->GetHdc(), mPos.x, mPos.y, application.GetWidth(), application.GetHeight(), RGB(255, 0, 255));

@@ -16,6 +16,7 @@
 #include "moMarco.h"
 #include "moBoss1_Missile.h"
 #include "moSound.h"
+#include "moSlave.h"
 extern mo::Application application;
 namespace mo {
 	MachinegunBullet::MachinegunBullet(Marco* marco)
@@ -137,6 +138,17 @@ namespace mo {
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::Enemy ||
 			other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));
+			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+			bulletSFX->Initialize();
+			bulletSFX->PlayAnimation();
+			object::Destory(this);
+		}
+
+		Slave* slave = dynamic_cast<Slave*>(other->GetOwner());
+		if (slave != nullptr && !slave->GetIsRelease())
 		{
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));

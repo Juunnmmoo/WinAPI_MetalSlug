@@ -19,7 +19,7 @@
 #include "moBoss1_Attackor.h"
 #include "moBulletSFX.h"
 #include "moBoss1_Missile.h"
-
+#include "moSound.h"
 
 namespace mo {
 	Boss1_Towrd::Boss1_Towrd(Marco* marco, Scene* scene, TowrdDir dir)
@@ -33,6 +33,10 @@ namespace mo {
 	}
 	void Boss1_Towrd::Initialize()
 	{
+
+		attackSound = Resources::Load<Sound>(L"Boss1AttackSound", L"..\\Resources\\Sound\\Boss1AttackSound.wav");
+		attackSound->SetVolume(80);
+
 		Transform* tr = GetComponent<Transform>();
 
 
@@ -386,7 +390,7 @@ namespace mo {
 			{
 				useSfx = true;
 				Scene* curScene = SceneManager::GetActiveScene();
-				
+				attackSound->Play(false);
 				if (mTowrdDir == TowrdDir::Left)
 				{
 					Boss1_Missile* missile = new Boss1_Missile(mPlayer);

@@ -23,8 +23,10 @@ namespace mo {
 		class Image* ground;
 		class Image* sky;
 		class Marco* mPlayer;
+		class Image* sky2;
 	
 		bool stopOnce;
+		bool skyChange;
 		Scene* curScene;
 		UINT TopDiff;
 		std::vector<eLayerType> weaponLayers;

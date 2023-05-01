@@ -14,7 +14,7 @@
 #include "moScene.h"
 #include "moMachinegun.h"
 #include "moAnimator.h"
-
+#include "moSound.h"
 namespace mo {
 	Boss1_Attackor::Boss1_Attackor()
 		:heart(60)
@@ -27,7 +27,8 @@ namespace mo {
 	{
 		Image* mImage = Resources::Load<Image>(L"Boss1_Attack", L"..\\Resources\\Enemy\\Boss1\\Boss1_Attack.bmp");
 
-
+		deathSound = Resources::Load<Sound>(L"TowrdDeathSound", L"..\\Resources\\Sound\\TowrdDeathSound.wav");
+		deathSound->SetVolume(80);
 		Transform* tr;
 		tr = GetComponent<Transform>();
 
@@ -50,6 +51,9 @@ namespace mo {
 	{
 		if (heart <= 0)
 		{
+			if (GetState() != eState::Pause)
+				deathSound->Play(false);
+
 			mAnimator->Play(L"None", false);
 			SetState(eState::Pause);
 		}

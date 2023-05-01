@@ -15,6 +15,7 @@
 #include "moCamera.h"
 #include "moApplication.h"
 #include "moBoss1_Missile.h"
+#include "moSlave.h"
 
 extern mo::Application application;
 namespace mo {
@@ -86,8 +87,7 @@ namespace mo {
 
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::Enemy ||
-			other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F || 
-			other->GetOwner()->GetLayerType() == eLayerType::Slave)
+			other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F )
 		{
 
 			Scene* curScene = SceneManager::GetActiveScene();
@@ -98,6 +98,16 @@ namespace mo {
 			object::Destory(this);
 		}
 	
+		Slave* slave = dynamic_cast<Slave*>(other->GetOwner());
+		if (slave != nullptr && !slave->GetIsRelease())
+		{
+			Scene* curScene = SceneManager::GetActiveScene();
+			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBulletEnemySFX, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 60.0f));
+			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+			bulletSFX->Initialize();
+			bulletSFX->PlayAnimation();
+			object::Destory(this);
+		}
 
 		Boss1_Missile* missile = dynamic_cast<Boss1_Missile*>(other->GetOwner());
 		if (missile != nullptr)

@@ -124,11 +124,11 @@ namespace mo
 		AddGameObject(armsUI, eLayerType::UI);
 
 		Boss1_Base* boss_Base = new Boss1_Base(marco, this);
-		AddGameObject(boss_Base, eLayerType::Enemy);
+		AddGameObject(boss_Base, eLayerType::front);
 
 
 		Slave* slave4 = new Slave(marco, this, Vector2(6700.0f, 700.0f), eMarcoWeapon::Machinegun);
-		AddGameObject(slave4, eLayerType::front);
+		AddGameObject(slave4, eLayerType::Slave);
 		
 		//CharUI* ui = new CharUI(eCharType::M, Vector2(200.0f, 300.0f), Vector2(1.5f, 1.5f));
 		//AddGameObject(ui, eLayerType::UI);

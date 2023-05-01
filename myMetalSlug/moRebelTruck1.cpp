@@ -22,6 +22,7 @@
 #include "moBulletSFX.h"
 #include "moArabianFighter.h"
 #include "moAbulAbbas.h"
+#include "moSound.h"
 
 namespace mo {
 	RebelTruck1::RebelTruck1(Marco* p, RebelTruck2* second, Scene* scene, Vector2 stop)
@@ -39,6 +40,9 @@ namespace mo {
 	}
 	void RebelTruck1::Initialize()
 	{
+		deathSound = Resources::Load<Sound>(L"TowrdDeathSound", L"..\\Resources\\Sound\\TowrdDeathSound.wav");
+		deathSound->SetVolume(80);
+
 		mT = GetComponent<Transform>();
 		mT->SetScale(Vector2{ 3.2f, 3.2f });
 		mT->SetDirection(eDirection::Left);
@@ -184,6 +188,7 @@ namespace mo {
 
 		if (!useSfx)
 		{
+			deathSound->Play(false);
 			useSfx = true;
 			abul->StartRun();
 			mAnimator->Play(L"Death", true);

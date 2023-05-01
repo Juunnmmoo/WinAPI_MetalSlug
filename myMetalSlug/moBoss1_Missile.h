@@ -44,6 +44,7 @@ namespace mo {
 		Image* mImage;
 		Marco* mPlayer;
 		class Animator* mAnimator;
+		class Sound* bombSound;
 		eDirection mDir;
 		bool isUsed;
 		float mTime;

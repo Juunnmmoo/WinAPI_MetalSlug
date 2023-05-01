@@ -14,7 +14,7 @@
 #include "moBulletSFX.h"
 #include "moSceneManager.h"
 #include "moScene.h"
-
+#include "moSound.h"
 namespace mo {
 	Boss1_Missile::Boss1_Missile(Marco* marco)
 		: mPlayer(marco)
@@ -26,6 +26,9 @@ namespace mo {
 	}
 	void Boss1_Missile::Initialize()
 	{
+		bombSound = Resources::Load<Sound>(L"bombSound", L"..\\Resources\\Sound\\bombSound.wav");
+		bombSound->SetVolume(80);
+
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		tr->SetScale(Vector2(3.0f, 3.0f));
@@ -129,6 +132,7 @@ namespace mo {
 			other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb ||
 			other->GetOwner()->GetLayerType() == eLayerType::Player)
 		{
+			bombSound->Play(false);
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos, Vector2(2.5f, 2.5f), Vector2(0.0f, 36.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);

@@ -1017,7 +1017,7 @@ namespace mo {
 		eDirection mDirection = mTransform->GetDirection();
 		eDirection mBottomDirection = playerBottom->GetComponent<Transform>()->GetDirection();
 		playerBottom->GetComponent<Transform>()->SetDisToBottom(Vector2{ 0.0f, 50.0f });
-		player->AddBombNum(10);
+		player->SetBombNum(10);
 
 		if (Input::GetKey(eKeyCode::Down))
 		{

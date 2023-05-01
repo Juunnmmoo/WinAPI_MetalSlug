@@ -58,6 +58,7 @@ namespace mo {
 		class Boss1_WindowOpen* mDoor;
 		class Boss1_CurtainOpen* mCurtainOpen;
 		class Boss1_Attackor* mAttackor;
+		class Sound* attackSound;
 		float mTime;
 		bool isPlayed;
 		bool useSfx;

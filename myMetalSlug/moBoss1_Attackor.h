@@ -22,6 +22,7 @@ namespace mo {
 	private:
 		class Image* mImage;
 		float mTime;
+		class Sound* deathSound;
 		Animator* mAnimator;
 		int heart;
 	};

@@ -12,7 +12,7 @@
 #include "Collider.h"
 #include "moBulletSFX.h"
 #include "moBoss1_Missile.h"
-
+#include "moSound.h"
 namespace mo {
 	PlayerBomb::PlayerBomb()
 	{
@@ -22,6 +22,9 @@ namespace mo {
 	}
 	void PlayerBomb::Initialize()
 	{
+		bombSound = Resources::Load<Sound>(L"bombSound", L"..\\Resources\\Sound\\bombSound.wav");
+		bombSound->SetVolume(80);
+
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		tr->SetScale(Vector2{ 2.5f, 2.5f});
@@ -81,7 +84,7 @@ namespace mo {
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F ||
 			other->GetOwner()->GetLayerType() == eLayerType::Enemy || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
 		{
-			
+			bombSound->Play(false);
 
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBombSFX, pos, Vector2(5.0f, 5.0f), Vector2(0.0f, 49.0f));
@@ -95,6 +98,7 @@ namespace mo {
 		Boss1_Missile* missile = dynamic_cast<Boss1_Missile*>(other->GetOwner());
 		if (missile != nullptr)
 		{
+			bombSound->Play(false);
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBombSFX, pos, Vector2(5.0f, 5.0f), Vector2(0.0f, 49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);
@@ -135,7 +139,7 @@ namespace mo {
 		RigidBody* mRigidbody = GetComponent<RigidBody>();
 		Vector2 velocity = mRigidbody->GetVelocity();
 		velocity.y -= 300.0f;
-		mRigidbody->SetVelocity(velocity);
+		mRigidbody->SetVelocity(velocity);	
 		mRigidbody->SetGround(false);
 
 		mState = eWeaponObjectState::Second;
@@ -179,6 +183,8 @@ namespace mo {
 
 		if (GetComponent<RigidBody>()->GetGround())
 		{
+			bombSound->Play(false);
+
 			Scene* curScene = SceneManager::GetActiveScene();
 			BulletSFX* bulletSFX = new BulletSFX(eSfxType::PlayerBombSFX, pos, Vector2(5.0f, 5.0f), Vector2(0.0f,49.0f));
 			curScene->AddGameObject(bulletSFX, eLayerType::Effect);

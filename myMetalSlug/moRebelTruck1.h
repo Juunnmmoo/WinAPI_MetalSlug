@@ -53,5 +53,6 @@ namespace mo {
 		int createCnt;
 		bool isCameraStop;
 		class AbulAbbas* abul;
+		class Sound* deathSound;
 	};
 }
