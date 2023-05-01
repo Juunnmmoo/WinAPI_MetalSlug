@@ -33,6 +33,7 @@ namespace mo {
 		Animation* mPrevAnimation;
 		RigidBody* mRigidbody;
 		Transform* mTransform;
+		class Sound* pistolSound;
 		bool unUsedParaglider;
 		bool isBackToLife;
 		bool isBomb;

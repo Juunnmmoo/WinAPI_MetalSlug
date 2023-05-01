@@ -10,6 +10,8 @@
 #include "moMarco.h"
 #include "moObject.h"
 #include "moRigidBody.h"
+#include "moResources.h"
+#include "moSound.h"
 
 namespace mo {
 	MachinegunBox::MachinegunBox()
@@ -21,6 +23,9 @@ namespace mo {
 	}
 	void MachinegunBox::Initialize()
 	{
+		machinegunSound = Resources::Load<Sound>(L"machinegunSound", L"..\\Resources\\Sound\\machinegunSound.wav");
+
+
 		Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(650.0f, 600.0f));
 
@@ -58,7 +63,6 @@ namespace mo {
 	}
 	void MachinegunBox::OnCollisionEnter(Collider* other)
 	{
-		
 	}
 	void MachinegunBox::OnCollisionStay(Collider* other)
 	{
@@ -66,6 +70,7 @@ namespace mo {
 			Marco* marco = dynamic_cast<Marco*>(other->GetOwner());
 			if (marco == nullptr)
 				return;
+			machinegunSound->Play(false);
 			marco->ChangeWeapon(eMarcoWeapon::Machinegun);
 			marco->AddBulletNum(200);
 			object::Destory(this);

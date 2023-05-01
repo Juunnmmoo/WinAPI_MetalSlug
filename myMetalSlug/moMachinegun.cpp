@@ -15,7 +15,7 @@
 #include "moApplication.h"
 #include "moPlayerBomb.h"
 #include "moMachinegunBullet.h"
-
+#include "moSound.h"
 extern mo::Application application;
 
 namespace mo {
@@ -34,6 +34,7 @@ namespace mo {
 		/*	player = GetPlayer();
 			playerBottom = GetBottom();*/
 
+		machinegunBulletSound = Resources::Load<Sound>(L"machinegunBulletSound", L"..\\Resources\\Sound\\machinegunBulletSound.wav");
 
 		mState = player->GetMarcoState();
 		mAnimator = player->GetComponent<Animator>();
@@ -1015,6 +1016,8 @@ namespace mo {
 			else
 			{
 				if (mDirection == eDirection::Right || mDirection == eDirection::RBottom) {
+					machinegunBulletSound->SetVolume(80);
+					machinegunBulletSound->Play(false);
 					for (int i = 0; i < 4; i++)
 					{
 						int bulletNum = player->GetBulletNum();
@@ -1110,6 +1113,8 @@ namespace mo {
 			}
 			else
 			{
+				machinegunBulletSound->SetVolume(80);
+				machinegunBulletSound->Play(false);
 					if (mDirection == eDirection::Right) {
 						for (int i = 0; i < 4; i++)
 						{
@@ -1307,7 +1312,8 @@ namespace mo {
 	void Machinegun::diagonalAttackStartEvent()
 	{
 		isShooting = false;
-	
+		machinegunBulletSound->SetVolume(80);
+		machinegunBulletSound->Play(false);
 		eDirection mDirection = mTransform->GetDirection();
 		Vector2 mPos = mTransform->GetPos();
 		Scene* curScene = SceneManager::GetActiveScene();

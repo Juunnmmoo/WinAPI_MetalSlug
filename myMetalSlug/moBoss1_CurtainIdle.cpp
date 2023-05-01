@@ -21,6 +21,7 @@ namespace mo {
 	}
 	Boss1_CurtainIdle::~Boss1_CurtainIdle()
 	{
+		int a = 0;
 	}
 	void Boss1_CurtainIdle::Initialize()
 	{

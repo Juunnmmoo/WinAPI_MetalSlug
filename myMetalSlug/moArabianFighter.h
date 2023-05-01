@@ -53,6 +53,7 @@ namespace mo {
 		Vector2 stopPos;
 		Animator* mAnimator;
 		eArabianFighterState mState;
+		class Sound* EnemyDeathSound4;
 		Marco* player;
 		bool startFoword;
 		int heart;

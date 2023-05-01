@@ -14,6 +14,7 @@
 #include "moObject.h"
 #include "moAnimator.h"
 #include "moSlave.h"
+#include "moSound.h"
 
 namespace mo {
 	PlayerKnife::PlayerKnife()
@@ -24,6 +25,8 @@ namespace mo {
 	}
 	void PlayerKnife::Initialize()
 	{
+		knifeAttackSound = Resources::Load<Sound>(L"KnifeAttackSound", L"..\\Resources\\Sound\\KnifeAttackSound.wav");
+		knifeAttackSound->SetVolume(80);
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 70.0f, 110.0f });
 
@@ -66,6 +69,7 @@ namespace mo {
 
 				if (Input::GetKeyDown(eKeyCode::D) && isUse)
 				{
+					knifeAttackSound->Play(false);
 
 					if (other->GetOwner()->GetComponent<Transform>()->GetDirection() == eDirection::Left)
 
@@ -88,9 +92,11 @@ namespace mo {
 			if (slave != nullptr && !slave->GetIsRelease())
 			{
 				isCollide = true;
-
+				
 				if (Input::GetKeyDown(eKeyCode::D) && isUse)
 				{
+					knifeAttackSound->Play(false);
+
 					
 					
 						slave->SetIsRelease(true);

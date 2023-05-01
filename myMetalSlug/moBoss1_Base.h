@@ -31,6 +31,7 @@ namespace mo {
 		class ArabianFighter* fighter1;
 		class ArabianFighter* fighter12;
 		class ArabianFighter* fighter3;
+		class Sound* deathSound;
 		bool startEndEvent;
 		Marco* mPlayer;
 		Scene* curScene;

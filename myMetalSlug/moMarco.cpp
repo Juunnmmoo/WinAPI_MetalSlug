@@ -17,7 +17,7 @@
 #include "moDropWeapon.h"
 #include "moObject.h"
 #include "moPlayerKnife.h"
-
+#include "moSound.h"
 extern mo::Application application;
 
 namespace mo {
@@ -43,6 +43,10 @@ namespace mo {
 	}
 	void Marco::Initialize()
 	{
+		
+		marcoScream = Resources::Load<Sound>(L"MarcoDeathSound", L"..\\Resources\\Sound\\MarcoDeathSound.wav");
+		marcoScream->SetVolume(80);
+
 		/*Image* mImageR = Resources::Load<Image>(L"PistolRight", L"..\\Resources\\Player\\PistolRight.bmp");
 		Image* mImageL = Resources::Load<Image>(L"PistolLeft", L"..\\Resources\\Player\\PistolLeft.bmp");
 		Image* test = Resources::Load<Image>(L"RipleRight", L"..\\Resources\\Player\\RipleRight.bmp");*/
@@ -52,8 +56,8 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2{ 300.0f, 0.0f });
-		tr->SetPos(Vector2{ 4500.0f, 100.0f });
+		tr->SetPos(Vector2{ 300.0f, 0.0f });
+		//tr->SetPos(Vector2{ 4500.0f, 100.0f });
 		//tr->SetPos(Vector2{ 6700.0f, 100.0f });
 
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
@@ -75,11 +79,9 @@ namespace mo {
 		mRigidbody->SetGravity(Vector2(0.0f, 250.0f));
 
 
-	
-
 		pistol = new Pistol(this, bottom);
 		pistol->Initialize();
-
+			
 		machinegun = new Machinegun(this, bottom);
 		machinegun->Initialize();
 		
@@ -239,6 +241,8 @@ namespace mo {
 		if ((other->GetOwner()->GetLayerType() == eLayerType::EnemyBulletR || 
 			other->GetOwner()->GetLayerType() == eLayerType::EnemyBullet))
 		{
+			marcoScream->Play(false);
+
 			if (other->GetOwner()->GetBulletType() == eBulletType::knife
 				)
 			{

@@ -52,8 +52,8 @@ namespace mo {
 
 		Input::Initialize();
 		Time::Initizlize();
-		SoundManager::Initialize();
 		Camera::Initialize();
+		SoundManager::Initialize();
 		SceneManager::Initialize();
 		
 	}

@@ -19,6 +19,7 @@ namespace mo {
 
 	private:
 		class Image* mImage;
+		class Sound* machinegunSound;
 		float mTime;
 	};
 }

@@ -14,6 +14,7 @@
 #include "moRigidBody.h"
 #include "moApplication.h"
 #include "moPlayerBomb.h"
+#include "moSound.h"
 
 extern mo::Application application;
 
@@ -34,6 +35,8 @@ namespace mo {
 	/*	player = GetPlayer();
 		playerBottom = GetBottom();*/
 
+		pistolSound = Resources::Load<Sound>(L"pistolShot", L"..\\Resources\\Sound\\pistolShot.wav");
+		pistolSound->SetVolume(80);
 
 		mState = player->GetMarcoState();
 		mAnimator = player->GetComponent<Animator>();
@@ -901,6 +904,8 @@ namespace mo {
 			{
 				PistolBullet* pistolBullet = new PistolBullet();
 
+				pistolSound->Play(false);
+
 				if (mDirection == eDirection::Right || mDirection == eDirection::RBottom) {
 					pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
 					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -10.0f));
@@ -934,6 +939,8 @@ namespace mo {
 			else
 			{
 				PistolBullet* pistolBullet = new PistolBullet();
+				pistolSound->Play(false);
+
 
 				if (mDirection == eDirection::Right) {
 					pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
@@ -1010,6 +1017,7 @@ namespace mo {
 		eDirection mDirection = mTransform->GetDirection();
 		eDirection mBottomDirection = playerBottom->GetComponent<Transform>()->GetDirection();
 		playerBottom->GetComponent<Transform>()->SetDisToBottom(Vector2{ 0.0f, 50.0f });
+		player->AddBombNum(10);
 
 		if (Input::GetKey(eKeyCode::Down))
 		{

@@ -31,7 +31,7 @@ namespace mo {
 	void SelectScene::Initialize()
 	{
 		selectBGM = Resources::Load<Sound>(L"selectBGM", L"..\\Resources\\Sound\\selectBGM.wav");
-
+		okSound = Resources::Load<Sound>(L"okSound", L"..\\Resources\\Sound\\ok.wav");
 
 		elevator1 = new SelectElevator(Vector2(84.0f, 221.0f), 0.5f);
 		AddGameObject(elevator1, eLayerType::front);
@@ -132,6 +132,7 @@ namespace mo {
 				charactor4->SetImagePos(Vector2(223.0f * 3, 418.0f * 2));
 				elevator4->SetGoingBack();
 			}
+			okSound->Play(false);
 			SceneChange = true;
 		}
 

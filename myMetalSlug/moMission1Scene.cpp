@@ -178,6 +178,7 @@ namespace mo
 	void Mission1Scene::OnEnter()
 	{
 		mission1BGM->Play(true);
+		missionStart->Play(false);
 
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBullet, true);
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::EnemyBulletR, true);
@@ -219,7 +220,6 @@ namespace mo
 	void Mission1Scene::OnExit()
 	{
 		mission1BGM->Stop(true);
-		missionStart->Play(false);
 
 		CollisionManager::Clear();
 	}

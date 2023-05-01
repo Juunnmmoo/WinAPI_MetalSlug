@@ -15,6 +15,7 @@
 #include "moScene.h"
 #include "moMarco.h"
 #include "moBoss1_Missile.h"
+#include "moSound.h"
 extern mo::Application application;
 namespace mo {
 	MachinegunBullet::MachinegunBullet(Marco* marco)
@@ -29,7 +30,8 @@ namespace mo {
 	void MachinegunBullet::Initialize()
 	{
 		mImage = Resources::Load<Image>(L"MachinegunBullet", L"..\\Resources\\Weapon\\Bullet\\MachinegunBullet.bmp");
-
+	
+		
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"MachinegunBulletR", mImage, Vector2(120.0f * 0, 120.0f * 0), 120.0f, 10, 4, 1, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"MachinegunBulletL", mImage, Vector2(120.0f * 9, 120.0f * 0), -120.0f, 10, 4, 1, Vector2::Zero, 0.05);

@@ -16,6 +16,7 @@
 #include "moBulletSFX.h"
 #include "moArabianFighter.h"
 #include "moAbulAbbas.h"
+#include "moSound.h"
 
 namespace mo {
 	Boss1_Base::Boss1_Base(Marco* marco, Scene* scene)
@@ -28,6 +29,10 @@ namespace mo {
 	}
 	void Boss1_Base::Initialize()
 	{
+
+		deathSound = Resources::Load<Sound>(L"Boss1DeathSound", L"..\\Resources\\Sound\\Boss1DeathSound.wav");
+		deathSound->SetVolume(80);
+
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(6950.0f, 730.0f));
 
@@ -186,6 +191,7 @@ namespace mo {
 
 			if (charNum == 0)
 			{
+				deathSound->Play(false);
 				BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-300.0f, -300.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 36.0f));
 				curScene->AddGameObject(bulletSFX, eLayerType::Effect);
 				bulletSFX->Initialize();

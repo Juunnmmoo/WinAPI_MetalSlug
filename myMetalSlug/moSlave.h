@@ -68,7 +68,7 @@ namespace mo {
 		bool isReleased;
 		bool isTakeOut;
 		bool isDrop;
-
+		class Sound* thankyouSound;
 		float time;
 		
 	};

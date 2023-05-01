@@ -19,12 +19,12 @@ namespace mo {
 
 		mActiveScene = mScenes[(UINT)eSceneType::Title];
 
-		mActiveScene->OnEnter();
 		for (Scene* scene : mScenes) {
 			if (scene == nullptr)
 				continue;
 			scene->Initialize();
 		}
+		mActiveScene->OnEnter();
 	}
 	void SceneManager::Update()
 	{

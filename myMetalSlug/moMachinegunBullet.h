@@ -33,6 +33,7 @@ namespace mo {
 		Vector2 mDir;
 		Marco* mPlayer;
 		class Animator* mAnimator;
+		class Sound* machinegunBulletSound;
 		int animationNum;
 		bool isPlayed;
 		float time;

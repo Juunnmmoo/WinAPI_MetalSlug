@@ -16,6 +16,7 @@
 #include "moEnemyAttackCollider.h"
 #include "moCamera.h"
 #include "moApplication.h"
+#include "moSound.h"
 extern mo::Application application;
 
 namespace mo{
@@ -33,6 +34,8 @@ namespace mo{
 
 	void Arabian::Initialize()
 	{
+		EnemyDeathSound3 = Resources::Load<Sound>(L"EnemyDeathSound3", L"..\\Resources\\Sound\\EnemyDeathSound3.wav");
+		EnemyDeathSound3->SetVolume(80);
 
 		Image* mImageL = Resources::Load<Image>(L"ArabianLeft", L"..\\Resources\\Enemy\\ArabianLeft.bmp");
 		Image* mImageR = Resources::Load<Image>(L"ArabianRight", L"..\\Resources\\Enemy\\ArabianRight.bmp");
@@ -162,6 +165,7 @@ namespace mo{
 
 		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol)
 		{
+			EnemyDeathSound3->Play(false);
 
 			if (mDir == eDirection::Left)
 			{
@@ -175,6 +179,8 @@ namespace mo{
 		}
 		 if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb)
 		{
+			 EnemyDeathSound3->Play(false);
+
 			if (mDir == eDirection::Left)
 			{
 				mAnimator->Play(L"KnifeDeathL", false);
@@ -187,6 +193,7 @@ namespace mo{
 		}
 		 if (other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)
 		{
+			 EnemyDeathSound3->Play(false);
 
 			if (mDir == eDirection::Left)
 			{

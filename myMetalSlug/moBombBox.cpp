@@ -10,6 +10,8 @@
 #include "moMarco.h"
 #include "moObject.h"
 #include "moRigidBody.h"
+#include "moSound.h"
+#include "moResources.h"
 
 namespace mo {
 	BombBox::BombBox()
@@ -20,6 +22,9 @@ namespace mo {
 	}
 	void BombBox::Initialize()
 	{
+
+		itemGetSound = Resources::Load<Sound>(L"itemGetSound", L"..\\Resources\\Sound\\itemGetSound.wav");
+
 		Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(650.0f, 600.0f));
 
@@ -62,6 +67,7 @@ namespace mo {
 			if (marco == nullptr)
 				return;
 			marco->AddBombNum(10);
+			itemGetSound->Play(false);
 			object::Destory(this);
 		}
 	}

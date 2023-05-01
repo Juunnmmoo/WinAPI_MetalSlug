@@ -18,7 +18,7 @@ namespace mo
 	}
 	void TitleScene::Initialize()
 	{
-		//titleBGM = Resources::Load<Sound>(L"selectBGM", L"..\\Resources\\Sound\\selectBGM.wav");
+		titleBGM = Resources::Load<Sound>(L"titleSound", L"..\\Resources\\Sound\\titleSound.wav");
 
 
 		TitleBG* titleBG = new TitleBG();
@@ -43,6 +43,7 @@ namespace mo
 	}
 	void TitleScene::OnEnter()
 	{
+		titleBGM->Play(false);
 	}
 	void TitleScene::OnExit()
 	{

@@ -25,6 +25,7 @@ namespace mo {
 	private:
 		Marco* player;
 		Vector2 mPos;
+		class Sound* knifeAttackSound;
 		bool isCollide;
 		bool isUse;
 	};

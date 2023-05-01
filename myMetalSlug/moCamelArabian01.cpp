@@ -19,6 +19,7 @@
 #include "moCamel.h"
 #include "moCamelArabian02.h"
 #include "moEnemyPistolBullet.h"
+#include "moSound.h"
 
 extern mo::Application application;
 
@@ -38,6 +39,9 @@ namespace mo {
 	}
 	void CamelArabian01::Initialize()
 	{
+
+		EnemyDeathSound4 = Resources::Load<Sound>(L"EnemyDeathSound4", L"..\\Resources\\Sound\\EnemyDeathSound4.wav");
+		EnemyDeathSound4->SetVolume(80);
 
 		mT = GetComponent<Transform>();
 	//	mT->SetPos(Vector2(1300.0f, 750.0f));
@@ -181,6 +185,7 @@ namespace mo {
 	
 		if (mState != eCamelArabianState::Death)
 		{
+
 			camelT->SetPos(mPos + Vector2(-10.0f, 125.0f));
 			secondT->SetPos(mPos);
 		}
@@ -206,6 +211,7 @@ namespace mo {
 			else if (noHeart && mState != eCamelArabianState::Lost)
 			{
 				eDirection mDir = mT->GetDirection();
+				EnemyDeathSound4->Play(false);
 
 				mAnimator->Play(L"None", false);
 				camelAnimator->Play(L"MoveL", true);
@@ -223,7 +229,7 @@ namespace mo {
 		{
 			eDirection mDir = mT->GetDirection();
 			heart = 0;
-
+			EnemyDeathSound4->Play(false);
 			mAnimator->Play(L"None", false);
 			camelAnimator->Play(L"MoveL", true);
 			if (mDir == eDirection::Left)

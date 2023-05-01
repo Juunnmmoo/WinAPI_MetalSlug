@@ -62,7 +62,7 @@ namespace mo {
 		eMarcoWeapon mWeaponState;
 		PlayerKnife* leftKnife;
 		PlayerKnife* rightKnife;
-
+		class Sound* marcoScream;
 		bool isKnife;
 		int bulletNum;
 		int bombNum;

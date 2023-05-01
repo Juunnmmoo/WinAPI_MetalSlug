@@ -19,7 +19,7 @@
 #include "moCamel.h"
 #include "moCamelArabian02.h"
 #include "moEnemyPistolBullet.h"
-
+#include "moSound.h"
 namespace mo {
 	ArabianFighter::ArabianFighter(Marco* p, Vector2 stop, int max, eArabianFighterState state)
 		: player(p)
@@ -35,6 +35,10 @@ namespace mo {
 	}
 	void ArabianFighter::Initialize()
 	{
+
+		EnemyDeathSound4 = Resources::Load<Sound>(L"EnemyDeathSound1", L"..\\Resources\\Sound\\EnemyDeathSound1.wav");
+		EnemyDeathSound4->SetVolume(80);
+
 		Image* mImageL = Resources::Load<Image>(L"ArabianFighterLeft", L"..\\Resources\\Enemy\\ArabianFighterLeft.bmp");
 		Image* mImageR = Resources::Load<Image>(L"ArabianFighterRight", L"..\\Resources\\Enemy\\ArabianFighterRight.bmp");
 
@@ -122,7 +126,7 @@ namespace mo {
 			tr = GetComponent<Transform>();
 
 			SetState(eState::Pause);
-
+			EnemyDeathSound4->Play(false);
 			if (tr->GetDirection() == eDirection::Left)
 			{
 				mAnimator->Play(L"DeathL", false);

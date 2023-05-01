@@ -30,6 +30,8 @@ namespace mo
 		SelectElevator* elevator3;
 		SelectElevator* elevator4;
 		Sound* selectBGM;
+		Sound* okSound;
+
 		int selectNum;
 		bool SceneChange;
 		float time;

@@ -57,6 +57,7 @@ namespace mo {
 		Marco* player;
 		Camel* mCamel;
 		CamelArabian02* mSecond;
+		class Sound* EnemyDeathSound4;
 		Scene* curScene;
 		bool isPlayed;
 		bool noHeart;

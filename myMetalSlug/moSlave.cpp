@@ -18,6 +18,7 @@
 #include "moApplication.h"
 #include "moMachinegunBox.h"
 #include "moBombBox.h"
+#include "moSound.h"
 
 namespace mo {
 	Slave::Slave(Marco* p, Scene* scene, Vector2 pos, eMarcoWeapon weapon)
@@ -32,6 +33,8 @@ namespace mo {
 	}
 	void Slave::Initialize()
 	{
+		thankyouSound = Resources::Load<Sound>(L"thankyouSound", L"..\\Resources\\Sound\\thankyouSound.wav");
+
 		Image* mImageL = Resources::Load<Image>(L"NpcLeft", L"..\\Resources\\NPC\\NpcLeft.bmp");
 		Image* mImageR = Resources::Load<Image>(L"NpcRight", L"..\\Resources\\NPC\\NpcRight.bmp");
 
@@ -134,6 +137,7 @@ namespace mo {
 			!isReleased
 			)
 		{
+
 			isReleased = true;
 			mAnimator->Play(L"BeReleasedL", false);
 			mState = eSlaveState::BeReleased;
@@ -144,6 +148,8 @@ namespace mo {
 			!isTakeOut &&
 			isReleased)
 		{
+			thankyouSound->Play(false);
+
 			isTakeOut = true;
 			time = 0.0f;
 

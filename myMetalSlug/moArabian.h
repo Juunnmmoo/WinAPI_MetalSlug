@@ -55,6 +55,7 @@ namespace mo {
 		eArabianState mState;
 		Marco* player;
 		Scene* curScene;
+		class Sound* EnemyDeathSound3;
 		bool isThrowing;
 		float time;
 		bool readyToAttack;
