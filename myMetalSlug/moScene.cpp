@@ -3,6 +3,7 @@
 namespace mo {
 	Scene::Scene()
 	{
+		mLayers.reserve(22);
 		mLayers.resize((UINT)eLayerType::End);
 
 	}

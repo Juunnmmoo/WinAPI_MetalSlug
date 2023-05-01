@@ -28,7 +28,10 @@ namespace mo::object {
 
 
 	static void Destory(GameObject* obj) {
-		obj->SetState(GameObject::eState::Death);
+		if (obj != nullptr)
+		{
+			obj->SetState(GameObject::eState::Death);
+		}
 	}
 
 

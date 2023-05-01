@@ -27,6 +27,7 @@ namespace mo {
 	
 		bool stopOnce;
 		bool skyChange;
+		bool boss2Stop;
 		Scene* curScene;
 		UINT TopDiff;
 		std::vector<eLayerType> weaponLayers;

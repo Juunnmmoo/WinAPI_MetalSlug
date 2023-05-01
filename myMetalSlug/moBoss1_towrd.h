@@ -4,6 +4,10 @@
 namespace mo {
 	class Marco;
 	class Scene;
+	class Boss1_CurtainIdle;
+	class Boss1_WindowOpen;
+	class Boss1_Attackor;
+	class Boss1_CurtainOpen;
 	class Boss1_Towrd : public GameObject
 	{
 	public:
@@ -54,10 +58,10 @@ namespace mo {
 		class Image* mTowrdImage;
 		class Image* mTowrdOpenImage;
 		class Image* mTowrdDestroyedImage;
-		class Boss1_CurtainIdle* mCurtainIdle;
-		class Boss1_WindowOpen* mDoor;
-		class Boss1_CurtainOpen* mCurtainOpen;
-		class Boss1_Attackor* mAttackor;
+		Boss1_CurtainIdle* mCurtainIdle;
+		Boss1_WindowOpen* mDoor;
+		Boss1_CurtainOpen* mCurtainOpen;
+		Boss1_Attackor* mAttackor;
 		class Sound* attackSound;
 		float mTime;
 		bool isPlayed;

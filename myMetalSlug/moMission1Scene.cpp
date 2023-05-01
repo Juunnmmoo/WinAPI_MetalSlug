@@ -32,6 +32,9 @@
 #include "moSound.h"
 #include "moSoundManager.h"
 #include "moResources.h"
+#include "moBoss2_Base.h"
+#include "moBoss1Creator.h"
+#include "moBoss2Creator.h"
 
 namespace mo
 {
@@ -123,13 +126,14 @@ namespace mo
 		ArmsUI* armsUI = new ArmsUI(marco, this);
 		AddGameObject(armsUI, eLayerType::UI);
 
-		Boss1_Base* boss_Base = new Boss1_Base(marco, this);
-		AddGameObject(boss_Base, eLayerType::front);
-
-
 		Slave* slave4 = new Slave(marco, this, Vector2(6700.0f, 700.0f), eMarcoWeapon::Machinegun);
 		AddGameObject(slave4, eLayerType::Slave);
 		
+		Boss1Creator* boss1Creator = new Boss1Creator(marco);
+		AddGameObject(boss1Creator, eLayerType::EnemyCreator);
+
+		Boss2Creator* boss2Creator = new Boss2Creator(marco, mission1BGM);
+		AddGameObject(boss2Creator, eLayerType::EnemyCreator);
 		//CharUI* ui = new CharUI(eCharType::M, Vector2(200.0f, 300.0f), Vector2(1.5f, 1.5f));
 		//AddGameObject(ui, eLayerType::UI);
 
@@ -159,7 +163,6 @@ namespace mo
 	}
 	void Mission1Scene::Update()
 	{
-		
 
 
 		if (Input::GetKeyState(eKeyCode::N) == eKeyState::Down)

@@ -110,6 +110,9 @@
     <Filter Include="Contents\GameObj\Monster\Boss1">
       <UniqueIdentifier>{0f2c2c00-38f6-440b-b8f1-a13fe8035112}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Contents\GameObj\Monster\Boss2">
+      <UniqueIdentifier>{c34432a0-2d04-4cff-a61c-c98d8babb6b2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -358,6 +361,20 @@
     <ClInclude Include="moSound.h">
       <Filter>Engine\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="moBoss2_Door.h">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss2_Weapon.h">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss2_Base.h">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss2_Propeller.h">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss2Creator.h" />
+    <ClInclude Include="moBoss1Creator.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -598,5 +615,19 @@
     <ClCompile Include="moSoundManager.cpp">
       <Filter>Engine\Resource</Filter>
     </ClCompile>
+    <ClCompile Include="moBoss2_Weapon.cpp">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss2_Base.cpp">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss2_Door.cpp">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss2_Propeller.cpp">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss2Creator.cpp" />
+    <ClCompile Include="moBoss1Creator.cpp" />
   </ItemGroup>
 </Project>

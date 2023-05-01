@@ -129,6 +129,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="moBoss1Creator.h" />
+    <ClInclude Include="moBoss2Creator.h" />
+    <ClInclude Include="moBoss2_Weapon.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonInclude.h" />
     <ClInclude Include="framework.h" />
@@ -150,6 +153,9 @@
     <ClInclude Include="moBoss1_Missile.h" />
     <ClInclude Include="moBoss1_towrd.h" />
     <ClInclude Include="moBoss1_WindowOpen.h" />
+    <ClInclude Include="moBoss2_Base.h" />
+    <ClInclude Include="moBoss2_Door.h" />
+    <ClInclude Include="moBoss2_Propeller.h" />
     <ClInclude Include="moBulletSFX.h" />
     <ClInclude Include="moCamel.h" />
     <ClInclude Include="moCamelArabian01.h" />
@@ -213,6 +219,9 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="moBoss1Creator.cpp" />
+    <ClCompile Include="moBoss2Creator.cpp" />
+    <ClCompile Include="moBoss2_Weapon.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="moAbulAbbas.cpp" />
     <ClCompile Include="moAnimation.cpp" />
@@ -232,6 +241,9 @@
     <ClCompile Include="moBoss1_Missile.cpp" />
     <ClCompile Include="moBoss1_towrd.cpp" />
     <ClCompile Include="moBoss1_WindowOpen.cpp" />
+    <ClCompile Include="moBoss2_Base.cpp" />
+    <ClCompile Include="moBoss2_Door.cpp" />
+    <ClCompile Include="moBoss2_Propeller.cpp" />
     <ClCompile Include="moBulletSFX.cpp" />
     <ClCompile Include="moCamel.cpp" />
     <ClCompile Include="moCamelArabian01.cpp" />

@@ -23,13 +23,14 @@
 
 namespace mo {
 	Boss1_Towrd::Boss1_Towrd(Marco* marco, Scene* scene, TowrdDir dir)
-		: mTowrdDir(dir)	
+		: mTowrdDir(dir)
 		, mPlayer(marco)
 		, curScene(scene)
 	{
 	}
 	Boss1_Towrd::~Boss1_Towrd()
 	{
+	
 	}
 	void Boss1_Towrd::Initialize()
 	{
@@ -43,7 +44,7 @@ namespace mo {
 		mTowrdImage = Resources::Load<Image>(L"Boss_Towrds", L"..\\Resources\\Enemy\\Boss1\\Boss1_Towrds.bmp");
 		mTowrdOpenImage = Resources::Load<Image>(L"Boss_TowrdsOpen", L"..\\Resources\\Enemy\\Boss1\\Boss1_TowrdsOpen.bmp");
 		mTowrdDestroyedImage = Resources::Load<Image>(L"Boss_TowrdsDestroyed", L"..\\Resources\\Enemy\\Boss1\\Boss1_TowrdsDestroyed.bmp");
-		
+
 		mTowrdState = TowrdState::Nomal;
 		mFsmState = eTowrdFSM::None;
 
@@ -62,7 +63,7 @@ namespace mo {
 		mCurtainOpen->Initialize();
 		mAttackor->Initialize();
 
-	
+
 		if (mTowrdDir == TowrdDir::Left)
 		{
 			mCurtainIdle->GetComponent<Transform>()->SetPos(tr->GetPos() + Vector2(-15.0f, -255.0f));
@@ -188,7 +189,7 @@ namespace mo {
 
 			}
 
-			
+
 
 			mTowrdState = TowrdState::Destroyed;
 			SetState(eState::Pause);
@@ -196,7 +197,7 @@ namespace mo {
 
 		GameObject::Update();
 	}
-	void Boss1_Towrd::Render(HDC mHdc)	
+	void Boss1_Towrd::Render(HDC mHdc)
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
@@ -206,8 +207,8 @@ namespace mo {
 		{
 			if (mTowrdState == TowrdState::Nomal)
 			{
-				TransparentBlt(mHdc, cPos.x - mTowrdImage->GetWidth() / 6, pos.y - mTowrdImage->GetHeight(), mTowrdImage->GetWidth()/3, mTowrdImage->GetHeight(),
-					mTowrdImage->GetHdc(), 0, 0, mTowrdImage->GetWidth()/3, mTowrdImage->GetHeight(), RGB(153, 217, 234));
+				TransparentBlt(mHdc, cPos.x - mTowrdImage->GetWidth() / 6, pos.y - mTowrdImage->GetHeight(), mTowrdImage->GetWidth() / 3, mTowrdImage->GetHeight(),
+					mTowrdImage->GetHdc(), 0, 0, mTowrdImage->GetWidth() / 3, mTowrdImage->GetHeight(), RGB(153, 217, 234));
 
 			}
 			else if (mTowrdState == TowrdState::Open)
@@ -215,7 +216,7 @@ namespace mo {
 				TransparentBlt(mHdc, cPos.x - mTowrdOpenImage->GetWidth() / 6, pos.y - mTowrdOpenImage->GetHeight(), mTowrdOpenImage->GetWidth() / 3, mTowrdOpenImage->GetHeight(),
 					mTowrdOpenImage->GetHdc(), 0, 0, mTowrdOpenImage->GetWidth() / 3, mTowrdOpenImage->GetHeight(), RGB(153, 217, 234));
 			}
-			else 
+			else
 			{
 				TransparentBlt(mHdc, cPos.x - mTowrdDestroyedImage->GetWidth() / 6, pos.y - mTowrdDestroyedImage->GetHeight(), mTowrdDestroyedImage->GetWidth() / 3, mTowrdDestroyedImage->GetHeight(),
 					mTowrdDestroyedImage->GetHdc(), 0, 0, mTowrdDestroyedImage->GetWidth() / 3, mTowrdDestroyedImage->GetHeight(), RGB(153, 217, 234));
@@ -244,7 +245,7 @@ namespace mo {
 			if (mTowrdState == TowrdState::Nomal)
 			{
 				TransparentBlt(mHdc, cPos.x - mTowrdImage->GetWidth() / 6, pos.y - mTowrdImage->GetHeight(), mTowrdImage->GetWidth() / 3, mTowrdImage->GetHeight(),
-					mTowrdImage->GetHdc(), mTowrdImage->GetWidth() / 3*2, 0, mTowrdImage->GetWidth() / 3, mTowrdImage->GetHeight(), RGB(153, 217, 234));
+					mTowrdImage->GetHdc(), mTowrdImage->GetWidth() / 3 * 2, 0, mTowrdImage->GetWidth() / 3, mTowrdImage->GetHeight(), RGB(153, 217, 234));
 			}
 			else if (mTowrdState == TowrdState::Open)
 			{
@@ -331,7 +332,7 @@ namespace mo {
 		}
 		if (isPlayed && mCurtainOpen->GetAnimator()->IsComplte())
 		{
-			
+
 			mTime += Time::DeltaTime();
 
 			if (mTowrdDir == TowrdDir::Left)
@@ -439,10 +440,10 @@ namespace mo {
 				isPlayed = false;
 			}
 
-		
 
-			
-			
+
+
+
 
 		}
 	}

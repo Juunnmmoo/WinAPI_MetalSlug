@@ -182,6 +182,14 @@ namespace mo {
 			Camera::SetStop(true);
 		}
 
+		if (!boss2Stop)
+		{
+			if (pos.x >= 12350.0f)
+			{
+				boss2Stop = true;
+				Camera::SetStop(true);
+			}
+		}
 		if (!skyChange)
 		{
 			if (pos.x >= 7800.0f)
@@ -205,14 +213,16 @@ namespace mo {
 		//BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), pos.x, pos.y, SRCCOPY);
 		BitBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), ground->GetHdc(), mPos.x, mPos.y, SRCCOPY);
 
-		if (skyChange)
+		/*if (skyChange)
 		{
 			BitBlt(mHdc, 0, 0, application.GetWidth(), sky2->GetHeight(), sky2->GetHdc(), mPos.x * 0.5 - 4000, 0, SRCCOPY);
 		}
 		else
 		{
 			BitBlt(mHdc, 0, 0, application.GetWidth(), sky->GetHeight(), sky->GetHdc(), mPos.x * 0.5, 0, SRCCOPY);
-		}
+		}*/
+
+		BitBlt(mHdc, 0, 0, application.GetWidth(), sky->GetHeight(), sky->GetHdc(), mPos.x * 0.5, 0, SRCCOPY);
 
 		//TransparentBlt(mHdc, -pos.x, -pos.y, main->GetWidth(), main->GetHeight(), main->GetHdc(), 0, 0, main->GetWidth(), main->GetHeight(), RGB(248, 0, 248));
 		TransparentBlt(mHdc, 0, 0, application.GetWidth(), application.GetHeight(), main->GetHdc(), mPos.x, mPos.y, application.GetWidth(), application.GetHeight(), RGB(255, 0, 255));

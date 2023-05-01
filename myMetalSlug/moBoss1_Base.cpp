@@ -19,13 +19,19 @@
 #include "moSound.h"
 
 namespace mo {
-	Boss1_Base::Boss1_Base(Marco* marco, Scene* scene)
-		:curScene(scene)
+	Boss1_Base::Boss1_Base(Marco* marco, Scene* scene, Boss1_Towrd* LeftTowrd, Boss1_Towrd* MiddleTowrd, Boss1_Towrd* RightTowrd, ArabianFighter* fighter)
+		: curScene(scene)
 		, mPlayer(marco)
+		, mLeftTowrd(LeftTowrd)
+		, mMiddleTowrd(MiddleTowrd)
+		, mRightTowrd(RightTowrd)
+		, fighter3(fighter)
+
 	{
 	}
 	Boss1_Base::~Boss1_Base()
 	{
+		
 	}
 	void Boss1_Base::Initialize()
 	{
@@ -33,43 +39,16 @@ namespace mo {
 		deathSound = Resources::Load<Sound>(L"Boss1DeathSound", L"..\\Resources\\Sound\\Boss1DeathSound.wav");
 		deathSound->SetVolume(80);
 
+
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(6950.0f, 730.0f));
 
 		image = Resources::Load<Image>(L"Boss_Base", L"..\\Resources\\Enemy\\Boss1\\Boss1_Base.bmp");
 		destroyImage = Resources::Load<Image>(L"Boss_BaseDestroyed", L"..\\Resources\\Enemy\\Boss1\\Boss1_Destroyed.bmp");
 
-		mLeftTowrd = new Boss1_Towrd(mPlayer, curScene, mo::Boss1_Towrd::TowrdDir::Left);
-		curScene->AddGameObject(mLeftTowrd, eLayerType::BG1);
-		mLeftTowrd->GetComponent<Transform>()->SetPos(tr->GetPos()+Vector2(-160.0f, -250.0f));
-		mLeftTowrd->Initialize();
+		
 
-
-		mRightTowrd = new Boss1_Towrd(mPlayer, curScene, mo::Boss1_Towrd::TowrdDir::Middle);
-		curScene->AddGameObject(mRightTowrd, eLayerType::BG1);
-		mRightTowrd->GetComponent<Transform>()->SetPos(tr->GetPos() + Vector2(130.0f, -250.0f));
-		mRightTowrd->Initialize();
-
-
-		mMiddleTowrd = new Boss1_Towrd(mPlayer, curScene, mo::Boss1_Towrd::TowrdDir::Right);
-		curScene->AddGameObject(mMiddleTowrd, eLayerType::BG1);
-		mMiddleTowrd->GetComponent<Transform>()->SetPos(tr->GetPos() + Vector2(440.0f, -250.0f));
-		mMiddleTowrd->Initialize();
-
-		fighter1 = new ArabianFighter(mPlayer, Vector2(5600.0f, 0.0f), 1, ArabianFighter::eArabianFighterState::Idle);
-		curScene->AddGameObject(fighter1, eLayerType::EnemyR_F);
-		fighter1->Initialize();
-		fighter1->GetComponent<Transform>()->SetPos(Vector2(7300.0f, 0.0f));
-
-		fighter12 = new ArabianFighter(mPlayer, Vector2(5660.0f, 0.0f), 2, ArabianFighter::eArabianFighterState::Idle);
-		curScene->AddGameObject(fighter12, eLayerType::EnemyR_F);
-		fighter12->Initialize();
-		fighter12->GetComponent<Transform>()->SetPos(Vector2(7360.0f, 0.0f));
-
-		fighter3 = new ArabianFighter(mPlayer, Vector2(5720.0f, 0.0f), 2, ArabianFighter::eArabianFighterState::Idle);
-		curScene->AddGameObject(fighter3, eLayerType::EnemyR_F);
-		fighter3->Initialize();
-		fighter3->GetComponent<Transform>()->SetPos(Vector2(7420.0f, 0.0f));
+	
 
 		abul = new AbulAbbas(Vector2(5800.0f, 0.0f), mo::AbulAbbas::eAbulAbbasState::Idle);
 		curScene->AddGameObject(abul, eLayerType::EnemyR_F);
@@ -148,9 +127,9 @@ namespace mo {
 		Vector2 pos = tr->GetPos();
 		Vector2 cPos = Camera::CaluatePos(pos);
 
-		if(GetState() == eState::Active)
-			TransparentBlt(mHdc, cPos.x - image->GetWidth()/2, cPos.y - image->GetHeight(), image->GetWidth(), image->GetHeight(), image->GetHdc(), 0, 0, image->GetWidth(), image->GetHeight(), RGB(153, 217, 234));
-		else 
+		if (GetState() == eState::Active)
+			TransparentBlt(mHdc, cPos.x - image->GetWidth() / 2, cPos.y - image->GetHeight(), image->GetWidth(), image->GetHeight(), image->GetHdc(), 0, 0, image->GetWidth(), image->GetHeight(), RGB(153, 217, 234));
+		else
 			TransparentBlt(mHdc, cPos.x - destroyImage->GetWidth() / 2, cPos.y - destroyImage->GetHeight(), destroyImage->GetWidth(), destroyImage->GetHeight(), destroyImage->GetHdc(), 0, 0, destroyImage->GetWidth(), destroyImage->GetHeight(), RGB(153, 217, 234));
 
 		GameObject::Render(mHdc);
@@ -158,7 +137,7 @@ namespace mo {
 	}
 	void Boss1_Base::EndEvent()
 	{
-		
+
 		mTime += Time::DeltaTime();
 
 		Transform* tr = GetComponent<Transform>();
@@ -171,17 +150,17 @@ namespace mo {
 			cameraPos.y -= 500.0f * Time::DeltaTime();
 			Camera::SetLookPosition(cameraPos);
 		}
-		else 
+		else
 		{
 			Vector2 cameraPos = Camera::GetLookPosition();
 			cameraPos.y += 500.0f * Time::DeltaTime();
 			Camera::SetLookPosition(cameraPos);
-		
+
 		}
-			
-	
-		
-		
+
+
+
+
 
 		if (mTime >= 0.2f)
 		{
@@ -284,7 +263,7 @@ namespace mo {
 			}
 			else if (charNum == 13)
 			{
-				
+
 				startEndEvent = false;
 				Vector2 cameraPos = Camera::GetLookPosition();
 				cameraPos.y = 465.0f;
@@ -293,7 +272,7 @@ namespace mo {
 				Camera::SetStop(false);
 				SetState(eState::Pause);
 
-				
+
 
 			}
 			charNum++;
@@ -306,7 +285,7 @@ namespace mo {
 	{
 	}
 	void Boss1_Base::OnCollisionExit(Collider* other)
-	{	
-	}			
+	{
+	}
 }
 

@@ -66,7 +66,9 @@ namespace mo{
 						mLookPosition.x += 300.0f * Time::DeltaTime();*/
 
 					
-					mLookPosition.x += 300.0f * Time::DeltaTime();
+					//mLookPosition.x += 300.0f * Time::DeltaTime();
+					mLookPosition.x += 1000.0f * Time::DeltaTime();
+
 					
 				}
 				else {

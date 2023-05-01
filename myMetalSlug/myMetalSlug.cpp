@@ -74,7 +74,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     mo::SceneManager::Release();
     mo::Resources::Release();
-
+    
     return (int) msg.wParam;
 }
 

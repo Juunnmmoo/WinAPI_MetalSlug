@@ -38,7 +38,6 @@ namespace mo {
 		Image* mImageL = Resources::Load<Image>(L"NpcLeft", L"..\\Resources\\NPC\\NpcLeft.bmp");
 		Image* mImageR = Resources::Load<Image>(L"NpcRight", L"..\\Resources\\NPC\\NpcRight.bmp");
 
-
 		Transform* tr;
 		tr = GetComponent<Transform>();
 		tr->SetPos(mPos);
