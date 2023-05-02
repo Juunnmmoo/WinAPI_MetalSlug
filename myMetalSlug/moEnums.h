@@ -86,6 +86,7 @@ enum class eBulletType {
 	Bullet,
 	knife,
 	Bomb,
+	Laser,
 };
 
 enum class eCharType {

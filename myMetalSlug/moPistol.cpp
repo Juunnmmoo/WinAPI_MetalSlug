@@ -382,9 +382,29 @@ namespace mo {
 	{
 
 		reTime += Time::DeltaTime();
+		eDirection mDir = mTransform->GetDirection();
+		Vector2 pos = mTransform->GetPos();
 
+		if (player->GetBossZone() && !playerBottom->GetAnimator()->IsComplte())
+		{
+			if (mDir == eDirection::Left)
+			{
+				pos.x += 100.0f * Time::DeltaTime();
+				mTransform->SetPos(pos);
+			}
+			else
+			{
+				pos.x -= 100.0f * Time::DeltaTime();
+				mTransform->SetPos(pos);
+			}
+		}
 		if (reTime >= 3.0f && !isBackToLife)
 		{
+			if (player->GetBossZone())
+			{
+				mTransform->SetPos(Vector2(player->GetBossX(), mTransform->GetPos().y));
+			}
+
 			isBackToLife = true;
 			playerBottom->GetComponent<Transform>()->SetDisToBottom(Vector2{ 0.0f, -210.0f });
 			playerBottom->GetAnimator()->Play(L"P_Resurrection", false);

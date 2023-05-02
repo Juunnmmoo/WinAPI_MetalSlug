@@ -47,6 +47,12 @@ namespace mo {
 		void SetIsKnife(bool b) { isKnife = b; }
 		bool GetIsKnife() { return isKnife; }
 
+		void SetBossZone(bool b) { isBoss2Zone = b; }
+		bool GetBossZone() { return isBoss2Zone; }
+
+		void SetBossX(float x) { BossX = x; }
+		float GetBossX() { return BossX; }
+
 		eMarcoState GetMarcoState() { return mState; }
 		void SetMarcoState(eMarcoState state) { mState = state; }
 
@@ -66,5 +72,7 @@ namespace mo {
 		bool isKnife;
 		int bulletNum;
 		int bombNum;
+		bool isBoss2Zone;
+		float BossX;
 	};
 }

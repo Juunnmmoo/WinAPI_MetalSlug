@@ -375,6 +375,8 @@
     </ClInclude>
     <ClInclude Include="moBoss2Creator.h" />
     <ClInclude Include="moBoss1Creator.h" />
+    <ClInclude Include="moBoss2LaserCollider.h" />
+    <ClInclude Include="moMissionComplete.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -629,5 +631,7 @@
     </ClCompile>
     <ClCompile Include="moBoss2Creator.cpp" />
     <ClCompile Include="moBoss1Creator.cpp" />
+    <ClCompile Include="moBoss2LaserCollider.cpp" />
+    <ClCompile Include="moMissionComplete.cpp" />
   </ItemGroup>
 </Project>

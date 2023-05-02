@@ -35,6 +35,7 @@ namespace mo {
 		mAnimator->SetUnUseCameraY(true);
 		mAnimator->CreateAnimation(L"Idle", mImage, Vector2(272.0f * 0, 224.0f * 0), 272.0f, 9, 1, 3, Vector2::Zero, 0.03);
 		mAnimator->CreateAnimation(L"Attack", mImage, Vector2(272.0f * 3, 59.0f * 0), 272.0f, 9, 1, 6, Vector2::Zero, 0.1);
+		mAnimator->CreateAnimation(L"None", mImage, Vector2(272.0f * 0, 272.0f * 1), 272.0f, 9, 1, 6, Vector2::Zero, 0.1);
 
 		mAnimator->Play(L"Idle", true);
 

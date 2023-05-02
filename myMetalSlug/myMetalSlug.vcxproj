@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClInclude Include="moBoss1Creator.h" />
     <ClInclude Include="moBoss2Creator.h" />
+    <ClInclude Include="moBoss2LaserCollider.h" />
     <ClInclude Include="moBoss2_Weapon.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CommonInclude.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="moEnemyAttackCollider.h" />
     <ClInclude Include="moEnemyPistolBullet.h" />
     <ClInclude Include="moMachinegunBullet.h" />
+    <ClInclude Include="moMissionComplete.h" />
     <ClInclude Include="moMissionStart.h" />
     <ClInclude Include="moPistolBullet.h" />
     <ClInclude Include="moCamera.h" />
@@ -221,6 +223,7 @@
   <ItemGroup>
     <ClCompile Include="moBoss1Creator.cpp" />
     <ClCompile Include="moBoss2Creator.cpp" />
+    <ClCompile Include="moBoss2LaserCollider.cpp" />
     <ClCompile Include="moBoss2_Weapon.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="moAbulAbbas.cpp" />
@@ -254,6 +257,7 @@
     <ClCompile Include="moEnemyAttackCollider.cpp" />
     <ClCompile Include="moEnemyPistolBullet.cpp" />
     <ClCompile Include="moMachinegunBullet.cpp" />
+    <ClCompile Include="moMissionComplete.cpp" />
     <ClCompile Include="moMissionStart.cpp" />
     <ClCompile Include="moPistolBullet.cpp" />
     <ClCompile Include="moCamera.cpp" />

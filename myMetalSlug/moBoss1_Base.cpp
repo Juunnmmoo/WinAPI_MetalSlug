@@ -138,7 +138,7 @@ namespace mo {
 	void Boss1_Base::EndEvent()
 	{
 
-		mTime += Time::DeltaTime();
+		
 
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
@@ -160,7 +160,7 @@ namespace mo {
 
 
 
-
+		mTime += Time::DeltaTime();
 
 		if (mTime >= 0.2f)
 		{

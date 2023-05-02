@@ -24,6 +24,7 @@ namespace mo{
 	float Camera::mEndTime = 3.0f;
 	bool Camera::isMove = false;
 	bool Camera::stop = false;
+	bool Camera::useBoss2Move = false;
 
 	void Camera::Initialize()
 	{
@@ -57,22 +58,40 @@ namespace mo{
 
 		if (mTarget != nullptr) {
 				
-			if (!stop)
+			if (useBoss2Move)
 			{
-				if (mTargetPos.x >= mLookPosition.x - 120.0f)
+				if (mTargetPos.x >= mLookPosition.x - 120.0f && mTargetPos.x < 12355.0f)
 				{
 					isMove = true;
-					/*if(Input::GetKey(eKeyCode::Right))
+					mLookPosition.x += 300.0f * Time::DeltaTime();
+				
+				}
+				else if(mTargetPos.x < mLookPosition.x - 150.0f){
+					isMove = true;
+					mLookPosition.x -= 300.0f * Time::DeltaTime();
+				}
+				else
+				{
+					isMove = false;
+				}
+			}
+			else
+			{
+				if (!stop)
+				{
+					if (mTargetPos.x >= mLookPosition.x - 120.0f)
+					{
+						isMove = true;
+						/*if(Input::GetKey(eKeyCode::Right))
 						mLookPosition.x += 300.0f * Time::DeltaTime();*/
 
-					
-					//mLookPosition.x += 300.0f * Time::DeltaTime();
-					mLookPosition.x += 1000.0f * Time::DeltaTime();
-
-					
-				}
-				else {
-					isMove = false;
+							
+						//mLookPosition.x += 300.0f * Time::DeltaTime();
+						mLookPosition.x += 300.0f * Time::DeltaTime();		
+					}
+					else {
+						isMove = false;
+					}
 				}
 			}
 			//mLookPosition = mTarget->GetComponent<Transform>()->GetPos();

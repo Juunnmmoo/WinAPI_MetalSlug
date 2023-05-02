@@ -56,10 +56,10 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2{ 300.0f, 0.0f });
+		tr->SetPos(Vector2{ 300.0f, 0.0f });
 		//tr->SetPos(Vector2{ 4500.0f, 100.0f });
 		//tr->SetPos(Vector2{ 6700.0f, 100.0f });
-		tr->SetPos(Vector2{ 11500.0f, 0.0f });
+		//tr->SetPos(Vector2{ 11500.0f, 0.0f });
 
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetDisToBottom(Vector2{ 0.0f, 50.0f });
@@ -316,6 +316,35 @@ namespace mo {
 				{
 					mAnimator->Play(L"None", false);
 					bottom->GetAnimator()->Play(L"BombDeathR", false);
+				}
+				mWeaponState = eMarcoWeapon::Pistol;
+				bottom->SetWeaponState(eMarcoWeapon::Pistol);
+				mState = eMarcoState::Death;
+				bottom->SetBottomState(MarcoBottom::eMarcoState::Death);
+
+			}
+			else if (other->GetOwner()->GetBulletType() == eBulletType::Laser
+				)
+			{
+				SetState(eState::Pause);
+				Transform* tr = GetComponent<Transform>();
+				eDirection mDirection = tr->GetDirection();
+				Vector2 pos = tr->GetPos();
+
+
+
+				if (mDirection == eDirection::Left ||
+					mDirection == eDirection::LSit ||
+					mDirection == eDirection::LBottom ||
+					mDirection == eDirection::LTop)
+				{
+					mAnimator->Play(L"None", false);
+					bottom->GetAnimator()->Play(L"FireDeathL", false);
+				}
+				else
+				{
+					mAnimator->Play(L"None", false);
+					bottom->GetAnimator()->Play(L"FireDeathR", false);
 				}
 				mWeaponState = eMarcoWeapon::Pistol;
 				bottom->SetWeaponState(eMarcoWeapon::Pistol);

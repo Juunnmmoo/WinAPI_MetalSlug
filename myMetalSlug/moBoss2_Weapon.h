@@ -24,6 +24,9 @@ namespace mo {
 		class Image* mImage;
 		float mTime;
 		class Sound* deathSound;
+		class Boss2LaserCollider* left;
+		class Boss2LaserCollider* right;
+
 		Animator* mAnimator;
 		int heart;
 	};

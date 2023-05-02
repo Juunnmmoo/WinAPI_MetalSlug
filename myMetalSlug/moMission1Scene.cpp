@@ -134,6 +134,9 @@ namespace mo
 
 		Boss2Creator* boss2Creator = new Boss2Creator(marco, mission1BGM);
 		AddGameObject(boss2Creator, eLayerType::EnemyCreator);
+
+		Slave* slave5 = new Slave(marco, this, Vector2(12000.0f, 700.0f), eMarcoWeapon::Machinegun);
+		AddGameObject(slave5, eLayerType::Slave);
 		//CharUI* ui = new CharUI(eCharType::M, Vector2(200.0f, 300.0f), Vector2(1.5f, 1.5f));
 		//AddGameObject(ui, eLayerType::UI);
 

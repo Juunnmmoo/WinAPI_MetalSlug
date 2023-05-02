@@ -36,6 +36,8 @@ namespace mo {
 
 		mAnimator->SetUnUseCameraY(true);
 		mAnimator->CreateAnimation(L"Open", mImage, Vector2(272.0f * 0, 224.0f * 0), 272.0f, 8, 1, 7, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"Close", mImage, Vector2(272.0f * 6, 224.0f * 0), -272.0f, 8, 1, 7, Vector2::Zero, 0.05);
+
 		mAnimator->CreateAnimation(L"None", mImage, Vector2(272.0f * 7, 59.0f * 0), 272.0f, 8, 1, 1, Vector2::Zero, 0.1);
 
 		mAnimator->Play(L"None", false);

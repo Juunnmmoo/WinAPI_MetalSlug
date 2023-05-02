@@ -15,6 +15,8 @@
 #include "moMachinegun.h"
 #include "moAnimator.h"
 #include "moSound.h"
+#include "moBoss2LaserCollider.h"
+
 namespace mo {
 	Boss2_Weapon::Boss2_Weapon()
 	{
@@ -34,8 +36,23 @@ namespace mo {
 
 		mAnimator->SetUnUseCameraY(true);
 		mAnimator->CreateAnimation(L"Idle", mImage, Vector2(272.0f * 0, 160.0f * 0), 272.0f, 25, 4, 4, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"BeforeAttack", mImage, Vector2(272.0f * 0, 160.0f * 1), 272.0f, 25, 4, 25, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"Attack", mImage, Vector2(272.0f * 0, 160.0f * 2), 272.0f, 25, 4, 6, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"AfterAttack", mImage, Vector2(272.0f * 0, 160.0f * 3), 272.0f, 25, 4, 16, Vector2::Zero, 0.03);
+		mAnimator->CreateAnimation(L"None", mImage, Vector2(272.0f * 24, 160.0f * 0), 272.0f, 25, 4, 4, Vector2::Zero, 0.03);
 
 		mAnimator->Play(L"Idle", true);
+		
+
+
+
+		/*Collider* colliderL = AddComponent<Collider>();
+		colliderL->SetLeftTop(Vector2(-200.0f, -750.0f));
+		colliderL->SetSize(Vector2(20.0f, 750.0f));
+
+		Collider* colliderR = AddComponent<Collider>();
+		colliderR->SetLeftTop(Vector2(200.0f, -950.0f));
+		colliderR->SetSize(Vector2(60.0f, 750.0f));*/
 
 		GameObject::Initialize();
 	}

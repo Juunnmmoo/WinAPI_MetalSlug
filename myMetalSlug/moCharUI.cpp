@@ -200,6 +200,23 @@ namespace mo {
 		{
 			mAnimator->Play(L"!", false);
 		}
+		else if (type == eCharType::C)
+		{
+			mAnimator->Play(L"C", false);
+		}
+		else if (type == eCharType::P)
+		{
+			mAnimator->Play(L"P", false);
+		}
+		else if (type == eCharType::L)
+		{
+			mAnimator->Play(L"L", false);
+		}
+		else if (type == eCharType::T)
+		{
+			mAnimator->Play(L"T", false);
+		}
+
 	}
 	void CharUI::startUi()
 	{

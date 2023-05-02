@@ -21,6 +21,8 @@
 #include "moBoss2_Propeller.h"
 #include "moBoss2_Weapon.h"
 #include "moSound.h"
+#include "moBoss2LaserCollider.h"
+#include "moSlave.h"
 namespace mo {
 	Boss2Creator::Boss2Creator(Marco* marco, Sound* sound)
 		: player(marco)
@@ -33,7 +35,6 @@ namespace mo {
 	void Boss2Creator::Initialize()
 	{
 
-		BossBGM= Resources::Load<Sound>(L"Boss2Sound", L"..\\Resources\\Sound\\Boss2Sound.wav");
 
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPos(Vector2(12300.0f, 0.0f));
@@ -45,8 +46,20 @@ namespace mo {
 	}
 	void Boss2Creator::Update()
 	{
-		GameObject::Update();
 
+		time += Time::DeltaTime();
+
+		if (time >= 35.0f)
+		{
+			time = 0.0f;
+			Scene* curScene = SceneManager::GetActiveScene();
+
+			Slave* slave = new Slave(player, curScene, Vector2(10000.0f, 700.0f), eMarcoWeapon::Machinegun);
+			curScene->AddGameObject(slave, eLayerType::Slave);
+			slave->Initialize();
+			slave->IndicateRight();
+		}
+		GameObject::Update();
 	}
 	void Boss2Creator::Render(HDC mHdc)
 	{
@@ -62,13 +75,17 @@ namespace mo {
 				stopCreate = true;
 				Scene* curScene = SceneManager::GetActiveScene();
 				activeSound->Stop(true);
-				BossBGM->Play(true);
+				//BossBGM->Play(true);
+				player->SetBossZone(true);
 
 				Boss2_Door* boss2_door = new Boss2_Door();
 				Boss2_Weapon* boss2_weapon = new Boss2_Weapon();
 				Boss2_Propeller* boss2_propeller = new Boss2_Propeller();
 
-				Boss2_Base* boss2_Base = new Boss2_Base(player, curScene, boss2_door, boss2_weapon, boss2_propeller);
+				Boss2LaserCollider* left = new Boss2LaserCollider(eDirection::Left);
+				Boss2LaserCollider* right = new Boss2LaserCollider(eDirection::Right);
+
+				Boss2_Base* boss2_Base = new Boss2_Base(player, curScene, boss2_door, boss2_weapon, boss2_propeller, left, right);
 				
 				curScene->AddGameObject(boss2_Base, eLayerType::Enemy);
 				boss2_Base->Initialize();
@@ -84,6 +101,16 @@ namespace mo {
 				curScene->AddGameObject(boss2_propeller, eLayerType::Enemy);
 				boss2_propeller->GetComponent<Transform>()->SetPos(Vector2(12512.0f, 350.0f));
 				boss2_propeller->Initialize();
+
+
+				curScene->AddGameObject(left, eLayerType::EnemyBullet);
+				left->Initialize();
+
+				curScene->AddGameObject(right, eLayerType::EnemyBullet);
+				right->Initialize();
+
+
+				
 			}
 		}
 	}

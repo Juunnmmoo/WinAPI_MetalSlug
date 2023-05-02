@@ -26,6 +26,7 @@ namespace mo {
 			TakeOut,
 			Sir,
 			Run,
+			Indicate,
 		};
 
 
@@ -35,6 +36,8 @@ namespace mo {
 		virtual void Initialize() override;
 		virtual void Update()override;
 		virtual void Render(HDC mHdc)override;
+
+		void IndicateRight();
 
 		virtual void OnCollisionEnter(class Collider* other)override;
 		virtual void OnCollisionStay(class Collider* other)override;
@@ -56,7 +59,8 @@ namespace mo {
 		void takeOut();
 		void sir();
 		void run();
-	
+		void indicate();
+
 	private:
 		Vector2 mPos;
 		Animator* mAnimator;

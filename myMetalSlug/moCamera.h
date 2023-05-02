@@ -35,6 +35,10 @@ namespace mo{
 		static void SetStop(bool b) { stop = b; }
 		static bool GetStop() { return stop;}
 
+		static void SetBoss2Move(bool b) { useBoss2Move = b; }
+		static bool GetBoss2Move() { return useBoss2Move; }
+
+
 	private:
 
 		static Vector2 mReslution;
@@ -50,5 +54,6 @@ namespace mo{
 		static float mEndTime;
 		static bool isMove;
 		static bool stop;
+		static bool useBoss2Move;
 	};
 }

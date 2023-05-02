@@ -101,6 +101,9 @@ namespace mo {
 		case mo::Slave::eSlaveState::Run:
 			run();
 			break;
+		case mo::Slave::eSlaveState::Indicate:
+			indicate();
+			break;
 		default:
 			break;
 		}
@@ -127,6 +130,13 @@ namespace mo {
 		GameObject::Render(mHdc);
 
 	}
+	void Slave::IndicateRight()
+	{
+		mAnimator->Play(L"MoveR", true);
+		isReleased = true;
+		mState = eSlaveState::Indicate;
+
+	}
 	void Slave::OnCollisionEnter(Collider* other)
 	{
 		if ((other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol ||
@@ -142,7 +152,7 @@ namespace mo {
 			mState = eSlaveState::BeReleased;
 		}
 
-		if ((mState == eSlaveState::MoveL || mState == eSlaveState::MoveR) &&
+		if ((mState == eSlaveState::MoveL || mState == eSlaveState::MoveR ||mState == eSlaveState::Indicate) &&
 			other->GetOwner()->GetLayerType() == eLayerType::Player &&
 			!isTakeOut &&
 			isReleased)
@@ -312,5 +322,15 @@ namespace mo {
 		if (Camera::CaluatePos(pos).x <= -100.0f)
 			object::Destory(this);
 		
+	}
+	void Slave::indicate()
+	{
+		Transform* tr;
+		tr = GetComponent<Transform>();
+		Vector2 pos = tr->GetPos();
+
+		time += Time::DeltaTime();
+		pos.x += 230.0f * Time::DeltaTime();
+		tr->SetPos(pos);
 	}
 }

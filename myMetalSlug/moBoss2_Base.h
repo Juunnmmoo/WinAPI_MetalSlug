@@ -7,11 +7,12 @@ namespace mo {
 	class Boss2_Door;
 	class Boss2_Weapon;
 	class Boss2_Propeller;
+	class Boss2LaserCollider;
 	class Boss2_Base : public GameObject
 	{
 	public:
 
-		Boss2_Base(Marco* marco, Scene* scene, Boss2_Door* door, Boss2_Weapon* energy, Boss2_Propeller* propeller);
+		Boss2_Base(Marco* marco, Scene* scene, Boss2_Door* door, Boss2_Weapon* energy, Boss2_Propeller* propeller, Boss2LaserCollider* left, Boss2LaserCollider* right);
 		~Boss2_Base();
 
 		enum class eBoss2FSM {
@@ -52,6 +53,9 @@ namespace mo {
 		class AbulAbbas* abul;
 		class Sound* deathSound;
 		class Animator* mAnimator;
+		class Sound* downSound;
+		Boss2LaserCollider* mLeft;
+		Boss2LaserCollider* mRight;
 		Boss2_Door* mDoor;
 		Boss2_Weapon* mWeapon;
 		Boss2_Propeller* mPropeller;
@@ -59,8 +63,13 @@ namespace mo {
 		eBoss2FSM mState;
 		Marco* mPlayer;
 		Scene* curScene;
+		class Sound* missionComplete;
+		class Sound* BossBGM;
 		float mTime;
 		int charNum = 0;
+		bool isOpened;
+		bool gotoDeath;
+		int heart;
 	};
 }
 
