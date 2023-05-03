@@ -264,6 +264,7 @@ namespace mo {
 
 		if (heart <= 240)
 		{
+			mTime = 0.0f;
 			isOpened = false;
 			mDoor->GetAnimator()->Play(L"Close", false);
 			mState = eBoss2FSM::DropArmy;

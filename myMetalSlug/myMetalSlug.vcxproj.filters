@@ -394,6 +394,9 @@
     <ClInclude Include="moArmyRoketBullet.h">
       <Filter>Contents\GameObj\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="moShotgunSFX.h">
+      <Filter>Contents\PlayerObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -663,6 +666,9 @@
     </ClCompile>
     <ClCompile Include="moArmyRoketBullet.cpp">
       <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="moShotgunSFX.cpp">
+      <Filter>Contents\PlayerObj</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

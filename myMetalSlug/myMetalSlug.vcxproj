@@ -210,6 +210,7 @@
     <ClInclude Include="moSelectElevator.h" />
     <ClInclude Include="moSelectScene.h" />
     <ClInclude Include="moShotgun.h" />
+    <ClInclude Include="moShotgunSFX.h" />
     <ClInclude Include="moSlave.h" />
     <ClInclude Include="moSound.h" />
     <ClInclude Include="moSoundManager.h" />
@@ -299,6 +300,7 @@
     <ClCompile Include="moSelectElevator.cpp" />
     <ClCompile Include="moSelectScene.cpp" />
     <ClCompile Include="moShotgun.cpp" />
+    <ClCompile Include="moShotgunSFX.cpp" />
     <ClCompile Include="moSlave.cpp" />
     <ClCompile Include="moSound.cpp" />
     <ClCompile Include="moSoundManager.cpp" />
