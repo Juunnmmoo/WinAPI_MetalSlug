@@ -31,7 +31,7 @@ namespace mo {
 		tr->SetPos(Vector2(5200.0f, 0.0f));
 
 		Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2{ 20.0f, 750.0f });
+		mCollider->SetSize(Vector2{ 50.0f, 750.0f });
 
 		GameObject::Initialize();
 	}

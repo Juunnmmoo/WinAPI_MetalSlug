@@ -98,9 +98,6 @@
     <Filter Include="Contents\GameObj\Monster\CamelArabian">
       <UniqueIdentifier>{1a79d60d-4568-407d-89b2-2b02ba26d4d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Contents\GameObj\Npc">
-      <UniqueIdentifier>{2fd14978-9422-4593-924f-0f74ea94d53a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Contents\GameObj\Monster\RebelTruck">
       <UniqueIdentifier>{41f4c699-aa5d-4b20-a5ec-28156379326a}</UniqueIdentifier>
     </Filter>
@@ -112,6 +109,12 @@
     </Filter>
     <Filter Include="Contents\GameObj\Monster\Boss2">
       <UniqueIdentifier>{c34432a0-2d04-4cff-a61c-c98d8babb6b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Monster\Npc">
+      <UniqueIdentifier>{2fd14978-9422-4593-924f-0f74ea94d53a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents\GameObj\Monster\ArmyRoket">
+      <UniqueIdentifier>{fd68102b-1a44-44a5-8d14-f55151af3ace}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -296,7 +299,7 @@
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClInclude>
     <ClInclude Include="moSlave.h">
-      <Filter>Contents\GameObj\Npc</Filter>
+      <Filter>Contents\GameObj\Monster\Npc</Filter>
     </ClInclude>
     <ClInclude Include="moRebelTruck2.h">
       <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
@@ -353,7 +356,7 @@
       <Filter>Contents\GameObj\Monster\Boss1</Filter>
     </ClInclude>
     <ClInclude Include="moAbulAbbas.h">
-      <Filter>Contents\GameObj\Npc</Filter>
+      <Filter>Contents\GameObj\Monster\Npc</Filter>
     </ClInclude>
     <ClInclude Include="moSoundManager.h">
       <Filter>Engine\Resource</Filter>
@@ -373,10 +376,24 @@
     <ClInclude Include="moBoss2_Propeller.h">
       <Filter>Contents\GameObj\Monster\Boss2</Filter>
     </ClInclude>
-    <ClInclude Include="moBoss2Creator.h" />
-    <ClInclude Include="moBoss1Creator.h" />
-    <ClInclude Include="moBoss2LaserCollider.h" />
-    <ClInclude Include="moMissionComplete.h" />
+    <ClInclude Include="moBoss1Creator.h">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss2Creator.h">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClInclude>
+    <ClInclude Include="moMissionComplete.h">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="moBoss2LaserCollider.h">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClInclude>
+    <ClInclude Include="moArmyRoket.h">
+      <Filter>Contents\GameObj\Monster\ArmyRoket</Filter>
+    </ClInclude>
+    <ClInclude Include="moArmyRoketBullet.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -552,7 +569,7 @@
       <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
     </ClCompile>
     <ClCompile Include="moSlave.cpp">
-      <Filter>Contents\GameObj\Npc</Filter>
+      <Filter>Contents\GameObj\Monster\Npc</Filter>
     </ClCompile>
     <ClCompile Include="moArabianFighter.cpp">
       <Filter>Contents\GameObj\Monster\RebelTruck</Filter>
@@ -609,7 +626,7 @@
       <Filter>Contents\GameObj\Monster\Boss1</Filter>
     </ClCompile>
     <ClCompile Include="moAbulAbbas.cpp">
-      <Filter>Contents\GameObj\Npc</Filter>
+      <Filter>Contents\GameObj\Monster\Npc</Filter>
     </ClCompile>
     <ClCompile Include="moSound.cpp">
       <Filter>Engine\Resource</Filter>
@@ -629,9 +646,23 @@
     <ClCompile Include="moBoss2_Propeller.cpp">
       <Filter>Contents\GameObj\Monster\Boss2</Filter>
     </ClCompile>
-    <ClCompile Include="moBoss2Creator.cpp" />
-    <ClCompile Include="moBoss1Creator.cpp" />
-    <ClCompile Include="moBoss2LaserCollider.cpp" />
-    <ClCompile Include="moMissionComplete.cpp" />
+    <ClCompile Include="moBoss1Creator.cpp">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss2Creator.cpp">
+      <Filter>Contents\GameObj\EnemyCreator\Mission1</Filter>
+    </ClCompile>
+    <ClCompile Include="moMissionComplete.cpp">
+      <Filter>Contents\GameObj\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="moBoss2LaserCollider.cpp">
+      <Filter>Contents\GameObj\Monster\Boss2</Filter>
+    </ClCompile>
+    <ClCompile Include="moArmyRoket.cpp">
+      <Filter>Contents\GameObj\Monster\ArmyRoket</Filter>
+    </ClCompile>
+    <ClCompile Include="moArmyRoketBullet.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

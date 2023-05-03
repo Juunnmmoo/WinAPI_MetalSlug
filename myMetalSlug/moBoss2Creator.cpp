@@ -23,6 +23,7 @@
 #include "moSound.h"
 #include "moBoss2LaserCollider.h"
 #include "moSlave.h"
+#include "moArmyRoket.h"
 namespace mo {
 	Boss2Creator::Boss2Creator(Marco* marco, Sound* sound)
 		: player(marco)
@@ -78,6 +79,10 @@ namespace mo {
 				//BossBGM->Play(true);
 				player->SetBossZone(true);
 
+				ArmyRoket* leftRoket = new ArmyRoket(player, curScene, eDirection::Left);
+				ArmyRoket* rightRoket = new ArmyRoket(player, curScene, eDirection::Right);
+
+
 				Boss2_Door* boss2_door = new Boss2_Door();
 				Boss2_Weapon* boss2_weapon = new Boss2_Weapon();
 				Boss2_Propeller* boss2_propeller = new Boss2_Propeller();
@@ -85,7 +90,7 @@ namespace mo {
 				Boss2LaserCollider* left = new Boss2LaserCollider(eDirection::Left);
 				Boss2LaserCollider* right = new Boss2LaserCollider(eDirection::Right);
 
-				Boss2_Base* boss2_Base = new Boss2_Base(player, curScene, boss2_door, boss2_weapon, boss2_propeller, left, right);
+				Boss2_Base* boss2_Base = new Boss2_Base(player, curScene, boss2_door, boss2_weapon, boss2_propeller, left, right, leftRoket, rightRoket);
 				
 				curScene->AddGameObject(boss2_Base, eLayerType::Enemy);
 				boss2_Base->Initialize();
@@ -109,8 +114,13 @@ namespace mo {
 				curScene->AddGameObject(right, eLayerType::EnemyBullet);
 				right->Initialize();
 
+				curScene->AddGameObject(leftRoket, eLayerType::front);
+				leftRoket->GetComponent<Transform>()->SetPos(Vector2(12512.0f, 200.0f));
+				leftRoket->Initialize();
 
-				
+				curScene->AddGameObject(rightRoket, eLayerType::front);
+				rightRoket->GetComponent<Transform>()->SetPos(Vector2(12512.0f, 200.0f));
+				rightRoket->Initialize();
 			}
 		}
 	}

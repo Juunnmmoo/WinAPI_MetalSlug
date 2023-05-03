@@ -141,7 +141,9 @@ namespace mo {
 		case mo::Marco::eMarcoState::Jump:
 			jump();
 			break;
-
+		case mo::Marco::eMarcoState::Complete:
+			complete();
+			break;
 		default:
 			break;
 		}
@@ -890,6 +892,10 @@ namespace mo {
 
 	}
 
+	void Pistol::complete()
+	{
+	}
+
 	void Pistol::shootStartEvent()
 	{
 
@@ -1038,6 +1044,7 @@ namespace mo {
 		eDirection mBottomDirection = playerBottom->GetComponent<Transform>()->GetDirection();
 		playerBottom->GetComponent<Transform>()->SetDisToBottom(Vector2{ 0.0f, 50.0f });
 		player->SetBombNum(10);
+		player->SetBulletNum(-1);
 
 		if (Input::GetKey(eKeyCode::Down))
 		{

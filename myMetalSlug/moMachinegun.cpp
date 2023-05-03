@@ -174,7 +174,9 @@ namespace mo {
 		case mo::Marco::eMarcoState::Jump:
 			jump();
 			break;
-
+		case mo::Marco::eMarcoState::Complete:
+			complete();
+			break;
 		default:
 			break;
 		}
@@ -977,6 +979,10 @@ namespace mo {
 		mTransform->SetPos(pos);
 		mTransform->SetDirection(mDirection);
 
+	}
+
+	void Machinegun::complete()
+	{
 	}
 
 	void Machinegun::shootStartEvent()

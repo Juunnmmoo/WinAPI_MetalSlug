@@ -24,8 +24,11 @@
 #include "moArabian.h"
 #include "moBoss2LaserCollider.h"
 #include "moMissionComplete.h"
+#include "moArmyRoket.h"
+
 namespace mo {
-	Boss2_Base::Boss2_Base(Marco* marco, Scene* scene, Boss2_Door* door, Boss2_Weapon* energy, Boss2_Propeller* propeller, Boss2LaserCollider* left, Boss2LaserCollider* right)
+	Boss2_Base::Boss2_Base(Marco* marco, Scene* scene, Boss2_Door* door, Boss2_Weapon* energy, Boss2_Propeller* propeller, Boss2LaserCollider* left, Boss2LaserCollider* right
+	, ArmyRoket* leftRoket, ArmyRoket* rightRoket)
 		: mDoor(door)
 		, mPropeller(propeller)
 		, mWeapon(energy)
@@ -36,6 +39,8 @@ namespace mo {
 		//, heart(1)
 		, mLeft(left)
 		, mRight(right)
+		, mLeftRoket(leftRoket)
+		, mRightRoket(rightRoket)
 	{
 	}
 	Boss2_Base::~Boss2_Base()
@@ -59,7 +64,7 @@ namespace mo {
 		Vector2 cPos = Camera::CaluatePos(tr->GetPos());
 
 		image = Resources::Load<Image>(L"Boss2_Base", L"..\\Resources\\Enemy\\Boss2\\Boss2_Base.bmp");
-		
+
 		mAnimator = AddComponent<Animator>();
 		mAnimator->CreateAnimation(L"Base1", image, Vector2(272.0f * 0, 100.0f * 0), 272.0f, 9, 1, 1, Vector2::Zero, 0.03);
 		mAnimator->CreateAnimation(L"Base2", image, Vector2(272.0f * 1, 100.0f * 0), 272.0f, 9, 1, 1, Vector2::Zero, 0.03);
@@ -86,7 +91,7 @@ namespace mo {
 	}
 	void Boss2_Base::Update()
 	{
-		
+
 
 		switch (mState)
 		{
@@ -186,7 +191,7 @@ namespace mo {
 		}
 		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb)
 		{
-			heart-= 10;
+			heart -= 10;
 		}
 	}
 	void Boss2_Base::OnCollisionStay(Collider* other)
@@ -226,7 +231,7 @@ namespace mo {
 		Vector2 pos = tr->GetPos();
 		mTime += Time::DeltaTime();
 
-		if (mTime >= 3.0f )
+		if (mTime >= 3.0f)
 		{
 			if (!isOpened)
 			{
@@ -234,7 +239,7 @@ namespace mo {
 				mTime = 1.0f;
 
 				mDoor->GetAnimator()->Play(L"Open", false);
-			}	
+			}
 			else
 			{
 				mTime = 0.0f;
@@ -246,8 +251,8 @@ namespace mo {
 				arabianR->GetAnimator()->Play(L"MoveR", true);
 				arabianR->GetComponent<Transform>()->SetDirection(eDirection::Right);
 				arabianR->GetComponent<Transform>()->SetPos(pos + Vector2(50.0f, -750.0f));
-				
-				
+
+
 				Arabian* arabianL = new Arabian(mPlayer, curScene, Arabian::eArabianState::Move);
 
 				curScene->AddGameObject(arabianL, eLayerType::EnemyR);
@@ -256,7 +261,7 @@ namespace mo {
 			}
 
 		}
-		
+
 		if (heart <= 240)
 		{
 			isOpened = false;
@@ -277,7 +282,7 @@ namespace mo {
 			pos.y -= 50.0f * Time::DeltaTime();
 			tr->SetPos(pos);
 		}
-		else 
+		else
 		{
 			mTime += Time::DeltaTime();
 			if (!isOpened)
@@ -285,28 +290,22 @@ namespace mo {
 				isOpened = true;
 				mDoor->GetAnimator()->Play(L"Open", false);
 			}
+			if (mTime >= 0.5f && !outArmyOnce)
+			{
+				outArmyOnce = true;
+				mLeftRoket->ArmyAppear();
+				mRightRoket->ArmyAppear();
+
+			}
 			if (mTime >= 3.0f)
 			{
-
-				/*Arabian* arabianR = new Arabian(mPlayer, curScene, Arabian::eArabianState::Move);
-
-				curScene->AddGameObject(arabianR, eLayerType::EnemyR);
-				arabianR->Initialize();
-				arabianR->GetAnimator()->Play(L"MoveR", true);
-				arabianR->GetComponent<Transform>()->SetDirection(eDirection::Right);
-				arabianR->GetComponent<Transform>()->SetPos(pos + Vector2(50.0f, -750.0f));
-
-
-				Arabian* arabianL = new Arabian(mPlayer, curScene, Arabian::eArabianState::Move);
-
-				curScene->AddGameObject(arabianL, eLayerType::EnemyR);
-				arabianL->Initialize();
-				arabianL->GetComponent<Transform>()->SetPos(pos + Vector2(-50.0f, -750.0f));*/
-
+				
+				mLeftRoket->StopMove();
+				mRightRoket->StopMove();
 
 				mPropeller->GetAnimator()->Play(L"Attack", true);
 				mWeapon->GetAnimator()->Play(L"BeforeAttack", false);
-				
+
 				mLeft->SetState(eState::Active);
 				mRight->SetState(eState::Active);
 
@@ -323,7 +322,7 @@ namespace mo {
 
 		if (mWeapon->GetAnimator()->IsComplte())
 		{
-			
+
 
 			mWeapon->GetAnimator()->Play(L"Attack", true);
 			Camera::SetBoss2Move(true);
@@ -334,6 +333,10 @@ namespace mo {
 	{
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
+		Vector2 lPos = mLeftRoket->GetComponent<Transform>()->GetPos();
+		Vector2 rPos = mRightRoket->GetComponent<Transform>()->GetPos();
+
+
 		mTime += Time::DeltaTime();
 
 		if (tr->GetDirection() == eDirection::Left)
@@ -341,7 +344,11 @@ namespace mo {
 			if (pos.x > 12000.0f)
 			{
 				pos.x -= 150.0f * Time::DeltaTime();
+				lPos.x -= 150.0f * Time::DeltaTime();
+				rPos.x -= 150.0f * Time::DeltaTime();
 				tr->SetPos(pos);
+				mLeftRoket->GetComponent<Transform>()->SetPos(lPos);
+				mRightRoket->GetComponent<Transform>()->SetPos(rPos);
 			}
 			else
 			{
@@ -353,7 +360,11 @@ namespace mo {
 			if (pos.x <= 12500.0f)
 			{
 				pos.x += 150.0f * Time::DeltaTime();
+				lPos.x += 150.0f * Time::DeltaTime();
+				rPos.x += 150.0f * Time::DeltaTime();
 				tr->SetPos(pos);
+				mLeftRoket->GetComponent<Transform>()->SetPos(lPos);
+				mRightRoket->GetComponent<Transform>()->SetPos(rPos);
 			}
 			else
 			{
@@ -386,7 +397,7 @@ namespace mo {
 		if (mTime >= 5.0f)
 		{
 			mTime = 0.0f;
-			
+
 			mLeft->SetState(eState::Active);
 			mRight->SetState(eState::Active);
 
@@ -400,7 +411,7 @@ namespace mo {
 		Vector2 pos = tr->GetPos();
 		Vector2 cPos = Camera::CaluatePos(pos);
 
-		
+
 		if (pos.y < 1250.0f)
 		{
 			pos.y += 100.0f * Time::DeltaTime();
@@ -423,6 +434,10 @@ namespace mo {
 				mPropeller->GetAnimator()->Play(L"None", false);
 				mLeft->SetState(eState::Pause);
 				mRight->SetState(eState::Pause);
+
+				object::Destory(mLeftRoket);
+				object::Destory(mRightRoket);
+
 
 				deathSound->Play(false);
 				BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-300.0f, -300.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 36.0f));
@@ -517,8 +532,67 @@ namespace mo {
 			}
 			else if (charNum == 13)
 			{
-				mAnimator->Play(L"Destroyed", false);
-			
+				BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(340.0f, -800.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 36.0f));
+				curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+				bulletSFX->Initialize();
+				bulletSFX->PlayAnimation();
+			}
+			else if (charNum == 14)
+			{
+				BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(200.0f, -300.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 36.0f));
+				curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+				bulletSFX->Initialize();
+				bulletSFX->PlayAnimation();
+			}
+			else if (charNum == 15)
+			{
+				BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(-300.0f, -400.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 36.0f));
+				curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+				bulletSFX->Initialize();
+				bulletSFX->PlayAnimation();
+			}
+			else if (charNum == 16)
+			{
+				BulletSFX* bulletSFX = new BulletSFX(eSfxType::NomalExplosionM, pos + Vector2(0.0f, -600.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 36.0f));
+				curScene->AddGameObject(bulletSFX, eLayerType::Effect);
+				bulletSFX->Initialize();
+				bulletSFX->PlayAnimation();
+			}
+			else if (charNum == 17)
+			{
+					mAnimator->Play(L"Destroyed", false);
+
+					BulletSFX* bulletSFX1 = new BulletSFX(eSfxType::Boss2SFX, pos + Vector2(-200.0f, -600.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 0.0f));
+					curScene->AddGameObject(bulletSFX1, eLayerType::Effect);
+					bulletSFX1->Initialize();
+					bulletSFX1->PlayAnimation();
+				
+					BulletSFX* bulletSFX2 = new BulletSFX(eSfxType::Boss2SFX, pos + Vector2(0.0f, -600.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 0.0f));
+					curScene->AddGameObject(bulletSFX2, eLayerType::Effect);
+					bulletSFX2->Initialize();
+					bulletSFX2->PlayAnimation();
+
+					BulletSFX* bulletSFX3 = new BulletSFX(eSfxType::Boss2SFX, pos + Vector2(200.0f, -600.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 0.0f));
+					curScene->AddGameObject(bulletSFX3, eLayerType::Effect);
+					bulletSFX3->Initialize();
+					bulletSFX3->PlayAnimation();
+
+					BulletSFX* bulletSFX4 = new BulletSFX(eSfxType::Boss2SFX, pos + Vector2(-100.0f, -300.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 0.0f));
+					curScene->AddGameObject(bulletSFX4, eLayerType::Effect);
+					bulletSFX4->Initialize();
+					bulletSFX4->PlayAnimation();
+
+					BulletSFX* bulletSFX5 = new BulletSFX(eSfxType::Boss2SFX, pos + Vector2(100.0f, -300.0f), Vector2(5.0f, 5.0f), Vector2(0.0f, 0.0f));
+					curScene->AddGameObject(bulletSFX5, eLayerType::Effect);
+					bulletSFX5->Initialize();
+					bulletSFX5->PlayAnimation();
+
+					mPlayer->MissionComplete();
+			}
+			else if (charNum == 25)
+			{
+
+
 				SetState(eState::Pause);
 
 				MissionComplete* startUi = new MissionComplete(eSceneType::Mission1);

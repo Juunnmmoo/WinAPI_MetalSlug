@@ -33,6 +33,7 @@ namespace mo {
 		mAnimator->CreateAnimation(L"PlayerPistolBulletEnemySFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 3), 120.0f, 30, 60, 4, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"NomalExplosionM", weaponSFX, Vector2(120.0f * 0, 120.0f * 4), 120.0f, 30, 60, 26, Vector2::Zero, 0.05);
 		mAnimator->CreateAnimation(L"Boss1SFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 5), 120.0f, 30, 60, 30, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"Boss2SFX", weaponSFX, Vector2(120.0f * 0, 120.0f * 6), 120.0f, 30, 60, 23, Vector2::Zero, 0.05);
 
 
 		mAnimator->GetCompleteEvent(L"PlayerPistolBulletGroundSFX") = std::bind(&BulletSFX::destroySFX, this);
@@ -40,6 +41,7 @@ namespace mo {
 		mAnimator->GetCompleteEvent(L"PlayerPistolBulletEnemySFX") = std::bind(&BulletSFX::destroySFX, this);
 		mAnimator->GetCompleteEvent(L"NomalExplosionM") = std::bind(&BulletSFX::destroySFX, this);
 		mAnimator->GetCompleteEvent(L"Boss1SFX") = std::bind(&BulletSFX::destroySFX, this);
+		mAnimator->GetCompleteEvent(L"Boss2SFX") = std::bind(&BulletSFX::destroySFX, this);
 
 
 		GameObject::Initialize();
@@ -65,6 +67,9 @@ namespace mo {
 			mAnimator->Play(L"NomalExplosionM", false);
 		else if (mSfxType == eSfxType::Boss1SFX)
 			mAnimator->Play(L"Boss1SFX", false);
+		else if(mSfxType == eSfxType::Boss2SFX)
+			mAnimator->Play(L"Boss2SFX", false);
+
 	}
 	void BulletSFX::destroySFX()
 	{

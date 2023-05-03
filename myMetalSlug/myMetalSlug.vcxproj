@@ -129,6 +129,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="moArmyRoket.h" />
+    <ClInclude Include="moArmyRoketBullet.h" />
     <ClInclude Include="moBoss1Creator.h" />
     <ClInclude Include="moBoss2Creator.h" />
     <ClInclude Include="moBoss2LaserCollider.h" />
@@ -221,6 +223,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="moArmyRoket.cpp" />
+    <ClCompile Include="moArmyRoketBullet.cpp" />
     <ClCompile Include="moBoss1Creator.cpp" />
     <ClCompile Include="moBoss2Creator.cpp" />
     <ClCompile Include="moBoss2LaserCollider.cpp" />

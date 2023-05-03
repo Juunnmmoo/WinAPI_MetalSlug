@@ -17,6 +17,7 @@ namespace mo {
 			Idle,
 			Sit,
 			Jump,
+			Complete,
 		};
 
 
@@ -48,7 +49,7 @@ namespace mo {
 		void s_sit();
 		void f_sit();
 		void jump();
-
+		void complete();
 		void shootEndEvent();
 
 

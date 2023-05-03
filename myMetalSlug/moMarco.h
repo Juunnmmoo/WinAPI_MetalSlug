@@ -20,6 +20,7 @@ namespace mo {
 			Idle,
 			Sit,
 			Jump,
+			Complete,
 		};
 
 
@@ -52,6 +53,8 @@ namespace mo {
 
 		void SetBossX(float x) { BossX = x; }
 		float GetBossX() { return BossX; }
+
+		void MissionComplete();
 
 		eMarcoState GetMarcoState() { return mState; }
 		void SetMarcoState(eMarcoState state) { mState = state; }

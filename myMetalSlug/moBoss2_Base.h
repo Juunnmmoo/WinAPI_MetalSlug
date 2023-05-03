@@ -8,11 +8,13 @@ namespace mo {
 	class Boss2_Weapon;
 	class Boss2_Propeller;
 	class Boss2LaserCollider;
+	class ArmyRoket;
 	class Boss2_Base : public GameObject
 	{
 	public:
 
-		Boss2_Base(Marco* marco, Scene* scene, Boss2_Door* door, Boss2_Weapon* energy, Boss2_Propeller* propeller, Boss2LaserCollider* left, Boss2LaserCollider* right);
+		Boss2_Base(Marco* marco, Scene* scene, Boss2_Door* door, Boss2_Weapon* energy, Boss2_Propeller* propeller, Boss2LaserCollider* left, Boss2LaserCollider* right
+		, ArmyRoket* leftRoket, ArmyRoket* rightRokey);
 		~Boss2_Base();
 
 		enum class eBoss2FSM {
@@ -59,6 +61,8 @@ namespace mo {
 		Boss2_Door* mDoor;
 		Boss2_Weapon* mWeapon;
 		Boss2_Propeller* mPropeller;
+		ArmyRoket* mLeftRoket;
+		ArmyRoket* mRightRoket;
 		bool startEndEvent;
 		eBoss2FSM mState;
 		Marco* mPlayer;
@@ -69,6 +73,7 @@ namespace mo {
 		int charNum = 0;
 		bool isOpened;
 		bool gotoDeath;
+		bool outArmyOnce;
 		int heart;
 	};
 }

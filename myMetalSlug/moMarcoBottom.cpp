@@ -88,6 +88,9 @@ namespace mo {
 		mAnimator->CreateAnimation(L"FireDeathR", mImageR, Vector2(120.0f * 0, 120.0f * 19), 120.0f, 30, 30, 30, Vector2::Zero, 0.04);
 		mAnimator->CreateAnimation(L"FireDeathL", mImageL, Vector2(120.0f * 29, 120.0f * 19), -120.0f, 30, 30, 30, Vector2::Zero, 0.04);
 
+		mAnimator->CreateAnimation(L"CompleteR", mImageR, Vector2(120.0f * 0, 120.0f * 20), 120.0f, 30, 30, 4, Vector2::Zero, 0.07);
+
+
 		mAnimator->GetCompleteEvent(L"P_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"P_SitShootL") = std::bind(&MarcoBottom::shootEndEvent, this);
 		mAnimator->GetCompleteEvent(L"M_SitShootR") = std::bind(&MarcoBottom::shootEndEvent, this);
@@ -738,6 +741,9 @@ namespace mo {
 
 			tr->SetDirection(mDirection);
 		
+	}
+	void MarcoBottom::complete()
+	{
 	}
 	void MarcoBottom::shootEndEvent()
 	{

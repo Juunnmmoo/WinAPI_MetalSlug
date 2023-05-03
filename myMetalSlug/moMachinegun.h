@@ -19,6 +19,7 @@ namespace mo {
 		void idle();
 		void sit();
 		void jump();
+		void complete();
 
 		void shootStartEvent();
 		void attackCompleteEvent();

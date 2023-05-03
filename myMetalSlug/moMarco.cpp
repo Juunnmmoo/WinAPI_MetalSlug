@@ -56,10 +56,10 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		tr->SetPos(Vector2{ 300.0f, 0.0f });
+		//tr->SetPos(Vector2{ 300.0f, 0.0f });
 		//tr->SetPos(Vector2{ 4500.0f, 100.0f });
 		//tr->SetPos(Vector2{ 6700.0f, 100.0f });
-		//tr->SetPos(Vector2{ 11500.0f, 0.0f });
+		tr->SetPos(Vector2{ 11500.0f, 0.0f });
 
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetDisToBottom(Vector2{ 0.0f, 50.0f });
@@ -484,6 +484,14 @@ namespace mo {
 			mState = eMarcoState::Move;
 		}
 		
+	}
+
+	void Marco::MissionComplete()
+	{
+		mAnimator->Play(L"None", false);
+		bottom->GetAnimator()->Play(L"CompleteR", true);
+		bottom->SetBottomState(mo::MarcoBottom::eMarcoState::Complete);
+		mState = eMarcoState::Complete;
 	}
 
 }
