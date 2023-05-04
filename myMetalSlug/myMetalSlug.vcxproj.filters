@@ -397,7 +397,10 @@
     <ClInclude Include="moShotgunSFX.h">
       <Filter>Contents\PlayerObj</Filter>
     </ClInclude>
-    <ClInclude Include="moShotgunBox.h" />
+    <ClInclude Include="moFiregunSFX.h" />
+    <ClInclude Include="moShotgunBox.h">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -671,6 +674,9 @@
     <ClCompile Include="moShotgunSFX.cpp">
       <Filter>Contents\PlayerObj</Filter>
     </ClCompile>
-    <ClCompile Include="moShotgunBox.cpp" />
+    <ClCompile Include="moFiregunSFX.cpp" />
+    <ClCompile Include="moShotgunBox.cpp">
+      <Filter>Contents\GameObj\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

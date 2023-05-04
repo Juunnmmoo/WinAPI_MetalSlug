@@ -137,6 +137,27 @@ namespace mo
 
 		Slave* slave5 = new Slave(marco, this, Vector2(12000.0f, 700.0f), eMarcoWeapon::Machinegun);
 		AddGameObject(slave5, eLayerType::Slave);
+
+
+		Arabian* arabian10 = new Arabian(marco, this, Arabian::eArabianState::Idle);
+		AddGameObject(arabian10, eLayerType::EnemyR_F);
+		arabian10->GetComponent<Transform>()->SetPos(Vector2(9900.0f, 0.0f));
+
+		Arabian* arabian11 = new Arabian(marco, this, Arabian::eArabianState::Idle);
+		AddGameObject(arabian11, eLayerType::EnemyR_F);
+		arabian11->GetComponent<Transform>()->SetPos(Vector2(10100.0f, 0.0f));
+
+		Arabian* arabian12 = new Arabian(marco, this, Arabian::eArabianState::Idle);
+		AddGameObject(arabian12, eLayerType::EnemyR_F);
+		arabian12->GetComponent<Transform>()->SetPos(Vector2(10300.0f, 0.0f));
+
+
+		ArabianCreator* aCreator10 = new ArabianCreator(marco, Vector2(7800.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(9200.0f, 500.0f));
+		AddGameObject(aCreator10, eLayerType::EnemyCreator);
+
+		ArabianCreator* aCreator11 = new ArabianCreator(marco, Vector2(8900.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(10300.0f, 600.0f));
+		AddGameObject(aCreator11, eLayerType::EnemyCreator);
+
 		//CharUI* ui = new CharUI(eCharType::M, Vector2(200.0f, 300.0f), Vector2(1.5f, 1.5f));
 		//AddGameObject(ui, eLayerType::UI);
 

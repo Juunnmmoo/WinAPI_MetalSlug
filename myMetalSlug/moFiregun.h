@@ -2,26 +2,29 @@
 //#include "moWeapon.h"
 //
 //namespace mo {
-//	class Machinegun : public Weapon
+//	class Firegun : public Weapon
 //	{
 //	public:
-//		Machinegun(Marco* marco, MarcoBottom* bottom);
-//		virtual ~Machinegun();
+//		Firegun(Marco* marco, MarcoBottom* bottom);
+//		virtual ~Firegun();
 //
 //		void Initialize();
 //		void Update();
 //
 //	private:
-//		void paraglider();
 //		void move();
 //		void shoot();
 //		void death();
 //		void idle();
 //		void sit();
 //		void jump();
+//		void complete();
 //
 //		void shootStartEvent();
 //		void attackCompleteEvent();
+//
+//
+//
 //
 //	private:
 //		Marco* player;
@@ -31,6 +34,9 @@
 //		Animation* mPrevAnimation;
 //		RigidBody* mRigidbody;
 //		Transform* mTransform;
+//		class Sound* machinegunBulletSound;
 //		bool unUsedParaglider;
+//		bool isBomb;
+//		bool isShooting;
 //	};
 //}

@@ -21,13 +21,13 @@ namespace mo {
 	}
 	void ShotgunBox::Initialize()
 	{
-		machinegunSound = Resources::Load<Sound>(L"machinegunSound", L"..\\Resources\\Sound\\machinegunSound.wav");
+		machinegunSound = Resources::Load<Sound>(L"shotgunSound", L"..\\Resources\\Sound\\ShotgunSound.wav");
 
 
 		Transform* tr = GetComponent<Transform>();
 		//tr->SetPos(Vector2(650.0f, 600.0f));
 
-		mImage = Resources::Load<Image>(L"M_Box", L"..\\Resources\\Weapon\\Icon\\MachinegunIcon.bmp");
+		mImage = Resources::Load<Image>(L"S_Box", L"..\\Resources\\Weapon\\Icon\\shotgunIcon.bmp");
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 55.0f, 50.0f });

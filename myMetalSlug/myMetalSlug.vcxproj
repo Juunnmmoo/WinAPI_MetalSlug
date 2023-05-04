@@ -168,6 +168,7 @@
     <ClInclude Include="moDropWeapon.h" />
     <ClInclude Include="moEnemyAttackCollider.h" />
     <ClInclude Include="moEnemyPistolBullet.h" />
+    <ClInclude Include="moFiregunSFX.h" />
     <ClInclude Include="moMachinegunBullet.h" />
     <ClInclude Include="moMissionComplete.h" />
     <ClInclude Include="moMissionStart.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="moDropWeapon.cpp" />
     <ClCompile Include="moEnemyAttackCollider.cpp" />
     <ClCompile Include="moEnemyPistolBullet.cpp" />
+    <ClCompile Include="moFiregunSFX.cpp" />
     <ClCompile Include="moMachinegunBullet.cpp" />
     <ClCompile Include="moMissionComplete.cpp" />
     <ClCompile Include="moMissionStart.cpp" />

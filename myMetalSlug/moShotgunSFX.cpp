@@ -26,9 +26,9 @@ namespace mo {
 	}
 	void ShotgunSFX::Initialize()
 	{
-		shootgunSound = Resources::Load<Sound>(L"KnifeAttackSound", L"..\\Resources\\Sound\\KnifeAttackSound.wav");
+		shootgunSound = Resources::Load<Sound>(L"ShotgunBulletSound", L"..\\Resources\\Sound\\ShotgunBulletSound.wav");
 		shootgunSound->SetVolume(80);
-
+		shootgunSound->Play(false);
 		Transform* tr = GetComponent<Transform>();
 		tr->SetScale(Vector2(2.0f, 2.0f));
 		tr->SetDisToBottom(Vector2(0.0f, 100.0f));
