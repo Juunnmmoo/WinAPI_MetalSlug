@@ -28,7 +28,7 @@
 
 namespace mo {
 	Boss2_Base::Boss2_Base(Marco* marco, Scene* scene, Boss2_Door* door, Boss2_Weapon* energy, Boss2_Propeller* propeller, Boss2LaserCollider* left, Boss2LaserCollider* right
-	, ArmyRoket* leftRoket, ArmyRoket* rightRoket)
+	, ArmyRoket* leftRoket, ArmyRoket* rightRoket, AbulAbbas* abul)
 		: mDoor(door)
 		, mPropeller(propeller)
 		, mWeapon(energy)
@@ -41,6 +41,7 @@ namespace mo {
 		, mRight(right)
 		, mLeftRoket(leftRoket)
 		, mRightRoket(rightRoket)
+		, mAbul(abul)
 	{
 	}
 	Boss2_Base::~Boss2_Base()
@@ -208,6 +209,7 @@ namespace mo {
 
 		if (cPos.x > 0.0f)
 		{
+			mAbul->StartAttack();
 			downSound->Play(false);
 			mState = eBoss2FSM::Down;
 		}
@@ -430,6 +432,7 @@ namespace mo {
 
 			if (charNum == 0)
 			{
+				mAbul->StartGiveUp();
 				mWeapon->GetAnimator()->Play(L"None", false);
 				mDoor->GetAnimator()->Play(L"None", false);
 				mPropeller->GetAnimator()->Play(L"None", false);

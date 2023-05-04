@@ -849,7 +849,8 @@ namespace mo {
 			if (player->GetIsKnife()) {
 				if (mDirection == eDirection::Right || mDirection == eDirection::RTop || mDirection == eDirection::RBottom)
 					mAnimator->Play(L"P_KnifeR", false);
-				else if (mDirection == eDirection::Left || mDirection == eDirection::LTop || mDirection == eDirection::LBottom)
+				//else if (mDirection == eDirection::Left || mDirection == eDirection::LTop || mDirection == eDirection::LBottom)
+				else	
 					mAnimator->Play(L"P_KnifeL", false);
 			}
 			else {

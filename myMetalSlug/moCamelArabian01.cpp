@@ -204,7 +204,7 @@ namespace mo {
 	}
 	void CamelArabian01::OnCollisionEnter(Collider* other)
 	{
-		if (other->GetOwner()->GetBulletType() == eBulletType::Bullet)
+		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerPistol || other->GetOwner()->GetLayerType() == eLayerType::PlayerMachinegun)
 		{
 			if( heart >= 2 && mState != eCamelArabianState::Start)
 				heart--;
@@ -225,7 +225,7 @@ namespace mo {
 			}
 		}
 
-		if (other->GetOwner()->GetBulletType() == eBulletType::Bomb)
+		if (other->GetOwner()->GetBulletType() == eBulletType::Bomb || other->GetOwner()->GetLayerType() == eLayerType::PlayerShotgun)
 		{
 			eDirection mDir = mT->GetDirection();
 			heart = 0;

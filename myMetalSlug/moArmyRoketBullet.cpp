@@ -38,7 +38,7 @@ namespace mo {
 
 		Collider* mCollider = AddComponent<Collider>();
 		mCollider->SetSize(Vector2{ 20.0f, 20.0f });
-		mCollider->SetLeftTop(Vector2{ -20.0f, -20.0f });
+		mCollider->SetLeftTop(Vector2{ -10.0f, -20.0f });
 
 
 		SetBulletType(eBulletType::Bomb);
@@ -49,16 +49,35 @@ namespace mo {
 		Transform* tr = GetComponent<Transform>();
 		Vector2 pos = tr->GetPos();
 
-		if (!isDeath)
+		if (pos.y<810.0f)
 		{
-			pos.x += 200.0f * mDir.x * Time::DeltaTime();
-			pos.y += 200.0f * mDir.y * Time::DeltaTime();
-			tr->SetPos(pos);
+			if (!isDeath)
+			{
+				pos.x += 200.0f * mDir.x * Time::DeltaTime();
+				pos.y += 200.0f * mDir.y * Time::DeltaTime();
+				tr->SetPos(pos);
+			}
+			else
+			{
+
+				if (mAnimator->IsComplte())
+
+					object::Destory(this);
+			}
+
 		}
-		else
+		else 
 		{
-			if (mAnimator->IsComplte())
-				object::Destory(this);
+			if (!isDeath)
+			{
+				isDeath = true;
+				mAnimator->Play(L"bulletSFX", false);
+			}
+			else
+			{
+				if (mAnimator->IsComplte())
+					object::Destory(this);
+			}
 		}
 
 		GameObject::Update();

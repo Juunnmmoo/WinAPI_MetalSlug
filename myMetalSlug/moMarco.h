@@ -9,6 +9,7 @@ namespace mo {
 	class Animator;
 	class Animation;
 	class PlayerKnife;
+	class Shotgun;
 	class Marco : public GameObject
 	{
 	public:
@@ -68,6 +69,7 @@ namespace mo {
 		RigidBody* mRigidbody;
 		Pistol* pistol;
 		Machinegun* machinegun;
+		Shotgun* shotgun;
 		eMarcoWeapon mWeaponState;
 		PlayerKnife* leftKnife;
 		PlayerKnife* rightKnife;

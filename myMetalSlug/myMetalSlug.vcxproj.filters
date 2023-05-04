@@ -397,6 +397,7 @@
     <ClInclude Include="moShotgunSFX.h">
       <Filter>Contents\PlayerObj</Filter>
     </ClInclude>
+    <ClInclude Include="moShotgunBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="myMetalSlug.rc">
@@ -670,5 +671,6 @@
     <ClCompile Include="moShotgunSFX.cpp">
       <Filter>Contents\PlayerObj</Filter>
     </ClCompile>
+    <ClCompile Include="moShotgunBox.cpp" />
   </ItemGroup>
 </Project>

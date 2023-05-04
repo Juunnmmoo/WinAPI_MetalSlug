@@ -140,12 +140,8 @@ namespace mo {
 		case mo::MarcoBottom::eMarcoState::Sit:
 			if(mWeaponState == eMarcoWeapon::Pistol)
 				p_sit();
-			else if (mWeaponState == eMarcoWeapon::Machinegun)
-				m_sit();
-			else if (mWeaponState == eMarcoWeapon::Shotgun)
-				s_sit();
 			else 				
-				f_sit();
+				m_sit();
 			break;
 		case mo::MarcoBottom::eMarcoState::Jump:
 			jump();
@@ -174,7 +170,7 @@ namespace mo {
 			else
 				mAnimator->Play(L"P_SitMoveR", true);
 		}
-		else if (mWeaponState == eMarcoWeapon::Machinegun) {
+		else  {
 
 			if (mDirection == eDirection::Left)
 				mAnimator->Play(L"M_SitMoveL", true);
@@ -290,7 +286,7 @@ namespace mo {
 				else if (mDirection == eDirection::Right)
 					mAnimator->Play(L"P_ReadySitR", false);
 			}
-			else if (mWeaponState == eMarcoWeapon::Machinegun) {
+			else {
 				if (mDirection == eDirection::Left)
 					mAnimator->Play(L"M_ReadySitL", false);
 				else if (mDirection == eDirection::Right)
@@ -350,7 +346,7 @@ namespace mo {
 				else if (mDirection == eDirection::Right)
 					mAnimator->Play(L"P_ReadySitR", false);
 			}
-			else if (mWeaponState == eMarcoWeapon::Machinegun) {
+			else {
 				if (mDirection == eDirection::Left)
 					mAnimator->Play(L"M_ReadySitL", false);
 				else if (mDirection == eDirection::Right)

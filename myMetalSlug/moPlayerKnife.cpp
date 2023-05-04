@@ -55,9 +55,6 @@ namespace mo {
 	void PlayerKnife::OnCollisionStay(Collider* other)
 	{
 
-	
-
-
 		if (other->GetOwner()->GetLayerType() == eLayerType::EnemyR || other->GetOwner()->GetLayerType() == eLayerType::EnemyR_F||
 			other->GetOwner()->GetLayerType() == eLayerType::Enemy || other->GetOwner()->GetLayerType() == eLayerType::Enemy_F)
 		{

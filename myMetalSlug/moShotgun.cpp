@@ -16,6 +16,7 @@
 #include "moPlayerBomb.h"
 #include "moMachinegunBullet.h"
 #include "moSound.h"
+#include "moShotgunSFX.h"
 extern mo::Application application;
 
 namespace mo {
@@ -114,8 +115,6 @@ namespace mo {
 		mAnimator->GetCompleteEvent(L"S_ShootLT") = std::bind(&Shotgun::attackCompleteEvent, this);
 		mAnimator->GetCompleteEvent(L"S_ShootRB") = std::bind(&Shotgun::attackCompleteEvent, this);
 		mAnimator->GetCompleteEvent(L"S_ShootLB") = std::bind(&Shotgun::attackCompleteEvent, this);
-
-
 
 
 
@@ -853,20 +852,24 @@ namespace mo {
 			}
 			else
 			{
-				PistolBullet* pistolBullet = new PistolBullet();
+
+				int bulletNum = player->GetBulletNum();
+				bulletNum--;
+				player->SetBulletNum(bulletNum);
+				ShotgunSFX* shotgunBullet = new ShotgunSFX();
 
 				//pistolSound->Play(false);
 
 				if (mDirection == eDirection::Right || mDirection == eDirection::RBottom) {
-					pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -10.0f));
+					shotgunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -10.0f));
+					shotgunBullet->SetDirection(eDirection::Right);
 				}
 				else if (mDirection == eDirection::Left || mDirection == eDirection::LBottom) {
-					pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -10.0f));
+					shotgunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -10.0f));
+					shotgunBullet->SetDirection(eDirection::Left);
 				}
-				curScene->AddGameObject(pistolBullet, eLayerType::PlayerPistol);
-				pistolBullet->Initialize();
+				curScene->AddGameObject(shotgunBullet, eLayerType::PlayerPistol);
+				shotgunBullet->Initialize();
 			}
 		}
 		else {
@@ -889,31 +892,36 @@ namespace mo {
 			}
 			else
 			{
-				PistolBullet* pistolBullet = new PistolBullet();
 				//pistolSound->Play(false);
 
+				int bulletNum = player->GetBulletNum();
+				bulletNum--;
+				player->SetBulletNum(bulletNum);
+				ShotgunSFX* shotgunBullet = new ShotgunSFX();
 
 				if (mDirection == eDirection::Right) {
-					pistolBullet->SetDir(Vector2{ 5.0f, 0.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -50.0f));
 
+					shotgunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(50.0f, -30.0f));
+					shotgunBullet->SetDirection(eDirection::Right);
 				}
 				else if (mDirection == eDirection::Left) {
-					pistolBullet->SetDir(Vector2{ -5.0f, 0.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -50.0f));
+					shotgunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-50.0f, -30.0f));
+					shotgunBullet->SetDirection(eDirection::Left);
+
 
 				}
 				else if (mDirection == eDirection::RTop || mDirection == eDirection::LTop) {
-					pistolBullet->SetDir(Vector2{ 0.0f, -5.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, -90.0f));
-				}
-				else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom) {
-					pistolBullet->SetDir(Vector2{ 0.0f, 5.0f });
-					pistolBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, 90.0f));
+					shotgunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, -90.0f));
+					shotgunBullet->SetDirection(eDirection::Top);
 
 				}
-				curScene->AddGameObject(pistolBullet, eLayerType::PlayerPistol);
-				pistolBullet->Initialize();
+				else if (mDirection == eDirection::RBottom || mDirection == eDirection::LBottom) {
+					shotgunBullet->GetComponent<Transform>()->SetPos(mTransform->GetPos() + Vector2(-5.0f, 90.0f));
+					shotgunBullet->SetDirection(eDirection::Bottom);
+				}
+				curScene->AddGameObject(shotgunBullet, eLayerType::PlayerPistol);
+				shotgunBullet->Initialize();
+
 			}
 		}
 

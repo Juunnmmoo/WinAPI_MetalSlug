@@ -80,6 +80,8 @@ namespace mo {
 			break;
 		}
 
+
+
 		GameObject::Update();
 	}
 	void ArmyRoket::Render(HDC mHdc)

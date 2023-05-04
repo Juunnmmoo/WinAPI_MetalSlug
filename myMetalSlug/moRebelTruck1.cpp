@@ -31,7 +31,7 @@ namespace mo {
 		, curScene(scene)
 		, stopPos(stop)
 		, dropTime(0.0f)
-		, heart(50)
+		, heart(70)
 
 	{
 	}
@@ -129,7 +129,7 @@ namespace mo {
 		{
 			heart--;
 		}
-		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb 
+		if ((other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb || other->GetOwner()->GetLayerType() == eLayerType::PlayerShotgun)
 			 && mState == eRebelTruckState::Drop)
 		{
 			heart-= 10;

@@ -18,6 +18,7 @@
 
 namespace mo {
 	ShotgunSFX::ShotgunSFX()
+		:mTime(0.0f)
 	{
 	}
 	ShotgunSFX::~ShotgunSFX()
@@ -29,18 +30,44 @@ namespace mo {
 		shootgunSound->SetVolume(80);
 
 		Transform* tr = GetComponent<Transform>();
-		tr->SetScale(Vector2(3.0f, 3.0f));
+		tr->SetScale(Vector2(2.0f, 2.0f));
+		tr->SetDisToBottom(Vector2(0.0f, 100.0f));
 
 		Image* mImage = Resources::Load<Image>(L"ShotgunSFX", L"..\\Resources\\Weapon\\ShotgunSFX.bmp");
 
 		mAnimator = AddComponent<Animator>();
-		mAnimator->CreateAnimation(L"shoot", mImage, Vector2(200.0f * 0, 200.0f * 0), 200.0f, 12, 4, 12, Vector2::Zero, 0.1);
-		
-		mAnimator->Play(L"shoot", false);
+		mAnimator->CreateAnimation(L"shootR", mImage, Vector2(200.0f * 0, 200.0f * 0), 200.0f, 12, 4, 12, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"shootL", mImage, Vector2(200.0f * 11, 200.0f * 1), -200.0f, 12, 4, 12, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"shootTop", mImage, Vector2(200.0f * 0, 200.0f * 2), 200.0f, 12, 4, 12, Vector2::Zero, 0.05);
+		mAnimator->CreateAnimation(L"shootBottom", mImage, Vector2(200.0f * 0, 200.0f * 3), 200.0f, 12, 4, 12, Vector2::Zero, 0.05);
 
 
 		Collider* mCollider = AddComponent<Collider>();
-		mCollider->SetSize(Vector2{ 70.0f, 110.0f });
+
+		if (mDirection == eDirection::Left)
+		{
+			mCollider->SetSize(Vector2{ 180.0f, 110.0f });
+			mCollider->SetLeftTop(Vector2{ -180.0f, -55.0f });
+			mAnimator->Play(L"shootL", false);
+		}
+		else if (mDirection == eDirection::Right)
+		{
+			mCollider->SetSize(Vector2{ 180.0f, 110.0f });
+			mCollider->SetLeftTop(Vector2{ 0.0f, -55.0f });
+			mAnimator->Play(L"shootR", false);
+		}
+		else if (mDirection == eDirection::Top)
+		{
+			mCollider->SetSize(Vector2{ 110.0f, 180.0f });
+			mCollider->SetLeftTop(Vector2{ -55.0f, -180.0f });
+			mAnimator->Play(L"shootTop", false);
+		}
+		else if (mDirection == eDirection::Bottom)
+		{
+			mCollider->SetSize(Vector2{ 110.0f, 180.0f });
+			mCollider->SetLeftTop(Vector2{ -55.0f, 0.0f });
+			mAnimator->Play(L"shootBottom", false);
+		}
 
 		SetBulletType(eBulletType::Bullet);
 
@@ -48,7 +75,9 @@ namespace mo {
 	}
 	void ShotgunSFX::Update()
 	{
-
+		mTime += Time::DeltaTime();
+		if (mTime >= 0.2f)
+			SetState(eState::Pause);
 
 		if (mAnimator->IsComplte())
 			object::Destory(this);

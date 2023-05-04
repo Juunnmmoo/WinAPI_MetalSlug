@@ -152,7 +152,7 @@ namespace mo {
 		{
 			heart--;
 		}
-		if (other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb &&heart > 0)
+		if ((other->GetOwner()->GetLayerType() == eLayerType::PlayerBomb || other->GetOwner()->GetLayerType() == eLayerType::PlayerShotgun)&&heart > 0)
 		{
 			heart = 0;
 		}

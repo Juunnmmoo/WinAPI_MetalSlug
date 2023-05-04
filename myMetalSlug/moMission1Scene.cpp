@@ -114,7 +114,7 @@ namespace mo
 		Slave* slave1 = new Slave(marco, this, Vector2(2200.0f, 0.0f), eMarcoWeapon::Bomb);
 		AddGameObject(slave1, eLayerType::Slave);
 		
-		Slave* slave2 = new Slave(marco, this, Vector2(2300.0f, 600.0f), eMarcoWeapon::Machinegun);
+		Slave* slave2 = new Slave(marco, this, Vector2(2300.0f, 600.0f), eMarcoWeapon::Shotgun);
 		AddGameObject(slave2, eLayerType::Slave);
 
 		Slave* slave3 = new Slave(marco, this, Vector2(4550.0f, 700.0f), eMarcoWeapon::Machinegun);

@@ -18,6 +18,7 @@
 #include "moObject.h"
 #include "moPlayerKnife.h"
 #include "moSound.h"
+#include "moShotgun.h"
 extern mo::Application application;
 
 namespace mo {
@@ -56,10 +57,10 @@ namespace mo {
 
 		Transform* tr;
 		tr = GetComponent<Transform>();
-		//tr->SetPos(Vector2{ 300.0f, 0.0f });
+		tr->SetPos(Vector2{ 300.0f, 0.0f });
 		//tr->SetPos(Vector2{ 4500.0f, 100.0f });
 		//tr->SetPos(Vector2{ 6700.0f, 100.0f });
-		tr->SetPos(Vector2{ 11500.0f, 0.0f });
+		//tr->SetPos(Vector2{ 11500.0f, 0.0f });
 
 		tr->SetScale(Vector2{ 3.0f, 3.0f });
 		tr->SetDisToBottom(Vector2{ 0.0f, 50.0f });
@@ -86,6 +87,8 @@ namespace mo {
 		machinegun = new Machinegun(this, bottom);
 		machinegun->Initialize();
 		
+		shotgun = new Shotgun(this, bottom);
+		shotgun->Initialize();
 
 
 		GameObject::Initialize();
@@ -119,6 +122,9 @@ namespace mo {
 				break;
 			case eMarcoWeapon::Machinegun:
 				machinegun->Update();
+				break;
+			case eMarcoWeapon::Shotgun:
+				shotgun->Update();
 				break;
 		}
 
@@ -188,6 +194,13 @@ namespace mo {
 		rightKnife->SetPos(pos + Vector2(20.0f, -70.0f));
 		leftKnife->SetPos(pos + Vector2(-90.0f, -70.0f));
 		
+
+
+
+
+
+
+
 		if (mDirection == eDirection::Right ||
 			mDirection == eDirection::RTop ||
 			mDirection == eDirection::RSit ||
@@ -197,7 +210,9 @@ namespace mo {
 			{
 				isKnife = true;
 				bottom->SetIsKnife(true);
+				leftKnife->SetIsUse(false);
 				rightKnife->SetIsUse(true);
+
 			}
 			else
 			{
@@ -215,7 +230,9 @@ namespace mo {
 			{
 				isKnife = true;
 				bottom->SetIsKnife(true);
+				rightKnife->SetIsUse(false);
 				leftKnife->SetIsUse(true);
+
 			}
 			else
 			{

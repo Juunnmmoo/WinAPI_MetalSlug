@@ -24,6 +24,7 @@
 #include "moBoss2LaserCollider.h"
 #include "moSlave.h"
 #include "moArmyRoket.h"
+#include "moAbulAbbas.h"
 namespace mo {
 	Boss2Creator::Boss2Creator(Marco* marco, Sound* sound)
 		: player(marco)
@@ -79,6 +80,13 @@ namespace mo {
 				//BossBGM->Play(true);
 				player->SetBossZone(true);
 
+				AbulAbbas* abul = new AbulAbbas(Vector2(12900.0f, 0.0f), mo::AbulAbbas::eAbulAbbasState::MoveFoword);
+				curScene->AddGameObject(abul, eLayerType::EnemyR_F);
+				abul->Initialize();
+				abul->GetComponent<Transform>()->SetPos(Vector2(13300.0f, 500.0f));
+
+
+
 				ArmyRoket* leftRoket = new ArmyRoket(player, curScene, eDirection::Left);
 				ArmyRoket* rightRoket = new ArmyRoket(player, curScene, eDirection::Right);
 
@@ -90,7 +98,7 @@ namespace mo {
 				Boss2LaserCollider* left = new Boss2LaserCollider(eDirection::Left);
 				Boss2LaserCollider* right = new Boss2LaserCollider(eDirection::Right);
 
-				Boss2_Base* boss2_Base = new Boss2_Base(player, curScene, boss2_door, boss2_weapon, boss2_propeller, left, right, leftRoket, rightRoket);
+				Boss2_Base* boss2_Base = new Boss2_Base(player, curScene, boss2_door, boss2_weapon, boss2_propeller, left, right, leftRoket, rightRoket, abul);
 				
 				curScene->AddGameObject(boss2_Base, eLayerType::Enemy);
 				boss2_Base->Initialize();
