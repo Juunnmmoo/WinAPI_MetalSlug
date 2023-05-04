@@ -158,6 +158,9 @@ namespace mo
 		ArabianCreator* aCreator11 = new ArabianCreator(marco, Vector2(8900.0f, 0.0f), Vector2(700.0f, 750.0f), Vector2(10300.0f, 600.0f));
 		AddGameObject(aCreator11, eLayerType::EnemyCreator);
 
+		Slave* slave10 = new Slave(marco, this, Vector2(9300.0f, 700.0f), eMarcoWeapon::Shotgun);
+		AddGameObject(slave10, eLayerType::Slave);
+
 		//CharUI* ui = new CharUI(eCharType::M, Vector2(200.0f, 300.0f), Vector2(1.5f, 1.5f));
 		//AddGameObject(ui, eLayerType::UI);
 

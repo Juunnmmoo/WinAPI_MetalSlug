@@ -39,8 +39,11 @@ namespace mo {
 	{
 		delete pistol;
 		delete machinegun;
+		delete shotgun;
+
 		pistol = nullptr;
 		machinegun = nullptr;
+		shotgun = nullptr;
 	}
 	void Marco::Initialize()
 	{
